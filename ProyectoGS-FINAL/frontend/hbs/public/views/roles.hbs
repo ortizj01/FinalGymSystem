@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Roles</title>
+    {{> header}}
+</head>
+
+<body class="" onload="listarRoles()">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+    {{> sidebar}}
+
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="card-header py-2">
+                        <h2 class="m-2 font-weight-bold text-primary">Gestión de Roles</h2>
+                    </div>
+                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                        <div class="card-header py-3 d-flex justify-content-between">
+                            <div class="d-flex">
+                                <div class="col-sm-16 col-md-8">
+                                    <div id="dataTable_filter" class="dataTables_filter">
+                                        <label>Buscar:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer-buttons mt-1">
+                                <a href="crearRol" type="button" name="CrearRol" class="btn btn-primary next action-button float-end" value="Next" data-bs-toggle="modal" data-bs-target="#crearRolModal">Crear Rol</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 156.25px;">IDRol</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 104.297px;">Nombre</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 93.0156px;">Estado</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 93.0156px;">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="contenidoRoles">
+                                        <!-- Contenido generado dinámicamente -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-30 col-md-40 p-2 float-end">
+                                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled" id="dataTable_previous">
+                                            <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                                        </li>
+                                        <li class="paginate_button page-item active">
+                                            <a href="#" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                                        </li>
+                                        <li class="paginate_button page-item ">
+                                            <a href="#" aria-controls="dataTable" data-dt-idx="2" tabindex="0" class="page-link">2</a>
+                                        </li>
+                                        <li class="paginate_button page-item ">
+                                            <a href="#" aria-controls="dataTable" data-dt-idx="3" tabindex="0" class="page-link">3</a>
+                                        </li>
+                                        <li class="paginate_button page-item next" id="dataTable_next">
+                                            <a href="#" aria-controls="dataTable" data-dt-idx="4" tabindex="0" class="page-link">Next</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar rol -->
+    <div class="modal fade" id="editarRolModal" tabindex="-1" aria-labelledby="editarRolModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarRolModalLabel">Editar Rol</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editRolForm">
+                        <input type="hidden" id="editIdRol">
+                        <div class="mb-3">
+                            <label for="editNombreRol" class="form-label">Nombre del Rol</label>
+                            <input type="text" class="form-control" id="editNombreRol" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEstado" class="form-label">Estado</label>
+                            <select class="form-select" id="editEstado" required>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Permisos</label>
+                            <div id="permisosContainer" class="form-check"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin modal para editar rol -->
+
+    <!-- Modal para crear rol -->
+    <div class="modal fade" id="crearRolModal" tabindex="-1" aria-labelledby="crearRolModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearRolModalLabel">Agregar Rol</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="FormularioRolModal">
+                        <div class="mb-3">
+                            <label for="nombreRolModal" class="form-label">Nombre Rol:</label>
+                            <input type="text" class="form-control" id="nombreRolModal" placeholder="Nombre Rol" required />
+                            <span class="error-message" id="nombre-error"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="estadoModal">Estado:</label>
+                            <select id="estadoModal" class="form-control" required>
+                                <option value="1">Activo</option>
+                                <option value="0">Desactivado</option>
+                            </select>
+                            <span class="error-message" id="estado-error"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Permisos</label>
+                            <div id="permisosContainerCrear" class="form-check"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- FIN DE CONTENIDO -->
+    <script src="../assets/js/listar.roles.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar proveedor</title>
+    {{> header}}
+</head>
+<body onload="precargarDatosProveedorEnFormulario()">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+<div class="container-fluid content-inner">
+            <div class="row">                
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Editar Proveedor</h4>
+                        </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- fieldsets -->
+                                    <form>
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Nombre Proveedor</label>
+                                            <input type="text" id="Nombreedit" class="form-control" name="Nombre Proveedor" placeholder="Nombre Proveedor" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Contacto proveedor</label>
+                                            <input type="text" id="Contactoedit" class="form-control" name="contacto proveedor" placeholder="Contacto proveedor" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Telefono</label>
+                                            <input type="text" id="Telefonoedit" class="form-control" name="Telefono" placeholder="Telefono" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Direccion</label>
+                                            <input type="text" id="Direccionedit" class="form-control" name="Direccion" placeholder="Direccion" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">NIT</label>
+                                            <input type="text" id="NITedit" class="form-control" name="contacto proveedor" placeholder="Contacto proveedor" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Estado</label>
+                                            <select id="Estadoedit" class="form-control" name="estadoProveedor">
+                                                <option value="1">Activo</option>
+                                                <option value="0">Inactivo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" onclick="editarProveedor()" name="Guardar" class="btn btn-primary next action-button float-end" value="Next" >Guardar</button>
+                                <a href="../Proveedores"><button type="button" name="Cancelar"  class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Cancelar</button></a>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+    <script src="../assets/js/proveedores.js"></script>
+    {{> footer}}
+</body>
+</html>

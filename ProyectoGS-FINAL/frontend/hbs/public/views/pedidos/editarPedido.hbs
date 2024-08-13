@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Pedido</title>
+    <link rel="stylesheet" href="../assets/css/ClientesStyle/acordeon.css">
+    <link rel="stylesheet" href="../assets/css/PedidosStyle/validacionesFormsEditarPedido.css" />
+    {{> header}}
+</head>
+<body>
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="card-header py-3 text-center">
+            <h3 class="m-0 font-weight-bold text-primary">Editar pedido</h3>
+        </div>
+
+        <section class="checkout-wrapper section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="checkout-steps-form-style-1">
+                            <ul id="accordionExample">
+                                <li>
+                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseCliente"
+                                        aria-expanded="true" aria-controls="collapseCliente">Datos Cliente</h6>
+                                    <section class="checkout-steps-form-content collapse show" id="collapseCliente"
+                                        aria-labelledby="headingCliente" data-bs-parent="#accordionExample">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="docCliente">Documento</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="docCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="nombreCliente">Nombre</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="nombreCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="emailCliente">Correo electrónico</label>
+                                                    <div class="form-input form">
+                                                        <input type="email" id="emailCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="telCliente">Teléfono</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="telCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="dirCliente">Dirección</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="dirCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="estadoCliente">Estado</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="estadoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+                            </ul>
+                            <ul id="accordionBeneficiario">
+                                <!-- Aquí se agregarán dinámicamente los acordeones de beneficiarios -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <br>
+
+        <div class="container-fluid">
+            <div class="row">
+                <form id="formEditarPedido">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Fecha pedido*</label>
+                                <input type="date" class="form-control" name="fechaPedido" placeholder="Fecha compra" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="estadoPedido">Estado pedido*</label>
+                                <select class="form-select" id="estadoPedido" name="estadoPedido">
+                                    <option selected="" disabled="">Ingrese el estado del pedido</option>
+                                    <option>PENDIENTE DE PAGO</option>
+                                    <option>PAGADO</option>
+                                    <option>ENTREGADO</option>
+                                    <option>ANULADO</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                 <!-- Servicios Container -->
+                <div class="card-header py-3 text-center">
+                    <h3 class="m-0 font-weight-bold text-primary">Servicios (Membresías)</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <div class="header-title">
+                                    <h4 class="card-title">Servicios del Pedido</h4>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form class="formularioRegistro2" id="formularioRegistro2Servicios">
+                                    <div class="row">
+                                        <!-- Inicio de bloque de servicios -->
+                                        <div class="col-md-12">
+                                            <div id="serviciosContainer">
+                                                <!-- Aquí se agregarán dinámicamente los servicios del pedido -->
+                                            </div>
+                                            <button type="button" class="btn btn-soft-info mt-2" onclick="agregarServicio()">
+                                                <i class="fa-solid fa-plus fa-lg"></i> Agregar Servicio
+                                            </button>
+                                        </div>
+                                        <!-- Fin de bloque de servicios -->
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="totalServicios" class="formularioRegistro2__label">Total Servicios:</label>
+                                                <input type="text" id="totalServicios" class="form-control" value="0" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary next action-button float-end" onclick="guardarCambiosServicios()">Guardar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Productos Container -->
+                <div class="card-header py-3 text-center">
+                    <h3 class="m-0 font-weight-bold text-primary">Productos</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <div class="header-title">
+                                    <h4 class="card-title">Productos del Pedido</h4>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form class="formularioRegistro2" id="formularioRegistro2">
+                                    <div class="row">
+                                        <!-- Inicio de bloque de productos -->
+                                        <div class="col-md-12">
+                                            <div id="productosContainer">
+                                                <!-- Aquí se agregarán dinámicamente los productos del pedido -->
+                                            </div>
+                                            <button type="button" class="btn btn-soft-info mt-2" onclick="agregarProducto()">
+                                                <i class="fa-solid fa-plus fa-lg"></i> Agregar Producto
+                                            </button>
+                                        </div>
+                                        <!-- Fin de bloque de productos -->
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="totalProductos" class="formularioRegistro2__label">Total Productos:</label>
+                                                <input type="text" id="totalProductos" class="form-control" value="0" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary next action-button float-end" onclick="guardarCambiosProductos()">Guardar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Total Pedido Container -->
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="totalPedido" class="formularioRegistro2__label">Total Pedido:</label>
+                            <input type="text" id="totalPedido" class="form-control" value="0" readonly>
+                        </div>
+                    </div>
+                </div>
+
+
+        <div class="d-flex justify-content-center">
+            <a href="pedidos" class="me-2"><button type="button" class="btn btn-dark">Volver</button></a>
+            <button type="button" onclick="guardarCambios()" class="btn btn-primary">Guardar</button>
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <!-- Footer Section End -->
+
+    <script src="../assets/js/FuncionesPedidos/funcionesEditarPedido.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{> footer}}
+</body>
+</html>

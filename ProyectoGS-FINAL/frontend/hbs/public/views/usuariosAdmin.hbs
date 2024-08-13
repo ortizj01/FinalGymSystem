@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    {{> header}}
+</head>
+<body onload="listarUsuarios()">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}    
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="card-header py-2">
+            <h2 class="m-2 font-weight-bold text-primary">Gestión de Usuarios</h2>
+        </div>
+        <div class="container-fluid">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="card-header py-3 d-flex justify-content-between">
+                                <div class="d-flex">
+                                    <div class="col-sm-16 col-md-8">
+                                        <!-- Aquí podrías añadir filtros u otros controles si es necesario -->
+                                    </div>
+                                </div>
+                                <div class="footer-buttons mt-1">
+                                    <a href="formUsuarios.hbs" type="button" name="Agregar"
+                                        class="btn btn-danger float-end me-2">
+                                        Agregar Usuario +
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable" id="userTable" width="100%"
+                                        cellspacing="0" role="grid" aria-describedby="userTable_info"
+                                        style="width: 100%;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="userTable" rowspan="1"
+                                                    colspan="1" aria-label="Documento: activate to sort column ascending"
+                                                    style="width: 120px;"># Documento</th>
+                                                <th class="sorting" tabindex="0" aria-controls="userTable" rowspan="1"
+                                                    colspan="1" aria-label="Nombre: activate to sort column ascending"
+                                                    style="width: 150px;">Nombre</th>
+                                                <th class="sorting" tabindex="0" aria-controls="userTable" rowspan="1"
+                                                    colspan="1" aria-label="Teléfono: activate to sort column ascending"
+                                                    style="width: 150px;">Teléfono</th>
+                                                <th class="sorting" tabindex="0" aria-controls="userTable" rowspan="1"
+                                                    colspan="1" aria-label="Estado: activate to sort column ascending"
+                                                    style="width: 100px;">Estado</th>
+                                                <th class="sorting" tabindex="0" aria-controls="userTable" rowspan="1"
+                                                    colspan="1" aria-label="Acciones: activate to sort column ascending"
+                                                    style="width: 100px;">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="userTableBody">
+                                            <!-- Aquí se insertarán los datos de los usuarios -->
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <script src="../assets/js/Usuarios.js"></script>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+
+    <script>
+        // Función para listar usuarios
+        async function listarUsuarios() {
+            try {
+                const response = await fetch('http://localhost:3000/api/usuarioss');
+                const users = await response.json();
+                
+                // Obtener la tabla
+                const userTableBody = document.getElementById('userTableBody');
+
+                // Limpiar la tabla antes de agregar los nuevos datos
+                userTableBody.innerHTML = '';
+
+                // Iterar sobre los usuarios y agregarlos a la tabla
+                users.forEach(user => {
+                    // Cambiar valores de estado
+                    const estado = user.Estado === 1 ? 'Activo' : 'Inactivo';
+
+                    const row = `
+                        <tr>
+                            <td>${user.Documento}</td>
+                            <td>${user.Nombres}</td>
+                            <td>${user.Telefono}</td>
+                            <td>${estado}</td>
+                            <td>
+                                <a href="detalleUsuario?id=${user.IdUsuario}" class="text-info"><i class="fa-regular fa-eye fa-xl me-2" aria-hidden="true"></i></a>
+                                <a href="formUsuariosModal?id=${user.IdUsuario}" class="text-warning"><i class="fa-regular fa-pen-to-square fa-xl me-2"></i></a>
+                            </td>
+                        </tr>
+                    `;
+                    userTableBody.insertAdjacentHTML('beforeend', row);
+                });
+
+                // Inicializar DataTable
+                $('#userTable').DataTable({
+                    "paging": true,
+                    "pagingType": "simple",
+                    "pageLength": 5,
+                    "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "Todos"]],
+                    "language": {
+                        "search": "Buscar:",
+                        "lengthMenu": "Mostrar _MENU_ registros",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                        "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+                        "infoFiltered": "(filtrado de _MAX_ registros en total)",
+                        "emptyTable": "No hay datos disponibles en la tabla",
+                        "zeroRecords": "No se encontraron registros coincidentes",
+                        "paginate": {
+                            "previous": "Anterior",
+                            "next": "Siguiente"
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

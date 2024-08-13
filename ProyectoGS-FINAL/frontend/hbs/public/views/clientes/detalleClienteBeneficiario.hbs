@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Beneficiarios</title>
+    <link rel="stylesheet" href="../assets/css/ClientesStyle/acordeon.css">
+    {{> header}}
+</head>
+<body onload="cargarDatosBeneficiarios()">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="card-header py-3 text-center">
+            <h3 class="m-0 font-weight-bold text-primary">Detalle Beneficiarios</h3>
+        </div>
+        <section class="checkout-wrapper section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="checkout-steps-form-style-1">
+                            <ul id="accordionBeneficiarios"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="d-flex justify-content-center">
+            <a href="clientes" class="me-2"><button type="button" class="btn btn-dark">Volver</button></a>
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <script src="../assets/js/FuncionesClientes/funcionesClienteBeneficiario.js"></script>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+</html>

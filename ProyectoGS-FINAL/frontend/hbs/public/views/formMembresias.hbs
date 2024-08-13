@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Membresía</title>
+    {{> header}}
+    <link rel="stylesheet" href="../assets/css/Productos.css" />
+</head>
+
+<body class="  " onload="fetchServicios()">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Agregar Membresía</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="FormularioMembresias">
+                            <div class="row">
+                                <!-- Nombre de la Membresía -->
+                                <div class="col-md-6 formulario__grupo" id="grupo__NombreMembresia">
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre de la Membresía*</label>
+                                        <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control" name="NombreMembresia" placeholder="Nombre de la Membresía" id="NombreMembresia" />
+                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formulario__input-error">Por favor ingresa un nombre válido para la membresía</p>
+                                    </div>
+                                </div>
+
+                                <!-- Selección de Servicio -->
+                                <div class="col-md-6">
+                                    <label for="selectProducto">Selecciona servicio:</label>
+                                    <div class="productoContainer">
+                                        <select id="selectProducto" name="productos[]"  style="width:300px" required>
+                                            <option value="IdServicios" disabled selected hidden>Agregar servicio</option>
+                                        </select>
+                                        <i class="formulario__validacion-estado fas fa-eye-slash" onclick="toggleVisibility('selectProducto')"></i>
+                                        <span class="error-message" id="rol-error"></span>
+                                        <div class="productoContainer">
+                                            <button type="button" class="btn btn-soft-info btn mt-2" onclick="agregarProducto()" style="margin-left:50px">
+                                                <i class="fa-solid fa-plus fa-lg"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="productosAgregados">
+                                    <!-- Aquí se agregarán dinámicamente los nuevos campos de selección -->
+                                </div>
+
+                                <!-- Frecuencia -->
+                                <div class="col-md-6 formulario__grupo" id="grupo__Frecuencia">
+                                    <div class="form-group">
+                                        <label class="form-label" for="Frecuencia">Frecuencia*</label>
+                                        <div class="formulario__grupo-input">
+                                            <select class="form-select" id="Frecuencia" name="Frecuencia" required>
+                                                <option value="" disabled selected hidden>Selecciona la frecuencia</option>
+                                                <option value="30">Mensual</option>
+                                                <option value="365">Anual</option>
+                                                <option value="7">Semanal</option>
+                                            </select>
+                                            <i class="formulario__validacion-estado fas fa-eye-slash" onclick="toggleVisibility('Frecuencia')"></i>
+                                            <span class="error-message" id="frecuencia-error"></span>
+                                        </div>
+                                        <p class="formulario__input-error">Por favor selecciona una frecuencia válida</p>
+                                    </div>
+                                </div>
+
+                                <!-- Costo Total -->
+                                <div class="col-md-6 formulario__grupo" id="grupo__Costototal">
+                                    <div class="form-group">
+                                        <label class="form-label">Costo total</label>
+                                        <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control" name="Costototal" placeholder="Costo de la Membresía" id="CostoTotal" />
+                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formulario__input-error">Ingresa un costo total válido para la membresía</p>
+                                    </div>
+                                </div>
+
+                                <!-- Costo Venta -->
+                                <div class="col-md-6 formulario__grupo" id="grupo__Costoventa">
+                                    <div class="form-group">
+                                        <label class="form-label">Costo Venta*</label>
+                                        <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control" name="Costoventa" placeholder="Costo de la Membresía" id="CostoVenta" />
+                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formulario__input-error">Ingresa un costo de venta válido para la membresía</p>
+                                    </div>
+                                </div>
+
+                                <!-- Mensaje de Error -->
+                                <div class="formulario__mensaje" id="formulario__mensaje">
+                                    <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+                                </div>
+                              
+                                <!-- Mensaje de Error -->
+
+                              <div class="col-md-6 formulario_grupo" id="grupo_Estado">
+                                    <div class="form-group">
+                                        <label class="form-label" for="Estado">Estado*</label>
+                                        <div class="formulario__grupo-input">
+                                            <select class="form-select" id="Estado" name="Estado" required>
+                                                <option value="" disabled selected hidden>Selecciona el estado</option>
+                                                <option value="1">Activo</option>
+                                                <option value="0">Inactivo</option>
+                                            </select>
+                                            <i class="formulario__validacion-estado fas fa-eye-slash"></i>
+                                            <span class="error-message" id="estado-error"></span>
+                                        </div>
+                                        <p class="formulario__input-error">Por favor selecciona un estado</p>
+                                    </div>
+                                </div>
+                                <!-- Botones de Guardar y Cancelar -->
+                                <div class="row mt-4">
+                                    <div class="col-md-12 text-end">
+                                        <button type="submit" class="btn btn-primary next action-button">Guardar</button>
+                                        <a href="membresiasAdmin" class="btn btn-dark previous action-button-previous ms-2">Cancelar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Tabla de Servicios -->
+                        <div class="col-sm-12">
+                            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                <thead>
+                                    <!-- Aquí deberías definir las columnas de la tabla -->
+                                </thead>
+                                <tbody>
+                                    <!-- Aquí deberías agregar las filas de la tabla -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <script src="../assets/js/Servicio.js"></script>
+    <script src="../assets/js/postMembresias.js"></script>
+    <script src="../assets/js/formMembresias.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{> footer}}
+</body>
+
+</html>

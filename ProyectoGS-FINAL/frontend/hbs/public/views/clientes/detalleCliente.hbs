@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Cliente</title>
+    <link rel="stylesheet" href="../assets/css/ClientesStyle/acordeon.css">
+    {{> header}}
+</head>
+<body onload="cargarDatosCliente()">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="card-header py-3 text-center">
+            <h3 class="m-0 font-weight-bold text-primary">Detalle cliente</h3>
+        </div>
+
+        <section class="checkout-wrapper section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="checkout-steps-form-style-1">
+                            <ul id="accordionExample">
+                                <li>
+                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                        aria-expanded="true" aria-controls="collapseThree">Datos Cliente</h6>
+                                    <section class="checkout-steps-form-content collapse show" id="collapseThree"
+                                        aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="tipoDocumentoCliente">Tipo Documento</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="tipoDocumentoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="documentoCliente">Documento</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="documentoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="nombreCliente">Nombre</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="nombreCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="apellidosCliente">Apellidos</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="apellidosCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="emailCliente">Correo electrónico</label>
+                                                    <div class="form-input form">
+                                                        <input type="email" id="emailCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="TelefonoCliente">Telefono</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="TelefonoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="direccionCliente">Dirección</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="direccionCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="fechaNacimientoCliente">Fecha de nacimiento</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="fechaNacimientoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="generoCliente">Genero</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="generoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="estadoCliente">Estado</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="estadoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card-header py-3 text-center">
+                    <h3 class="m-0 font-weight-bold text-primary">Pedidos</h3>
+                </div>
+                <div class="bd-example table-responsive">
+                    <table class="table table-bordered dataTable" id="dataTablePedidos" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID PEDIDO</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">TOTAL</th>
+                                <th scope="col">ESTADO</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPedidos">
+                            <!-- Contenido generado dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-header py-3 text-center">
+                    <h3 class="m-0 font-weight-bold text-primary">Ventas</h3>
+                </div>
+                <div class="bd-example table-responsive">
+                    <table class="table table-bordered dataTable" id="dataTableVentas" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID VENTA</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">TOTAL</th>
+                                <th scope="col">ESTADO</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaVentas">
+                            <!-- Contenido generado dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <a href="clientes" class="me-2"><button type="button" class="btn btn-dark">Volver</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <script src="../assets/js/FuncionesClientes/funcionesVerDetalleCliente.js"></script>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+</html>

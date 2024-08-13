@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Membresías</title>
+
+    <!-- Cargar archivos CSS necesarios -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+
+    <!-- Cargar el script getMembresias.js -->
+    <script src="getMembresias.js" defer></script>
+</head>
+<body onload="listarMembresias()">
+
+<!-- Incluir tu header, sidebar, topbar u otros componentes según tu diseño -->
+{{> header}}
+{{> sidebar}}
+{{> topbar}}
+
+<!-- Contenido principal -->
+<div class="container-fluid content-inner">
+    <div class="container-fluid">
+        <!-- Botón para agregar membresía en el lado izquierdo -->
+        <a href="formMembresias" class="btn btn-primary btn-sm mb-3">
+            <i class="fa-regular fa-plus fa-xs me-1"></i> Agregar Membresía
+        </a>
+
+        <!-- Card para mostrar las membresías -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h3 class="m-0 font-weight-bold text-primary">Gestión de Membresías</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="membresiasTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Nombre Membresía</th>
+                                <th>Frecuencia</th>
+                                <th>Precio</th>
+                                <th>Estado</th>
+                                <th>Acciones</th> <!-- Columna para botones de acción -->
+                            </tr>
+                        </thead>
+                        <tbody id="membresiasTableBody">
+                            <!-- Aquí se agregarán las filas de datos -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+<!-- Fin del contenido principal -->
+
+<!-- Modal para confirmar eliminar membresía -->
+<div class="modal fade" id="eliminarMembresiaModal" tabindex="-1" aria-labelledby="eliminarMembresiaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="m-0 font-weight-bold text-primary">Eliminar membresía</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="eliminarMembresiaForm">
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24">
+                            <use xlink:href="#exclamation-triangle-fill" />
+                        </svg>
+                        <div>
+                            ¿Seguro que deseas eliminar la membresía?
+                        </div>
+                    </div>
+                    <button type="submit" id="confirmarEliminar" class="btn btn-primary">Eliminar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fin del contenido principal -->
+<script src="../assets/js/postMembresias.js"></script>
+
+<!-- Incluir footer y otros componentes finales -->
+<footer class="footer">
+    {{> copyright}}
+</footer>
+<!-- Footer Section End -->
+
+{{> footer}}
+<!-- Scripts adicionales, si es necesario -->
+
+</body>
+</html>

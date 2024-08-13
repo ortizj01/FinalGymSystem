@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roles</title>
+    <style>
+        /* CSS para asegurar el fondo opaco del modal */
+        .modal-backdrop {
+            z-index: 1040 !important;
+            background-color: #000; /* Cambia este valor si necesitas otro color */
+            opacity: 0.5; /* Ajusta la opacidad según lo necesites */
+        }
+
+        .modal-dialog {
+            z-index: 1050; /* Asegura que el modal esté por encima del fondo */
+        }
+
+        .modal.fade .modal-dialog {
+            -webkit-transform: translate(0, 0);
+            -moz-transform: translate(0, 0);
+            -o-transform: translate(0, 0);
+            transform: translate(0, 0);
+        }
+
+        .modal.in .modal-dialog {
+            z-index: 1050;
+        }
+    </style>
+    {{> header}}
+</head>
+<body>
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="card-header py-2">
+            <h2 class="m-2 font-weight-bold text-primary">Roles</h2>
+        </div>
+        <div class="container-fluid">
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="card-header py-3 d-flex justify-content-between">
+                                <div class="d-flex">
+                                    <div class="col-sm-16 col-md-8">
+                                        <div id="dataTable_filter" class="dataTables_filter"></div>
+                                    </div>
+                                </div>
+                                <div class="footer-buttons mt-1">
+                                    <a href="#" type="button" name="CrearRol" class="btn btn-danger previous action-button-previous float-end me-2" data-bs-toggle="modal" data-bs-target="#crearRolModal">
+                                        Crear Rol +
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered dataTable" id="tablaEjercicios" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" style="width: 156.25px;">Nombre Rol</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 93.0156px;">Estado</th>
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" style="width: 93.0156px;">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="contenidoRoles">
+                                            <!-- Contenido dinámico -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para crear y editar rol -->
+<div class="modal fade" id="crearRolModal" tabindex="-1" aria-labelledby="crearRolModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crearRolModalLabel">Agregar Rol</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="FormularioRolModal">
+                    <div class="mb-3">
+                        <label for="nombreRolModal" class="form-label">Nombre Rol:</label>
+                        <input type="text" class="form-control" id="nombreRolModal" placeholder="" required />
+                        <span class="error-message" id="nombre-error"></span>
+                    </div>
+                    <div class="mb-3">
+                        {{!-- <label for="estadoRolModal" class="form-label">Estado:</label> --}}
+                        <select class="form-control" id="estadoRolModal" required hidden>
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                        <span class="error-message" id="estado-error"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Fin del modal para crear/editar rol -->
+
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+    
+    <script src="../../assets/js/roles_permisos/roles.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    {{> footer}}
+</body>
+</html>

@@ -1,0 +1,121 @@
+
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Gym System | Inicio de sesión</title>
+      {{> header}}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+      <link rel="stylesheet" href="../../assets/css/sign-in.css">
+  </head>
+  <body class=" " data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">
+    <!-- loader Start -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- loader END -->
+    
+      <div class="wrapper">
+      <section class="login-content">
+         <div class="row m-0 align-items-center bg-white vh-100">            
+            <div class="col-md-6">
+               <div class="row justify-content-center">
+                  <div class="col-md-10">
+                     <div class="card card-transparent shadow-none d-flex justify-content-center mb-0 auth-card">
+                        <div class="card-body">
+                           <a href="../../dashboard/index.html" class="navbar-brand d-flex align-items-center mb-3">
+                              
+                              <!--Logo start-->
+                              <div class="logo-main">
+                                <div class="logo-normal">
+                                    <svg class=" icon-30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.4 7H4.6C4.26863 7 4 7.26863 4 7.6V16.4C4 16.7314 4.26863 17 4.6 17H7.4C7.73137 17 8 16.7314 8 16.4V7.6C8 7.26863 7.73137 7 7.4 7Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M19.4 7H16.6C16.2686 7 16 7.26863 16 7.6V16.4C16 16.7314 16.2686 17 16.6 17H19.4C19.7314 17 20 16.7314 20 16.4V7.6C20 7.26863 19.7314 7 19.4 7Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M1 14.4V9.6C1 9.26863 1.26863 9 1.6 9H3.4C3.73137 9 4 9.26863 4 9.6V14.4C4 14.7314 3.73137 15 3.4 15H1.6C1.26863 15 1 14.7314 1 14.4Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M23 14.4V9.6C23 9.26863 22.7314 9 22.4 9H20.6C20.2686 9 20 9.26863 20 9.6V14.4C20 14.7314 20.2686 15 20.6 15H22.4C22.7314 15 23 14.7314 23 14.4Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 12H16" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="logo-mini">
+                                    <svg class=" icon-30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.4 7H4.6C4.26863 7 4 7.26863 4 7.6V16.4C4 16.7314 4.26863 17 4.6 17H7.4C7.73137 17 8 16.7314 8 16.4V7.6C8 7.26863 7.73137 7 7.4 7Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M19.4 7H16.6C16.2686 7 16 7.26863 16 7.6V16.4C16 16.7314 16.2686 17 16.6 17H19.4C19.7314 17 20 16.7314 20 16.4V7.6C20 7.26863 19.7314 7 19.4 7Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M1 14.4V9.6C1 9.26863 1.26863 9 1.6 9H3.4C3.73137 9 4 9.26863 4 9.6V14.4C4 14.7314 3.73137 15 3.4 15H1.6C1.26863 15 1 14.7314 1 14.4Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M23 14.4V9.6C23 9.26863 22.7314 9 22.4 9H20.6C20.2686 9 20 9.26863 20 9.6V14.4C20 14.7314 20.2686 15 20.6 15H22.4C22.7314 15 23 14.7314 23 14.4Z" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M8 12H16" stroke="#FF5733" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                              <!--logo End-->
+                              
+                              
+                              
+                              
+                              <h4 class="logo-title ms-3">Gym System</h4>
+                           </a>
+                           <h2 class="mb-2 text-center">Iniciar Sesión</h2>
+                              <br>
+                           <form id="loginForm">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="form-group">
+                            <label for="email" class="form-label">Correo</label>
+                            <input type="email" class="form-control" id="email" aria-describedby="email" placeholder=" ">
+                            <div id="emailError" class="error-message"></div> <!-- Mensaje de error para correo -->
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                              <div class="form-group position-relative">
+                                  <label for="password" class="form-label">Contraseña</label>
+                                  <input type="password" class="form-control" id="password" aria-describedby="password" placeholder=" ">
+                                  <i id="togglePassword" class="fa fa-eye position-absolute" style="top: 70%; right: 10px; transform: translateY(-50%); cursor: pointer;"></i>
+                                  <div id="passwordError" class="error-message"></div> <!-- Mensaje de error para contraseña -->
+                              </div>
+                          </div>
+                        <div class="col-lg-12 d-flex justify-content-between">
+                          {{!-- <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="customCheck1">
+                            <label class="form-check-label" for="customCheck1">Recordarme</label>
+                          </div> --}}
+                          <a href="recuperar-contrasena">¿Olvidó su contraseña?</a>
+                        </div>
+                      </div>
+                      <br>
+                      <div id="loginError" class="error-message d-flex justify-content-center"></div> <!-- Mensaje de error general -->
+                      <br>
+                      <div class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-primary" onclick="handleLogin()">Iniciar sesión</button>
+                      </div>
+                      <p class="text-center my-3">No tiene una cuenta <a href="/registrar-usuario">Registrate</a></p>
+                    </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="sign-bg">
+                  <svg width="280" height="230" viewBox="0 0 431 398" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <g opacity="0.05">
+                     <rect x="-157.085" y="193.773" width="543" height="77.5714" rx="38.7857" transform="rotate(-45 -157.085 193.773)" fill="#FF5733"/>
+                     <rect x="7.46875" y="358.327" width="543" height="77.5714" rx="38.7857" transform="rotate(-45 7.46875 358.327)" fill="#FF5733"/>
+                     <rect x="61.9355" y="138.545" width="310.286" height="77.5714" rx="38.7857" transform="rotate(45 61.9355 138.545)" fill="#FF5733"/>
+                     <rect x="62.3154" y="-190.173" width="543" height="77.5714" rx="38.7857" transform="rotate(45 62.3154 -190.173)" fill="#FF5733"/>
+                     </g>
+                  </svg>
+               </div>
+            </div>
+            <div class="col-md-6 d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden">
+               <img src="../../assets/images/auth/01.jpg" class="img-fluid gradient-main animated-scaleX" alt="images">
+            </div>
+         </div>
+      </section>
+      </div>
+    
+
+     
+    {{> footer}}
+    <script src="../../assets/js/sign-in.js"></script>
+  </body>
+</html>

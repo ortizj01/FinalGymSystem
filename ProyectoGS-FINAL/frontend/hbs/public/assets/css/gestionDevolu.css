@@ -1,0 +1,16 @@
+
+    .footer-buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 15px;
+    }
+
+      .btn-secondary {
+        background-color: #FF5733; /* Color naranja */
+        color: #fff; /* Texto blanco */
+    }
+
+    .btn-info{
+        background-color: #FF5733; /* Color naranja */
+        color: #fff; /* Texto blanco */
+    }

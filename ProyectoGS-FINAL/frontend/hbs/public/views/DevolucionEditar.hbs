@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Devolucion Compra </title>
+    {{> header}}
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+<div class="container-fluid content-inner">
+            <div class="row">                
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Editar Devolucion Compra</h4>
+                        </div>
+                        </div>
+                        <div class="card-body">
+                            
+                                    <form id="formDevolucionesCompra">
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Fecha compra*</label>
+                                            <input type="date" class="form-control" name="Nombre Proveedor" placeholder="Fecha compra" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="exampleFormControlSelect1">Id Compra*</label>
+                                            <select class="form-select" id="exampleFormControlSelect1" name="dia">
+                                            <option selected="" disabled="">Id Compra</option>
+                                            <option>6252</option>
+                                            <option>6251</option>
+                                            <option>6250</option>
+                                            <option>6219</option>
+                                            <option>6218</option>
+                                            <option>6217</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                        
+                                    <!-- inicio -->
+                                    
+                                        
+                                        <label for="selectProducto">Selecciona un producto:</label>
+                                        <div class="productoContainer">
+                                        <select id="selectProducto" name="productos[]" style="width:300px">
+                                            <option selected="" disabled="">Agregar producto a la Devolucion</option>
+                                            <option value="producto1">Creatina</option>
+                                            <option value="producto2">Aminoacidos</option>
+                                            <option value="producto3">Elite</option>
+                                            <option value="producto3">Agua</option>
+                                            <!-- Agrega más opciones según tus necesidades -->
+                                        </select>
+
+                                        <label  for="cantidad" style="margin-left:200px" >Cantidad:</label>
+                                        <input style="width:90px" type="number" name="cantidades[]" value="1" min="1">
+
+
+                                        <label  for="Valor" style="margin-left:100px" >Valor:</label>
+                                        <label >$25.000</label>
+                                        </div>
+                                        <div class="productoContainer">
+                                        <button type="button" class="btn btn-soft-info mt-2"  onclick="agregarProducto()"><i class="fa-solid fa-plus fa-lg"></i></button>
+                                        </div>
+                                        <div id="productosAgregados">
+                                            <br>
+                                            <!-- Aquí se agregarán dinámicamente los nuevos campos de selección -->
+                                            
+                                        </div>
+
+                                    <!-- fin -->
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                        <div class="form-group">
+                                            <label class="form-label">Motivo de la Devolucion</label>
+                                            <input type="text" class="form-control" name="Nombre Proveedor" placeholder="Motivo de la Devolucion" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                        <div class="form-group">
+                                            <label class="form-label">Valor de la Devolucion</label>
+                                            <label class="form-label">$ 58.000</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <button type="button" name="next" class="btn btn-primary next action-button float-end" value="Next" >Guardar</button>
+                                <button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Cancelar</button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+    <script src="../assets/js/form.js"></script>
+
+    <script src="../assets/js/Devolucion.js"></script>
+
+    {{> footer}}
+</body>
+</html>

@@ -1,0 +1,10 @@
+.form-control {
+    border: 1px solid #ced4da; /* Borde gris */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    transition: border-color 0.2s, box-shadow 0.2s; /* Transición suave para el cambio de borde y sombra */
+  }
+    .error-message {
+      color: #ff0000; /* Color de mensaje de error */
+      font-size: 14px; /* Tamaño de fuente del mensaje de error */
+    }

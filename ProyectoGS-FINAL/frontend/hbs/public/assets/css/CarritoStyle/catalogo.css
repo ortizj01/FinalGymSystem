@@ -1,0 +1,19 @@
+.agotado {
+    display: inline-block;
+    background-color: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.icon-trash-large {
+    color: #dd4b39; /* Color anaranjado */
+    font-size: 18px; /* Tamaño del ícono */
+    display: inline-block;
+    vertical-align: middle; /* Alinear el ícono verticalmente al centro */
+    transition: transform 0.2s; /* Animación para un efecto al pasar el mouse */
+}
+
+.icon-trash-large:hover {
+    transform: scale(1.0); /* Aumentar el tamaño al pasar el mouse */
+}

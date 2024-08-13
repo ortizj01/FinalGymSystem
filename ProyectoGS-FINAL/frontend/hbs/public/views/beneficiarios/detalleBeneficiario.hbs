@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Beneficiario</title>
+    <link rel="stylesheet" href="../assets/css/ClientesStyle/acordeon.css">
+    {{> header}}
+</head>
+<body onload="cargarDatosBeneficiario()">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->      
+    <div class="container-fluid content-inner">
+        <div class="card-header py-3 text-center">
+            <h3 class="m-0 font-weight-bold text-primary">Detalle beneficiario</h3>
+        </div>
+
+        <section class="checkout-wrapper section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="checkout-steps-form-style-1">
+                            <ul id="accordionExample">
+                                <li>
+                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseBeneficiario"
+                                        aria-expanded="true" aria-controls="collapseBeneficiario">Datos beneficiario</h6>
+                                    <section class="checkout-steps-form-content collapse show" id="collapseBeneficiario"
+                                        aria-labelledby="headingBeneficiario" data-bs-parent="#accordionExample">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="tipoDocumentoCliente">Tipo Documento</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="tipoDocumentoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="documentoCliente">Documento</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="documentoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="nombreCliente">Nombre</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="nombreCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="apellidosCliente">Apellidos</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="apellidosCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="emailCliente">Correo electrónico</label>
+                                                    <div class="form-input form">
+                                                        <input type="email" id="emailCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="TelefonoCliente">Teléfono</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="TelefonoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="direccionCliente">Dirección</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="direccionCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="fechaNacimientoCliente">Fecha de nacimiento</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="fechaNacimientoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="generoCliente">Género</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="generoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="estadoCliente">Estado</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="estadoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+                                <li>
+                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseValoracion"
+                                        aria-expanded="true" aria-controls="collapseValoracion">Valoración Médica</h6>
+                                    <section class="checkout-steps-form-content collapse show" id="collapseValoracion"
+                                        aria-labelledby="headingValoracion" data-bs-parent="#accordionExample">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="TieneCondicionCronica">¿Tiene Condición Crónica?</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="TieneCondicionCronica" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="CirugiaPrevia">¿Cirugía Previa?</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="CirugiaPrevia" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="AlergiasConocidas">Alergias Conocidas</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="AlergiasConocidas" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="MedicamentosActuales">Medicamentos Actuales</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="MedicamentosActuales" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="LesionesMusculoesqueleticas">Lesiones Musculoesqueléticas</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="LesionesMusculoesqueleticas" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="EnfermedadCardiacaVascular">Enfermedad Cardíaca o Vascular</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="EnfermedadCardiacaVascular" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="AntecedentesFamiliares">Antecedentes Familiares</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="AntecedentesFamiliares" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="TipoAfiliacion">Tipo de Afiliación</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="TipoAfiliacion" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <div class="form-input form">
+                                                        <input type="hidden" id="Peso" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <div class="form-input form">
+                                                        <input type="hidden" id="Altura" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="IMC">IMC</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="IMC" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+                                <li id="acordeonCliente" style="display: none;">
+                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseCliente"
+                                        aria-expanded="true" aria-controls="collapseCliente">Datos del Cliente Asociado</h6>
+                                    <section class="checkout-steps-form-content collapse show" id="collapseCliente"
+                                        aria-labelledby="headingCliente" data-bs-parent="#accordionExample">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="tipoDocumentoAsociado">Tipo Documento</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="tipoDocumentoAsociado" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="documentoAsociado">Documento</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="documentoAsociado" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="nombreAsociado">Nombre</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="nombreAsociado" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="apellidosAsociado">Apellidos</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="apellidosAsociado" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="emailAsociado">Correo electrónico</label>
+                                                    <div class="form-input form">
+                                                        <input type="email" id="emailAsociado" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="TelefonoAsociado">Teléfono</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="TelefonoAsociado" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="direccionAsociado">Dirección</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="direccionAsociado" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="fechaNacimientoAsociado">Fecha de nacimiento</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="fechaNacimientoAsociado" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="generoAsociado">Género</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="generoAsociado" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="estadoAsociado">Estado</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="estadoAsociado" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card-header py-3 text-center">
+                    <h3 class="m-0 font-weight-bold text-primary">Servicios</h3>
+                </div>
+                <div class="bd-example table-responsive">
+                    <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Servicio</th>
+                                <th scope="col">Precio Unitario</th>
+                                <th scope="col">IVA</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th rowspan="1" colspan="1"></th>
+                                <th rowspan="1" colspan="1"></th>
+                                <th rowspan="1" colspan="1"></th>
+                                <th rowspan="1" colspan="1">TOTAL</th>
+                                <th rowspan="1" colspan="1">195.000</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <th scope="row">MEMBRESIA PLUS</th>
+                                <td>150.000</td>
+                                <td>45.000</td>
+                                <td>1</td>
+                                <td>195.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="beneficiarios" class="me-2"><button type="button" class="btn btn-dark">Volver</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <script src="../assets/js/FuncionesBeneficiarios/funcionesVerDetalleBeneficiario.js"></script>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+</html>

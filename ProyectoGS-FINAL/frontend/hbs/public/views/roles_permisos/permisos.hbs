@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar Permisos</title>
+    {{> header}}
+</head>
+<body class="  ">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}    
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->      
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between flex-wrap">
+                        <div class="header-title">
+                           <h4 id="tituloPermisos" class="card-title mb-0">Permisos</h4>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="text-center">CREAR</th>
+                                        <th class="text-center">EDITAR</th>
+                                        <th class="text-center">VER</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contenidoPermisos">
+                                    <!-- Las filas se insertarán aquí mediante JavaScript -->
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <button id="guardarPermisosBtn" type="button" class="btn btn-primary">Guardar</button>
+                                <a href="roles2" class="btn btn-dark me-2">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    <script src="../../assets/js/roles_permisos/permisos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    {{> footer}}
+</body>
+</html>

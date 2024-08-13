@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi perfil</title>
+    {{> header}}
+</head>
+<body>
+    <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body"></div>
+      </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+        <div class="iq-navbar-header" style="height: 100px;">
+        <div class="container-fluid iq-container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="flex-wrap d-flex justify-content-between align-items-center">
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="iq-header-img">
+            <img src="../assets/images/dashboard/top-header4.png" alt="header" class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX">
+        </div>
+    </div>
+
+    <div class="container-fluid content-inner mt-n5 py-0">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Datos Personales</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="acc-edit">
+                                <!-- Agrega estos campos ocultos dentro de tu formulario -->
+                                    <input type="hidden" id="originalCorreo" value="">
+                                    <input type="hidden" id="originalTelefono" value="">
+                                    <input type="hidden" id="originalDocumento" value="">
+
+                                <form id="formularioUsuario">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="Nombres">Nombres:</label>
+                                            <input type="text" class="form-control" id="Nombres">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="Apellidos">Apellidos:</label>
+                                            <input type="text" class="form-control" id="Apellidos">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="Correo">Email:</label>
+                                            <input type="email" class="form-control" id="Correo">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="Telefono">Teléfono:</label>
+                                            <input type="number" class="form-control" id="Telefono">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="Documento"># Documento:</label>
+                                            <input type="number" class="form-control" id="Documento">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="FechaDeNacimiento">Fecha Nacimiento:</label>
+                                            <input type="date" class="form-control" id="FechaDeNacimiento">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="Direccion">Dirección:</label>
+                                            <input type="text" class="form-control" id="Direccion">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="Genero">Género:</label>
+                                            <select class="form-control" id="Genero">
+                                                <option value="" disabled selected hidden>Seleccione...</option>
+                                                <option value="Masculino">Masculino</option>
+                                                <option value="Femenino">Femenino</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                   <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="pw-nueva">Contraseña nueva:</label>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control" id="pw-nueva">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary no-border" type="button" id="togglePassword">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="pw-confirma">Confirmar Contraseña:</label>
+                                            <input type="password" class="form-control" id="pw-confirma">
+                                        </div>
+                                    </div>
+                                    
+                                            <style>
+                                                .no-border {
+                                                    border: none !important; /* Asegura que no haya ningún borde */
+                                                    background: transparent !important; /* Fondo transparente */
+                                                    cursor: pointer;
+                                                    outline: none; /* Elimina el contorno al hacer foco */
+                                                    box-shadow: none !important; /* Elimina cualquier sombra */
+                                                    color: inherit !important; /* Asegura que el color del texto sea heredado */
+                                                }
+
+                                                .input-group-append .input-group-text {
+                                                    border-left: none;
+                                                }
+
+                                                /* Estilo para el icono dentro del botón */
+                                                .toggle-icon {
+                                                    color: inherit; /* Asegura que el color del icono sea heredado */
+                                                }
+                                            </style>
+
+
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                                            <a href="/dashboard" class="btn btn-dark btn-block">Cancelar</a>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Fin contenido -->
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+<script src="../../assets/js/infoLogin.js"></script>
+<script src="../../assets/js/editarPerfil.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    {{> footer}}
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar membresia</title>
+    {{> header}}
+    <link rel="stylesheet" href="../assets/css/Productos.css" />
+</head>
+
+<body class="  ">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Actualizar membresia</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                   <form id="FormularioMembresias">
+                            <div class="row">
+                                <!-- Nombre de la Membresía -->
+                                <div class="col-md-6 formulario__grupo" id="grupo__Nombremembresia">
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre de la Membresía*</label>
+                                        <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control" name="Nombremembresia" placeholder="Nombre de la Membresía" id="Nombremembresia" />
+                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formulario__input-error">Por favor ingresa un nombre válido para la membresía</p>
+                                    </div>
+                                </div>
+
+                                <!-- Selección de Servicio -->
+                                <div class="col-md-6">
+                                    <label for="selectProducto">Selecciona servicio:</label>
+                                    <div class="productoContainer">
+                                        <select id="selectProducto" name="productos[]" style="width:300px">
+                                            <option selected="" disabled="">Agregar servicio</option>
+                                            <option value="producto1">Rumba</option>
+                                            <option value="producto2">Aerobicos</option>
+                                            <option value="producto3">Rumba2</option>
+                                            <option value="producto3">Aerobicos2</option>
+                                            <!-- Agrega más opciones según tus necesidades -->
+                                        </select>
+                                        <i class="formulario__validacion-estado fas fa-eye-slash" onclick="toggleVisibility('Rol')"></i>
+            <span class="error-message" id="rol-error"></span>
+                                        <div class="productoContainer">
+                                            <button type="button" class="btn btn-soft-info btn mt-2" onclick="agregarProducto()" style="margin-left:50px">
+                                                <i class="fa-solid fa-plus fa-lg"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="productosAgregados">
+                                    <!-- Aquí se agregarán dinámicamente los nuevos campos de selección -->
+
+                                </div>
+<div class="col-md-6 formulario__grupo" id="grupo__Rol">
+    <div class="form-group" id="grupo__Rol">
+        <label class="form-label" for="Rol">Frecuencia*</label>
+        <div class="formulario__grupo-input">
+            <select class="form-select" id="Rol" name="Rol" required>
+                <option value="" disabled selected hidden>Selecciona la frecuecia</option>
+                <option value="Administrador">Mensual</option>
+                <option value="Entrenador">Anual</option>
+                <option value="Cliente">Semanal</option>
+            </select>
+            <i class="formulario__validacion-estado fas fa-eye-slash" onclick="toggleVisibility('Rol')"></i>
+            <span class="error-message" id="rol-error"></span>
+        </div>
+        <p class="formulario__input-error">Ojo</p>
+    </div>
+</div>
+
+
+
+                                <!-- Cantidad -->
+                                <div class="col-md-6 formulario__grupo" id="grupo__Cantidad">
+                                    <div class="form-group">
+                                        <label class="form-label">Cantidad*</label>
+                                        <div class="formulario__grupo-input">
+                                            <input type="number" class="form-control" name="Cantidad" placeholder="Cantidad a ingresar" id="Cantidad" />
+                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formulario__input-error">Ingresa una cantidad válida para la membresía</p>
+                                    </div>
+                                </div>
+
+                                <!-- Fecha de Inicio -->
+                            <style>
+    input[type="date"]:required:invalid {
+        border: 1px solid red;
+    }
+</style>
+
+<div class="col-md-6 formulario__grupo" id="grupo__inicio">
+    <div class="form-group">
+        <label class="form-label">Fecha de Inicio*</label>
+        <div class="formulario__grupo-input">
+            <input type="date" class="form-control" name="fechainicio" id="fechainicio" required />
+            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+        </div>
+        <p class="formulario__input-error"></p>
+    </div>
+</div>
+
+
+
+                                <!-- Costo Total -->
+                              <div class="col-md-6 formulario__grupo" id="grupo__Costototal">
+                                    <div class="form-group">
+                                        <label class="form-label">Costo total</label>
+                                        <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control" name="Costototal" placeholder="Costo de la Membresía" id="Costototal" />
+                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formulario__input-error">Ingresa un costo total válido para la membresía</p>
+                                    </div>
+                                </div>
+
+                                <!-- Fecha de Fin -->
+                               <div class="col-md-6 formulario__grupo" id="grupo__fin">
+    <div class="form-group">
+        <label class="form-label">Fecha de Fin*</label>
+        <div class="formulario__grupo-input">
+            <input type="date" class="form-control" name="fechafin" id="fechafin" required />
+            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+        </div>
+        <p class="formulario__input-error">Ojo</p>
+    </div>
+</div>
+
+
+                                <!-- Costo Venta -->
+                                <div class="col-md-6 formulario__grupo" id="grupo__Costoventa">
+                                    <div class="form-group">
+                                        <label class="form-label">Costo Venta*</label>
+                                        <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control" name="Costoventa" placeholder="Costo de la Membresía" id="Costoventa" />
+                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formulario__input-error">Ingresa un costo de venta válido para la membresía</p>
+                                    </div>
+                                </div>
+
+                                <!-- Mensaje de Error -->
+                                <div class="formulario__mensaje" id="formulario__mensaje">
+                                    <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
+                                </div>
+
+                                <!-- Botones de Guardar y Cancelar -->
+                                <div class="row mt-4">
+                                    <div class="col-md-12 text-end">
+                                        <a href="membresiasAdmin">
+                                            <button type="submit"  class="btn btn-primary next action-button">Guardar</button>
+                                        </a>
+                                        <a href="membresiasAdmin">
+                                            <button type="button" name="previous" class="btn btn-dark previous action-button-previous ms-2">Cancelar</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="col-sm-12">
+                            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 257.578px;">Nombre servicio</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 104.297px;">Instructor</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 104.297px;">Precio</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 110.688px;">Estado</th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 93.0156px;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd">
+                                        <td class="sorting_1">Aerobicos</td>
+                                        <td>Alexander</td>
+                                        <td>40.000</td>
+                                        <td>Activo</td>
+                                        <td style="text-align: center;">
+                                            <div class="centered-container">
+                                                <a href="detalleServicio"><i class="fa-regular fa-eye fa-xl me-2"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="even">
+                                        <td class="sorting_1">Yoga</td>
+                                        <td>Emily</td>
+                                        <td>35.000</td>
+                                        <td>Activo</td>
+                                        <td style="text-align: center;">
+                                            <div class="centered-container">
+                                                <a href="detalleServicio"><i class="fa-regular fa-eye fa-xl me-2"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="odd">
+                                        <td class="sorting_1">Pilates</td>
+                                        <td>Sophia</td>
+                                        <td>50.000</td>
+                                        <td>Activo</td>
+                                        <td style="text-align: center;">
+                                            <div class="centered-container">
+                                                <a href="detalleServicio"><i class="fa-regular fa-eye fa-xl me-2"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="even">
+                                        <td class="sorting_1">Zumba</td>
+                                        <td>Nathan</td>
+                                        <td>45.000</td>
+                                        <td>Activo</td>
+                                        <td style="text-align: center;">
+                                            <div class="centered-container">
+                                                <a href="detalleServicio"><i class="fa-regular fa-eye fa-xl me-2"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+        <script src="../assets/js/Servicio.js"></script>
+
+    <!-- Footer Section End -->
+    <script src="../assets/js/formMembresiasModal.js"></script>
+    {{> footer}}
+</body>
+
+</html>

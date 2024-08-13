@@ -1,0 +1,23 @@
+
+#dataTable_wrapper .col-sm-12 {
+    flex: 1 1 auto;
+    padding: 0;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    float: none;
+    text-align: center;
+}
+
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+}
+
+.table {
+    width: 100% !important;
+    table-layout: auto;
+}
+
+.container-fluid {
+    padding: 0 15px;
+}

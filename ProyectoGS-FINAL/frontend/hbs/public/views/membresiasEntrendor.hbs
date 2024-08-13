@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla</title>
+    {{> header}}
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+    <!-- Sección de Membresias -->
+<div class="container-fluid content-inner">
+    <br>
+    <div class="position-relative">
+        <button type="submit" class="btn btn-danger position-absolute top-0 end-0 me-5">Agregar +</button>
+    </div>
+    <br>
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Membresias</h4>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive mt-4">
+                            <table id="membresias-table" class="table table-striped mb-0" role="grid">
+                                <thead>
+                                    <tr>
+                                        <th>ID Membresia</th>
+                                        <th>Nombre Membresia</th>
+                                        <th>Tiempo</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Precio</th>
+                                        <th>Precio Venta</th>
+                                        <th>Editar</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Registros de ejemplo -->
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Soft UI XD Version</td>
+                                        <td>SP, PP, MM</td>
+                                        <td>$14000</td>
+                                        <td>Pending</td>
+                                        <td>60%</td>
+                                    </tr>
+                                    <!-- Agrega más registros aquí según sea necesario -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sección de Rutinas -->
+<div class="container-fluid content-inner">
+    <br>
+    <div class="position-relative">
+        <button type="submit" class="btn btn-danger position-absolute top-0 end-0 me-5">Agregar +</button>
+    </div>
+    <br>
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Rutinas</h4>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive mt-4">
+                            <table id="rutinas-table" class="table table-striped mb-0" role="grid">
+                                <thead>
+                                    <tr>
+                                        <th>ID Membresia</th>
+                                        <th>Nombre Membresia</th>
+                                        <th>Tiempo</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
+                                        <th>Precio</th>
+                                        <th>Precio Venta</th>
+                                        <th>Editar</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Registros de ejemplo -->
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Soft UI XD Version</td>
+                                        <td>SP, PP, MM</td>
+                                        <td>$14000</td>
+                                        <td>Pending</td>
+                                        <td>60%</td>
+                                    </tr>
+                                    <!-- Agrega más registros aquí según sea necesario -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+</html>

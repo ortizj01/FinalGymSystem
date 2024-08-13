@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar beneficiario</title>
+    {{> header}}
+    <link rel="stylesheet" href="../assets/css/BeneficiariosStyle/validacionesFormsEditarBeneficiario.css" />
+</head>
+<body onload="inicializarDatosEditarBeneficiario()">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-header py-6">
+                            <h3 class="m-0 font-weight-bold text-primary">Editar beneficiario</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form class="formularioEditar" id="formularioEditar">
+                            <div class="row">
+                                <!-- ID -->
+                                <input type="hidden" id="clienteId" name="id">
+                                <!-- Documento -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioEditar__grupo" id="grupo__documento">
+                                        <div class="formularioEditar__grupo-input">
+                                            <label for="documento" class="formularioEditar__label">Documento *</label>
+                                            <input type="text" class="form-control" name="documento" id="documento" aria-describedby="documentoHelp" placeholder="Ingrese Documento" required/>
+                                            <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formularioEditar__input-error">Ingresa un documento válido</p>
+                                        <div><small id="documentoHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Tipo de Documento -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioEditar__grupo" id="grupo__tipoDocumento">
+                                        <div class="formularioEditar__grupo-input">
+                                            <label for="tipoDocumento" class="formularioEditar__label">Tipo de Documento *</label>
+                                            <select class="form-control" name="tipoDocumento" id="tipoDocumento" aria-describedby="tipoDocumentoHelp" required>
+                                                <option value="">Seleccione Tipo de Documento</option>
+                                                <option value="cedula_ciudadania">Cédula de Ciudadanía</option>
+                                                <option value="cedula_extranjeria">Cédula de Extranjería</option>
+                                                <option value="tarjeta_identidad">Tarjeta de Identidad</option>
+                                            </select>
+                                        </div>
+                                        <p class="formularioEditar__input-error">Ingresa un tipo de documento válido</p>
+                                        <div><small id="tipoDocumentoHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Nombres -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioEditar__grupo" id="grupo__nombres">
+                                        <div class="formularioEditar__grupo-input">
+                                            <label for="nombres" class="formularioEditar__label">Nombres *</label>
+                                            <input type="text" class="form-control" name="nombres" id="nombres" aria-describedby="nombresHelp" placeholder="Ingrese Nombres" required/>
+                                            <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formularioEditar__input-error">Los nombres no pueden contener números o caracteres especiales</p>
+                                        <div><small id="nombresHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Apellidos -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioEditar__grupo" id="grupo__apellidos">
+                                        <div class="formularioEditar__grupo-input">
+                                            <label for="apellidos" class="formularioEditar__label">Apellidos *</label>
+                                            <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="apellidosHelp" placeholder="Ingrese Apellidos" required/>
+                                            <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formularioEditar__input-error">Los apellidos no pueden contener números o caracteres especiales</p>
+                                        <div><small id="apellidosHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Correo Electrónico -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioEditar__grupo" id="grupo__correo">
+                                        <div class="formularioEditar__grupo-input">
+                                            <label for="correo" class="formularioEditar__label">Correo Electrónico *</label>
+                                            <input type="email" class="form-control" name="correo" id="correo" aria-describedby="correoHelp" placeholder="Ingrese Correo Electrónico" required/>
+                                            <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formularioEditar__input-error">El correo no es válido</p>
+                                        <div><small id="correoHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Teléfono -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioEditar__grupo" id="grupo__telefono">
+                                        <div class="formularioEditar__grupo-input">
+                                            <label for="telefono" class="formularioEditar__label">Teléfono *</label>
+                                            <input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingrese Teléfono" required/>
+                                            <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formularioEditar__input-error">El número no es válido</p>
+                                        <div><small id="telefonoHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Fecha de Nacimiento -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioEditar__grupo" id="grupo__fechaDeNacimiento">
+                                        <div class="formularioEditar__grupo-input">
+                                            <label for="fechaDeNacimiento" class="formularioEditar__label">Fecha de Nacimiento *</label>
+                                            <input type="date" class="form-control" name="fechaDeNacimiento" id="fechaDeNacimiento" aria-describedby="fechaDeNacimientoHelp" placeholder="Ingrese Fecha de Nacimiento" required/>
+                                            <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formularioEditar__input-error">Ingresa una fecha de nacimiento válida</p>
+                                        <div><small id="fechaDeNacimientoHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Dirección -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioEditar__grupo" id="grupo__direccion">
+                                        <div class="formularioEditar__grupo-input">
+                                            <label for="direccion" class="formularioEditar__label">Dirección *</label>
+                                            <input type="text" class="form-control" name="direccion" id="direccion" aria-describedby="direccionHelp" placeholder="Ingrese Dirección" required/>
+                                            <i class="formularioEditar__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formularioEditar__input-error">Ingresa una dirección válida</p>
+                                        <div><small id="direccionHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Género -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioEditar__grupo" id="grupo__genero">
+                                        <div class="formularioEditar__grupo-input">
+                                            <label for="genero" class="formularioEditar__label">Género *</label>
+                                            <select class="form-control" name="genero" id="genero" aria-describedby="generoHelp" required>
+                                                <option value="">Seleccione Género</option>
+                                                <option value="masculino">Masculino</option>
+                                                <option value="femenino">Femenino</option>
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                        </div>
+                                        <p class="formularioEditar__input-error">Ingresa un género válido</p>
+                                        <div><small id="generoHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Estado -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioEditar__grupo" id="grupo__estado">
+                                        <div class="formularioEditar__grupo-input">
+                                            <label for="estado" class="formularioEditar__label">Estado *</label>
+                                            <select class="form-control" name="estado" id="estado" aria-describedby="estadoHelp" required>
+                                                <option value="">Seleccione Estado</option>
+                                                <option value="0">Activo</option>
+                                                <option value="1">Inactivo</option>
+                                            </select>
+                                        </div>
+                                        <p class="formularioEditar__input-error">Ingresa un estado válido</p>
+                                        <div><small id="estadoHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Beneficiario -->
+                                <div class="col-md-6">
+                                    <div class="form-group formularioEditar__grupo formularioEditar__grupo-beneficiario" id="grupo__beneficiario">
+                                        <label for="buscarBeneficiario">Buscar Beneficiario por Documento *</label>
+                                        <input type="text" class="form-control" name="buscarBeneficiario" id="buscarBeneficiario" placeholder="Ingrese Documento del Beneficiario" required/>
+                                        <input type="hidden" name="beneficiario" id="beneficiario">
+                                        <div id="resultadosBusqueda" class="list-group mt-2"></div>
+                                        <small id="beneficiarioHelp" class="form-text text-muted"><br></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="button" class="btn btn-primary next action-button float-end" onclick="editarBeneficiario()" >Actualizar</button>
+                                <a href="../beneficiarios"><button type="button" name="Cancelar" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Cancelar</button></a>
+                                <button type="button" class="btn btn-secondary float-end me-1" onclick="redirigirValoracionMedica()">Editar Valoración Médica</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>                    
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Inicio Footer -->
+    {{> footer}}
+    <script src="../assets/js/FuncionesBeneficiarios/funcionesEditarBeneficiario.js"></script>
+    <script src="../assets/js/FuncionesBeneficiarios/formEditarBeneficiario.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Fin Footer -->
+</body>
+</html>

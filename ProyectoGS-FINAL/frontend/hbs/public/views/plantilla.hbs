@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla</title>
+    {{> header}}
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+    <div class="container-fluid content-inner">
+        plantilla
+    </div>
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+</html>

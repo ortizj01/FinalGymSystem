@@ -1,0 +1,37 @@
+/* Estilos personalizados mínimos */
+.modal-backdrop {
+    opacity: 0.5 !important;
+}
+
+.modal-dialog {
+    max-width: 600px; /* Ajuste del tamaño máximo del modal */
+  }
+  
+.modal-content {
+border-radius: 0.3rem; /* Ajuste del radio de borde */
+}
+
+.btn-close {
+font-size: 1.2rem; /* Ajuste del tamaño del botón de cierre */
+}
+
+
+/* Estilo para los campos dentro del modal */
+#registroModal .form-control,
+#registroModal .form-select {
+    opacity: 1;
+    border: 1px solid #ced4da; /* Agrega un borde gris claro */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Agrega un ligero sombreado */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Cambiar el borde y sombreado cuando el campo tiene foco */
+#registroModal .form-control:focus,
+#registroModal .form-select:focus {
+    border-color: #656565; /* Cambia el borde a azul cuando tiene foco */
+    box-shadow: 0 0 8px rgba(115, 115, 115, 0.6); /* Aumenta el sombreado cuando tiene foco */
+}
+
+    
+
+  

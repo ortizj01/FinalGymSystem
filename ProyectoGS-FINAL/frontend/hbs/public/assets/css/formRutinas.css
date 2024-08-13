@@ -1,0 +1,71 @@
+/* Estilos para el formulario */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1, h2, h3 {
+    text-align: center;
+  }
+  
+  .dias-semana ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .dias-semana li {
+    display: inline;
+    margin: 5px;
+  }
+  
+  .mini-formulario {
+    display: none;
+  }
+
+  .dias-semana ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .dias-semana li {
+    display: inline;
+    margin: 5px;
+  }
+  
+  .dias-semana a {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .dias-semana a:hover {
+    background-color: #ccc;
+  }
+
+  .mini-formulario {
+    display: none;
+    position: fixed;
+    width: 400px; /* Ajusta el ancho del formulario según necesites */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+  }
+  
+  .mini-formulario label,
+  .mini-formulario input {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  
+  /* Otros estilos que desees agregar */
+  

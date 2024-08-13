@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva compra</title>
+    {{> header}}
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+<div class="container-fluid content-inner">
+            <div class="row">                
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Agregar Compra</h4>
+                        </div>
+                        </div>
+                        <div class="card-body">
+                            
+                                    <form id="formCompra">
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Fecha compra*</label>
+                                            <input type="date" class="form-control" name="fechaCompra" placeholder="Fecha compra" id="fechaCompra"/>
+                                            <div id="errorFechaCompra" class="error-message"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Valor compra*</label>
+                                            <input type="number"type="text" disabled class="form-control" name="valorCompra" placeholder="Valor compra" id="valorCompra"/>
+                                            <div id="errorValorCompra" class="error-message"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">numero Recibo Compra*</label>
+                                            <input type="number" class="form-control" name="numeroReciboCompra" placeholder="Numero recibo compra" id="numeroReciboCompra"/>
+                                            <div id="errornumeroReciboCompra" class="error-message"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="exampleFormControlSelect1">Proveedor *</label>
+                                            <select class="idProveedores" id="idProveedores">
+                                            <option selected="" disabled="" value="">Selecciona el Proveedor</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                        
+                                    <!-- inicio -->
+                                    
+                                       
+<table id="productosTable" class="table">
+    <thead>
+        <tr>
+            <th style="width: 93.0156px;">Selecciona un producto:</th>
+            <th style="width: 150px;">Valor                </th>
+            <th>Cantidad</th>
+            <th>Valor Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="productosAgregados">
+        <tr class="productoRow" id="productoInicial">
+            <td>
+                <select class="selectProducto" id="selectProducto" name="productos[]" style="width:300px" onchange="actualizarValorProducto1(this)">
+                    <option selected="" disabled="" value="">Agregar producto a la compra</option>
+                    <!-- Agrega más opciones según tus necesidades -->
+                </select>
+            </td>
+            <td>
+                <label id="valorProducto" class="valorProducto">$ 0</label>
+            </td>
+            <td>
+                <input style="width:90px" type="number" name="cantidades[]" value="1" min="1" required oninput="calcularValorTotal(this.closest('tr'))">
+            </td>
+            <td>
+                <label id="valortotal" class="valortotal">$ 0</label>
+            </td>
+            <td>
+                <button type="button" class="btn btn-soft-info mt-2" onclick="agregarProducto()">
+                    <i class="fa-solid fa-plus fa-lg"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+                                    <!-- fin -->
+                                    
+
+                                </div>
+                                <br>
+
+                                <button type="button" name="next" onclick="enviarCompra()" class="btn btn-primary next action-button float-end" value="Next" >Guardar</button>
+                                <a href="../Compras"><button  type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Cancelar</button></a>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+    <script src="../assets/js/Compras.js"></script>
+
+
+    {{> footer}}
+</body>
+</html>

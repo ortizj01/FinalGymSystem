@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla</title>
+    {{> header}}
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+<!-- Inicio contenido -->
+<div class="container-fluid content-inner">
+    <br>
+    <div class="position-relative">
+        <button type="submit" class="btn btn-danger position-absolute top-0 end-0 me-5">Agregar +</button>
+    </div>
+    <br>
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Usuarios</h4>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive mt-4">
+                            <table id="basic-table" class="table table-striped mb-0" role="grid">
+                                <thead>
+                                    <tr>
+                                        <th>id usuarios</th>
+                                        <th>id rol</th>
+                                        <th>cedula</th>
+                                        <th>nombre</th>
+                                        <th>correo</th>
+                                        <th>telefono</th>
+                                        <th>estado</th>
+                                        <th>contraseña</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>123456789</td>
+                                        <td>weimar lopez</td>
+                                        <td>weimar@gmail.com</td>
+                                        <td>1234567890</td>
+                                        <td>Activo</td>
+                                        <td>*********</td>
+                                    </tr>
+                                    <tr>
+    <td>2</td>
+    <td>2</td>
+    <td>987654321</td>
+    <td>alejandro builes</td>
+    <td>alejandro@example.com</td>
+    <td>9876543210</td>
+    <td>Inactivo</td>
+    <td>*********</td>
+</tr>
+<tr>
+    <td>3</td>
+    <td>1</td>
+    <td>555555555</td>
+    <td>juan esteban ortiz</td>
+    <td>esteban@example.com</td>
+    <td>5555555555</td>
+    <td>Activo</td>
+    <td>*********</td>
+</tr>
+<tr>
+    <td>4</td>
+    <td>2</td>
+    <td>333333333</td>
+    <td>johany ocampo</td>
+    <td>johany2@example.com</td>
+    <td>3333333333</td>
+    <td>Inactivo</td>
+    <td>*********</td>
+</tr>
+<tr>
+    <td>5</td>
+    <td>1</td>
+    <td>777777777</td>
+    <td>alexander ospina</td>
+    <td>alexander4@example.com</td>
+    <td>7777777777</td>
+    <td>Activo</td>
+    <td>*********</td>
+</tr>
+<tr>
+    <td>6</td>
+    <td>2</td>
+    <td>111111111</td>
+    <td>sebastian giraldo</td>
+    <td>sebastian3@example.com</td>
+    <td>1111111111</td>
+    <td>Inactivo</td>
+    <td>*********</td>
+</tr>
+
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+</html>

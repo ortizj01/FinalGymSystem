@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>QR</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="../themes-envio/shopgrids/assets/images/logo/2936886.png" />
+   
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/Linelcons.3.0.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/main.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/formulario-validaciones.css" />
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+          <div class="preloader-icon">
+            <span></span>
+            <span class="gym-weight"></span>
+          </div>
+        </div>
+      </div>
+
+    <!-- Preloader -->
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+          <!-- Start Topbar -->
+                {{> _topbar}}
+        <!-- End Topbar -->
+        <!-- Start Header Middle -->
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-7">
+                        <!-- Start Header Logo -->
+                        <a class="navbar-brand" href="indexCarrito">
+                            <img src="themes-envio/shopgrids/assets/images/logo/LOGO GYM SYSTEM.jpg" alt="Logo">
+                        </a>
+                        <!-- End Header Logo -->
+                    </div>
+                    <div class="col-lg-5 col-md-7 d-xs-none">
+                        <!-- Start Main Menu Search -->
+                        <div class="main-menu-search">
+                        </div>
+                        <!-- End Main Menu Search -->
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-5">
+                        <div class="middle-right-area">
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Header Middle -->
+    </header>
+    <!-- Fin de la zona de cabecera -->
+
+    <section class="checkout-wrapper section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="checkout-steps-form-style-1">
+                    <ul id="accordionExample">
+                        <li>
+                            <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive"
+                                aria-expanded="false" aria-controls="collapsefive">
+                                <img src="themes-envio/shopgrids/assets/images/logo/pago.png" alt="Icono de usuario" width="10%" height="10%" />
+                                Información sobre el pago
+                            </h6>
+                            <section class="checkout-steps-form-content collapse" id="collapsefive"
+                                aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="checkout-payment-form">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="checkout-payment-form">
+                                                        <img src="themes-envio/shopgrids/assets/images/logo/QR.jpg" alt="Qr pago" style="width: 60%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="single-form form-default button">
+                                                <a class="btn" onclick="finalizarPedido()">Confirmar pago</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="checkout-sidebar">
+                    <div class="checkout-sidebar-price-table mt-30">
+                        <h5 class="title">Tabla de precios</h5>
+                        <div class="total-payable">
+                            <div class="payable-price">
+                                <p class="value">Total a pagar:</p>
+                                <p class="price" id="total">$0.00</p>
+                            </div>
+                        </div>
+                        <div class="price-table-btn button">
+                            <a class="btn" onclick="finalizarPedido()">Confirmar pago</a>
+
+                            <a href="pedidoCarrito" class="btn btn-alt">Volver</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!--/*======================================
+    Pie de pagina 
+========================================*/-->
+
+   <!-- Start Footer Area -->
+   <footer class="footer">
+    <!-- Start Footer Middle -->
+    <div class="footer-middle">
+        <div class="container">
+            <div class="bottom-inner">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <!-- Single Widget -->
+                        <div class="single-footer f-contact">
+                            <h3>Contáctenos</h3>
+                            <p class="phone">3135497455</p>
+                            <ul>
+                                <li><span>Lunes a viernes: </span> 7.00 am - 10.00 pm</li>
+                                <li><span>Sábado: </span> 8.00 am - 8.00 pm</li>
+                            </ul>
+                            <p class="mail">
+                                <a href="mailto:support@shopgrids.com">gymsystem@gmail.com</a>
+                            </p>
+                        </div>
+                        <!-- End Single Widget -->
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <!-- Single Widget -->
+                        <div class="single-footer our-app">
+                            <h3>Nuestra aplicación móvil</h3>
+                            <ul class="app-btn">
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <i class="lni lni-apple"></i>
+                                        <span class="small-title">Descargar en</span>
+                                        <span class="big-title">App Store</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <i class="lni lni-play-store"></i>
+                                        <span class="small-title">Descargar en</span>
+                                        <span class="big-title">Google Play</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- End Single Widget -->
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <!-- Single Widget -->
+                        <div class="single-footer f-link">
+                            <h3>Información</h3>
+                            <ul>
+                                <li><a href="javascript:void(0)">Sobre nosotros</a></li>
+                            
+                                <li><a href="javascript:void(0)">Preguntas frecuentes</a></li>
+                            </ul>
+                        </div>
+                        <!-- End Single Widget -->
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--/ End Footer Area -->
+    <!-- ========================= scroll-top ========================= -->
+    <a href="#" class="scroll-top">
+        <i class="lni lni-chevron-up"></i>
+    </a>
+
+    <!-- ========================= JS here ========================= -->
+    
+    <script src="../themes-envio/shopgrids/assets/js/bootstrap.min.js"></script>
+    <script src="../themes-envio/shopgrids/assets/js/tiny-slider.js"></script>
+    <script src="../themes-envio/shopgrids/assets/js/glightbox.min.js"></script>
+    <script src="../themes-envio/shopgrids/assets/js/main.js"></script>
+    <script src="../assets/js/FuncionesCarrito/funcionesQr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+
+</body>
+
+</html>

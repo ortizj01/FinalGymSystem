@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión Ventas</title>
+    {{> header}}
+    <style>
+        .custom-font-size {
+            font-size: 20px;
+            /* Ajusta el tamaño de la fuente según tus necesidades */
+            margin-top: 500px;
+            text-align: left;
+        }
+    </style>
+
+</head>
+
+<body class="  ">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+    {{> sidebar}}
+
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+
+    <div class="container-fluid content-inner">
+        <div class="card-header py-2">
+            <h2 class="m-2 font-weight-bold text-primary">Lista de Ventas</h2>
+        </div>
+        <div class="container-fluid">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div class="card-header py-3 d-flex justify-content-between">
+                                <div class="footer-buttons ms-auto">
+                                    <a href="formuVenta" type="button" name="CrearVenta"
+                                        class="btn btn-primary next action-button" value="Next">
+                                        Crear Venta
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
+                                        role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th>Nombre</th>
+                                                <th>Documento</th>
+                                                <th>Fecha Venta</th>
+                                                <th>Total</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="listaVentas">
+                                            <!-- Contenido generado dinámicamente -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver detalles de la venta -->
+    <div class="modal fade" id="detalleVentaModal" tabindex="-1" aria-labelledby="detalleVentaModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detalleVentaModalLabel">Detalle de la Venta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="detalleVentaContenido" class="container">
+                        <!-- Contenido generado dinámicamente -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para cambiar el estado de la venta -->
+    <div class="modal fade" id="cambiarEstadoModal" tabindex="-1" aria-labelledby="cambiarEstadoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cambiarEstadoModalLabel">Cambiar Estado de la Venta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="cambiarEstadoForm">
+                        <div class="form-group">
+                            <label for="nuevoEstado" class="form-label">Seleccione el nuevo estado:</label>
+                            <select id="nuevoEstado" class="form-select" required>
+                                <!-- Los estados se llenarán dinámicamente -->
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="cambiarEstado()">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIN DEL CONTENIDO -->
+    <!-- Bootstrap core JavaScript-->
+    <script src="../assets/js/ventas/listar.ventas.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+
+</html>

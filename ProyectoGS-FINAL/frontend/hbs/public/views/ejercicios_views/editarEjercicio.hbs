@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Ejercicio</title>
+    <link rel="stylesheet" href="../assets/css/validacionesForms.css" />
+    {{> header}}
+</head>
+<body>
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <form class="formularioRegistro" id="formularioRegistro">
+        <input type="hidden" id="ejercicioId" name="ejercicioId">
+        <div class="container-fluid content-inner">
+            <div class="row">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Editar Ejercicio</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-card text-start">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group formularioRegistro__grupo" id="grupo__nombreEjercicio">
+                                            <div class="formularioRegistro__grupo-input">
+                                                <label class="nombreRutina" class="formularioRegistro__label">Nombre Ejercicio*</label>
+                                                <input type="text" class="form-control" name="nombreEjercicio">
+                                                <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                            </div>
+                                            <p class="formularioRegistro__input-error">Ingrese el nombre del ejercicio correctamente</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group formularioRegistro__grupo" id="grupo__descripcionEjercicio">
+                                            <div class="formularioRegistro__grupo-input">
+                                                <label class="nombreRutina" class="formularioRegistro__label">Descripcion*</label>
+                                                <input type="text" class="form-control" name="descripcionEjercicio" />
+                                                <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                            </div>
+                                            <p class="formularioRegistro__input-error">Ingrese la descripcion correctamente</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group formularioRegistro__grupo" id="grupo__repeticiones">
+                                            <div class="formularioRegistro__grupo-input">
+                                                <label class="repeticiones" class="formularioRegistro__label">Repeticiones*</label>
+                                                <input type="text" class="form-control" name="repeticiones"/>
+                                                <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                            </div>
+                                            <p class="formularioRegistro__input-error">Ingrese las repeticiones correctamente</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group formularioRegistro__grupo" id="grupo__estado">
+                                            <div class="formularioRegistro__grupo-input">
+                                                <label class="estado" class="formularioRegistro__label">Estado*</label>
+                                                <select class="form-select" name="estado">
+                                                    <option value="1">Activo</option>
+                                                    <option value="0">Inactivo</option>
+                                                </select>
+                                                <i class="formularioRegistro__validacion-estado fas fa-times-circle "></i>
+                                            </div>
+                                            <p class="formularioRegistro__input-error">Seleccione el estado correctamente</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <button type="submit" name="next" class="btn btn-primary float-end">Guardar</button>
+                                        <a href="ejercicios" class="btn btn-dark me-2 float-end">Cancelar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    <script src="../../assets/js/ejercicios/editarEjercicio.js"></script>
+    <script src="../../assets/js/ejercicios/editarValidaciones.js"></script>
+    {{> footer}}
+</body>
+</html>

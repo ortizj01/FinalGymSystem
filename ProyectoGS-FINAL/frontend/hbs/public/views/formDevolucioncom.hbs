@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Devolucion </title>
+    {{> header}}
+</head>
+
+<body onload="precargarDatosCompraEnFormulario();precargarDatosproductosEnFormulario();actualizarValorProducto()">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+    {{> sidebar}}
+
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Agregar Devolucion</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <form id="formDevolucionesCompra">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha compra*</label>
+                                        <input disabled type="date" id="Fecha_compra" class="form-control" name="Fecha_compra"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="exampleFormControlSelect1">Numero Recibo de Compra</label>
+                                        <input disabled type="text" id="NumeroReciboCompra" class="form-control" name="NumeroReciboCompra"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="form-label">Motivo de la Devolucion</label>
+                                            <input type="text" id="MDevolucion" class="form-control" name="MDevolucion"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="form-label">Valor de la Devolucion</label>
+                                                <input disabled type="text" id="ValorDev"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                    
+                                <br>
+<table id="productosTable" class="table">
+    <thead>
+        <tr>
+            <th>Producto:</th>
+            <th>Valor</th>
+            <th>Cantidad</th>
+            <th>Valor Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="productosAgregados">
+        <!-- Aquí se cargarán los productos dinámicamente -->
+    </tbody>
+</table>
+
+
+                            <button type="button" class="btn btn-primary next action-button float-end" onclick="enviarDevCompra()" >Realizar devolucion</button>
+                            <button type="button"
+                                class="btn btn-dark previous action-button-previous float-end me-1"
+                                value="Previous">Cancelar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+    <script src="../assets/js/form.js"></script>
+
+    <script src="../assets/js/Devolucion.js"></script>
+
+    {{> footer}}
+</body>
+
+</html>

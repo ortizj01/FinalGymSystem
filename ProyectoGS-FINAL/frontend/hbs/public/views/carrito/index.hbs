@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html class="no-js" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>GymSystem</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="../themes-envio/shopgrids/assets/images/logo/2936886.png" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/Linelcons.3.0.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/CarritoStyle/catalogo.css" />
+
+</head>
+<body>
+      <!-- Inicio del cargar -->
+      <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+          <div class="preloader-icon">
+            <span></span>
+            <span class="gym-weight"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Fin cargar -->
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+
+      <!-- Start Topbar -->
+                {{> _topbar}}
+        <!-- End Topbar -->
+
+        <!-- Start Header Middle -->
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-7">
+                        <!-- Start Header Logo -->
+                        <a class="navbar-brand" href="indexCarrito">
+                            <img src="../themes-envio/shopgrids/assets/images/logo/LOGO GYM SYSTEM.jpg" alt="Logo">
+                        </a>
+                        <!-- End Header Logo -->
+                    </div>
+                    <div class="col-lg-5 col-md-7 d-xs-none">
+                        <!-- Start Main Menu Search -->
+                        <div class="main-menu-search">
+                        </div>
+                        <!-- End Main Menu Search -->
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-5">
+                        <div class="middle-right-area">
+                            <div class="nav-hotline">
+                            </div>
+                            <div class="navbar-cart">
+                                <div class="cart-items">
+                                    <a href="javascript:void(0)" class="main-btn">
+                                        <i class="lni lni-cart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+
+                                  <!-- Artículo de compra-->
+                                  
+                                    <div class="shopping-item">
+                                        <div class="dropdown-cart-header">
+                                            <span>0 artículos</span>
+                                            <a href="carrito">Ver carrito</a>
+                                        </div>
+                                        <ul class="shopping-list">
+                                            <!-- Los productos del carrito se insertarán aquí de manera dinámica -->
+                                        </ul>
+                                        <div class="bottom">
+                                            <div class="total">
+                                                <span>Total</span>
+                                                <span class="total-amount">$0</span>
+                                            </div>
+                                            <div class="button">
+                                                <a href="pedidoCarrito" class="btn animate" id="pedidoBtn">Pedido</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/Fin de la compra -->
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Extremo Cabecera Medio -->
+        <!-- Inicio Cabecera Inferior-->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-6 col-12">
+                    <div class="nav-inner">
+                        <!-- Inicio Mega Categoría Menú -->
+                        <div class="mega-category-menu">
+                            <span class="cat-button"><i class="lni lni-menu"></i>Todas las categorías</span>
+                            <ul class="sub-category">
+                                <li><a href="product-grids.html">Servicios<i class="lni lni-chevron-right"></i></a>
+                                    <ul class="inner-sub-category">
+                                        <li><a href="product-grids.html">Membresias</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="product-grids.html">Productos<i class="lni lni-chevron-right"></i></a>
+                                    <ul class="inner-sub-category">
+                                        <li><a href="product-grids.html">Proteinas</a></li>
+                                        <li><a href="product-grids.html">Creatinas</a></li>
+                                        <li><a href="product-grids.html">Bebidas</a></li>
+                                    </ul>
+                            </ul>
+                        </div>
+                        <!-- End Mega Category Menu -->
+                        <!-- Start Navbar -->
+                        <nav class="navbar navbar-expand-lg">
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item">
+                                        <a href="indexCarrito" class="active" aria-label="Toggle navigation">Inicio</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                            data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Paginas</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-2">
+                                            <li class="nav-item"><a href="about-us.html">Sobre nosotros</a></li>
+                                            <li class="nav-item"><a href="faq.html">Preguntas mas freceuntes</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="contact.html" aria-label="Toggle navigation">Contactanos</a>
+                                    </li>
+                                </ul>
+                            </div> <!-- navbar collapse -->
+                        </nav>
+                        <!-- End Navbar -->
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <!-- Start Nav Social -->
+                    <div class="nav-social">
+                        <h5 class="title">Siguenos:</h5>
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End Nav Social -->
+                </div>
+            </div>
+        </div>
+        <!-- End Header Bottom -->
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Hero Area -->
+    <section class="hero-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12 custom-padding-right">
+                    <div class="slider-head">
+                        <!-- Start Hero Slider -->
+                        <div class="hero-slider">
+                            <!-- Start Single Slider -->
+                            <div class="single-slider"
+                                style="background-image: url(/themes-envio/shopgrids/assets/images/logo/gimnasio-pesas-suelo_1340-37013.avif);">
+                                <div class="content">
+                                    <div class="button">
+                                        <a href="product-grids.html" class="btn">Unete a nosotros</a>
+                                    </div> 
+                                </div>
+                            </div>
+                            <!-- End Single Slider -->
+                            <!-- Start Single Slider -->
+                            <div class="single-slider"
+                                style="background-image: url(/themes-envio/shopgrids/assets/images/logo/4709eaaf65e5ba0bae03491822b7c0e4.jpg);">
+                                <div class="content">
+                                    <div class="button">
+                                        <a href="product-grids.html" class="btn">¿Quienes somos?</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Slider -->
+                        </div>
+                        <!-- End Hero Slider -->
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
+                            <!-- Start Small Banner -->
+                            <div class="hero-small-banner"
+                                style="background-image: url('/themes-envio/shopgrids/assets/images/logo/Poster-Legacy-Watermelon.webp');">
+                                <div class="content">
+                                    <h2>
+                                        <span>NUEVO PRODUCTO</span>
+                                        LEGACY CREATINA HCL
+                                    </h2>
+                                    <h3>$59.99</h3>
+                                </div>
+                            </div>
+                            <!-- End Small Banner -->
+                        </div>
+                        <div class="col-lg-12 col-md-6 col-12">
+                            <!-- Start Small Banner -->
+                            <div class="hero-small-banner style2">
+                                <div class="content">
+                                    <h2>Ofertas!</h2>
+                                    <p>Hasta 50% de descuento en productos </p>
+                                    <div class="button">
+                                        <a class="btn" href="product-grids.html">Compra ya</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Start Small Banner -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Hero Area -->
+
+   <!-- Start Trending Product Area -->
+    <section class="trending-product section" style="margin-top: 12px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h2>Productos</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="contenedorProductos">
+                <!-- Los productos se insertarán aquí de manera dinámica -->
+            </div>
+        </div>
+    </section>
+    <!-- End Trending Product Area -->
+
+
+    <!-- Start Banner Area -->
+    <section class="banner section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h2>Servicios</h2>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="single-banner" style="background-image:url('/themes-envio/shopgrids/assets/images/logo/5.jpg')">
+                        <div class="content">
+                            <h2 class="titulo">Membresia Premium</h2>
+                            <p><br> </p>
+                            <div class="button">
+                                <a href="product-grids.html" class="btn">Ver detalle </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div class="single-banner"style="background-image:url('/themes-envio/shopgrids/assets/images/logo/6.jpg')">
+                        <div class="content">
+                            <h2 class="titulo">Membresia Básica</h2>
+                            <p><br> </p>
+                            <div class="button">
+                                <a href="product-grids.html" class="btn"> Ver detalle</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!-- Start Footer Area -->
+    <footer class="footer">
+        <!-- Start Footer Middle -->
+        <div class="footer-middle">
+            <div class="container">
+                <div class="bottom-inner">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-12">
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <!-- Single Widget -->
+                            <div class="single-footer our-app">
+                                <h3>App movil</h3>
+                                <ul class="app-btn">
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <i class="lni lni-apple"></i>
+                                            <span class="small-title"></span>
+                                            <span class="big-title">App Store</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <i class="lni lni-play-store"></i>
+                                            <span class="small-title"></span>
+                                            <span class="big-title">Google Play</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Single Widget -->
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <!-- Single Widget -->
+                            <div class="single-footer f-link">
+                                <h3>Información</h3>
+                                <ul>
+                                    <li><a href="javascript:void(0)">Sobre nosotros</a></li>
+                                    <li><a href="javascript:void(0)">Contactanos</a></li>
+                                    <li><a href="javascript:void(0)">Preguntas frecuentes</a></li>
+                                </ul>
+                            </div>
+                            <!-- End Single Widget -->
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/ End Footer Area -->
+
+    <!-- ========================= scroll-top ========================= -->
+    <a href="#" class="scroll-top">
+        <i class="lni lni-chevron-up"></i>
+    </a>
+
+    
+    <!-- ========================= JS here ========================= -->
+
+    <script src="../themes-envio/shopgrids/assets/js/bootstrap.min.js"></script>
+    <script src="../themes-envio/shopgrids/assets/js/tiny-slider.js"></script>
+    <script src="../themes-envio/shopgrids/assets/js/glightbox.min.js"></script>
+    <script src="../themes-envio/shopgrids/assets/js/main.js"></script>
+    <script src="../assets/js/FuncionesCarrito/funcionesCatalogo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+
+</html>

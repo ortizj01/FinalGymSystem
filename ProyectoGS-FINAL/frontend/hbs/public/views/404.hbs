@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404</title>
+    {{> header}}
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+              
+    <!-- Inicio contenido -->      
+    <div class="wrapper">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+
+<div class="gradient">
+    <div class="container">
+        <img src="../../assets/images/error/404.png" class="img-fluid mb-4 w-50" alt=""> 
+        <h2 class="mb-0 mt-4 text-white">¡Uy! Esta página no se encuentra.</h2>
+        <p class="mt-2 text-white">La página solicitada no existe.</p>
+        <button class="btn bg-white text-primary d-inline-flex align-items-center" onclick="history.back()">Volver</button>
+    </div>
+      
+</div>
+      </div>
+    <!-- Fin contenido --> 
+
+
+
+    {{> footer}}
+</body>
+</html>

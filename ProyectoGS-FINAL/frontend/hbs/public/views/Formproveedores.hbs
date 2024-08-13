@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo proveedor</title>
+    {{> header}}
+    <link rel="stylesheet" href="../assets/css/productos.css" />
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+<div class="container-fluid content-inner">
+            <div class="row">                
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Agregar proveedor</h4>
+                        </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- fieldsets -->
+                            <form action="" class="formularioProveedores" id="formularioProveedores" >
+                                    <div class="row"  >
+                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Nombreproveedor" >
+                                        <div class="form-group" id="grupo__Nombreproveedor">
+                                            <label class="form-label" >Nombre Proveedor*</label>
+                                            <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control " name="Nombreproveedor" placeholder="Nombre Proveedor" id="Nombreproveedor" />
+                                            <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formulario__input-error">Ingrese nombre proveedor valido</p>
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Contactoproveedor" >
+                                        <div class="form-group" id="grupo__Contactoproveedor">
+                                            <label class="form-label" >Nombre contacto proveedor*</label>
+                                            <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control " name="Contactoproveedor" placeholder="Contacto proveedor" id="Contactoproveedor" />
+                                            <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formulario__input-error">Ingrese nombre contacto proveedor valido</p>
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Telefono" >
+                                        <div class="form-group" id="grupo__Telefono">
+                                            <label class="form-label" >Telefono*</label>
+                                            <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control " name="Telefono" placeholder="Telefono" id="Telefono" />
+                                            <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formulario__input-error">Ingrese Telefono valido</p>
+                                        </div>
+                                    </div> 
+                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Direccion" >
+                                        <div class="form-group" id="grupo__Direccion">
+                                            <label class="form-label" >Direccion*</label>
+                                            <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control " name="Direccion" placeholder="Direccion" id="Direccion" />
+                                            <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formulario__input-error">Ingrese direccion valida</p>
+                                        </div>
+                                    </div> 
+                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Nit" >
+                                        <div class="form-group" id="grupo__Nit">
+                                            <label class="form-label" >Nit*</label>
+                                            <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control " name="Nit" placeholder="Nit" id="Nit" />
+                                            <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formulario__input-error">Ingrese Nit valido</p>
+                                        </div>
+                                        </div>
+
+
+                                    </div>
+                                
+                                <button type="submit"  class="btn btn-primary next action-button float-end" onclick="agregarProveedor()" >Guardar</button>
+                                <a href="../Proveedores"><button type="button" class="btn btn-dark previous action-button-previous float-end me-1" >Cancelar</button></a>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+    <script src="../assets/js/proveedores.js"></script>
+    {{> footer}}
+</body>
+</html>

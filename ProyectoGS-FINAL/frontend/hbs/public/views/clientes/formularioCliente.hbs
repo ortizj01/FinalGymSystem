@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar cliente</title>
+    {{> header}}
+    <link rel="stylesheet" href="../assets/css/ClientesStyle/validacionesFormsCliente.css" />
+</head>
+<body>
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-header py-6">
+                            <h3 class="m-0 font-weight-bold text-primary">Agregar cliente</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="formularioRegistro">
+                            <div class="row">
+                                <!-- Tipo de Documento -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="tipoDocumento">Tipo de Documento *</label>
+                                        <select class="form-control" name="tipoDocumento" id="tipoDocumento" aria-describedby="tipoDocumentoHelp" required>
+                                            <option value="">Seleccione Tipo de Documento</option>
+                                            <option value="cedula_ciudadania">Cédula de Ciudadanía</option>
+                                            <option value="cedula_extranjeria">Cédula de Extranjería</option>
+                                            <option value="tarjeta_identidad">Tarjeta de Identidad</option>
+                                        </select>
+                                        <small id="error_tipoDocumento" class="error"></small>
+                                    </div>
+                                </div>
+                                <!-- Documento -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="documento">Documento *</label>
+                                        <input type="text" class="form-control" name="documento" id="documento" aria-describedby="documentoHelp" placeholder="Ingrese Documento" required/>
+                                        <small id="error_documento" class="error"></small>
+                                    </div>
+                                </div>
+                                <!-- Nombres -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="nombres">Nombres *</label>
+                                        <input type="text" class="form-control" name="nombres" id="nombres" aria-describedby="nombresHelp" placeholder="Ingrese Nombres" required/>
+                                        <small id="error_nombres" class="error"></small>
+                                    </div>
+                                </div>
+                                <!-- Apellidos -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="apellidos">Apellidos *</label>
+                                        <input type="text" class="form-control" name="apellidos" id="apellidos" aria-describedby="apellidosHelp" placeholder="Ingrese Apellidos" required/>
+                                        <small id="error_apellidos" class="error"></small>
+                                    </div>
+                                </div>
+                                <!-- Correo Electrónico -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="correo">Correo Electrónico *</label>
+                                        <input type="email" class="form-control" name="correo" id="correo" aria-describedby="correoHelp" placeholder="Ingrese Correo Electrónico" required/>
+                                        <small id="error_correo" class="error"></small>
+                                    </div>
+                                </div>
+                                <!-- Teléfono -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="telefono">Teléfono *</label>
+                                        <input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingrese Teléfono" required/>
+                                        <small id="error_telefono" class="error"></small>
+                                    </div>
+                                </div>
+                                <!-- Fecha de Nacimiento -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="fechaDeNacimiento">Fecha de Nacimiento *</label>
+                                        <input type="date" class="form-control" name="fechaDeNacimiento" id="fechaDeNacimiento" aria-describedby="fechaDeNacimientoHelp" placeholder="Ingrese Fecha de Nacimiento" required/>
+                                        <small id="error_fechaDeNacimiento" class="error"></small>
+                                    </div>
+                                </div>
+                                <!-- Dirección -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="direccion">Dirección *</label>
+                                        <input type="text" class="form-control" name="direccion" id="direccion" aria-describedby="direccionHelp" placeholder="Ingrese Dirección" required/>
+                                        <small id="error_direccion" class="error"></small>
+                                    </div>
+                                </div>
+                                <!-- Género -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="genero">Género *</label>
+                                        <select class="form-control" name="genero" id="genero" aria-describedby="generoHelp" required>
+                                            <option value="">Seleccione Género</option>
+                                            <option value="masculino">Masculino</option>
+                                            <option value="femenino">Femenino</option>
+                                            <option value="otro">Otro</option>
+                                        </select>
+                                        <small id="error_genero" class="error"></small>
+                                    </div>
+                                </div>
+                                <!-- Contraseña -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="contrasena">Contraseña *</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="contrasena" id="contrasena" aria-describedby="contrasenaHelp" placeholder="Ingrese una contraseña" required/>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" id="togglePassword" data-toggle="contrasena"><span class="fa-regular fa-eye-slash fa-xl me-2"></span></button>
+                                            </div>
+                                        </div>
+                                        <small id="error_contrasena" class="error"></small>
+                                    </div>
+                                </div>
+                                <!-- Confirmar Contraseña -->
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="confirmarContrasena">Confirmar Contraseña *</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="confirmarContrasena" id="confirmarContrasena" aria-describedby="confirmarContrasenaHelp" placeholder="Confirme Contraseña" required/>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword" data-toggle="confirmarContrasena"><span class="fa-regular fa-eye-slash fa-xl me-2"></span></button>
+                                            </div>
+                                        </div>
+                                        <small id="error_confirmarContrasena" class="error"></small>
+                                    </div>
+                                </div>
+                                <!-- Estado -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="estado">Estado *</label>
+                                        <input type="hidden" name="estado" id="estado" value="0">
+                                        <input type="text" class="form-control" value="Activo" disabled>
+                                        <small id="estadoHelp" class="form-text text-muted"><br></small>
+                                    </div>
+                                </div>
+                                <!-- Beneficiario -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="beneficiario">Seleccionar Beneficiario *</label>
+                                        <select name="beneficiario" id="beneficiario" class="form-control" required>
+                                            <option value="">Seleccione el Beneficiario</option>
+                                            <option value="1">Sí</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                        <small id="error_beneficiario" class="error"></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Formulario de Valoración Médica -->
+                            <div id="valoracionMedica" style="display: none;">
+                                <div class="card-header py-6 text-center mb-4">
+                                    <h3 class="m-0 font-weight-bold text-primary">Valoración Médica</h3>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="TieneCondicionCronica">¿Tiene Condición Crónica? *</label>
+                                            <select class="form-control" name="TieneCondicionCronica" id="TieneCondicionCronica" aria-describedby="TieneCondicionCronicaHelp" required>
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="si">Sí</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                            <small id="error_TieneCondicionCronica" class="error"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="CirugiaPrevia">¿Cirugía Previa? *</label>
+                                            <select class="form-control" name="CirugiaPrevia" id="CirugiaPrevia" aria-describedby="CirugiaPreviaHelp" required>
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="si">Sí</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                            <small id="error_CirugiaPrevia" class="error"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="AlergiasConocidas">Alergias Conocidas *</label>
+                                            <input type="text" class="form-control" name="AlergiasConocidas" id="AlergiasConocidas" aria-describedby="AlergiasConocidasHelp" placeholder="Ingrese Alergias Conocidas" required/>
+                                            <small id="error_AlergiasConocidas" class="error"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="MedicamentosActuales">Medicamentos Actuales *</label>
+                                            <input type="text" class="form-control" name="MedicamentosActuales" id="MedicamentosActuales" aria-describedby="MedicamentosActualesHelp" placeholder="Ingrese Medicamentos Actuales" required/>
+                                            <small id="error_MedicamentosActuales" class="error"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="LesionesMusculoesqueleticas">Lesiones Musculoesqueléticas *</label>
+                                            <select class="form-control" name="LesionesMusculoesqueleticas" id="LesionesMusculoesqueleticas" aria-describedby="LesionesMusculoesqueleticasHelp" required>
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="si">Sí</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                            <small id="error_LesionesMusculoesqueleticas" class="error"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="EnfermedadCardiacaVascular">Enfermedad Cardíaca o Vascular *</label>
+                                            <select class="form-control" name="EnfermedadCardiacaVascular" id="EnfermedadCardiacaVascular" aria-describedby="EnfermedadCardiacaVascularHelp" required>
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="si">Sí</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                            <small id="error_EnfermedadCardiacaVascular" class="error"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="AntecedentesFamiliares">Antecedentes Familiares *</label>
+                                            <select class="form-control" name="AntecedentesFamiliares" id="AntecedentesFamiliares" aria-describedby="AntecedentesFamiliaresHelp" required>
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="si">Sí</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                            <small id="error_AntecedentesFamiliares" class="error"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="TipoAfiliacion">Tipo de Afiliación *</label>
+                                            <select class="form-control" name="TipoAfiliacion" id="TipoAfiliacion" aria-describedby="TipoAfiliacionHelp" required>
+                                                <option value="">Seleccione un Tipo</option>
+                                                <option value="contributivo">Contributivo</option>
+                                                <option value="subsidiado">Subsidiado</option>
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                            <small id="error_TipoAfiliacion" class="error"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="Peso">Peso (kg) *</label>
+                                            <input type="number" class="form-control" name="Peso" id="Peso" aria-describedby="PesoHelp" placeholder="Ingrese su peso en kg" required/>
+                                            <small id="error_Peso" class="error"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="Altura">Altura (m) *</label>
+                                            <input type="text" class="form-control" name="Altura" id="Altura" aria-describedby="AlturaHelp" placeholder="Ingrese su altura en metros" required/>
+                                            <small id="error_Altura" class="error"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="IMC">IMC *</label>
+                                            <input type="number" class="form-control" name="IMC" id="IMC" aria-describedby="IMCHelp" placeholder="Ingrese IMC" readonly required/>
+                                            <small id="error_IMC" class="error"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <button type="button" class="btn btn-primary next action-button float-end" id="btnRegistrar" onclick="registrarCliente()">Registrar</button>
+                                <a href="../clientes"><button type="button" name="Cancelar" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Cancelar</button></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+    <script src="../assets/js/FuncionesClientes/funcionesRegistrarCliente.js"></script>
+    <script src="../assets/js/FuncionesClientes/formClientes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

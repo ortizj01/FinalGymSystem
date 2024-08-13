@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deshboard</title>
+    {{> header}}
+</head>
+<body>
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+<div class="container-fluid content-inner">
+    <div class="card-header py-2">
+        <h2 class="m-2 font-weight-bold text-primary">Dashboard</h2>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <!-- Primera tarjeta -->
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div id="charts">
+                            <!-- Contenido del primer gráfico -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <!-- Segunda tarjeta -->
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div id="charts2">
+                            <!-- Contenido del segundo gráfico -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <!-- Tercera tarjeta debajo de la primera -->
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div id="charts3">
+                            <!-- Contenido del tercer gráfico -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <!-- Cuarta tarjeta debajo de la segunda -->
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div id="charts4">
+                            <!-- Contenido del cuarto gráfico -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    </div>
+    </div>
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+    <script src="../assets/js/dashboard.js"></script>
+    <script src="../assets/js/infoLogin.js"></script>
+    {{> footer}}
+</body>
+</html>

@@ -1,0 +1,225 @@
+.formularioRegistro__label {
+    margin-bottom: 1rem;
+}
+
+.form-text.text-muted {
+    color: red;
+}
+
+.formularioRegistro__grupo-input {
+    position: relative;
+}
+
+.formularioRegistro__input {
+    width: 100%;
+    background: #fff;
+    border: 3px solid transparent;
+    border-radius: 3px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 40px 0 10px;
+    transition: .3s ease all;
+}
+
+.formularioRegistro__input:focus {
+    border: 3px solid #0075FF;
+    outline: none;
+    box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
+}
+
+.formularioRegistro__input-error {
+    font-size: 12px;
+    margin-bottom: 0;
+    display: none;
+}
+
+.formularioRegistro__input-error-activo {
+    display: block;
+}
+
+.formularioRegistro__validacion-estado {
+    position: absolute;
+    right: 10px;
+    bottom: 36px;
+    z-index: 100;
+    font-size: 20px;
+    opacity: 0;
+    top: 50%;
+    transform: translateY(80%);
+}
+
+.formularioRegistro__checkbox {
+    margin-right: 10px;
+}
+
+.formularioRegistro__grupo-terminos,
+.formularioRegistro__mensaje,
+.formularioRegistro__grupo-btn-enviar {
+    grid-column: span 2;
+}
+
+.formularioRegistro__mensaje {
+    color: #000;
+    height: 45px;
+    line-height: 45px;
+    background: #F66060;
+    padding: 0 15px;
+    border-radius: 3px;
+    display: none;
+    margin-top: 20px;
+}
+
+.formularioRegistro__mensaje-activo {
+    display: block;
+}
+
+.formularioRegistro__mensaje p {
+    margin-top: 10px;
+    margin: 0;
+}
+
+.formularioRegistro__grupo-btn-enviar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formularioRegistro__btn {
+    height: 45px;
+    line-height: 45px;
+    width: 30%;
+    background: #000;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: .1s ease all;
+}
+
+.formularioRegistro__btn:hover {
+    box-shadow: 3px 0px 30px rgba(163, 163, 163, 1);
+}
+
+.formularioRegistro__mensaje-exito {
+    margin-top: 20px;
+    color: #000;
+    height: 45px;
+    line-height: 45px;
+    background: #119200;
+    padding: 0 15px;
+    border-radius: 3px;
+    display: none;
+}
+
+.formularioRegistro__mensaje-exito-activo {
+    display: block;
+}
+
+/* Estilos para la validación */
+.formularioRegistro__grupo-correcto .formularioRegistro__validacion-estado {
+    color: #1ed12d;
+    opacity: 1;
+}
+
+.formularioRegistro__grupo-incorrecto .formularioRegistro__label {
+    color: #bb2929;
+}
+
+.formularioRegistro__grupo-incorrecto .formularioRegistro__validacion-estado {
+    color: #bb2929;
+    opacity: 1;
+}
+
+.formularioRegistro__grupo-incorrecto .formularioRegistro__input {
+    border: 3px solid #bb2929;
+}
+
+/* Estilos para los nuevos campos del formularioRegistro */
+.formularioRegistro__nuevo-label {
+    margin-bottom: 1rem;
+}
+
+.formularioRegistro__nuevo-input {
+    width: 100%;
+    background: #fff;
+    border: 3px solid transparent;
+    border-radius: 3px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 40px 0 10px;
+    transition: .3s ease all;
+}
+
+.formularioRegistro__nuevo-input:focus {
+    border: 3px solid #0075FF;
+    outline: none;
+    box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
+}
+
+.formularioRegistro__nuevo-input-error {
+    font-size: 12px;
+    margin-bottom: 0;
+    display: none;
+}
+
+.formularioRegistro__nuevo-input-error-activo {
+    display: block;
+}
+
+.formularioRegistro__nuevo-validacion-estado {
+    position: absolute;
+    right: 10px;
+    bottom: 36px;
+    z-index: 100;
+    font-size: 20px;
+    opacity: 0;
+    top: 50%;
+    transform: translateY(80%);
+}
+
+.formularioRegistro__nuevo-checkbox {
+    margin-right: 10px;
+}
+
+/* Estilo para el título en color naranja */
+.card-header .font-weight-bold.text-primary {
+    color: #FF5733 !important; /* Naranja */
+}
+
+/* Estilo para los títulos de los acordeones */
+.card-header h5 button {
+    color: #FF5733; /* Naranja */
+    font-weight: bold;
+}
+
+.card-header h5 button:hover {
+    text-decoration: none;
+    color: #d94c26; /* Naranja más oscuro para el hover */
+}
+
+.card-header {
+    background-color: #f8f9fa; /* Color de fondo más claro para los encabezados del acordeón */
+    border: 1px solid #dee2e6; /* Borde gris claro */
+    border-radius: 5px;
+}
+
+.card-body {
+    background-color: #fff; /* Color de fondo blanco para el contenido del acordeón */
+    border: 1px solid #dee2e6; /* Borde gris claro */
+    border-top: none; /* Sin borde superior para que se conecte con el encabezado */
+    border-radius: 0 0 5px 5px;
+}
+
+/* Añadir transiciones suaves */
+.card-header h5 button {
+    transition: color 0.3s ease;
+}
+
+.card-header {
+    transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+.card-body {
+    transition: border 0.3s ease;
+}

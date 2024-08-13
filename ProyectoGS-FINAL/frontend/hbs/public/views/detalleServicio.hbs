@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Servicio</title>
+    <!-- Agregar enlaces a las bibliotecas de DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    {{> header}}
+    <link rel="stylesheet" href="../assets/css/Productos.css" />
+</head>
+<body class="  ">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}    
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Detalle de Servicio</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Nombre de Clase</th>
+                                        <td id="nombreClase">-</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th>Cantidad</th>
+                                        <td id="cantidad">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Costo Total</th>
+                                        <td id="costoTotal">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Costo de Venta</th>
+                                        <td id="costoVenta">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Estado</th>
+                                        <td id="estado">-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" class="btn btn-primary float-end" onclick="window.location.href='../serviciosAdmin'">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+<script src="../assets/js/postServicios.js"></script>
+
+  
+</body>
+</html>

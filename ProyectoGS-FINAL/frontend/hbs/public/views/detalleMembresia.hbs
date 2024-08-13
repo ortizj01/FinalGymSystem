@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de la Membresía</title>
+    {{> header}}
+</head>
+<body onload="cargarDetalleMembresia()">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Detalle de la Membresía</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre de Membresía:</label>
+                                        <label id="NombreMembresia" name="NombreMembresia"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Frecuencia:</label>
+                                        <label id="Frecuencia" name="Frecuencia"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Costo Total:</label>
+                                        <label id="CostoTotal" name="CostoTotal"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Costo Venta:</label>
+                                        <label id="CostoVenta" name="CostoVenta"></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Estado:</label>
+                                        <label id="Estado" name="Estado"></label>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered dataTable" id="dataTable" width="60%"
+                                    cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 60%;">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 93.
+                                            
+                                            0156px;">Nombre de la Clase</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="TableServicios"></tbody>
+                                </table>
+                            </div>
+                            <a href="../membresiasAdmin">
+                                <button type="button" name="Cancelar" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Volver</button>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Cargar el archivo de JavaScript -->
+    <script src="../assets/js/postMembresias.js"></script>
+    {{> footer}}
+</body>
+</html>

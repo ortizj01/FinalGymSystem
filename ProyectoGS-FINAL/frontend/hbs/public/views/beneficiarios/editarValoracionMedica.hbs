@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Valoración Médica</title>
+    {{> header}}
+    <link rel="stylesheet" href="../assets/css/BeneficiariosStyle/validacionesFormsValoracion.css" />
+</head>
+<body onload="inicializarDatosEditarValoracionMedica()">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-header py-6">
+                            <h3 class="m-0 font-weight-bold text-primary">Editar Valoración Médica</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form class="formularioRegistro" id="formularioValoracionMedica">
+                            <div class="row">
+                                <!-- ID Valoración -->
+                                <input type="hidden" id="valoracionId" name="id">
+                                <!-- ID Usuario (Oculto) -->
+                                <input type="hidden" id="IdUsuario" name="IdUsuario">
+                                <!-- Tiene Condición Crónica -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioRegistro__grupo" id="grupo__TieneCondicionCronica">
+                                        <div class="formularioRegistro__grupo-input">
+                                            <label for="TieneCondicionCronica" class="formularioRegistro__label">¿Tiene Condición Crónica? *</label>
+                                            <select class="form-control" name="TieneCondicionCronica" id="TieneCondicionCronica" aria-describedby="TieneCondicionCronicaHelp" required>
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="si">Sí</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                        <p class="formularioRegistro__input-error">Seleccione una opción válida</p>
+                                        <div><small id="TieneCondicionCronicaHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Cirugía Previa -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioRegistro__grupo" id="grupo__CirugiaPrevia">
+                                        <div class="formularioRegistro__grupo-input">
+                                            <label for="CirugiaPrevia" class="formularioRegistro__label">¿Cirugía Previa? *</label>
+                                            <select class="form-control" name="CirugiaPrevia" id="CirugiaPrevia" aria-describedby="CirugiaPreviaHelp" required>
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="si">Sí</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                        <p class="formularioRegistro__input-error">Seleccione una opción válida</p>
+                                        <div><small id="CirugiaPreviaHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Alergias Conocidas -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioRegistro__grupo" id="grupo__AlergiasConocidas">
+                                        <div class="formularioRegistro__grupo-input">
+                                            <label for="AlergiasConocidas" class="formularioRegistro__label">Alergias Conocidas *</label>
+                                            <input type="text" class="form-control" name="AlergiasConocidas" id="AlergiasConocidas" aria-describedby="AlergiasConocidasHelp" placeholder="Ingrese Alergias Conocidas" required/>
+                                            <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formularioRegistro__input-error">Ingrese alergias conocidas válidas</p>
+                                        <div><small id="AlergiasConocidasHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Medicamentos Actuales -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioRegistro__grupo" id="grupo__MedicamentosActuales">
+                                        <div class="formularioRegistro__grupo-input">
+                                            <label for="MedicamentosActuales" class="formularioRegistro__label">Medicamentos Actuales *</label>
+                                            <input type="text" class="form-control" name="MedicamentosActuales" id="MedicamentosActuales" aria-describedby="MedicamentosActualesHelp" placeholder="Ingrese Medicamentos Actuales" required/>
+                                            <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formularioRegistro__input-error">Ingrese medicamentos actuales válidos</p>
+                                        <div><small id="MedicamentosActualesHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Lesiones Musculoesqueléticas -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioRegistro__grupo" id="grupo__LesionesMusculoesqueleticas">
+                                        <div class="formularioRegistro__grupo-input">
+                                            <label for="LesionesMusculoesqueleticas" class="formularioRegistro__label">Lesiones Musculoesqueléticas *</label>
+                                            <select class="form-control" name="LesionesMusculoesqueleticas" id="LesionesMusculoesqueleticas" aria-describedby="LesionesMusculoesqueleticasHelp" required>
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="si">Sí</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                        <p class="formularioRegistro__input-error">Seleccione una opción válida</p>
+                                        <div><small id="LesionesMusculoesqueleticasHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Enfermedad Cardíaca o Vascular -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioRegistro__grupo" id="grupo__EnfermedadCardiacaVascular">
+                                        <div class="formularioRegistro__grupo-input">
+                                            <label for="EnfermedadCardiacaVascular" class="formularioRegistro__label">Enfermedad Cardíaca o Vascular *</label>
+                                            <select class="form-control" name="EnfermedadCardiacaVascular" id="EnfermedadCardiacaVascular" aria-describedby="EnfermedadCardiacaVascularHelp" required>
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="si">Sí</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                        <p class="formularioRegistro__input-error">Seleccione una opción válida</p>
+                                        <div><small id="EnfermedadCardiacaVascularHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Antecedentes Familiares -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioRegistro__grupo" id="grupo__AntecedentesFamiliares">
+                                        <div class="formularioRegistro__grupo-input">
+                                            <label for="AntecedentesFamiliares" class="formularioRegistro__label">Antecedentes Familiares *</label>
+                                            <select class="form-control" name="AntecedentesFamiliares" id="AntecedentesFamiliares" aria-describedby="AntecedentesFamiliaresHelp" required>
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="si">Sí</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                        <p class="formularioRegistro__input-error">Seleccione una opción válida</p>
+                                        <div><small id="AntecedentesFamiliaresHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Tipo de Afiliación -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioRegistro__grupo" id="grupo__TipoAfiliacion">
+                                        <div class="formularioRegistro__grupo-input">
+                                            <label for="TipoAfiliacion" class="formularioRegistro__label">Tipo de Afiliación *</label>
+                                            <select class="form-control" name="TipoAfiliacion" id="TipoAfiliacion" aria-describedby="TipoAfiliacionHelp" required>
+                                                <option value="">Seleccione un Tipo</option>
+                                                <option value="contributivo">Contributivo</option>
+                                                <option value="subsidiado">Subsidiado</option>
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                        </div>
+                                        <p class="formularioRegistro__input-error">Seleccione un tipo de afiliación válido</p>
+                                        <div><small id="TipoAfiliacionHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Peso -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioRegistro__grupo" id="grupo__Peso">
+                                        <div class="formularioRegistro__grupo-input">
+                                            <label for="Peso" class="formularioRegistro__label">Peso (kg) *</label>
+                                            <input type="number" class="form-control" name="Peso" id="Peso" aria-describedby="PesoHelp" placeholder="Ingrese su peso en kg" required/>
+                                            <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formularioRegistro__input-error">Ingrese un peso válido</p>
+                                        <div><small id="PesoHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- Altura -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioRegistro__grupo" id="grupo__Altura">
+                                        <div class="formularioRegistro__grupo-input">
+                                            <label for="Altura" class="formularioRegistro__label">Altura (m) *</label>
+                                            <input type="number" class="form-control" name="Altura" id="Altura" aria-describedby="AlturaHelp" placeholder="Ingrese su altura en metros" step="0.01" required/>
+                                            <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formularioRegistro__input-error">Ingrese una altura válida</p>
+                                        <div><small id="AlturaHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                                <!-- IMC -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioRegistro__grupo" id="grupo__IMC">
+                                        <div class="formularioRegistro__grupo-input">
+                                            <label for="IMC" class="formularioRegistro__label">IMC *</label>
+                                            <input type="number" class="form-control" name="IMC" id="IMC" aria-describedby="IMCHelp" placeholder="Ingrese IMC" readonly required/>
+                                            <i class="formularioRegistro__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formularioRegistro__input-error">Ingrese un IMC válido</p>
+                                        <div><small id="IMCHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="button" class="btn btn-primary next action-button float-end" onclick="editarValoracionMedica()">Actualizar</button>
+                                <a href="../beneficiarios"><button type="button" name="Cancelar" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Cancelar</button></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> footer}}
+    </footer>
+    <!-- Footer Section End -->
+
+    <script src="../assets/js/FuncionesBeneficiarios/funcionesValoracionMedica.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        
+    </script>
+</body>
+</html>

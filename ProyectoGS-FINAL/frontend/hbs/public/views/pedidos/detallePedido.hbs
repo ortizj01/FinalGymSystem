@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Pedido</title>
+    <link rel="stylesheet" href="../assets/css/ClientesStyle/acordeon.css">
+    {{> header}}
+</head>
+<body>
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="card-header py-3 text-center">
+            <h3 class="m-0 font-weight-bold text-primary">Detalle pedido</h3>
+        </div>
+
+        <section class="checkout-wrapper section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="checkout-steps-form-style-1">
+                            <ul id="accordionExample">
+                                <li>
+                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseCliente"
+                                        aria-expanded="true" aria-controls="collapseCliente">Datos Cliente</h6>
+                                    <section class="checkout-steps-form-content collapse show" id="collapseCliente"
+                                        aria-labelledby="headingCliente" data-bs-parent="#accordionExample">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="docCliente">Documento</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="docCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="nombreCliente">Nombre</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="nombreCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="emailCliente">Correo electrónico</label>
+                                                    <div class="form-input form">
+                                                        <input type="email" id="emailCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="telCliente">Teléfono</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="telCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="dirCliente">Dirección</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="dirCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="estadoCliente">Estado</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="estadoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+                            </ul>
+                            <ul id="accordionBeneficiario">
+                                <!-- Aquí se agregarán dinámicamente los acordeones de beneficiarios -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="single-form form-default">
+                        <label for="fechaPedido">Fecha Pedido</label>
+                        <div class="form-input form">
+                            <input type="text" id="fechaPedido" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="single-form form-default">
+                        <label for="estadoPedido">Estado Pedido</label>
+                        <div class="form-input form">
+                            <input type="text" id="estadoPedido" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header py-3 text-center">
+                    <h3 class="m-0 font-weight-bold text-primary">Servicios</h3>
+                </div>
+                <div class="bd-example table-responsive">
+                    <table class="table table-bordered dataTable" id="dataTableServicios" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Servicio</th>
+                                <th scope="col">Precio Unitario</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th colspan="3">TOTAL</th>
+                                <th id="totalServicios"></th>
+                            </tr>
+                        </tfoot>
+                        <tbody id="tablaServicios">
+                            <!-- Contenido generado dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-header py-3 text-center">
+                    <h3 class="m-0 font-weight-bold text-primary">Productos</h3>
+                </div>
+                <div class="bd-example table-responsive">
+                    <table class="table table-bordered dataTable" id="dataTableProductos" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Precio Unitario</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th colspan="3">TOTAL</th>
+                                <th id="totalProductos"></th>
+                            </tr>
+                        </tfoot>
+                        <tbody id="tablaProductos">
+                            <!-- Contenido generado dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bd-example table-responsive">
+                    <table class="table table-bordered dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th scope="col">TOTAL PEDIDO</th>
+                                <th id="totalPedido"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="pedidos" class="me-2"><button type="button" class="btn btn-dark">Volver</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+
+    <script src="../assets/js/FuncionesPedidos/funcionesVerDetallePedido.js"></script>
+</body>
+</html>

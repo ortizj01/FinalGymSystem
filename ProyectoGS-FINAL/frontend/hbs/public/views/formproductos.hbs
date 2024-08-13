@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Producto</title>
+    {{> header}}
+    <link rel="stylesheet" href="../assets/css/Productos.css" />
+</head>
+<body class="  ">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+<div class="container-fluid content-inner">
+            <div class="row">                
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Agregar Producto</h4>
+                        </div>
+                        </div>
+                        <div class="card-body">
+                            <form action="" class="formularioProductos" id="formularioProductos" >
+                                    <div class="row"  >
+                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Nombreproducto">
+                                        <div class="form-group" id="grupo__Nombreproducto">
+                                            <label class="form-label" >Nombre Producto*</label>
+                                            <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control " name="Nombreproducto" placeholder="Nombre Producto" id="Nombreproducto" />
+                                            <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formulario__input-error">Ingrese nombre producto valido</p>
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Precioproducto" >
+                                        <div class="form-group" id="grupo__Precioproducto">
+                                            <label class="form-label" >Precio producto*</label>
+                                            <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control " name="Precioproducto" placeholder="Precio producto" id="Precioproducto" />
+                                            <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formulario__input-error">Ingrese precio producto valido</p>
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Imagen" >
+                                        <div class="form-group" id="grupo__Imagen">
+                                            <label class="form-label" >Imagen*</label>
+                                            <div class="formulario__grupo-input">
+                                            <input type="file" class="form-control " name="Imagen" placeholder="Imagen a ingresar" id="Imagen" />
+                                            <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formulario__input-error">Ingrese formato imagen valida</p>
+                                        </div>
+                                    </div> 
+                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Ivaproducto" >
+                                        <div class="form-group" id="grupo__Ivaproducto">
+                                            <label class="form-label" >Iva del producto*</label>
+                                            <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control " name="Ivaproducto" placeholder="Iva del producto" id="Ivaproducto" />
+                                            <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+                                            </div>
+                                            <p class="formulario__input-error">Ingrese iva del producto valida</p>
+                                        </div>
+                                    </div> 
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label" for="exampleFormControlSelect1">Categoria del producto*</label>
+                                            <select class="form-select" id="SelectorCategoria">
+                                            <option selected="" disabled="" value="">Selecciona La Categoria del producto</option>
+                                            </select>
+                                        </div>
+                                        </div>
+
+
+                                    </div>
+                                
+                                <button type="submit" onclick="agregarProducto()" class="btn btn-primary next action-button float-end" >Guardar</button>
+                                <a href="../Productos"><button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Cancelar</button></a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+    <script src="../assets/js/productos.js"></script>
+    {{> footer}}
+    
+</body>
+</html>

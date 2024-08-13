@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar devolucion 2 </title>
+    {{> header}}
+</head>
+
+<body class="  ">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+    {{> sidebar}}
+
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+
+<div class="container-fluid content-inner">
+    <div class="row">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <div class="header-title">
+                        <h4 class="card-title">Agregar Devolución</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="FormularioDevolucion">
+                        <div class="row">
+                            <!-- Columna Izquierda -->
+                            <div class="col-md-6">
+                                <div class="form-group mt-3">
+                                    <label class="form-label" for="motivo">Motivo:</label>
+                                    <textarea class="form-control" name="Motivo" id="motivo" placeholder="Escribe tu motivo aquí..." required></textarea>
+                                    <span class="error-message" id="Motivo-error"></span>
+                                </div>
+                            </div>
+
+                            <!-- Columna Derecha -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="fechaDevolucion">Fecha Devolución *</label>
+                                    <input type="date" class="form-control" name="fechaDevolucion" id="fechaDevolucion" readonly />
+                                    <span class="error-message" id="fechaDevolucion-error"></span>
+                                </div>
+
+                                <div class="form-group mt-3">
+                                    <label class="form-label" for="valorDevolucionVenta">Valor Devolución*</label>
+                                    <input type="number" class="form-control" name="valorDevolucionVenta" id="valorDevolucionVenta" required readonly />
+                                    <span class="error-message" id="valorDevolucionVenta-error"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Productos Asociados -->
+                        <div class="form-group mt-4">
+                            <label for="productos">Productos Asociados</label>
+                            <div id="productosDeVentaContainer">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio Unitario</th>
+                                            <th>Total</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productosDeVentaTable">
+                                        <!-- Productos de la venta cargados dinámicamente -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <span class="error-message" id="producto-error"></span>
+                        </div>
+
+                        <button type="button" onclick="enviarDevVenta()" class="btn btn-primary next action-button float-end">Guardar</button>
+                        <a href="GestionDevoluciones" type="button" class="btn btn-dark previous action-button-previous float-end me-1">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../assets/js/devolucionVentas/formDevolucionVenta.js"></script>
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+
+</html>

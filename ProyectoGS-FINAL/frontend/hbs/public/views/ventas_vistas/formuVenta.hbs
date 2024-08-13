@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva venta</title>
+    {{> header}}
+
+    <!-- Incluye jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Incluye Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    {{> sidebar}}
+    {{> topbar}}
+
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title font-weight-bold text-primary">Agregar Venta</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="formVenta">
+                            <div class="row">
+                                <!-- Selección de Cliente -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label font-weight-bold text-secondary" for="idUsuarios">Usuario *</label>
+                                        <select class="form-select" id="idUsuarios" name="idUsuarios" required>
+                                            <option selected="" disabled="">Selecciona el Usuario</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Fecha de Venta -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label font-weight-bold text-secondary">Fecha Venta*</label>
+                                        <input type="date" class="form-control" name="fechaVenta" id="fechaVenta" required />
+                                        <div id="errorFechaVenta" class="error-message"></div>
+                                    </div>
+                                </div>
+                                <!-- Productos y Membresías -->
+                                <div class="col-md-12 mt-3">
+                                    <h5 class="font-weight-bold text-secondary">Productos</h5>
+                                    <table class="table table-bordered">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Valor</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="productosAgregados">
+                                            <tr class="productoContainer">
+                                                <td>
+                                                    <select id="selectProducto" class="form-select" name="productos[]" onchange="actualizarValorProducto(this)" required>
+                                                        <option selected="" disabled="">Agregar producto a la venta</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="cantidades[]" value="1" min="1" class="form-control" required onchange="verificarCantidadProducto(this)">
+                                                </td>
+                                                <td>
+                                                    <label class="valorProducto">$0</label>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-soft-info" onclick="agregarProducto()"><i class="fa-solid fa-plus fa-lg"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <h5 class="font-weight-bold text-secondary mt-3">Membresías</h5>
+                                    <table class="table table-bordered mt-3">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Membresía</th>
+                                                <th>Cantidad</th>
+                                                <th>Valor</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="membresiasAgregadas">
+                                            <tr class="membresiaContainer">
+                                                <td>
+                                                    <select id="selectMembresia" class="form-select" name="membresias[]" onchange="actualizarValorMembresia(this)" required>
+                                                        <option selected="" disabled="">Agregar membresía a la venta</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="cantidadesMembresia[]" value="1" min="1" class="form-control" required onchange="calcularValorTotal()">
+                                                </td>
+                                                <td>
+                                                    <label class="valorMembresia">$0</label>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-soft-info" onclick="agregarMembresia()"><i class="fa-solid fa-plus fa-lg"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- Total -->
+                                <div class="col-md-12 mt-3">
+                                    <div class="form-group text-center">
+                                        <label class="form-label font-weight-bold text-secondary">Total*</label>
+                                        <input type="number" class="form-control" name="total" id="total" required readonly style="width: 200px; margin: auto;" />
+                                        <div id="errorTotal" class="error-message"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end mt-4">
+                                <button type="button" onclick="enviarVenta()" class="btn btn-primary">Guardar</button>
+                                <button type="button" class="btn btn-dark ms-2" onclick="location.href='/GestionVentas'">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/ventas/crud.ventas.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{> footer}}
+</body>
+
+</html>

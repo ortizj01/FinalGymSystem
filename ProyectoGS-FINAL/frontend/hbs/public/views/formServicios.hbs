@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario servicios</title>
+    {{> header}}
+    <link rel="stylesheet" href="../assets/css/Productos.css" />
+</head>
+<body>
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Agregar servicio</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="FormularioServicios">
+                            <div class="row">
+                                <!-- Nombre del servicio -->
+                                <div class="col-md-6 formulario_grupo" id="grupo_NombreClase">
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre del servicio*</label>
+                                        <div class="formulario__grupo-input">
+                                            <input type="text" class="form-control" name="NombreClase" placeholder="Nombre del servicio" id="NombreClase" required/>
+                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formulario__input-error">Por favor ingresa un nombre válido para el servicio</p>
+                                    </div>
+                                </div>
+
+                                <!-- Cantidad -->
+                                <div class="col-md-6 formulario_grupo" id="grupo_Cantidad">
+                                    <div class="form-group formulario__grupo-input">
+                                        <label class="form-label">Cantidad*</label>
+                                        <input type="number" class="form-control" name="Cantidad" placeholder="Cantidad" id="Cantidad" required/>
+                                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                        <p class="formulario__input-error">Ingresa una cantidad válida para el servicio</p>
+                                    </div>
+                                </div>
+
+                                <!-- Costo total -->
+                                <div class="col-md-6 formulario_grupo" id="grupo_CostoTotal">
+                                    <div class="form-group">
+                                        <label class="form-label">Costo total*</label>
+                                        <div class="formulario__grupo-input">
+                                            <input type="number" class="form-control" name="CostoTotal" placeholder="Costo total" id="CostoTotal" required/>
+                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formulario__input-error">Ingresa un costo total válido para el servicio.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Costo de venta -->
+                                <div class="col-md-6 formulario_grupo" id="grupo_CostoVenta">
+                                    <div class="form-group">
+                                        <label class="form-label">Costo de venta*</label>
+                                        <div class="formulario__grupo-input">
+                                            <input type="number" class="form-control" name="CostoVenta" placeholder="Costo de venta" id="CostoVenta" required/>
+                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                        </div>
+                                        <p class="formulario__input-error">Ingresa un costo de venta válido para el servicio</p>
+                                    </div>
+                                </div>
+
+                                <!-- Estado -->
+                                <div class="col-md-6 formulario_grupo" id="grupo_Estado">
+                                    <div class="form-group">
+                                        <label class="form-label" for="Estado">Estado*</label>
+                                        <div class="formulario__grupo-input">
+                                            <select class="form-select" id="Estado" name="Estado" required>
+                                                <option value="" disabled selected hidden>Selecciona el estado</option>
+                                                <option value="1">Activo</option>
+                                                <option value="0">Inactivo</option>
+                                            </select>
+                                            <i class="formulario__validacion-estado fas fa-eye-slash"></i>
+                                            <span class="error-message" id="estado-error"></span>
+                                        </div>
+                                        <p class="formulario__input-error">Por favor selecciona un estado</p>
+                                    </div>
+                                </div>
+
+                               
+
+                            <div class="row mt-4">
+                                <div class="col-md-12 text-end">
+                                    <button type="submit" class="btn btn-primary next action-button">Guardar</button>
+                                    <a href="serviciosAdmin">
+                                        <button type="button" name="previous" class="btn btn-dark previous action-button-previous ms-2">Cancelar</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+    <script src="../assets/js/postServicios.js"></script>
+    <script src="../assets/js/formServicios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{> footer}}
+</body>
+</html>

@@ -1,0 +1,24 @@
+input {
+    border-width: 2px;
+}
+
+input:invalid {
+    border-color: red;
+}
+
+input:valid {
+    border-color: green;
+}
+
+select:invalid {
+    border-color: red;
+}
+
+select:valid {
+    border-color: green;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+}

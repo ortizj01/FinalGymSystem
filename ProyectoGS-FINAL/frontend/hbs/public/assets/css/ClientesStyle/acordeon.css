@@ -1,0 +1,22 @@
+/* Agrega estilos a la barra de la sección */
+.checkout-steps-form-style-1 h6.title {
+    background-color: coral; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el título */
+}
+
+/* Estilo cuando el título está colapsado */
+.checkout-steps-form-style-1 h6.title.collapsed {
+    background-color: #2c3e50; /* Cambia el color cuando está colapsado */
+}
+
+/* Estilo para el contenido de la sección colapsada */
+.checkout-steps-form-content {
+    background-color: #ecf0f1; /* Color de fondo del contenido colapsado */
+    border: 1px solid #bdc3c7; /* Borde del contenido colapsado */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+}
+

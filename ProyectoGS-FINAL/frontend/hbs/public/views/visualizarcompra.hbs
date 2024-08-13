@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar proveedor</title>
+    {{> header}}
+</head>
+<body onload="precargarDatosCompraEnFormulario(); precargarDatosCompraproductoEnFormulario()">
+        <!-- Inicio del cargar -->
+    <div id="loading">
+      <div class="loader simple-loader">
+          <div class="loader-body">
+          </div>
+      </div>    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+        {{> sidebar}}    
+ 
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+        {{> topbar}}
+    <!-- Fin Barra superior -->
+
+              
+    <!-- Inicio contenido -->      
+<div class="container-fluid content-inner">
+            <div class="row">                
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Visualizar compra</h4>
+                        </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- fieldsets -->
+                                    <form>
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Fecha compra</label>
+                                            <label id="Fechacompra" name="Fechacompra"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Fecha registro compra</label>
+                                            <label id="Fecharegistrocompra" name="Fecharegistrocompra"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Valor compra</label>
+                                            <label id="Valorcompra" name="Valorcompra"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Numero recibo compra</label>
+                                            <label id="Numerorecibocompra" name="Numerorecibocompra"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Proveedor</label>
+                                            <label id="Proveedor" name="Proveedor"></label>
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered dataTable" id="dataTable" width="100%"
+                                        cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                                        style="width: 100%;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                    colspan="1" aria-label="Salary: activate to sort column ascending"
+                                                    style="width: 93.0156px;">Producto</th>
+                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Name: activate to sort column descending"
+                                                    style="width: 156.25px;">Valor Unitario</th>
+                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Name: activate to sort column descending"
+                                                    style="width: 156.25px;">Cantidad</th>
+                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable"
+                                                    rowspan="1" colspan="1" aria-sort="ascending"
+                                                    aria-label="Name: activate to sort column descending"
+                                                    style="width: 156.25px;">Valor total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="compraProductoTable">                        
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <a href="../Compras"><button type="button" name="Cancelar" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Volver</button></a>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    <!-- Fin contenido --> 
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+    <script src="../assets/js/compras.js"></script>
+    {{> footer}}
+</body>
+</html>

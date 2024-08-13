@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Rol</title>
+    {{> header}}
+</head>
+
+<body class="  ">
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body">
+            </div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+
+    {{> sidebar}}
+
+    <!-- Fin Barra lateral -->
+
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Agregar rol</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="FormularioRol">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre Rol:</label>
+                                        <input type="text" class="form-control" name="NombreRol"
+                                            placeholder="Nombre Rol" oninput="validateNombreRol(this)" />
+                                        <span class="error-message" id="nombre-error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="estado">Estado</label>
+                                        <select id="estado" name="estado">
+                                            <option value="activo">Activo</option>
+                                            <option value="desactivado">Desactivado</option>
+                                        </select>
+                                        <span class="error-message" id="estado-error"></span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="fecha">Selecciona una fecha:</label>
+                                        <input type="date" id="fecha" name="fecha" class="form-control">
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" name="Guardar" class="btn btn-primary next action-button float-end"
+                                value="Next">Guardar</button>
+                            <a href="roles" type="button" name="Cancelar"
+                                class="btn btn-dark previous action-button-previous float-end me-1"
+                                value="Previous">Cancelar</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <script src="../assets/js/formDevolucion.js"></script>
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    {{> footer}}
+</body>
+
+</html>

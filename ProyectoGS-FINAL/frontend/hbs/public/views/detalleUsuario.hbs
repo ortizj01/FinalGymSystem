@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle usuario</title>
+    {{> header}}
+    <link rel="stylesheet" href="../assets/css/Productos.css" />
+</head>
+<body>
+    <!-- Inicio del cargar -->
+    <div id="loading">
+        <div class="loader simple-loader">
+            <div class="loader-body"></div>
+        </div>
+    </div>
+    <!-- Fin cargar -->
+
+    <!-- Inicio Barra lateral -->
+    {{> sidebar}}
+    <!-- Fin Barra lateral -->
+
+    <!-- Inicio Barra superior -->
+    {{> topbar}}
+    <!-- Fin Barra superior -->
+
+    <!-- Inicio contenido -->
+    <div class="container-fluid content-inner">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Detalle usuario</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <td id="nombre">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Apellidos</th>
+                                        <td id="apellidos">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Correo electrónico</th>
+                                        <td id="email">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Teléfono</th>
+                                        <td id="telefono">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tipo de documento</th>
+                                        <td id="tipoDocumento">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Documento</th>
+                                        <td id="documento">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fecha de nacimiento</th>
+                                        <td id="fechaNacimiento">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Dirección</th>
+                                        <td id="direccion">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Género</th>
+                                        <td id="genero">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Estado</th>
+                                        <td id="estado">-</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Beneficiario</th>
+                                        <td id="beneficiario">-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="button" class="btn btn-primary float-end" onclick="window.location.href='../usuariosAdmin'">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin contenido -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer">
+        {{> copyright}}
+    </footer>
+    <!-- Footer Section End -->
+
+    <script src="../assets/js/postUsuarios.js"></script>
+
+    {{> footer}}
+
+</body>
+</html>
