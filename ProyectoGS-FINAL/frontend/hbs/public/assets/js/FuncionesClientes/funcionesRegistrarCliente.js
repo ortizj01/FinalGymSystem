@@ -58,7 +58,7 @@ async function registrarCliente() {
         Genero: data.genero,
         Contrasena: data.contrasena,
         Estado: data.estado,
-        Beneficiario: data.beneficiario
+        Beneficiario: null
     };
 
     try {

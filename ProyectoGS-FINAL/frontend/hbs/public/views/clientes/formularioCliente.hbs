@@ -44,8 +44,7 @@
                                         <select class="form-control" name="tipoDocumento" id="tipoDocumento" aria-describedby="tipoDocumentoHelp" required>
                                             <option value="">Seleccione Tipo de Documento</option>
                                             <option value="cedula_ciudadania">Cédula de Ciudadanía</option>
-                                            <option value="cedula_extranjeria">Cédula de Extranjería</option>
-                                            <option value="tarjeta_identidad">Tarjeta de Identidad</option>
+                                            <option value="pasaporte">Pasaporte</option>
                                         </select>
                                         <small id="error_tipoDocumento" class="error"></small>
                                     </div>
@@ -112,9 +111,8 @@
                                         <label for="genero">Género *</label>
                                         <select class="form-control" name="genero" id="genero" aria-describedby="generoHelp" required>
                                             <option value="">Seleccione Género</option>
-                                            <option value="masculino">Masculino</option>
-                                            <option value="femenino">Femenino</option>
-                                            <option value="otro">Otro</option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Femenino">Femenino</option>
                                         </select>
                                         <small id="error_genero" class="error"></small>
                                     </div>
@@ -146,10 +144,10 @@
                                     </div>
                                 </div>
                                 <!-- Estado -->
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="display: none;">
                                     <div class="form-group">
                                         <label for="estado">Estado *</label>
-                                        <input type="hidden" name="estado" id="estado" value="0">
+                                        <input type="hidden" name="estado" id="estado" value="1">
                                         <input type="text" class="form-control" value="Activo" disabled>
                                         <small id="estadoHelp" class="form-text text-muted"><br></small>
                                     </div>

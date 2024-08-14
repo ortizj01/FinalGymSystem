@@ -29,7 +29,7 @@ $(document).ready(function() {
     }
 
     function fetchUsuarios() {
-        return fetchWithAuth('http://localhost:3000/api/usuarios')
+        return fetchWithAuth('http://localhost:3000/api/usuariosRutina')
             .then(response => response.json())
             .catch(error => console.error('Error al obtener usuarios:', error));
     }
