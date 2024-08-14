@@ -16,7 +16,7 @@ router.get('/rutinas/:IdRutina/detallada', validarJWT, getRutinaDetallada);
 router.delete('/rutinas/:IdRutina/ejercicios', validarJWT, deleteEjerciciosDeRutina); 
 
 // Nueva ruta para obtener los usuarios
-router.get('/usuarios',getUsuarios)
+router.get('/usuariosRutina',getUsuarios)
 
 // Nueva ruta para obtener la rutina completa del usuario
 router.get('/rutinas/completa/:IdUsuario', getRutinaCompletaPorUsuario);

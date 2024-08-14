@@ -83,10 +83,10 @@ function mostrarInformacionUsuario() {
 
             const permisoCarrito = roleDataArray.find(permiso => permiso.NombrePermiso === "Carrito");
             
-            // const permisoServicios = roleDataArray.find(permiso => permiso.NombrePermiso === "Servicios");
+            const permisoServicios = roleDataArray.find(permiso => permiso.NombrePermiso === "Servicios");
             const permisoUsuarios = roleDataArray.find(permiso => permiso.NombrePermiso === "Usuarios");
             const permisoRoles = roleDataArray.find(permiso => permiso.NombrePermiso === "Roles");
-            // const permisoMembresias = roleDataArray.find(permiso => permiso.NombrePermiso === "Membresias");
+            const permisoMembresias = roleDataArray.find(permiso => permiso.NombrePermiso === "Membresias");
 
             
 
@@ -114,11 +114,11 @@ function mostrarInformacionUsuario() {
             const permisoElementoPedidos = document.getElementById("PermisoPedidos");
 
             const permisoElementoCarrito = document.getElementById("PermisoCarrito");
-            // const permisoElementoServicios = document.getElementById("PermisoServicios");
+            const permisoElementoServicios = document.getElementById("PermisoServicios");
             const permisoElementoUsuarios = document.getElementById("PermisoUsuarios");
             const permisoElementoRoles = document.getElementById("PermisoRoles");
             const permisoElementoConfiguracionPadre = document.getElementById("ConfiguracionPadre");
-            // const permisoElementoMembresias = document.getElementById("PermisoMembresias");
+            const permisoElementoMembresias = document.getElementById("PermisoMembresias");
 
             
             
@@ -143,6 +143,10 @@ function mostrarInformacionUsuario() {
             // Botones para crear CONFIGURACION
             const permisoBottonCrearUsuario = document.getElementById("UsuarioBtnPermiso");
             const permisoBottonCrearRol = document.getElementById("RolBtnPermiso");
+
+            // Botones para crear SERVICIOS
+            const permisoBottonCrearServicios = document.getElementById("ServiciosBtnPermiso");
+            const permisoBottonCrearMembresias = document.getElementById("MembresiasBtnPermiso");
             
 
             //Permisos Editar
@@ -155,6 +159,14 @@ function mostrarInformacionUsuario() {
                 //Rutinas
             const permisoBottonheaderCrearRutina = document.getElementById("PermisoHeaderRutinas");
             const permisoBottnCrearRutina = document.querySelectorAll(".column-to-hide-rutina");
+
+            // Servicios
+            const permisoBottonheaderCrearServicios = document.getElementById("PermisoHeaderServicios");
+            const permisoBottnCrearServicios = document.querySelectorAll(".column-to-hide-servicios");
+
+            // Membresías
+            const permisoBottonheaderCrearMembresias = document.getElementById("PermisoHeaderMembresias");
+            const permisoBottnCrearMembresias = document.querySelectorAll(".column-to-hide-membresias");
 
             //COMPRAS
 
@@ -207,81 +219,120 @@ function mostrarInformacionUsuario() {
             const permisoBottnCrearRol = document.querySelectorAll(".column-to-hide-rol");
             
             
-            //Permisos SERVICIOS    
-            if (permisoRutinas.NombrePermiso === "Rutinas" && permisoRutinas.Visualizar === 0 
-                && permisoEjercicios.NombrePermiso === "Ejercicios" 
-                && permisoEjercicios.Visualizar === 0
-                && permisoEventos.Visualizar === 0) {
-                    permisoElementoServiciosPadre.style.display = "none";
-                        
-                        }else{
-
-                            //Permisos Eventos
-                            if (permisoEventos.NombrePermiso === "Eventos" && permisoEventos.Visualizar === 0) {
-                                permisoElementoEventos.style.display = "none";
-                                permisoElementoEventosCliente.style.display = "none";
-                                
-                            }else{
-                                if (data.IdRol === 3) {
-                                    permisoElementoEventos.style.display = "none";
-                                    //Desactivar rutas
-                                    if (window.location.pathname === '/eventos' 
-                                    ) {
-                                        window.location.href = '/eventosCliente';
-                                    }
-                                }else{
-                                    permisoElementoEventosCliente.style.display = "none";
-                                }
-                                
-                        }
-
-                            //Permisos Rutinas
-                            if (permisoRutinas.NombrePermiso === "Rutinas" && permisoRutinas.Visualizar === 0) {
-                                permisoElementoRutinas.style.display = "none";
-                            } else {
-
-                                if (permisoBottonCrearRutina != null) {
-                                    if (permisoRutinas.Crear === 0) {
-                                        console.log("dandole1 Ejercicio");
-                                        permisoBottonCrearRutina.style.display = "none";
-                                    }
-                                }
-
-                                if (permisoRutinas.Editar === 0) {
-                                    console.log("dandole2 Ejercicio");
-                                    if (permisoBottonheaderCrearRutina != null) {
-                                        permisoBottonheaderCrearRutina.style.display = "none";
-                                    }
-                                    
-                                    if (permisoBottnCrearRutina != null) {
-                                            permisoBottnCrearRutina.forEach(element => {
-                                                element.style.display = "none";
-                                            });
-                                        }
-                                    }      
-                        }
-            
-
-                //Permisos Ejercicios
-                if (permisoEjercicios.NombrePermiso === "Ejercicios" && permisoEjercicios.Visualizar === 0) {
-                    
-                        permisoElementoEjercicios.style.display = "none";
-                    
+            // Permisos SERVICIOS    
+                if (permisoRutinas.NombrePermiso === "Rutinas" && permisoRutinas.Visualizar === 0 
+                    && permisoEjercicios.NombrePermiso === "Ejercicios" 
+                    && permisoEjercicios.Visualizar === 0
+                    && permisoEventos.Visualizar === 0
+                    && permisoServicios.Visualizar === 0
+                    && permisoMembresias.Visualizar === 0) {
+                        permisoElementoServiciosPadre.style.display = "none";
                 } else {
-                    if (permisoBottonCrearEjercicio != null) {
-                        if (permisoEjercicios.Crear === 0) {
-                            console.log("dandole1 Ejercicio");
-                            permisoBottonCrearEjercicio.style.display = "none";
+                    // Permisos Servicios
+                    if (permisoServicios.NombrePermiso === "Servicios" && permisoServicios.Visualizar === 0) {
+                        if (permisoElementoServicios != null) {
+                            permisoElementoServicios.style.display = "none";
+                        }
+                    } else {
+                        if (permisoBottonCrearServicios != null) {
+                            if (permisoServicios.Crear === 0) {
+                                permisoBottonCrearServicios.style.display = "none";
+                            }
+                        }
+
+                        if (permisoServicios.Editar === 0) {
+                            if (permisoBottonheaderCrearServicios != null) {
+                                permisoBottonheaderCrearServicios.style.display = "none";
+                            }
+
+                            if (permisoBottnCrearServicios != null) {
+                                permisoBottnCrearServicios.forEach(element => {
+                                    element.style.display = "none";
+                                });
+                            }
                         }
                     }
 
-                    if (permisoEjercicios.Editar === 0) {
-                        console.log("dandole2 Ejercicio");
-                        if (permisoBottonheaderCrearEjercicio != null) {
-                            permisoBottonheaderCrearEjercicio.style.display = "none";
+                    // Permisos Membresias
+                    if (permisoMembresias.NombrePermiso === "Membresias" && permisoMembresias.Visualizar === 0) {
+                        if (permisoElementoMembresias != null) {
+                            permisoElementoMembresias.style.display = "none";
                         }
-                        
-                        if (permisoBottnCrearEjercicio != null) {
+                    } else {
+                        if (permisoBottonCrearMembresias != null) {
+                            if (permisoMembresias.Crear === 0) {
+                                permisoBottonCrearMembresias.style.display = "none";
+                            }
+                        }
+
+                        if (permisoMembresias.Editar === 0) {
+                            if (permisoBottonheaderCrearMembresias != null) {
+                                permisoBottonheaderCrearMembresias.style.display = "none";
+                            }
+
+                            if (permisoBottnCrearMembresias != null) {
+                                permisoBottnCrearMembresias.forEach(element => {
+                                    element.style.display = "none";
+                                });
+                            }
+                        }
+                    }
+
+                    // Permisos Eventos
+                    if (permisoEventos.NombrePermiso === "Eventos" && permisoEventos.Visualizar === 0) {
+                        permisoElementoEventos.style.display = "none";
+                        permisoElementoEventosCliente.style.display = "none";
+                    } else {
+                        if (data.IdRol === 3) {
+                            permisoElementoEventos.style.display = "none";
+                            //Desactivar rutas
+                            if (window.location.pathname === '/eventos') {
+                                window.location.href = '/eventosCliente';
+                            }
+                        } else {
+                            permisoElementoEventosCliente.style.display = "none";
+                        }
+                    }
+
+                    // Permisos Rutinas
+                    if (permisoRutinas.NombrePermiso === "Rutinas" && permisoRutinas.Visualizar === 0) {
+                        permisoElementoRutinas.style.display = "none";
+                    } else {
+                        if (permisoBottonCrearRutina != null) {
+                            if (permisoRutinas.Crear === 0) {
+                                permisoBottonCrearRutina.style.display = "none";
+                            }
+                        }
+
+                        if (permisoRutinas.Editar === 0) {
+                            if (permisoBottonheaderCrearRutina != null) {
+                                permisoBottonheaderCrearRutina.style.display = "none";
+                            }
+
+                            if (permisoBottnCrearRutina != null) {
+                                permisoBottnCrearRutina.forEach(element => {
+                                    element.style.display = "none";
+                                });
+                            }
+                        }
+                    }
+
+                    // Permisos Ejercicios
+                    if (permisoEjercicios.NombrePermiso === "Ejercicios" && permisoEjercicios.Visualizar === 0) {
+                        permisoElementoEjercicios.style.display = "none";
+                    } else {
+                        if (permisoBottonCrearEjercicio != null) {
+                            if (permisoEjercicios.Crear === 0) {
+                                permisoBottonCrearEjercicio.style.display = "none";
+                            }
+                        }
+
+                        if (permisoEjercicios.Editar === 0) {
+                            if (permisoBottonheaderCrearEjercicio != null) {
+                                permisoBottonheaderCrearEjercicio.style.display = "none";
+                            }
+
+                            if (permisoBottnCrearEjercicio != null) {
                                 permisoBottnCrearEjercicio.forEach(element => {
                                     element.style.display = "none";
                                 });
@@ -289,6 +340,8 @@ function mostrarInformacionUsuario() {
                         }
                     }
                 }
+
+
                 
                 // Permisos COMPRAS
                 if (permisoProveedores.NombrePermiso === "Proveedores" && permisoProveedores.Visualizar === 0 

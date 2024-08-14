@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputs = document.querySelectorAll('#formularioRegistro input, #formularioRegistro select');
 
     const expresiones = {
-        Nombres: /^[a-zA-ZÀ-ÿ\s]{1,20}$/,
-        Apellidos: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
+        Nombres: /^[a-zA-ZÀ-ÿ\s]{3,20}$/,
+        Apellidos: /^[a-zA-ZÀ-ÿ\s]{3,40}$/,
         Documento: /^[A-Za-z0-9\s-]{10}$/,
         Correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
         Telefono: /^(\(\+?\d{2,3}\)[\*|\s|\-|\.]?(([\d][\*|\s|\-|\.]?){6})(([\d][\s|\-|\.]?){2})?|(\+?[\d][\s|\-|\.]?){8}(([\d][\s|\-|\.]?){2}(([\d][\s|\-|\.]?){2})?)?)$/,
