@@ -20,7 +20,7 @@ const listarClientes = async () => {
         let contenido = '';
 
         listarClientes.forEach(cliente => {
-            const estadoTexto = cliente.Estado === 0 ? 'Activo' : 'Inactivo';
+            const estadoTexto = cliente.Estado === 1 ? 'Activo' : 'Inactivo';
 
             contenido += `<tr>` +
                 `<td>${cliente.Documento}</td>` +
