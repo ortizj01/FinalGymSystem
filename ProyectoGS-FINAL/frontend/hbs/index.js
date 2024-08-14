@@ -34,6 +34,10 @@ app.get('/ingresar', (req, res)=>{
     res.render('auth/sign-in')
 })
 
+app.get('/pruebaGit', (req, res)=>{
+    res.render('pruebaGit')
+})
+
 
 app.get('/registrar-usuario', (req, res)=>{
     res.render('auth/sign-up')
