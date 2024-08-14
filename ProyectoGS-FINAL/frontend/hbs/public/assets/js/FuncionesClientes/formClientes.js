@@ -10,7 +10,7 @@ const expresiones = {
     telefono: /^[0-9]{7,11}$/,
     fechaDeNacimiento: /^(\d{4})-(\d{2})-(\d{2})$/,
     direccion: /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚüÜ.,-]+$/,
-    genero: /^(masculino|femenino|otro)$/,
+    genero: /^(Masculino|Femenino)$/,
     contrasena: /^(?=.*[A-Z])(?=.*\d).{4,12}$/,
     beneficiario: /^(1|0)$/,
     TieneCondicionCronica: /^(si|no)$/,

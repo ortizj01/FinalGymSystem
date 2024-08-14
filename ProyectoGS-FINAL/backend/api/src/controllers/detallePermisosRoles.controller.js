@@ -41,7 +41,7 @@ export const getPermisoRolesPrincipal = async (req, res) => {
                 ON R.IdRol = PR.IdRol
             LEFT JOIN Permisos AS Pe
                 ON Pe.IdPermiso = PR.IdPermiso
-            WHERE R.IdRol = ?`, // Eliminado el punto y coma extra aquí
+            WHERE R.IdRol = ?`,
             [IdRol]
         );
         res.json(rows);
