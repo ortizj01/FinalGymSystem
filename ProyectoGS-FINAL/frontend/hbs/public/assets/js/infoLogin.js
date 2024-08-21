@@ -283,11 +283,12 @@ function mostrarInformacionUsuario() {
                         permisoElementoEventos.style.display = "none";
                         permisoElementoEventosCliente.style.display = "none";
                     } else {
-                        if (data.IdRol === 3) {
+                        if (permisoEventos.VistaAdmin === 0) {
                             permisoElementoEventos.style.display = "none";
                             //Desactivar rutas
                             if (window.location.pathname === '/eventos') {
                                 window.location.href = '/eventosCliente';
+                                console.log('VistaAdmiruta');
                             }
                         } else {
                             permisoElementoEventosCliente.style.display = "none";

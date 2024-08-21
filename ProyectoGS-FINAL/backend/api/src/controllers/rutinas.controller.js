@@ -187,7 +187,7 @@ export const deleteEjerciciosDeRutina = async (req, res) => {
 export const getRutinaCompletaPorUsuario = async (req, res) => {
     const { IdUsuario } = req.params;
 
-    // Consulta SQL para obtener los detalles de la rutina, incluyendo días de la semana, ejercicios y series
+    // Consulta SQL para obtener los detalles de la rutina, incluyendo días de la semana, ejercicios, series y descripción del ejercicio
     const query = `
         SELECT 
             r.IdRutina,
@@ -195,6 +195,7 @@ export const getRutinaCompletaPorUsuario = async (req, res) => {
             r.EstadoRutina,
             reds.DiaSemana,
             e.NombreEjercicio,
+            e.DescripcionEjercicio,
             reds.Series
         FROM 
             Rutinas r
@@ -233,9 +234,10 @@ export const getRutinaCompletaPorUsuario = async (req, res) => {
                 acc[row.IdRutina].DiasSemana[row.DiaSemana] = [];
             }
 
-            // Agregar el ejercicio y las series al día de la semana correspondiente
+            // Agregar el ejercicio, su descripción y las series al día de la semana correspondiente
             acc[row.IdRutina].DiasSemana[row.DiaSemana].push({
                 NombreEjercicio: row.NombreEjercicio,
+                DescripcionEjercicio: row.DescripcionEjercicio,
                 Series: row.Series
             });
 

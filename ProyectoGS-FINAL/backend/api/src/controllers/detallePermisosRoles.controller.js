@@ -35,7 +35,8 @@ export const getPermisoRolesPrincipal = async (req, res) => {
                 Pe.NombrePermiso,
                 PR.Crear,
                 PR.Editar,
-                PR.Visualizar
+                PR.Visualizar,
+                PR.VistaAdmin
             FROM Roles AS R
             LEFT JOIN PermisoRoles AS PR
                 ON R.IdRol = PR.IdRol
@@ -62,11 +63,11 @@ export const upsertPermisoRoles = async (req, res) => {
 
         // Insertar o actualizar permisos para el rol
         for (const permiso of permisos) {
-            const { IdPermiso, Crear, Editar, Visualizar } = permiso;
+            const { IdPermiso, Crear, Editar, Visualizar, VistaAdmin } = permiso;
 
             await pool.query(
-                'INSERT INTO PermisoRoles (IdRol, IdPermiso, Crear, Editar, Visualizar) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE Crear = VALUES(Crear), Editar = VALUES(Editar), Visualizar = VALUES(Visualizar)',
-                [rolId, IdPermiso, Crear, Editar, Visualizar]
+                'INSERT INTO PermisoRoles (IdRol, IdPermiso, Crear, Editar, Visualizar, VistaAdmin) VALUES (?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE Crear = VALUES(Crear), Editar = VALUES(Editar), Visualizar = VALUES(Visualizar), VistaAdmin = VALUES(VistaAdmin)',
+                [rolId, IdPermiso, Crear, Editar, Visualizar, VistaAdmin]
             );
         }
 

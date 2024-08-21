@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rutina Cliente</title>
+    <link rel="stylesheet" href="../../assets/css/styleRutinaCliente.css">
     {{> header}}
 </head>
-<body class="">
+<body>
     <!-- Inicio del cargar -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -25,8 +26,12 @@
 
     <!-- Inicio contenido -->      
     <div class="container-fluid content-inner">
-        <div id="rutina-container">
-            <!-- Aquí se cargará la rutina -->
+        <div id="rutina-container" class="rutina-container">
+            <h1>Rutina Asignada: <span id="nombre-rutina">Sin Rutinas</span></h1>
+
+            <div id="accordion-container">
+                <!-- Se cargará dinámicamente el contenido aquí -->
+            </div>
         </div>
     </div>
     <!-- Fin contenido --> 

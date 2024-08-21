@@ -20,7 +20,6 @@ function generatePasswordResetToken() {
     return crypto.randomBytes(20).toString('hex');
 }
 
-// Controlador para solicitar la recuperación de contraseña
 export const requestPasswordReset = async (req, res) => {
     const { email } = req.body;
 
@@ -37,14 +36,22 @@ export const requestPasswordReset = async (req, res) => {
         const expiration = new Date(Date.now() + 3600000); // Token válido por 1 hora
         const resetLink = `http://localhost:8086/restablecer/${token}`;
 
-        // Aquí se asume que la columna se llama 'userId'
         await pool.query('INSERT INTO PasswordResetTokens (userId, token, expiration) VALUES (?, ?, ?)', [user.IdUsuario, token, expiration]);
 
         const mailOptions = {
             from: 'gymsysteminfo@gmail.com',
             to: email,
             subject: 'Restablecer Contraseña',
-            text: `Ingresa al link para restablecer tu contraseña: ${resetLink}`
+            html: `
+                <div style="font-family: Arial, sans-serif; color: #333;">
+                    <h2 style="color: #555;">Restablecer tu contraseña</h2>
+                    <p>Hola,</p>
+                    <p>Has solicitado restablecer tu contraseña. Haz clic en el siguiente enlace para continuar:</p>
+                    <a href="${resetLink}" style="display: inline-block; padding: 10px 20px; margin: 10px 0; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">Restablecer Contraseña</a>
+                    <p>Si no solicitaste este cambio, puedes ignorar este correo.</p>
+                    <p style="color: #777;">Este enlace es válido por 1 hora.</p>
+                </div>
+            `
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
@@ -63,6 +70,7 @@ export const requestPasswordReset = async (req, res) => {
         });
     }
 };
+
 
 // Controlador para restablecer la contraseña
 export const resetPassword = async (req, res) => {

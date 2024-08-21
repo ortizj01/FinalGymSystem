@@ -2,7 +2,6 @@
 async function obtenerIdUsuario() {
     try {
         const token = localStorage.getItem('token');
-        console.log('Token:', token);
         const response = await fetch('http://localhost:3000/api/auth/usuario-autenticado', {
             method: 'GET',
             headers: {
@@ -16,8 +15,7 @@ async function obtenerIdUsuario() {
         }
 
         const data = await response.json();
-        console.log('Datos del usuario:', data); // Verifica la estructura de la respuesta
-        return data.IdUsuario; // Asegúrate de que el ID esté en la propiedad correcta
+        return data.IdUsuario;
     } catch (error) {
         console.error(error.message);
         return null;
@@ -40,18 +38,29 @@ async function obtenerRutinaAsignada(idUsuario) {
         }
 
         const rutinaArray = await response.json();
-        console.log('Datos de la rutina:', rutinaArray); // Verifica la estructura de la respuesta
-
-        // Verifica si el array tiene al menos un elemento
         if (Array.isArray(rutinaArray) && rutinaArray.length > 0) {
-            return rutinaArray[0]; // Devuelve la primera rutina en el array
+            return rutinaArray[0];
         }
 
-        return null; // Devuelve null si no hay rutinas
+        return null;
     } catch (error) {
         console.error(error.message);
         return null;
     }
+}
+
+// Función para convertir número de día a nombre del día en español
+function obtenerNombreDia(numeroDia) {
+    const diasSemana = {
+        1: 'LUNES',
+        2: 'MARTES',
+        3: 'MIÉRCOLES',
+        4: 'JUEVES',
+        5: 'VIERNES',
+        6: 'SÁBADO',
+        7: 'DOMINGO'
+    };
+    return diasSemana[numeroDia] || 'Día desconocido';
 }
 
 // Función para mostrar la rutina en el frontend
@@ -60,22 +69,44 @@ function mostrarRutina(rutina) {
 
     if (rutinaContainer) {
         if (rutina) {
-            let html = `<h1>Rutina: ${rutina.NombreRutina || 'Sin nombre'}</h1>`;
+            let html = `<h2 class="text-center">Rutina Asignada - ${rutina.NombreRutina || 'Sin nombre'}</h2> <br>`;
             
             for (const dia in rutina.DiasSemana) {
-                html += `<h2>Día: ${dia}</h2><ul>`;
+                const nombreDia = obtenerNombreDia(dia); // Convertir número a nombre del día
+                html += `
+                    <div class="accordion text-center">${nombreDia}</div>
+                    <div class="panel">
+                        <ul class="ejercicio-list">
+                `;
                 
                 rutina.DiasSemana[dia].forEach(ejercicio => {
-                    html += `<li>
-                                <strong>Ejercicio:</strong> ${ejercicio.NombreEjercicio || 'Sin nombre'} - 
+                    html += `
+                        <li>
+                            <div class="ejercicio-info">
+                                <strong>Ejercicio:</strong> ${ejercicio.NombreEjercicio || 'Sin nombre'}<br>
+                                <strong>Descripción:</strong> ${ejercicio.DescripcionEjercicio || 'Sin descripción'}
+                            </div>
+                            <div class="ejercicio-series">
                                 <strong>Series:</strong> ${ejercicio.Series || 'Sin series'}
-                            </li>`;
+                            </div>
+                        </li>
+                    `;
                 });
 
-                html += `</ul>`;
+                html += `</ul></div>`;
             }
 
             rutinaContainer.innerHTML = html;
+
+            // Agregar funcionalidad de acordeón
+            const accordions = document.querySelectorAll('.accordion');
+            accordions.forEach(accordion => {
+                accordion.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    const panel = this.nextElementSibling;
+                    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+                });
+            });
         } else {
             rutinaContainer.innerHTML = '<h1>No hay rutinas asignadas</h1>';
         }
@@ -84,13 +115,13 @@ function mostrarRutina(rutina) {
     }
 }
 
+
+
 // Inicializar la visualización de la rutina
 async function init() {
     const idUsuario = await obtenerIdUsuario();
     if (idUsuario) {
-        console.log('ID Usuario:', idUsuario);
         const rutina = await obtenerRutinaAsignada(idUsuario);
-        console.log('Rutina:', rutina);
         mostrarRutina(rutina);
     } else {
         console.error('No se pudo obtener el ID del usuario');
