@@ -49,6 +49,7 @@ import pedidosRoutes from './routes/pedidos.routes.js';
 import pedidosProductoRoutes from './routes/pedidosProducto.routes.js';
 import pedidosMembresiaRoutes from './routes/pedidosMembresia.routes.js';
 import valoracionMedicaRoutes from './routes/valoracionMedica.routes.js';
+import carritoRoutes from './routes/carrito.routes.js';
 
 const app = express();
 
@@ -115,6 +116,8 @@ app.use('/api', pedidosRoutes);
 app.use('/api', pedidosProductoRoutes);
 app.use('/api', pedidosMembresiaRoutes);
 app.use('/api', valoracionMedicaRoutes);
+app.use('/api', carritoRoutes);
+
 
 
 

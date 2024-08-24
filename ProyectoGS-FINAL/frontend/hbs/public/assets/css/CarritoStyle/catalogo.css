@@ -17,3 +17,14 @@
 .icon-trash-large:hover {
     transform: scale(1.0); /* Aumentar el tamaño al pasar el mouse */
 }
+
+.single-product .product-info .d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.single-product .product-info .cantidad-select {
+    width: auto;
+    margin-left: 10px;
+}

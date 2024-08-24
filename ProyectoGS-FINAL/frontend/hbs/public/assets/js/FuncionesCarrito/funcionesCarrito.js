@@ -1,4 +1,4 @@
-// Función para obtener productos del carrito desde el localStorage y mostrarlos en la vista del carrito
+// Función para obtener productos del carrito desde la API y mostrarlos en la vista del carrito
 const cargarCarrito = () => {
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const carritoContainer = document.querySelector('.cart-list-head');
@@ -32,10 +32,10 @@ const cargarCarrito = () => {
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-2 col-12">
-                        <p>$${item.PrecioProducto.toFixed(0)}</p> <!-- Subtotal corregido -->
+                        <p>$${item.PrecioProducto.toFixed(0)}</p> 
                     </div>
                     <div class="col-lg-2 col-md-2 col-12">
-                        <p>$${total.toFixed(0)}</p> <!-- Total corregido -->
+                        <p>$${total.toFixed(0)}</p> 
                     </div>
                     <div class="col-lg-1 col-md-2 col-12">
                         <a class="remove-item" href="javascript:void(0)" onclick="eliminarProducto(${item.IdProducto})"><i class="lni lni-trash-can icon-trash-large"></i></a>
@@ -55,7 +55,17 @@ const actualizarCantidad = (productId, cantidad) => {
 
     carrito = carrito.map(item => {
         if (item.IdProducto === productId) {
-            item.cantidad = parseInt(cantidad);
+            const productoStock = item.Stock;
+            if (cantidad <= productoStock) {
+                item.cantidad = parseInt(cantidad);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Stock insuficiente',
+                    text: `No puedes agregar más del producto ${item.NombreProducto}. Stock disponible: ${productoStock}.`,
+                });
+                return item;
+            }
         }
         return item;
     });
@@ -71,6 +81,7 @@ const actualizarCantidad = (productId, cantidad) => {
         showConfirmButton: false
     });
 };
+
 
 // Función para eliminar un producto del carrito
 const eliminarProducto = (productId) => {

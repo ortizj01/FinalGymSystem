@@ -333,6 +333,9 @@ app.get('/editarValoracionMedica', (req, res)=>{
 app.get('/pedidos', (req, res)=>{
     res.render('pedidos/pedidos')
 })
+app.get('/pedidoCliente', (req, res)=>{
+    res.render('pedidos/pedidoCliente')
+})
 app.get('/editarPedido', (req, res)=>{
     res.render('pedidos/editarPedido')
 })

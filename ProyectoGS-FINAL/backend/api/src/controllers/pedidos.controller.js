@@ -91,59 +91,34 @@ export const updatePedidoEstadoFecha = async (req, res) => {
 
 
 // Obtener todos los pedidos por IdUsuario
-export const getPedidosByUsuarioId = async (req, res) => {
-    try {
-        const { IdUsuario } = req.query;
-        const [rows] = await pool.query('SELECT * FROM Pedidos WHERE IdUsuario = ?', [IdUsuario]);
-        res.json(rows);
-    } catch (error) {
-        console.error('Error al obtener pedidos:', error);
-        res.status(500).json({ message: 'Error al obtener pedidos' });
-    }
-};
+export const getPedidosPorUsuarioCompleto = async (req, res) => {
+    const { IdUsuario } = req.params;
 
-// Obtener productos por IdPedido
-export const getProductosByPedidoId = async (req, res) => {
-    try {
-        const { IdPedido } = req.params;
-        const query = `
-            SELECT pp.*, p.NombreProducto, p.PrecioProducto AS PrecioUnitario, p.IvaProducto AS Iva 
-            FROM PedidosProducto pp 
-            JOIN Productos p ON pp.IdProducto = p.IdProducto 
-            WHERE pp.IdPedido = ?
-        `;
-        const [rows] = await pool.query(query, [IdPedido]);
-        rows.forEach(row => {
-            row.SubTotal = (row.PrecioUnitario * row.Cantidad * (1 + row.Iva / 100)).toFixed(2);
-        });
-        res.json(rows);
-    } catch (error) {
-        console.error('Error al obtener los productos del pedido:', error);
-        res.status(500).json({ message: 'Error al obtener los productos del pedido' });
-    }
-};
+    const query = `
+        SELECT 
+            p.IdPedido,
+            p.FechaPedido,
+            p.Total,
+            p.EstadoPedido,
+            u.Documento
+        FROM 
+            Pedidos p
+        JOIN 
+            Usuarios u ON p.IdUsuario = u.IdUsuario
+        WHERE 
+            p.IdUsuario = ?
+    `;
 
-// En tu archivo de controladores
-export const getPedidosPorCliente = async (req, res) => {
-    const { clienteId } = req.params;
     try {
-        const [rows] = await pool.query('SELECT * FROM Pedidos WHERE IdUsuario = ?', [clienteId]);
-        res.json(rows);
-    } catch (error) {
-        return res.status(500).json({
-            message: 'something goes wrong'
-        });
-    }
-};
+        const [rows] = await pool.query(query, [IdUsuario]);
 
-export const getVentasPorCliente = async (req, res) => {
-    const { clienteId } = req.params;
-    try {
-        const [rows] = await pool.query('SELECT * FROM Ventas WHERE IdUsuario = ?', [clienteId]);
+        if (rows.length <= 0) {
+            return res.status(404).json({ message: 'No se encontraron pedidos para este usuario' });
+        }
+
         res.json(rows);
     } catch (error) {
-        return res.status(500).json({
-            message: 'something goes wrong'
-        });
+        console.error('Error al obtener los pedidos:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
     }
 };

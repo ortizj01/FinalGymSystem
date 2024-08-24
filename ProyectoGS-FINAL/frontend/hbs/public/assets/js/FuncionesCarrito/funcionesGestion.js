@@ -84,71 +84,85 @@ const listarProductos = async () => {
 };
 
 // Función para abrir el modal de opciones de producto
-const abrirModalProducto = (productId) => {
+const abrirModalProducto = async (productId) => {
     const saveButton = document.getElementById('saveProductChanges');
     saveButton.setAttribute('data-product-id', productId);
 
     // Restablecer el estado del checkbox
     document.getElementById('showInCatalog').checked = false;
 
-    // Cargar el estado del producto desde localStorage
-    const productosCatalogo = JSON.parse(localStorage.getItem('productosCatalogo')) || [];
-    const productoEnCatalogo = productosCatalogo.find(prod => prod.IdProducto == productId);
-    if (productoEnCatalogo) {
-        document.getElementById('showInCatalog').checked = true;
+    // Obtener el estado actual del producto en el catálogo desde el backend
+    try {
+        const response = await fetch(`http://localhost:3000/api/carrito/catalogo/${productId}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al obtener el estado del producto en el catálogo');
+        }
+
+        const productoCatalogo = await response.json();
+
+        if (productoCatalogo.en_catalogo) {
+            document.getElementById('showInCatalog').checked = true;
+        }
+
+        $('#productOptionsModal').modal('show');
+    } catch (error) {
+        console.error('Error:', error.message);
     }
-
-    $('#productOptionsModal').modal('show');
 };
-
-// Agregar un listener manual al botón de cierre
-document.querySelectorAll('[data-dismiss="modal"]').forEach(button => {
-    button.addEventListener('click', () => {
-        $('#productOptionsModal').modal('hide');
-    });
-});
 
 document.getElementById('saveProductChanges').addEventListener('click', async () => {
     const productId = document.getElementById('saveProductChanges').getAttribute('data-product-id');
     const showInCatalog = document.getElementById('showInCatalog').checked;
 
-    const productos = await obtenerProductos();
-    const producto = productos.find(prod => prod.IdProducto == productId);
+    // Actualizar el estado del producto en el catálogo en la base de datos
+    try {
+        const response = await fetch(`http://localhost:3000/api/carrito/catalogo/${productId}`, {
+            method: 'PATCH',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ en_catalogo: showInCatalog })
+        });
 
-    if (producto) {
-        let productosCatalogo = JSON.parse(localStorage.getItem('productosCatalogo')) || [];
-
-        if (showInCatalog) {
-            if (!productosCatalogo.some(prod => prod.IdProducto == productId)) {
-                productosCatalogo.push(producto);
-            }
-        } else {
-            productosCatalogo = productosCatalogo.filter(prod => prod.IdProducto != productId);
+        if (!response.ok) {
+            throw new Error('Error al actualizar el producto en el catálogo');
         }
 
-        localStorage.setItem('productosCatalogo', JSON.stringify(productosCatalogo));
-        
-        // Mostrar mensaje de éxito
         Swal.fire({
             icon: 'success',
             title: 'Producto actualizado',
             text: 'El producto ha sido actualizado en el catálogo correctamente.',
         });
-    } else {
-        // Mostrar mensaje de error
+
+        $('#productOptionsModal').modal('hide');
+    } catch (error) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'El producto no se pudo actualizar. Inténtalo nuevamente.',
+            text: `El producto no se pudo actualizar. ${error.message}`,
         });
-        console.error('Producto no encontrado');
+        console.error('Error al actualizar el catálogo:', error);
     }
-
-    $('#productOptionsModal').modal('hide');
-
-    // Re-list products in the catalog
-    listarProductosEnCatalogo();
 });
+
+// Listener manual para el botón de cerrar (X) en la esquina del modal
+document.querySelector('.modal .close').addEventListener('click', () => {
+    $('#productOptionsModal').modal('hide');
+});
+
+// Listener manual para el botón "Cerrar" en el pie del modal
+document.querySelector('.modal-footer .btn-secondary').addEventListener('click', () => {
+    $('#productOptionsModal').modal('hide');
+});
+
 
 // Cargar la lista de productos al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
