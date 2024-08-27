@@ -26,11 +26,11 @@ export const getPedidoById = async (req, res) => {
 
 // Crear un nuevo pedido
 export const createPedido = async (req, res) => {
-    const { IdUsuario, FechaPedido, PagoNeto, Iva, Total, EstadoPedido } = req.body;
+    const { IdUsuario, FechaPedido, Total, EstadoPedido } = req.body;
     try {
         const [result] = await pool.query(
-            'INSERT INTO Pedidos (IdUsuario, FechaPedido, PagoNeto, Iva, Total, EstadoPedido) VALUES (?, ?, ?, ?, ?, ?)',
-            [IdUsuario, FechaPedido, PagoNeto, Iva, Total, EstadoPedido]
+            'INSERT INTO Pedidos (IdUsuario, FechaPedido, Total, EstadoPedido) VALUES (?, ?, ?, ?)',
+            [IdUsuario, FechaPedido, Total, EstadoPedido]
         );
         res.status(201).json({ id: result.insertId });
     } catch (error) {
@@ -39,22 +39,35 @@ export const createPedido = async (req, res) => {
     }
 };
 
+
 // Actualizar un pedido existente
 export const updatePedido = async (req, res) => {
     const { id } = req.params;
-    const { IdUsuario, FechaPedido, PagoNeto, Iva, Total, EstadoPedido } = req.body;
+    const { IdUsuario, FechaPedido, Total, EstadoPedido } = req.body;
+
     try {
+        // Convertir FechaPedido al formato correcto 'YYYY-MM-DD'
+        const fechaConvertida = new Date(FechaPedido).toISOString().split('T')[0];
+
         const [result] = await pool.query(
-            'UPDATE Pedidos SET IdUsuario = ?, FechaPedido = ?, PagoNeto = ?, Iva = ?, Total = ?, EstadoPedido = ? WHERE IdPedido = ?',
-            [IdUsuario, FechaPedido, PagoNeto, Iva, Total, EstadoPedido, id]
+            'UPDATE Pedidos SET IdUsuario = ?, FechaPedido = ?, Total = ?, EstadoPedido = ? WHERE IdPedido = ?',
+            [IdUsuario, fechaConvertida, Total, EstadoPedido, id]
         );
-        if (result.affectedRows === 0) return res.status(404).json({ message: 'Pedido no encontrado' });
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Pedido no encontrado' });
+        }
+
         res.json({ message: 'Pedido actualizado correctamente' });
     } catch (error) {
         console.error('Error al actualizar pedido:', error);
-        res.status(500).json({ message: 'Error al actualizar pedido' });
+        res.status(500).json({ message: 'Error al actualizar pedido', error: error.message });
     }
 };
+
+
+
+
 
 // Eliminar un pedido
 export const deletePedido = async (req, res) => {
@@ -69,25 +82,6 @@ export const deletePedido = async (req, res) => {
     }
 };
 
-// Actualizar estado, fecha y total del pedido
-export const updatePedidoEstadoFecha = async (req, res) => {
-    const { id } = req.params;
-    const { FechaPedido, EstadoPedido, Total } = req.body;
-
-    try {
-        const [result] = await pool.query(
-            'UPDATE Pedidos SET FechaPedido = ?, EstadoPedido = ?, Total = ? WHERE IdPedido = ?',
-            [FechaPedido, EstadoPedido, Total, id]
-        );
-
-        if (result.affectedRows === 0) return res.status(404).json({ message: 'Pedido no encontrado' });
-
-        res.json({ message: 'Pedido actualizado correctamente' });
-    } catch (error) {
-        console.error('Error al actualizar pedido:', error);
-        res.status(500).json({ message: 'Error al actualizar pedido' });
-    }
-};
 
 
 // Obtener todos los pedidos por IdUsuario
@@ -99,8 +93,8 @@ export const getPedidosPorUsuarioCompleto = async (req, res) => {
             p.IdPedido,
             p.FechaPedido,
             p.Total,
-            p.EstadoPedido,
-            u.Documento
+            u.Documento,
+            p.EstadoPedido
         FROM 
             Pedidos p
         JOIN 
@@ -120,5 +114,101 @@ export const getPedidosPorUsuarioCompleto = async (req, res) => {
     } catch (error) {
         console.error('Error al obtener los pedidos:', error);
         res.status(500).json({ message: 'Error interno del servidor' });
+    }
+};
+
+
+// Anular un pedido y devolver stock
+export const cancelarPedido = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Cambiar el estado del pedido a "Anulado" (EstadoPedido = 3)
+        const [updateResult] = await pool.query('UPDATE Pedidos SET EstadoPedido = 3 WHERE IdPedido = ?', [id]);
+
+        if (updateResult.affectedRows === 0) {
+            return res.status(404).json({ message: 'Pedido no encontrado' });
+        }
+
+        // Obtener los productos asociados al pedido
+        const [productos] = await pool.query('SELECT IdProducto, Cantidad FROM PedidosProducto WHERE IdPedido = ?', [id]);
+
+        if (productos.length === 0) {
+            return res.status(404).json({ message: 'No se encontraron productos asociados al pedido' });
+        }
+
+        // Devolver el stock de cada producto
+        for (let producto of productos) {
+            await pool.query('UPDATE Productos SET Stock = Stock + ? WHERE IdProducto = ?', [producto.Cantidad, producto.IdProducto]);
+        }
+
+        res.json({ message: 'Pedido anulado y stock devuelto' });
+    } catch (error) {
+        console.error('Error al anular el pedido:', error);
+        res.status(500).json({ message: 'Error al anular el pedido' });
+    }
+};
+
+// Función para registrar una venta cuando el estado del pedido cambia a PAGADO
+const registrarVenta = async (pedidoId) => {
+    try {
+        const [pedido] = await pool.query('SELECT IdUsuario, Total FROM Pedidos WHERE IdPedido = ?', [pedidoId]);
+        if (pedido.length === 0) {
+            throw new Error(`Pedido con ID ${pedidoId} no encontrado`);
+        }
+
+        const { IdUsuario, Total } = pedido[0];
+
+        const [productos] = await pool.query('SELECT IdProducto, Cantidad FROM PedidosProducto WHERE IdPedido = ?', [pedidoId]);
+
+        const [ventaResult] = await pool.query(
+            'INSERT INTO Ventas (IdUsuario, Total, EstadoVenta) VALUES (?, ?, ?)',
+            [IdUsuario, Total, 1] // EstadoVenta = 1 (Activo)
+        );
+
+        const idVenta = ventaResult.insertId;
+
+        for (let producto of productos) {
+            await pool.query(
+                'INSERT INTO VentasProducto (IdVenta, IdProducto, CantidadProducto) VALUES (?, ?, ?)',
+                [idVenta, producto.IdProducto, producto.Cantidad]
+            );
+
+            await pool.query(
+                'UPDATE Productos SET Stock = Stock - ? WHERE IdProducto = ?',
+                [producto.Cantidad, producto.IdProducto]
+            );
+        }
+
+        return idVenta;
+    } catch (error) {
+        console.error('Error al registrar la venta:', error);
+        throw new Error('Error al registrar la venta');
+    }
+};
+
+// Función para editar el estado del pedido y manejar el registro de la venta si se cambia a "PAGADO"
+export const actualizarEstadoPedido = async (req, res) => {
+    const { id } = req.params;
+    const { EstadoPedido } = req.body;
+
+    try {
+        if (EstadoPedido == 2) {
+            await registrarVenta(id);
+        }
+
+        const [result] = await pool.query(
+            'UPDATE Pedidos SET EstadoPedido = ? WHERE IdPedido = ?',
+            [EstadoPedido, id]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Pedido no encontrado' });
+        }
+
+        res.json({ message: 'Estado del pedido actualizado correctamente' });
+    } catch (error) {
+        console.error('Error al actualizar estado del pedido:', error);
+        res.status(500).json({ message: 'Error al actualizar estado del pedido' });
     }
 };

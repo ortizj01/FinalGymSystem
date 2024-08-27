@@ -55,7 +55,7 @@ async function finalizarPedido() {
 
     const FechaPedido = new Date().toISOString().slice(0, 19).replace('T', ' ');
     const Total = carrito.reduce((total, item) => total + item.PrecioProducto * item.cantidad, 0);
-    const EstadoPedido = 0;  // Estado pendiente de pago
+    const EstadoPedido = 1;  // Estado pendiente de pago
 
     try {
         // Crear el pedido

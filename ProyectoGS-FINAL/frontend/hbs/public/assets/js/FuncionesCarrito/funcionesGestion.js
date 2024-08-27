@@ -1,3 +1,4 @@
+
 // Función para obtener los productos de la API
 const obtenerProductos = async () => {
     try {
