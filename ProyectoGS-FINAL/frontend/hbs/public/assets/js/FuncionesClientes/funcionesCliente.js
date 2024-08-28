@@ -68,7 +68,7 @@ const listarClientes = async () => {
                 loadingRecords: "Cargando...",
                 processing: "Procesando...",
             },
-            pageLength: 2,
+            pageLength: 5,
             lengthChange: false,
             destroy: true // Destruir cualquier instancia previa de DataTables para evitar conflictos
         });

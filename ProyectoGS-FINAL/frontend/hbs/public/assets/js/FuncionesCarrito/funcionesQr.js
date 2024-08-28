@@ -67,9 +67,7 @@ async function finalizarPedido() {
             },
             body: JSON.stringify({
                 IdUsuario: usuario.IdUsuario,
-                FechaPedido: FechaPedido,
-                PagoNeto: 0,  // Se establece en 0 como indicaste
-                Iva: 0,       // Se establece en 0 como indicaste
+                FechaPedido: FechaPedido,      // Se establece en 0 como indicaste
                 Total: Total,
                 EstadoPedido: EstadoPedido
             })

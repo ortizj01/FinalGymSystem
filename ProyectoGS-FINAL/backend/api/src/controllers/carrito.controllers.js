@@ -27,10 +27,11 @@ export const getItemCatalogo = async (req, res, tipo) => {
     }
 };
 
-// Actualizar el estado del elemento (producto o membresía) en el catálogo
+// Validar existencia en catálogo antes de insertar o actualizar
 export const updateItemCatalogo = async (req, res, tipo) => {
     let queryInsert = '';
     let queryDelete = '';
+    let queryCheckExistence = '';
     let id = '';
 
     if (tipo === 'producto') {
@@ -40,6 +41,7 @@ export const updateItemCatalogo = async (req, res, tipo) => {
             ON DUPLICATE KEY UPDATE en_catalogo = VALUES(en_catalogo)
         `;
         queryDelete = 'DELETE FROM Catalogo WHERE IdProducto = ?';
+        queryCheckExistence = 'SELECT COUNT(*) as count FROM Catalogo WHERE IdProducto = ?';
         id = req.params.IdProducto;
     } else if (tipo === 'membresia') {
         queryInsert = `
@@ -48,10 +50,19 @@ export const updateItemCatalogo = async (req, res, tipo) => {
             ON DUPLICATE KEY UPDATE en_catalogo = VALUES(en_catalogo)
         `;
         queryDelete = 'DELETE FROM Catalogo WHERE IdMembresia = ?';
+        queryCheckExistence = 'SELECT COUNT(*) as count FROM Catalogo WHERE IdMembresia = ?';
         id = req.params.IdMembresia;
     }
 
     try {
+        // Validar si el producto o membresía ya existe en el catálogo
+        const [rows] = await pool.query(queryCheckExistence, [id]);
+
+        if (rows[0].count > 0 && req.body.en_catalogo) {
+            return res.status(400).json({ message: `El ${tipo} ya está en el catálogo` });
+        }
+
+        // Insertar o actualizar el producto o membresía en el catálogo
         if (req.body.en_catalogo) {
             await pool.query(queryInsert, [id, req.body.en_catalogo]);
         } else {
