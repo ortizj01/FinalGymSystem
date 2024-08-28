@@ -26,17 +26,13 @@ export const getServicio = async (req, res) => {
 };
 
 export const postServicio = async (req, res) => {
-    const { NombreClase, Instructor, Cantidad, CostoTotal, CostoVenta, Estado } = req.body;
+    const { NombreClase,  Estado } = req.body;
 
     try {
-        const [rows] = await pool.query('INSERT INTO Servicios (NombreClase, Instructor, Cantidad, CostoTotal, CostoVenta, Estado) VALUES (?, ?, ?, ?, ?, ?)', [NombreClase, Instructor, Cantidad, CostoTotal, CostoVenta, Estado]);
+        const [rows] = await pool.query('INSERT INTO Servicios (NombreClase, Estado) VALUES (?, ?)', [NombreClase, Estado]);
         res.json({
             IdServicio: rows.insertId,
             NombreClase,
-            Instructor,
-            Cantidad,
-            CostoTotal,
-            CostoVenta,
             Estado
         });
     } catch (error) {
@@ -61,9 +57,9 @@ export const deleteServicio = async (req, res) => {
 };
 
 export const putServicio = async (req, res) => {
-    const { NombreClase, Instructor, Cantidad, CostoTotal, CostoVenta, Estado } = req.body;
+    const { NombreClase, Cantidad, Estado } = req.body;
     try {
-        const [result] = await pool.query('UPDATE Servicios SET NombreClase = ?, Instructor = ?, Cantidad = ?, CostoTotal = ?, CostoVenta = ?, Estado = ? WHERE IdServicio = ?', [NombreClase, Instructor, Cantidad, CostoTotal, CostoVenta, Estado, req.params.id]);
+        const [result] = await pool.query('UPDATE Servicios SET NombreClase = ?,   Estado = ? WHERE IdServicio = ?', [NombreClase, Estado, req.params.id]);
         if (result.affectedRows === 0) return res.status(404).json({
             message: 'Servicio not found'
         });

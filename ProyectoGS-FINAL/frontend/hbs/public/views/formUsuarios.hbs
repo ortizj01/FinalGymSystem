@@ -37,7 +37,24 @@
                     <div class="card-body">
                         <form id="formularioUsuarios">
                             <div class="row">
-                                <!-- Nombre -->
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Tipo de Documento*</label>
+                                        <select class="form-select" name="TipoDocumento" required>
+                                            <option value="" disabled selected hidden>Seleccionar Documento</option>
+                                            <option value="cedula ciudadania">Cédula de Ciudadanía</option>
+                                             <option value="Pasaporte">Pasaporte</option>
+                                        </select>
+                                        <span class="error-message" id="tipoDocumento-error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Documento*</label>
+                                        <input type="text" class="form-control" name="Documento" placeholder="Documento" required />
+                                        <span class="error-message" id="cedula-error"></span>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Nombre*</label>
@@ -58,7 +75,7 @@
                                 <!-- Email -->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label">E-mail*</label>
+                                        <label class="form-label">Correo electronico</label>
                                         <input type="email" class="form-control" name="Correo" placeholder="E-mail" required />
                                         <span class="error-message" id="email-error"></span>
                                     </div>
@@ -72,31 +89,6 @@
                                         <span class="error-message" id="telefono-error"></span>
                                     </div>
                                 </div>
-
-                                <!-- Tipo de Documento -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Tipo de Documento*</label>
-                                        <select class="form-select" name="TipoDocumento" required>
-                                            <option value="" disabled selected hidden>Seleccionar Documento</option>
-                                            <option value="cedula_ciudadania">Cédula de Ciudadanía</option>
-                                            <option value="cedula_extranjeria">Cédula de Extranjería</option>
-                                             <option value="cedula_extranjeria">Pasaporte</option>
-                                        </select>
-                                        <span class="error-message" id="tipoDocumento-error"></span>
-                                    </div>
-                                </div>
-
-                                <!-- Documento -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Documento*</label>
-                                        <input type="text" class="form-control" name="Documento" placeholder="Documento" required />
-                                        <span class="error-message" id="cedula-error"></span>
-                                    </div>
-                                </div>
-
-                                <!-- Fecha de Nacimiento -->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Fecha de Nacimiento*</label>
@@ -115,7 +107,6 @@
                                 </div>
 
                                 <!-- Género -->
-                                <!-- Género -->
 <div class="col-md-6">
     <div class="form-group">
         <label class="form-label">Género*</label>
@@ -131,8 +122,6 @@
 
 
                                 <!-- Rol -->
-                               <!-- Rol -->
-
 <!-- Rol -->
 <div class="col-md-6">
     <div class="form-group">
@@ -156,18 +145,20 @@
                                         <span class="error-message" id="estado-error"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-    <div class="form-group">
-        <label class="form-label">Beneficiario*</label>
-        <input type="text" class="form-control" name="Beneficiario" placeholder="Beneficiario" required />
-        <span class="error-message" id="beneficiario-error"></span>
-    </div>
-</div>
+                             
+                                
                                 <!-- Contraseña -->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Contraseña*</label>
-                                        <input type="password" class="form-control" name="Contrasena" placeholder="Contraseña" required />
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="Contrasena" id="contrasena" placeholder="Contraseña" required />
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" id="togglePassword" data-toggle="contrasena">
+                                                    <span class="fa-regular fa-eye-slash fa-xl me-2"></span>
+                                                </button>
+                                            </div>
+                                        </div>
                                         <span class="error-message" id="contrasena-error"></span>
                                     </div>
                                 </div>
@@ -176,11 +167,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Confirmar Contraseña*</label>
-                                        <input type="password" class="form-control" name="confirmarContrasena" placeholder="Confirmar Contraseña" required />
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="confirmarContrasena" id="confirmarContrasena" aria-describedby="confirmarContrasenaHelp" placeholder="Confirme Contraseña" required />
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword" data-toggle="confirmarContrasena">
+                                                    <span class="fa-regular fa-eye-slash fa-xl me-2"></span>
+                                                </button>
+                                            </div>
+                                        </div>
                                         <span class="error-message" id="confirmarContrasena-error"></span>
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="row mt-4">
                                 <div class="col-md-12 text-end">
@@ -195,41 +194,40 @@
         </div>
     </div>
     
-    <!-- Fin contenido -->
-     <div id="successModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>¡Usuario guardado exitosamente!</p>
-        </div>
-    </div>
-
+    
     <!-- Footer Section Start -->
     <footer class="footer">
         {{> copyright}}
     </footer>
     <!-- Footer Section End -->
-    <script src="../assets/js/postUsuarios.js"></script>
-        <script src="../assets/js/UsuarosValidaciones.js"></script>
 
     <script>
-        // Toggle Password Visibility
-        const togglePassword = document.getElementById('togglePassword');
-        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-        const password = document.getElementById('contraseña');
-        const confirmPassword = document.getElementById('confirmarContraseña');
+        // Función para cambiar la visibilidad de las contraseñas
+        function togglePasswordVisibility(inputId, buttonId) {
+            const passwordInput = document.getElementById(inputId);
+            const button = document.getElementById(buttonId).querySelector('span');
+    
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                button.className = 'fa-regular fa-eye fa-xl me-2';
+            } else {
+                passwordInput.type = 'password';
+                button.className = 'fa-regular fa-eye-slash fa-xl me-2';
+            }
+        }
 
-        togglePassword.addEventListener('click', () => {
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            togglePassword.classList.toggle('fa-eye-slash');
+        // Agregar eventos a los botones de toggle
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            togglePasswordVisibility('contrasena', 'togglePassword');
         });
 
-        toggleConfirmPassword.addEventListener('click', () => {
-            const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-            confirmPassword.setAttribute('type', type);
-            toggleConfirmPassword.classList.toggle('fa-eye-slash');
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+            togglePasswordVisibility('confirmarContrasena', 'toggleConfirmPassword');
         });
     </script>
+    <script src="../assets/js/postUsuarios.js"></script>
+    <script src="../assets/js/UsuarosValidaciones.js"></script>
+
     {{> footer}}
 </body>
 </html>

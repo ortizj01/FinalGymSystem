@@ -12,84 +12,110 @@ document.addEventListener('DOMContentLoaded', function() {
             jsonObject[key] = value;
         });
 
-        // Estructura de los datos para la API
-        const usuario = {
-            Documento: jsonObject.Documento,
-            TipoDocumento: jsonObject.TipoDocumento,
-            Nombres: jsonObject.Nombres,
-            Apellidos: jsonObject.Apellidos,
-            Correo: jsonObject.Correo,
-            Telefono: jsonObject.Telefono,
-            FechaDeNacimiento: jsonObject.FechaDeNacimiento,
-            Direccion: jsonObject.Direccion,
-            Genero: jsonObject.Genero,
-            Contrasena: jsonObject.Contrasena,
-            Estado: parseInt(jsonObject.Estado), // Convertir Estado a número
-            Beneficiario: jsonObject.Beneficiario
-        };
+        // Validar si todos los campos están llenos
+        if (!jsonObject.Documento || !jsonObject.TipoDocumento || !jsonObject.Nombres || !jsonObject.Apellidos ||
+            !jsonObject.Correo || !jsonObject.Telefono || !jsonObject.FechaDeNacimiento || !jsonObject.Direccion ||
+            !jsonObject.Genero || !jsonObject.Contrasena || !jsonObject.Estado || !jsonObject.Rol) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Error',
+                text: 'Llene todos los campos',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
 
-        // Enviar los datos a tu API para crear el usuario
-        fetch('http://localhost:3000/api/usuarios', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(usuario)
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(error => {
-                    throw new Error(error.message || 'Hubo un problema al enviar los datos.');
+        // Confirmar envío
+        Swal.fire({
+            title: 'Confirmación',
+            text: "¿Estás seguro de que quieres guardar este usuario?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, guardar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Estructura de los datos para la API
+                const usuario = {
+                    Documento: jsonObject.Documento,
+                    TipoDocumento: jsonObject.TipoDocumento,
+                    Nombres: jsonObject.Nombres,
+                    Apellidos: jsonObject.Apellidos,
+                    Correo: jsonObject.Correo,
+                    Telefono: jsonObject.Telefono,
+                    FechaDeNacimiento: jsonObject.FechaDeNacimiento,
+                    Direccion: jsonObject.Direccion,
+                    Genero: jsonObject.Genero,
+                    Contrasena: jsonObject.Contrasena,
+                    Estado: parseInt(jsonObject.Estado), // Convertir Estado a número
+                    Beneficiario: jsonObject.Beneficiario || null // Asegúrate de que Beneficiario sea null por defecto si no está presente
+                };
+
+                // Enviar los datos a tu API para crear el usuario
+                fetch('http://localhost:3000/api/usuarios', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(usuario)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(error => {
+                            throw new Error(error.message || 'Hubo un problema al enviar los datos.');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Aquí puedes manejar la respuesta de tu API
+                    console.log('Usuario creado:', data);
+
+                    // Ahora asignamos el rol al usuario recién creado
+                    const usuarioRol = {
+                        IdRol: jsonObject.Rol // Asumiendo que jsonObject.Rol contiene el Id del rol seleccionado
+                    };
+
+                    // Hacer la solicitud POST para asignar el rol al usuario
+                    return fetch(`http://localhost:3000/api/usuariosRol/${data.IdUsuario}/roles`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(usuarioRol)
+                    });
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(error => {
+                            throw new Error(error.message || 'Hubo un problema al asignar el rol.');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Rol asignado:', data);
+                    Swal.fire({
+                        title: "¡Excelente!",
+                        text: "Usuario y rol registrados correctamente!",
+                        icon: "success"
+                    }).then(() => {
+                        location.reload();
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: "error",
+                        title: "¡Oops...",
+                        text: "Ocurrió un error: " + error.message
+                    });
                 });
             }
-            return response.json();
-        })
-        .then(data => {
-            // Aquí puedes manejar la respuesta de tu API
-            console.log('Usuario creado:', data);
-
-            // Ahora asignamos el rol al usuario recién creado
-            const usuarioRol = {
-                IdRol: jsonObject.Rol // Asumiendo que jsonObject.Rol contiene el Id del rol seleccionado
-            };
-
-            // Hacer la solicitud POST para asignar el rol al usuario
-            return fetch(`http://localhost:3000/api/usuariosRol/${data.IdUsuario}/roles`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(usuarioRol)
-            });
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(error => {
-                    throw new Error(error.message || 'Hubo un problema al asignar el rol.');
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Rol asignado:', data);
-            Swal.fire({
-                title: "¡Excelente!",
-                text: "Usuario y rol registrados correctamente!",
-                icon: "success"
-            }).then(() => {
-                location.reload();
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            Swal.fire({
-                icon: "error",
-                title: "¡Oops...",
-                text: "Ocurrió un error: " + error.message
-            });
         });
     });
 });
+
 
 function fetchRoles() {
     fetch('http://localhost:3000/api/roles')
@@ -102,10 +128,15 @@ function fetchRoles() {
         .then(data => {
             const rolesSelect = document.getElementById('rolesSelect');
             data.forEach(rol => {
+                if (rol.IdRol!=4) {
+                    
+               
                 const option = document.createElement('option');
                 option.value = rol.IdRol; // Ajusta esto según el campo que contiene el ID del rol
                 option.textContent = rol.NombreRol; // Ajusta esto según el campo que contiene el nombre del rol
-                rolesSelect.appendChild(option);
+                rolesSelect.appendChild(option); }
+                
+                
             });
         })
         .catch(error => {
@@ -113,24 +144,33 @@ function fetchRoles() {
         });
 }
 
-const actualizarUsuario = async (event) => {
-    event.preventDefault();
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const usuarioId = urlParams.get('id');
-    const rolUsuarioId = urlParams.get('IdRolUsuario'); // Asegúrate de tener IdRolUsuario si está en la URL.
-
-    const formulario = document.getElementById('formularioUsuariosEditar');
-    const formData = new FormData(formulario);
-
-    const usuarioData = {};
-    formData.forEach((value, key) => {
-        usuarioData[key] = value;
-    });
-
+const actualizarUsuario = async () => {
     try {
-        // Actualizar usuario
-        const response = await fetch(`http://localhost:3000/Api/Usuarios/${usuarioId}`, {
+        const urlParams = new URLSearchParams(window.location.search);
+        const usuarioId = urlParams.get('id');
+
+        const formulario = document.getElementById('formularioUsuariosEditar');
+        const formData = new FormData(formulario);
+
+        const usuarioData = {};
+        formData.forEach((value, key) => {
+            usuarioData[key] = value;
+        });
+
+        const requiredFields = ['Nombres', 'Apellidos', 'Correo', 'Telefono', 'TipoDocumento', 'Documento', 'FechaDeNacimiento', 'Direccion', 'Genero', 'Estado'];
+        for (const field of requiredFields) {
+            if (!usuarioData[field]) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Error',
+                    text: `Llene el campo ${field}`,
+                    confirmButtonText: 'Aceptar'
+                });
+                return;
+            }
+        }
+
+        const response = await fetch(`http://localhost:3000/api/Usuarios/${usuarioId}`, {
             method: 'PUT',
             mode: 'cors',
             headers: {
@@ -143,31 +183,42 @@ const actualizarUsuario = async (event) => {
             throw new Error('Error al actualizar el usuario: ' + response.statusText);
         }
 
-        // Si hay un rol en los datos del usuario, actualizar el rol también
-        if (usuarioData.IdRol && rolUsuarioId) {
-            const responseRol = await fetch(`http://localhost:3000/api/usuariosRol/${usuarioId}/roles/${rolUsuarioId}`, {
+        if (usuarioData.Rol) {  // Usar 'Rol' en lugar de 'IdRol'
+            const responseRol = await fetch(`http://localhost:3000/api/usuariosRol/${usuarioId}`, {
                 method: 'PUT',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ IdRol: usuarioData.IdRol })
+                body: JSON.stringify({ IdRol: usuarioData.Rol })  // Asegúrate de enviar el campo correcto
             });
 
             if (!responseRol.ok) {
                 throw new Error('Error al actualizar el rol del usuario: ' + responseRol.statusText);
             }
         }
-
-        // Mostrar modal de éxito
-        const successModal = document.getElementById('successModal');
-        successModal.style.display = 'block';
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'Usuario actualizado con éxito',
+            confirmButtonText: 'Aceptar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '../usuariosAdmin';
+            }
+        });
 
     } catch (error) {
         console.error('Error:', error);
-        alert('Hubo un problema al actualizar el usuario y/o su rol. Por favor, inténtalo de nuevo.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Hubo un problema al actualizar el usuario y/o su rol. Por favor, inténtalo de nuevo.',
+            confirmButtonText: 'Aceptar'
+        });
     }
 };
+
 
 
 
@@ -203,23 +254,28 @@ function obtenerDetallesUsuario() {
             document.getElementById('direccion').innerText = data.Direccion || '-';
             document.getElementById('genero').innerText = data.Genero || '-';
             document.getElementById('estado').innerText = data.Estado ? 'Activo' : 'Inactivo';
-            document.getElementById('beneficiario').innerText = data.Beneficiario || '-';
 
         })
         .catch(error => console.error('Error al obtener los detalles del usuario:', error));
 }
 // Llamar a la función cuando la página se cargue
 window.addEventListener('DOMContentLoaded', obtenerDetallesUsuario);
+
+
 // Event listener para el submit del formulario
 const precargarDatosUsuarioEnFormulario = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const usuarioId = urlParams.get('id');
 
+    if (!usuarioId) {
+        console.error('ID de usuario no proporcionado en la URL');
+        return;
+    }
+
     try {
         // Obtener los datos del usuario
         const responseUsuario = await fetch(`http://localhost:3000/Api/Usuarios/${usuarioId}`, {
             method: 'GET',
-            mode: 'cors',
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
@@ -236,6 +292,7 @@ const precargarDatosUsuarioEnFormulario = async () => {
         const fechaNacimiento = usuario.FechaDeNacimiento.split('T')[0];
 
         // Precargar datos del usuario en el formulario
+        document.getElementById('IdUser').value = usuarioId;
         document.getElementById('Nombre').value = usuario.Nombres;
         document.getElementById('Apellidos').value = usuario.Apellidos;
         document.getElementById('E-mail').value = usuario.Correo;
@@ -246,12 +303,10 @@ const precargarDatosUsuarioEnFormulario = async () => {
         document.getElementById('Direccion').value = usuario.Direccion;
         document.getElementById('Genero').value = usuario.Genero;
         document.getElementById('Estado').value = usuario.Estado;
-        document.getElementById('Beneficiario').value = usuario.Beneficiario;
 
         // Obtener el rol actual del usuario
         const responseUsuarioRoles = await fetch(`http://localhost:3000/api/usuariosRol/${usuarioId}/roles`, {
             method: 'GET',
-            mode: 'cors',
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
@@ -271,7 +326,6 @@ const precargarDatosUsuarioEnFormulario = async () => {
         // Obtener todos los roles disponibles
         const responseTodosRoles = await fetch(`http://localhost:3000/api/roles`, {
             method: 'GET',
-            mode: 'cors',
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }
@@ -286,7 +340,9 @@ const precargarDatosUsuarioEnFormulario = async () => {
 
         // Precargar todos los roles en el select del formulario
         const rolSelect = document.getElementById('Rol');
+       
         todosRolesData.forEach(role => {
+            
             const option = document.createElement('option');
             option.value = role.IdRol;
             option.text = role.NombreRol;
@@ -295,7 +351,6 @@ const precargarDatosUsuarioEnFormulario = async () => {
 
         // Preseleccionar el rol actual del usuario en el select después de añadir todas las opciones
         if (rolActual) {
-            // Preselecciona el rol actual después de que se hayan añadido todas las opciones
             setTimeout(() => {
                 rolSelect.value = rolActual;
                 console.log('Rol preseleccionado:', rolSelect.value);
@@ -309,11 +364,5 @@ const precargarDatosUsuarioEnFormulario = async () => {
 };
 
 // Llamar a la función cuando la página se cargue
-document.addEventListener('DOMContentLoaded', async () => {
-    await precargarDatosUsuarioEnFormulario();
-});
-
-const formulario = document.getElementById('formularioUsuariosEditar');
-formulario.addEventListener('submit', actualizarUsuario);
 
 

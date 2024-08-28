@@ -74,20 +74,20 @@
                                     <!-- inicio -->
                                     
                                        
-<table id="productosTable" class="table">
+<table id="productosTable" class="table" style="width: 100%; border-collapse: collapse;">
     <thead>
         <tr>
-            <th style="width: 93.0156px;">Selecciona un producto:</th>
-            <th style="width: 150px;">Valor                </th>
-            <th>Cantidad</th>
-            <th>Valor Total</th>
-            <th>Acciones</th>
+            <th style="width: 30%;">Selecciona un producto:</th>
+            <th style="width: 20%;">Valor</th>
+            <th style="width: 20%;">Cantidad</th>
+            <th style="width: 20%;">Valor Total</th>
+            <th style="width: 10%;">Acciones</th>
         </tr>
     </thead>
     <tbody id="productosAgregados">
         <tr class="productoRow" id="productoInicial">
             <td>
-                <select class="selectProducto" id="selectProducto" name="productos[]" style="width:300px" onchange="actualizarValorProducto1(this)">
+                <select class="selectProducto" id="selectProducto" name="productos[]" style="width: 100%;" onchange="actualizarValorProducto1(this)">
                     <option selected="" disabled="" value="">Agregar producto a la compra</option>
                     <!-- Agrega más opciones según tus necesidades -->
                 </select>
@@ -96,7 +96,7 @@
                 <label id="valorProducto" class="valorProducto">$ 0</label>
             </td>
             <td>
-                <input style="width:90px" type="number" name="cantidades[]" value="1" min="1" required oninput="calcularValorTotal(this.closest('tr'))">
+                <input style="width: 100%; max-width: 90px;" type="number" name="cantidades[]" value="1" min="1" required oninput="calcularValorTotal(this.closest('tr'))">
             </td>
             <td>
                 <label id="valortotal" class="valortotal">$ 0</label>
@@ -109,8 +109,6 @@
         </tr>
     </tbody>
 </table>
-
-
 
                                     <!-- fin -->
                                     

@@ -6,20 +6,7 @@
     <title>Actualizar servicio</title>
     {{> header}}
     <link rel="stylesheet" href="../assets/css/Productos.css" />
-    <style>
-        input[type="date"]:required:invalid {
-            border: 1px solid red;
-        }
-        .formulario__grupo-correcto input {
-            border-color: green;
-        }
-        .formulario__grupo-incorrecto input {
-            border-color: red;
-        }
-        .formulario__input-error-activo {
-            display: block;
-        }
-    </style>
+  
 </head>
 <body>
     <!-- Inicio del cargar -->
@@ -62,40 +49,6 @@
                                         <p class="formulario__input-error">Por favor ingresa un nombre válido para el servicio</p>
                                     </div>
                                 </div>
-
-                                <!-- Cantidad -->
-                                <div class="col-md-6 formulario__grupo" id="grupo_Cantidad">
-    <div class="form-group">
-        <label class="form-label">Cantidad*</label>
-        <input type="number" class="form-control" name="Cantidad" placeholder="Cantidad" id="Cantidad" required min="1" />
-        <p class="formulario__input-error">Ingresa una cantidad válida para el servicio</p>
-    </div>
-</div>
-
-                                <!-- Costo total -->
-                                <div class="col-md-6 formulario__grupo" id="grupo_CostoTotal">
-                                    <div class="form-group">
-                                        <label class="form-label">Costo total*</label>
-                                        <div class="formulario__grupo-input">
-                                            <input type="number" class="form-control" name="CostoTotal" placeholder="Costo total" id="CostoTotal" required />
-                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                                        </div>
-                                        <p class="formulario__input-error">Ingresa un costo total válido para el servicio.</p>
-                                    </div>
-                                </div>
-
-                                <!-- Costo de venta -->
-                                <div class="col-md-6 formulario__grupo" id="grupo_CostoVenta">
-                                    <div class="form-group">
-                                        <label class="form-label">Costo de venta*</label>
-                                        <div class="formulario__grupo-input">
-                                            <input type="number" class="form-control" name="CostoVenta" placeholder="Costo de venta" id="CostoVenta" required />
-                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                                        </div>
-                                        <p class="formulario__input-error">Ingresa un costo de venta válido para el servicio</p>
-                                    </div>
-                                </div>
-
                                 <!-- Estado -->
                                 <div class="col-md-6 formulario__grupo" id="grupo_Estado">
                                     <div class="form-group">
@@ -142,95 +95,90 @@
     {{> footer}}
     <script src="../assets/js/postServicios.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const FormularioServiciosModal = document.getElementById('FormularioServiciosModal');
-            const inputsModal = document.querySelectorAll('#FormularioServiciosModal input, #FormularioServiciosModal select');
-            
-            const campos = {
-                NombreClase: false,
-                CostoTotal: false,
-                CostoVenta: false,
-                Estado: false
-            };
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const FormularioServiciosModal = document.getElementById('FormularioServiciosModal');
+        const inputsModal = document.querySelectorAll('#FormularioServiciosModal input, #FormularioServiciosModal select');
+        
+        const campos = {
+            NombreClase: false,
+            Estado: false
+        };
 
-            const validarCampo = (expresion, input, campo) => {
-                const valor = input.value.trim();
-                if (expresion.test(valor) && (campo === 'Cantidad' || campo === 'CostoTotal' || campo === 'CostoVenta' ? valor > 0 : true)) {
-                    document.getElementById(`grupo_${campo}`).classList.remove('formulario__grupo-incorrecto');
-                    document.getElementById(`grupo_${campo}`).classList.add('formulario__grupo-correcto');
-                    document.querySelector(`#grupo_${campo} i`).classList.remove('fa-times-circle');
-                    document.querySelector(`#grupo_${campo} i`).classList.add('fa-check-circle');
-                    document.querySelector(`#grupo_${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
-                    campos[campo] = true;
-                } else {
-                    document.getElementById(`grupo_${campo}`).classList.add('formulario__grupo-incorrecto');
-                    document.getElementById(`grupo_${campo}`).classList.remove('formulario__grupo-correcto');
-                    document.querySelector(`#grupo_${campo} i`).classList.remove('fa-check-circle');
-                    document.querySelector(`#grupo_${campo} i`).classList.add('fa-times-circle');
-                    document.querySelector(`#grupo_${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
-                    campos[campo] = false;
-                }
-            };
+        const validarCampo = (expresion, input, campo) => {
+            const valor = input.value.trim();
+            if (expresion.test(valor) || campo === 'Estado') {
+                document.getElementById(`grupo_${campo}`).classList.remove('formulario__grupo-incorrecto');
+                document.getElementById(`grupo_${campo}`).classList.add('formulario__grupo-correcto');
+                document.querySelector(`#grupo_${campo} i`).classList.remove('fa-times-circle');
+                document.querySelector(`#grupo_${campo} i`).classList.add('fa-check-circle');
+                document.querySelector(`#grupo_${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
+                campos[campo] = true;
+            } else {
+                document.getElementById(`grupo_${campo}`).classList.add('formulario__grupo-incorrecto');
+                document.getElementById(`grupo_${campo}`).classList.remove('formulario__grupo-correcto');
+                document.querySelector(`#grupo_${campo} i`).classList.remove('fa-check-circle');
+                document.querySelector(`#grupo_${campo} i`).classList.add('fa-times-circle');
+                document.querySelector(`#grupo_${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
+                campos[campo] = false;
+            }
+        };
 
-            const validarFormulario = (e) => {
-                switch (e.target.name) {
-                    case "NombreClase":
-                        validarCampo(/^[a-zA-Z0-9À-ÿ\s.,-]+$/, e.target, 'NombreClase');
-                        break;
-                    
-                    case "CostoTotal":
-                        validarCampo(/^\d+(\.\d{1,2})?$/, e.target, 'CostoTotal');
-                        break;
-                    case "CostoVenta":
-                        validarCampo(/^\d+(\.\d{1,2})?$/, e.target, 'CostoVenta');
-                        break;
-                    case "Estado":
-                        if (e.target.value) {
-                            document.getElementById(`grupo_Estado`).classList.remove('formulario__grupo-incorrecto');
-                            document.getElementById(`grupo_Estado`).classList.add('formulario__grupo-correcto');
-                            document.querySelector(`#grupo_Estado i`).classList.remove('fa-eye-slash');
-                            document.querySelector(`#grupo_Estado i`).classList.add('fa-check-circle');
-                            document.querySelector(`#grupo_Estado .formulario__input-error`).classList.remove('formulario__input-error-activo');
-                            campos['Estado'] = true;
-                        } else {
-                            document.getElementById(`grupo_Estado`).classList.add('formulario__grupo-incorrecto');
-                            document.getElementById(`grupo_Estado`).classList.remove('formulario__grupo-correcto');
-                            document.querySelector(`#grupo_Estado i`).classList.remove('fa-check-circle');
-                            document.querySelector(`#grupo_Estado i`).classList.add('fa-eye-slash');
-                            document.querySelector(`#grupo_Estado .formulario__input-error`).classList.add('formulario__input-error-activo');
-                            campos['Estado'] = false;
-                        }
-                        break;
-                }
-            };
+        const validarFormulario = (e) => {
+            switch (e.target.name) {
+                case "NombreClase":
+                    validarCampo(/^[a-zA-Z0-9À-ÿ\s.,-]+$/, e.target, 'NombreClase');
+                    break;
+                case "Estado":
+                    if (e.target.value) {
+                        document.getElementById(`grupo_Estado`).classList.remove('formulario__grupo-incorrecto');
+                        document.getElementById(`grupo_Estado`).classList.add('formulario__grupo-correcto');
+                        document.querySelector(`#grupo_Estado i`).classList.remove('fa-eye-slash');
+                        document.querySelector(`#grupo_Estado i`).classList.add('fa-check-circle');
+                        document.querySelector(`#grupo_Estado .formulario__input-error`).classList.remove('formulario__input-error-activo');
+                        campos['Estado'] = true;
+                    } else {
+                        document.getElementById(`grupo_Estado`).classList.add('formulario__grupo-incorrecto');
+                        document.getElementById(`grupo_Estado`).classList.remove('formulario__grupo-correcto');
+                        document.querySelector(`#grupo_Estado i`).classList.remove('fa-check-circle');
+                        document.querySelector(`#grupo_Estado i`).classList.add('fa-eye-slash');
+                        document.querySelector(`#grupo_Estado .formulario__input-error`).classList.add('formulario__input-error-activo');
+                        campos['Estado'] = false;
+                    }
+                    break;
+            }
+        };
 
-            inputsModal.forEach(input => {
-                input.addEventListener('input', validarFormulario);
-            });
-
-            FormularioServiciosModal.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const { NombreClase,  CostoTotal, CostoVenta, Estado } = campos;
-                if (NombreClase  && CostoTotal && CostoVenta && Estado) {
-                    Swal.fire({
-                        title: 'Éxito!',
-                        text: 'Los datos han sido actualizados correctamente.',
-                        icon: 'success',
-                        confirmButtonText: 'Aceptar'
-                    }).then(() => {
-                        window.location.href = 'serviciosAdmin'; // Redirige a la página de administración de servicios
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Por favor corrige los errores en el formulario.',
-                        icon: 'error',
-                        confirmButtonText: 'Aceptar'
-                    });
-                }
-            });
+        inputsModal.forEach(input => {
+            input.addEventListener('input', validarFormulario);
         });
-    </script>
+
+        FormularioServiciosModal.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const { NombreClase, Estado } = campos;
+            if (NombreClase && Estado) {
+                Swal.fire({
+                    title: 'Éxito!',
+                    text: 'Los datos han sido actualizados correctamente.',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    window.location.href = 'serviciosAdmin'; // Redirige a la página de administración de servicios
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Por favor corrige los errores en el formulario.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        await precargarDatosServicioEnFormulario();
+    });
+</script>
 </body>
 </html>

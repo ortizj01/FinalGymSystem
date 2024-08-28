@@ -7,7 +7,7 @@
     {{> header}}
     <link rel="stylesheet" href="../assets/css/Productos.css" />
 </head>
-<body class="  ">
+<body class="  " onload="inicializarPagina()">
     <!-- Inicio del cargar -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -31,7 +31,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Agregar usuario</h4>
+                            <h4 class="card-title">actualizar usuario</h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -79,8 +79,8 @@
                                         <label class="form-label">Tipo de Documento*</label>
                                         <select class="form-select" name="TipoDocumento" id="TipoDocumento" required>
                                             <option value="" disabled selected hidden>Seleccionar Documento</option>
-                                            <option value="Cedula">Cédula</option>
-                                            <option value="Pasaporte">Pasaporte</option>
+                                            <option value="cedula_ciudadania">Cédula</option>
+                                            <option value="pasaporte">Pasaporte</option>
                                         </select>
                                         <span class="error-message" id="tipoDocumento-error"></span>
                                     </div>
@@ -114,7 +114,6 @@
                                 </div>
 
                                 <!-- Género -->
-                                <!-- Género -->
 <div class="col-md-6">
     <div class="form-group">
         <label class="form-label">Género*</label>
@@ -130,9 +129,6 @@
 
 
                                 <!-- Rol -->
-                                
-                                <!-- Rol -->
-                               <!-- Rol -->
 <div class="col-md-6">
     <div class="form-group">
         <label class="form-label">Rol*</label>
@@ -157,37 +153,43 @@
                                         <span class="error-message" id="estado-error"></span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-    <div class="form-group">
-        <label class="form-label">Beneficiario*</label>
-        <input type="text" class="form-control" name="Beneficiario" placeholder="Beneficiario" id="Beneficiario"/>
-        <span class="error-message" id="beneficiario-error"></span>
-    </div>
-</div>
                                 <!-- Contraseña -->
-                                <div class="col-md-6 formulario__grupo" id="grupo__contrasena">
+                              <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Contraseña*</label>
-                                        <div class="formulario__grupo-input">
-                                            <input type="password" class="form-control" name="Contrasena" placeholder="Contraseña"  required />
-                                        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="Contrasena" id="contrasena" placeholder="Contraseña"  />
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" id="togglePassword" data-toggle="contrasena">
+                                                    <span class="fa-regular fa-eye-slash fa-xl me-2"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <span class="error-message" id="contrasena-error"></span>
                                     </div>
-                                        <p class="formulario__input-error">Por favor ingresa una contraseña válida</p>
                                 </div>
-                            </div>
+                                <input type="text" id="IdUser" style="display: none;">
                                 <!-- Confirmar Contraseña -->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Confirmar Contraseña*</label>
-                                        <input type="password" class="form-control" name="confirmarContrasena" placeholder="Confirmar Contraseña" required />
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="confirmarContrasena" id="confirmarContrasena" aria-describedby="confirmarContrasenaHelp" placeholder="Confirme Contraseña"  />
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword" data-toggle="confirmarContrasena">
+                                                    <span class="fa-regular fa-eye-slash fa-xl me-2"></span>
+                                                </button>
+                                            </div>
+                                        </div>
                                         <span class="error-message" id="confirmarContrasena-error"></span>
                                     </div>
                                 </div>
                             </div>
 
+
                             <div class="row mt-4">
                                 <div class="col-md-12 text-end">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <button type="submit"  class="btn btn-primary">Guardar</button>
                                     <a href="usuariosAdmin" class="btn btn-dark ms-2">Cancelar</a>
                                 </div>
                             </div>
@@ -206,6 +208,71 @@
         {{> copyright}}
     </footer>
     <!-- Footer Section End -->
+
+      <script>
+        // Función para cambiar la visibilidad de las contraseñas
+        function togglePasswordVisibility(inputId, buttonId) {
+            const passwordInput = document.getElementById(inputId);
+            const button = document.getElementById(buttonId).querySelector('span');
+    
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                button.className = 'fa-regular fa-eye fa-xl me-2';
+            } else {
+                passwordInput.type = 'password';
+                button.className = 'fa-regular fa-eye-slash fa-xl me-2';
+            }
+        }
+
+        // Agregar eventos a los botones de toggle
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            togglePasswordVisibility('contrasena', 'togglePassword');
+        });
+
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+            togglePasswordVisibility('confirmarContrasena', 'toggleConfirmPassword');
+        });
+    </script>
+    <script>
+ function inicializarPagina() {
+            // Llama a la función para precargar datos del usuario
+            precargarDatosUsuarioEnFormulario();
+
+            // Llama a la función para precargar roles
+            fetchRoles();
+
+            // Agrega un manejador de eventos para el formulario
+            const formulario = document.getElementById('formularioUsuariosEditar');
+            formulario.addEventListener('submit', async (event) => {
+                event.preventDefault(); // Evita el envío del formulario
+                await actualizarUsuario(); // Llama a la función para actualizar el usuario
+            });
+        }
+
+        function fetchRoles() {
+            fetch('http://localhost:3000/api/roles')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const rolesSelect = document.getElementById('Rol');
+                    data.forEach(rol => {
+                        const option = document.createElement('option');
+                        option.value = rol.IdRol; // Ajusta esto según el campo que contiene el ID del rol
+                        option.textContent = rol.NombreRol; // Ajusta esto según el campo que contiene el nombre del rol
+                        rolesSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar roles:', error);
+                });
+        }
+    </script>
+
+
     <script src="../assets/js/postUsuarios.js"></script>
         <script src="../assets/js/formUsuarios.js"></script>
 

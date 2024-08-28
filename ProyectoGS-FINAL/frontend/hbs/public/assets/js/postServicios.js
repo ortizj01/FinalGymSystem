@@ -19,29 +19,58 @@ document.addEventListener('DOMContentLoaded', () => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${servicio.NombreClase}</td>
-                        <td>${servicio.CostoVenta}</td>
                         <td>${estado}</td>
                         <td>
-                            <div class="centered-container">
-                                <a href="detalleServicio?id=${servicio.IdServicio}"><i class="fa-regular fa-eye fa-xl me-2"></i></a>
-                                <a href="formServiciosModal?id=${servicio.IdServicio}"><i class="fa-regular fa-pen-to-square fa-xl me-2"></i></a>
-                                <i class="fa-solid fa-trash fa-xl me-2" data-bs-toggle="modal" data-bs-target="#eliminarServicioModal" data-id="${servicio.IdServicio}"></i>
+                            <div class="d-flex justify-content-start">
+                                <a href="detalleServicio?id=${servicio.IdServicio}" class="me-2"><i class="fa-regular fa-eye fa-xl"></i></a>
+                                <a href="formServiciosModal?id=${servicio.IdServicio}" class="me-2"><i class="fa-regular fa-pen-to-square fa-xl"></i></a>
+                                <a href="#" class="btn-delete" data-id="${servicio.IdServicio}"><i class="fa-regular fa-trash-can fa-xl"></i></a>
                             </div>
                         </td>
                     `;
                     tableBody.appendChild(row);
-
-                    // Agregar evento al botón de eliminar para mostrar modal de confirmación
-                    const eliminarBtn = row.querySelector('.fa-trash');
-                    if (eliminarBtn) {
-                        eliminarBtn.addEventListener('click', () => {
-                            const servicioId = eliminarBtn.getAttribute('data-id');
-                            console.log('Eliminar servicio con ID:', servicioId);
-                            // Asignar el ID del servicio al formulario de confirmación
-                            document.getElementById('eliminarServicioForm').setAttribute('data-id', servicioId);
-                        });
-                    }
                 });
+
+                // Inicializar DataTable
+                $('#dataTable').DataTable({
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                        "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+                        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Entradas",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }, 
+                    lengthMenu: [5, 10, 25, 50], // Opciones de selección de registros por página
+                    pageLength: 5
+                });
+
+                // Manejar el evento de clic en el botón de eliminar
+                document.querySelectorAll('.btn-delete').forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const servicioId = button.getAttribute('data-id');
+                        console.log('Eliminar servicio con ID:', servicioId);
+                        // Asignar el ID del servicio al formulario de confirmación
+                        document.getElementById('eliminarServicioForm').setAttribute('data-id', servicioId);
+                        // Mostrar el modal para confirmar la eliminación
+                        const modal = new bootstrap.Modal(document.getElementById('eliminarServicioModal'));
+                        modal.show();
+                    });
+                });
+
             } else {
                 console.error('No se encontró el elemento tableBody');
             }
@@ -68,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 // Eliminar la fila correspondiente de la tabla
-                const rowToDelete = document.querySelector(`.fa-trash[data-id='${servicioId}']`).closest('tr');
+                const rowToDelete = document.querySelector(`.btn-delete[data-id='${servicioId}']`).closest('tr');
                 if (rowToDelete) rowToDelete.remove();
 
                 // Cerrar el modal de confirmación
@@ -91,31 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function obtenerDetallesServicio() {
-    // Obtener el ID del servicio de la URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const servicioId = urlParams.get('id');
 
-    // Hacer una solicitud GET para obtener los detalles del servicio
-    fetch(`http://localhost:3000/Api/Servicios/${servicioId}`)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('nombreClase').innerText = data.NombreClase;
-            document.getElementById('cantidad').innerText = data.Cantidad;
-            document.getElementById('costoTotal').innerText = data.CostoTotal;
-            document.getElementById('costoVenta').innerText = data.CostoVenta;
-
-            // Convertir el estado de 1 o 0 a "Activo" o "Inactivo"
-            const estado = data.Estado === 1 ? 'Activo' : 'Inactivo';
-            document.getElementById('estado').innerText = estado;
-        })
-        .catch(error => {
-            console.error('Error al obtener los detalles del servicio:', error);
-            alert('Hubo un problema al obtener los detalles del servicio. Por favor, inténtalo de nuevo.');
-        });
-}
-
-window.addEventListener('DOMContentLoaded', obtenerDetallesServicio);
 
 const actualizarServicio = async (event) => {
     event.preventDefault();
@@ -181,9 +186,6 @@ const precargarDatosServicioEnFormulario = async () => {
 
         // Llenar el formulario con los datos obtenidos
         document.getElementById('NombreClase').value = servicio.NombreClase;
-        document.getElementById('Cantidad').value = servicio.Cantidad;
-        document.getElementById('CostoTotal').value = servicio.CostoTotal;
-        document.getElementById('CostoVenta').value = servicio.CostoVenta;
         document.getElementById('Estado').value = servicio.Estado.toString(); // Asegúrate de convertir a string
 
     } catch (error) {
@@ -193,9 +195,7 @@ const precargarDatosServicioEnFormulario = async () => {
 };
 
 // Llamar a la función cuando la página se cargue
-document.addEventListener('DOMContentLoaded', async () => {
-    await precargarDatosServicioEnFormulario();
-});
+
 
 // Event listener para el submit del formulario
 const form = document.getElementById('FormularioServicios');

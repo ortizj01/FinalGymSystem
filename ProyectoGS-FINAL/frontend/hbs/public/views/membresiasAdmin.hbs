@@ -17,36 +17,54 @@
 {{> header}}
 {{> sidebar}}
 {{> topbar}}
-
-<!-- Contenido principal -->
 <div class="container-fluid content-inner">
+    <div class="card-header py-2">
+        <h2 class="m-2 font-weight-bold text-primary">Gestión de Membresias</h2>
+    </div>
     <div class="container-fluid">
-        <!-- Botón para agregar membresía en el lado izquierdo -->
-        <a href="formMembresias" class="btn btn-primary btn-sm mb-3">
-            <i class="fa-regular fa-plus fa-xs me-1"></i> Agregar Membresía
-        </a>
-
-        <!-- Card para mostrar las membresías -->
+        <!-- DataTables Example -->
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h3 class="m-0 font-weight-bold text-primary">Gestión de Membresías</h3>
-            </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="membresiasTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Nombre Membresía</th>
-                                <th>Frecuencia</th>
-                                <th>Precio</th>
-                                <th>Estado</th>
-                                <th>Acciones</th> <!-- Columna para botones de acción -->
-                            </tr>
-                        </thead>
-                        <tbody id="membresiasTableBody">
-                            <!-- Aquí se agregarán las filas de datos -->
-                        </tbody>
-                    </table>
+                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                        <div class="card-header py-3 d-flex justify-content-between">
+                            <div class="d-flex">
+                                <!-- Aquí podrías añadir filtros u otros controles si es necesario -->
+                            </div>
+                            <div class="footer-buttons mt-1">
+                                <a href="formMembresias" type="button" name="Agregar"
+                                    class="btn btn-primary float-end me-2">
+                                    Agregar Membresia +
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered dataTable" id="membresiasTable" width="100%"
+                                    cellspacing="0" role="grid" aria-describedby="dataTable_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Nombre Clase: activate to sort column ascending"
+                                                style="width: 150px;">Nombre Membresía</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Costo Venta: activate to sort column ascending"
+                                                style="width: 150px;">Frecuencia</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Estado: activate to sort column ascending"
+                                                style="width: 100px;">Estado</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Acciones: activate to sort column ascending"
+                                                style="width: 150px;">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="membresiasTableBody">
+                                        <!-- Aquí se insertarán los datos de los servicios -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div> 

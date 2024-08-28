@@ -51,25 +51,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Selección de Servicio -->
-                                <div class="col-md-6">
-                                    <label for="selectProducto">Selecciona servicio:</label>
-                                    <div class="productoContainer">
-                                        <select id="selectProducto" name="productos[]"  style="width:300px" required>
-                                            <option value="IdServicios" disabled selected hidden>Agregar servicio</option>
-                                        </select>
-                                        <i class="formulario__validacion-estado fas fa-eye-slash" onclick="toggleVisibility('selectProducto')"></i>
-                                        <span class="error-message" id="rol-error"></span>
-                                        <div class="productoContainer">
-                                            <button type="button" class="btn btn-soft-info btn mt-2" onclick="agregarProducto()" style="margin-left:50px">
-                                                <i class="fa-solid fa-plus fa-lg"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="productosAgregados">
-                                    <!-- Aquí se agregarán dinámicamente los nuevos campos de selección -->
-                                </div>
 
                                 <!-- Frecuencia -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__Frecuencia">
@@ -89,18 +70,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Costo Total -->
-                                <div class="col-md-6 formulario__grupo" id="grupo__Costototal">
-                                    <div class="form-group">
-                                        <label class="form-label">Costo total</label>
-                                        <div class="formulario__grupo-input">
-                                            <input type="text" class="form-control" name="Costototal" placeholder="Costo de la Membresía" id="CostoTotal" />
-                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                                        </div>
-                                        <p class="formulario__input-error">Ingresa un costo total válido para la membresía</p>
-                                    </div>
-                                </div>
-
+                                
                                 <!-- Costo Venta -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__Costoventa">
                                     <div class="form-group">
@@ -125,16 +95,49 @@
                                         <label class="form-label" for="Estado">Estado*</label>
                                         <div class="formulario__grupo-input">
                                             <select class="form-select" id="Estado" name="Estado" required>
-                                                <option value="" disabled selected hidden>Selecciona el estado</option>
-                                                <option value="1">Activo</option>
-                                                <option value="0">Inactivo</option>
-                                            </select>
+                                            <option value="">Selecciona el estado</option>
+                                            <option value="1">Activo</option>
+                                            <option value="0">Inactivo</option>
+                                        </select>
                                             <i class="formulario__validacion-estado fas fa-eye-slash"></i>
                                             <span class="error-message" id="estado-error"></span>
                                         </div>
                                         <p class="formulario__input-error">Por favor selecciona un estado</p>
                                     </div>
                                 </div>
+                        <div class="mb-3">
+                        <label for="description" class="form-label">Descripción</label>
+                        <textarea id="Descripcion" name="Descripcion" class="form-control" rows="3"></textarea>
+                        <div class="invalid-feedback" id="DescriptionError"></div>
+                    </div>
+                     <div class="container-fluid content-inner">
+                               
+                                <!-- Servicios -->
+<table id="serviciosTable" class="table" style="width: 90%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th style="width: 40%;">Selecciona unn servicio:</th>
+            <th style="width: 5%;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="serviciosAgregados">
+        <tr class="servicioRow" id="servicioInicial">
+            <td>
+                <select class="selectServicio" id="selectServicio" name="servicios[]" style="width: 300px;" onchange="actualizarValorServicio(this)">
+                    <option selected="" disabled="" value="">Agregar servicio</option>
+                    <!-- Agrega más opciones según tus necesidades -->
+                </select>
+            </td>
+            <td>
+                <button type="button" class="btn btn-soft-info mt-2" onclick="agregarServicio()">
+                    <i class="fa-solid fa-plus fa-lg"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
                                 <!-- Botones de Guardar y Cancelar -->
                                 <div class="row mt-4">
                                     <div class="col-md-12 text-end">
@@ -144,18 +147,6 @@
                                 </div>
                             </div>
                         </form>
-
-                        <!-- Tabla de Servicios -->
-                        <div class="col-sm-12">
-                            <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                                <thead>
-                                    <!-- Aquí deberías definir las columnas de la tabla -->
-                                </thead>
-                                <tbody>
-                                    <!-- Aquí deberías agregar las filas de la tabla -->
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
             </div>

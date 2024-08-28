@@ -123,29 +123,68 @@ export const deleteDetalleDeMembresia = async (req, res) => {
     }
 };
 
-
 export const putMembresiaServicio = async (req, res) => {
-    const { IdMembresia, id } = req.params;
-    const { IdServicio } = req.body;
+    const { IdMembresia } = req.params; // ID de la membresía desde los parámetros de la URL
+    const { IdServicios } = req.body; // Array de IDs de servicios desde el cuerpo de la solicitud
+
+    // Verifica que IdServicios sea un arreglo y contenga al menos un elemento
+    if (!Array.isArray(IdServicios)) {
+        return res.status(400).json({ message: 'IdServicios debe ser un arreglo' });
+    }
+
+    let connection; // Definir la variable connection en el ámbito de la función
 
     try {
-        // Verificar si el servicio ya está asociado a la membresía
-        const [existingRows] = await pool.query('SELECT * FROM MembresiasServicios WHERE IdMembresia = ? AND IdServicio = ?', [IdMembresia, IdServicio]);
+        // Obtener una conexión del pool
+        connection = await pool.getConnection();
+        await connection.beginTransaction();
 
-        if (existingRows.length > 0) {
-            return res.status(400).json({ message: 'El servicio ya está asociado a esta membresía' });
+        // Verificar si la membresía existe
+        const [membresiaRows] = await connection.query('SELECT * FROM Membresias WHERE IdMembresia = ?', [IdMembresia]);
+
+        if (membresiaRows.length === 0) {
+            await connection.rollback(); // Revertir transacción si la membresía no existe
+            return res.status(404).json({ message: 'La membresía no existe' });
         }
 
-        // Actualizar el detalle de membresía
-        await pool.query('UPDATE MembresiasServicios SET IdServicio = ? WHERE IdMembresiasServicios = ?', [IdServicio, id]);
+        // Obtener servicios actuales asociados
+        const [currentServices] = await connection.query('SELECT IdServicio FROM MembresiasServicios WHERE IdMembresia = ?', [IdMembresia]);
+        const currentServiceIds = currentServices.map(service => service.IdServicio);
+
+        // Identificar servicios que deben eliminarse
+        const servicesToRemove = currentServiceIds.filter(serviceId => !IdServicios.includes(serviceId));
+
+        // Identificar servicios que deben agregarse
+        const servicesToAdd = IdServicios.filter(serviceId => !currentServiceIds.includes(serviceId));
+
+        // Eliminar servicios que ya no están en la lista
+        if (servicesToRemove.length > 0) {
+            await connection.query('DELETE FROM MembresiasServicios WHERE IdMembresia = ? AND IdServicio IN (?)', [IdMembresia, servicesToRemove]);
+        }
+
+        // Insertar nuevos servicios
+        if (servicesToAdd.length > 0) {
+            const insertPromises = servicesToAdd.map(IdServicio =>
+                connection.query('INSERT INTO MembresiasServicios (IdMembresia, IdServicio) VALUES (?, ?)', [IdMembresia, IdServicio])
+            );
+            await Promise.all(insertPromises); // Esperar a que todas las inserciones se completen correctamente
+        }
+
+        // Commit la transacción si todo fue exitoso
+        await connection.commit();
 
         res.status(200).json({
             IdMembresia: IdMembresia,
-            IdMembresiasServicios: id,
-            IdServicio: IdServicio
+            IdServicios: IdServicios
         });
     } catch (error) {
         console.error('Error al actualizar detalle de membresía:', error.message);
+        if (connection) await connection.rollback(); // Revertir transacción en caso de error
         res.status(500).json({ message: 'Error al actualizar detalle de membresía' });
+    } finally {
+        if (connection) connection.release(); // Liberar conexión al finalizar
     }
 };
+
+
+

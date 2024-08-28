@@ -46,19 +46,6 @@
                                         <th>Nombre de Clase</th>
                                         <td id="nombreClase">-</td>
                                     </tr>
-                                    
-                                    <tr>
-                                        <th>Cantidad</th>
-                                        <td id="cantidad">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Costo Total</th>
-                                        <td id="costoTotal">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Costo de Venta</th>
-                                        <td id="costoVenta">-</td>
-                                    </tr>
                                     <tr>
                                         <th>Estado</th>
                                         <td id="estado">-</td>
@@ -82,7 +69,30 @@
 
     {{> footer}}
 <script src="../assets/js/postServicios.js"></script>
+<script>
+    function obtenerDetallesServicio() {
+    // Obtener el ID del servicio de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const servicioId = urlParams.get('id');
 
+    // Hacer una solicitud GET para obtener los detalles del servicio
+    fetch(`http://localhost:3000/Api/Servicios/${servicioId}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('nombreClase').innerText = data.NombreClase;
+           
+            // Convertir el estado de 1 o 0 a "Activo" o "Inactivo"
+            const estado = data.Estado === 1 ? 'Activo' : 'Inactivo';
+            document.getElementById('estado').innerText = estado;
+        })
+        .catch(error => {
+            console.error('Error al obtener los detalles del servicio:', error);
+            alert('Hubo un problema al obtener los detalles del servicio. Por favor, inténtalo de nuevo.');
+        });
+}
+
+window.addEventListener('DOMContentLoaded', obtenerDetallesServicio);
+</script>
   
 </body>
 </html>

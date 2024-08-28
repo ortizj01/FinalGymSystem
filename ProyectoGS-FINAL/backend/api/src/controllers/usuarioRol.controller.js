@@ -96,3 +96,29 @@ export const eliminarRolDeUsuario = async (req, res) => {
         res.status(500).json({ error: 'Error al eliminar el rol del usuario' });
     }
 };
+export const putUsuarioRol = async (req, res) => {
+    const { IdUsuario } = req.params; // Obtener IdUsuario de la URL
+    const { IdRol } = req.body; // Obtener IdRol del cuerpo de la solicitud
+
+    try {
+        // Verificar si el rol de usuario existe
+        const [roleCheck] = await pool.query('SELECT * FROM RolUsuario WHERE IdUsuario = ?', [IdUsuario]);
+
+        if (roleCheck.length === 0) {
+            return res.status(404).json({ message: 'Rol de usuario no encontrado' });
+        }
+
+        // Actualizar el rol del usuario
+        await pool.query('UPDATE RolUsuario SET IdRol = ? WHERE IdUsuario = ?', [IdRol, IdUsuario]);
+        console.log('Rol actualizado correctamente');
+
+        res.status(200).json({
+            IdUsuario: IdUsuario,
+            IdRol: IdRol
+        });
+    } catch (error) {
+        console.error('Error al actualizar el rol del usuario:', error.message);
+        res.status(500).json({ message: 'Error al actualizar el rol del usuario' });
+    }
+};
+
