@@ -27,7 +27,7 @@ const listarProductos= async () => {
             console.log('producto:', producto);
             
             // Asegurarse de que las propiedades existan
-            if (producto.NombreProducto && producto.PrecioProducto && producto.IvaProducto && producto.Imagen && producto.IdCategoriaProductos !== undefined) {
+            if (producto.NombreProducto && producto.PrecioProducto && producto.Imagen && producto.IdCategoriaProductos !== undefined) {
                 contenido += `
                     <tr>
                         <td>${producto.NombreProducto}</td>
@@ -251,9 +251,12 @@ const editarProductos = async () => {
 const agregarProducto = async () => {
     const NombreProducto = document.getElementById('Nombreproducto').value;
     const PrecioProducto = document.getElementById('Precioproducto').value;
-    const IvaProducto = document.getElementById('Ivaproducto').value;
+    let IvaProducto = document.getElementById('Ivaproducto').value;
     const Imagen = document.getElementById('Imagen').files[0];  // Obtener el archivo de imagen
     const IdCategoriaProductos = document.getElementById('SelectorCategoria').value;
+
+
+    IvaProducto = IvaProducto ? IvaProducto : 0;
 
     if (NombreProducto === "" || PrecioProducto === "" || IvaProducto === "" || !Imagen || IdCategoriaProductos === "") {
         Swal.fire({
@@ -357,9 +360,9 @@ const inputs = document.querySelectorAll('#formularioProductos input');
 
 
 const expresiones = {
-	Nombreproducto: /^[^0-9][a-zA-Z0-9]*$/, 
+	Nombreproducto: /[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/, 
     Precioproducto: /^(?:\d{1,3}(?:,\d{3})*(?:\.\d{1,2})?|\d+(?:\.\d{1,2})?)$/,
-	Ivaproducto:  /^([1-9]|[1-9][0-9]|100)%?$/
+	Ivaproducto:  /^([0-9]|[1-9][0-9]|100)%?$/
 }
 
 const campos={

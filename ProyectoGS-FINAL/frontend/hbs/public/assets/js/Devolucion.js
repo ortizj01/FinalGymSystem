@@ -24,7 +24,6 @@ const precargarDatosCompraEnFormulario = async () => {
         // Precargar los datos de la compra en el formulario
         document.getElementById('Fecha_compra').value = compra.Fecha_RegistroCompra;
         document.getElementById('NumeroReciboCompra').value = compra.NumeroReciboCompra;
-        document.getElementById('ValorDev').value = compra.ValorCompra;
 
     } catch (error) {
         console.error('Error:', error);
@@ -67,6 +66,14 @@ const precargarDatosproductosEnFormulario = async () => {
             selectNombre.disabled = true;
             selectNombre.name = 'productos[]';
 
+            const tdProductocmpra = document.createElement('td');
+            const labelCantidad = document.createElement('label');
+            labelCantidad.textContent = producto.CantidadProducto; // Mostrar la cantidad en el label
+            labelCantidad.style.display = 'inline-block';
+            labelCantidad.style.width = '50px';
+            labelCantidad.style.textAlign = 'center';
+
+
             const optionNombre = document.createElement('option');
             optionNombre.value = producto.IdProducto;
             optionNombre.textContent = producto.NombreProducto;
@@ -74,6 +81,8 @@ const precargarDatosproductosEnFormulario = async () => {
 
             tdProducto.appendChild(selectNombre);
             tr.appendChild(tdProducto);
+            tdProductocmpra.appendChild(labelCantidad);
+            tr.appendChild(tdProductocmpra);
 
             // Columna de valor
             const tdValor = document.createElement('td');
@@ -88,8 +97,21 @@ const precargarDatosproductosEnFormulario = async () => {
             inputCantidad.style.width = '50px';
             inputCantidad.min = 0;
             inputCantidad.max = producto.CantidadProducto;
-            inputCantidad.value = producto.CantidadProducto;
+            inputCantidad.value = 0;
             inputCantidad.name = 'cantidades[]';
+            
+            const validarCantidad = () => {
+                let value = parseInt(inputCantidad.value, 10) || 0; // Convertir el valor a número entero
+                if (value < 0) {
+                    value = 0;
+                } else if (value > producto.CantidadProducto) {
+                    value = producto.CantidadProducto;
+                }
+                inputCantidad.value = value;
+                calcularValorTotal(tr); // Recalcular el valor total
+            };
+
+            inputCantidad.addEventListener('input', validarCantidad);
 
             tdCantidad.appendChild(inputCantidad);
             tr.appendChild(tdCantidad);
@@ -112,7 +134,7 @@ const precargarDatosproductosEnFormulario = async () => {
             const btnEliminar = document.createElement('button');
             btnEliminar.type = 'button';
             btnEliminar.className = 'btn btn-soft-danger';
-            btnEliminar.textContent = 'Eliminar';
+            btnEliminar.textContent = 'Quitar de devolucion';
             btnEliminar.onclick = function() {
                 tr.remove();
                 calcularValorTotal(); // Recalcular el valor total después de eliminar un producto

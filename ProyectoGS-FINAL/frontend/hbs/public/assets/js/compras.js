@@ -94,6 +94,17 @@ function agregarProducto() {
     });
     cantidadCell.appendChild(nuevaCantidad);
 
+    const validarCantidad = () => {
+        let value = parseInt(nuevaCantidad.value, 10) || 0; // Convertir el valor a número entero
+        if (value < 1) {
+            value = 1;
+        } 
+        nuevaCantidad.value = value;
+        calcularValorTotal(tr); // Recalcular el valor total
+    };
+
+    nuevaCantidad.addEventListener('input', validarCantidad);
+
     var valorTotalCell = newRow.insertCell();
     var labelValorT = document.createElement("label");
     labelValorT.className = "valortotal";
