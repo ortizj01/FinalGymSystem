@@ -1,3 +1,4 @@
+
 // Función para obtener productos y membresías del catálogo
 const listarItemsEnCatalogo = async () => {
     try {
@@ -87,14 +88,20 @@ const listarItemsEnCatalogo = async () => {
                     </div>
                 `;
             } else if (item.tipo === 'membresia') {
+                const numMembresiasAgregadas = contenedorMembresias.querySelectorAll('.single-banner').length;
+                const imagenMembresia = numMembresiasAgregadas === 0 
+                    ? '/themes-envio/shopgrids/assets/images/logo/5.jpg' 
+                    : '/themes-envio/shopgrids/assets/images/logo/6.jpg';
+            
                 contenidoMembresias += `
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="single-banner" style="background-image:url('/themes-envio/shopgrids/assets/images/logo/5.jpg')">
+                    <div class="col-lg-6 col-md-6 col-12 mb-4"> <!-- Clase mb-4 para margen inferior -->
+                        <div class="single-banner" style="background-image:url('${imagenMembresia}')">
                             <div class="content">
                                 <h2 class="titulo">${item.NombreProducto}</h2>
                                 <p><br> </p>
                                 <div class="button">
-                                    <a href="product-grids.html" class="btn">Ver detalle </a>
+                                    <a href="detalleMembresiaCarrito?IdMembresia=${item.IdProducto}" class="btn">Ver detalle</a>
+
                                 </div>
                             </div>
                         </div>
@@ -129,6 +136,7 @@ const listarItemsEnCatalogo = async () => {
         console.error('Error al listar productos y membresías en el catálogo:', error.message);
     }
 };
+
 
 
 // Función para obtener las categorías de la API

@@ -357,6 +357,9 @@ app.get('/pedidoCarrito', (req, res)=>{
 app.get('/QrCarrito', (req, res)=>{
     res.render('carrito/QR')
 })
+app.get('/detalleMembresiaCarrito', (req, res)=>{
+    res.render('carrito/detalleMembresiaCarrito')
+})
 
 // FIN Ventas *YONIER*
 
