@@ -100,7 +100,7 @@ const listarItemsEnCatalogo = async () => {
                                 <h2 class="titulo">${item.NombreProducto}</h2>
                                 <p><br> </p>
                                 <div class="button">
-                                    <a href="detalleMembresiaCarrito?IdMembresia=${item.IdProducto}" class="btn">Ver detalle</a>
+                                    <a href=/detalleMembresiaCarrito?IdMembresia=${item.IdProducto}" class="btn">Ver detalle</a>
 
                                 </div>
                             </div>
@@ -256,24 +256,29 @@ const actualizarCarrito = () => {
     const cartHeader = document.querySelector('.dropdown-cart-header span');
     const totalAmount = document.querySelector('.total-amount');
     const totalItems = document.querySelector('.total-items');
+   
 
     let contenidoCarrito = '';
     let total = 0;
     let cantidadTotalProductos = 0;
 
     carrito.forEach(item => {
+        const esMembresia = item.hasOwnProperty('IdMembresia');
+        const nombreItem = esMembresia ? item.NombreProducto : item.NombreProducto;
+
         total += item.PrecioProducto * item.cantidad;
         cantidadTotalProductos += item.cantidad;
         contenidoCarrito += `
-            <li>
-                <a href="javascript:void(0)" class="remove" data-id="${item.IdProducto}" title="Eliminar este articulo">
+            <li class="${esMembresia ? 'membresia-item' : ''}">
+                <a href="javascript:void(0)" class="remove" data-id="${esMembresia ? item.IdMembresia : item.IdProducto}" data-tipo="${esMembresia ? 'membresia' : 'producto'}" title="Eliminar este artículo">
                     <i class="lni lni-trash-can icon-trash-large"></i>
                 </a>
                 <div class="cart-img-head">
-                    <a class="cart-img" href="product-details.html"><img src="${item.Imagen}" alt="${item.NombreProducto}"></a>
+                    <a class="cart-img" href="product-details.html"><img src="${item.Imagen}" alt="${nombreItem}"></a>
                 </div>
                 <div class="content">
                     <h4><a href="product-details.html">${item.NombreProducto}</a></h4>
+                    ${esMembresia ? '<span class="badge-membresia">Membresía</span>' : ''}
                     <p class="quantity">${item.cantidad}x - <span class="amount">$${item.PrecioProducto}</span></p>
                 </div>
             </li>
@@ -282,13 +287,14 @@ const actualizarCarrito = () => {
 
     shoppingList.innerHTML = contenidoCarrito;
     cartHeader.textContent = `${carrito.length} artículos`;
-    totalAmount.textContent = `$${total.toFixed(2)}`;
+    totalAmount.textContent = `$${total.toFixed(0)}`;
     totalItems.textContent = cantidadTotalProductos;
 
     document.querySelectorAll('.remove').forEach(button => {
         button.addEventListener('click', (event) => {
-            const productId = event.currentTarget.getAttribute('data-id');
-            eliminarProductoDelCarrito(productId);
+            const id = event.currentTarget.getAttribute('data-id');
+            const tipo = event.currentTarget.getAttribute('data-tipo');
+            eliminarItemDelCarrito(id, tipo);
         });
     });
 
@@ -309,6 +315,21 @@ const eliminarProductoDelCarrito = (productId) => {
         text: 'El producto ha sido eliminado del carrito.',
     });
 };
+
+const eliminarItemDelCarrito = (id, tipo) => {
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    carrito = carrito.filter(item => tipo === 'membresia' ? item.IdMembresia != id : item.IdProducto != id);
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarCarrito();
+
+    Swal.fire({
+        icon: 'info',
+        title: `${tipo === 'membresia' ? 'Membresía eliminada' : 'Producto eliminado'}`,
+        text: `El ${tipo === 'membresia' ? 'membresía' : 'producto'} ha sido eliminado del carrito.`,
+    });
+};
+
 
 
 // Inicializar catálogo y carrito

@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             document.getElementById('nombreMembresia').textContent = membresia.NombreMembresia;
             document.getElementById('frecuenciaMembresia').textContent = membresia.Frecuencia;
-            document.getElementById('costoMembresia').textContent = membresia.CostoVenta.toFixed(2);
+            document.getElementById('costoMembresia').textContent = membresia.CostoVenta.toFixed(0);
             document.getElementById('estadoMembresia').textContent = membresia.Estado === 1 ? 'Activo' : 'Inactivo';
 
             // Aquí podrías ajustar el video si fuese dinámico
@@ -79,7 +79,7 @@ const agregarAlCarrito = (item, cantidadSeleccionada = 1) => {
         const nuevoItem = {
             ...item,
             cantidad,
-            Imagen: esMembresia ? '/themes-envio/shopgrids/assets/images/logo/LOGO GYM SYSTEM.jpg' : item.Imagen,
+            Imagen: esMembresia ? '/themes-envio/shopgrids/assets/images/logo/Membresia.jpg' : item.Imagen,
             NombreProducto: nombreItem // Asegura que el nombre sea correcto
         };
         carrito.push(nuevoItem);
@@ -133,7 +133,7 @@ const actualizarCarrito = () => {
 
     shoppingList.innerHTML = contenidoCarrito;
     cartHeader.textContent = `${carrito.length} artículos`;
-    totalAmount.textContent = `$${total.toFixed(2)}`;
+    totalAmount.textContent = `$${total.toFixed(0)}`;
     totalItems.textContent = cantidadTotalProductos;
 
     document.querySelectorAll('.remove').forEach(button => {
