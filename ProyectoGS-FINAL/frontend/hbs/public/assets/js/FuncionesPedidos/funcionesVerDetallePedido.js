@@ -25,11 +25,11 @@ async function cargarDatosPedido() {
         document.getElementById('emailCliente').value = cliente.Correo;
         document.getElementById('telCliente').value = cliente.Telefono;
         document.getElementById('dirCliente').value = cliente.Direccion;
-        document.getElementById('estadoCliente').value = cliente.Estado === 0 ? 'ACTIVO' : 'INACTIVO';
+        document.getElementById('estadoCliente').value = cliente.Estado === 0 ? 'INACTIVO' : 'ACTIVO';
 
         // Llenar datos del pedido en campos independientes
         document.getElementById('fechaPedido').value = new Date(pedido.FechaPedido).toISOString().split('T')[0];
-        const estadoPedidoMap = ["PENDIENTE DE PAGO", "PAGADO", "ENTREGADO", "ANULADO"];
+        const estadoPedidoMap = ["","PENDIENTE DE PAGO","PAGADO", "ANULADO"];
         document.getElementById('estadoPedido').value = estadoPedidoMap[pedido.EstadoPedido];
 
         // Cargar productos y servicios del pedido

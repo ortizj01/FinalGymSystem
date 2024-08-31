@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion Carrito</title>
+    <title>Gestión Carrito</title>
     {{> header}}
     
     <link rel="stylesheet" href="vendor/datatables/dataTables.bootstrap4.min.css">
@@ -30,19 +30,23 @@
     <!-- Inicio contenido -->
     <div class="container-fluid content-inner">
         <div class="container-fluid">
-            <!-- DataTables Example -->
+            <!-- Botones de selección -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h3 class="m-0 font-weight-bold text-primary">Gestión Carrito</h3>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-primary" id="showProductos">Gestionar Productos</button>
+                        <button type="button" class="btn btn-secondary" id="showMembresias">Gestionar Membresías</button>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0">
+                    <!-- Tabla Productos -->
+                    <div id="productosTable" class="table-responsive">
+                        <table class="table table-bordered dataTable" id="dataTableProductos" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>IdProducto</th>
                                     <th>Nombre Producto</th>
-
                                     <th>Precio Producto</th>
                                     <th>Stock</th>
                                     <th>Imagen</th>
@@ -50,7 +54,25 @@
                                 </tr>
                             </thead>
                             <tbody id="tablaProductos">
-                                <!-- Los datos se insertarán aquí -->
+                                <!-- Los datos de productos se insertarán aquí -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Tabla Membresías -->
+                    <div id="membresiasTable" class="table-responsive" style="display:none;">
+                        <table class="table table-bordered dataTable" id="dataTableMembresias" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>IdMembresia</th>
+                                    <th>Nombre Membresía</th>
+                                    <th>Frecuencia</th>
+                                    <th>Costo Venta</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaMembresias">
+                                <!-- Los datos de membresías se insertarán aquí -->
                             </tbody>
                         </table>
                     </div>
@@ -82,8 +104,31 @@
     </div>
 </div>
 
+<!-- Modal para opciones de membresías -->
+<div class="modal fade" id="membershipOptionsModal" tabindex="-1" role="dialog" aria-labelledby="membershipOptionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="membershipOptionsModalLabel">Opciones de la Membresía</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>
+                    <input type="checkbox" id="showMembershipInCatalog"> Mostrar en el catálogo
+                </label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveMembershipChanges">Guardar cambios</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <!-- Bootstrap core JavaScript-->
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -337,6 +337,9 @@ app.get('/editarValoracionMedica', (req, res)=>{
 app.get('/pedidos', (req, res)=>{
     res.render('pedidos/pedidos')
 })
+app.get('/pedidoCliente', (req, res)=>{
+    res.render('pedidos/pedidoCliente')
+})
 app.get('/editarPedido', (req, res)=>{
     res.render('pedidos/editarPedido')
 })
@@ -357,6 +360,9 @@ app.get('/pedidoCarrito', (req, res)=>{
 })
 app.get('/QrCarrito', (req, res)=>{
     res.render('carrito/QR')
+})
+app.get('/detalleMembresiaCarrito', (req, res)=>{
+    res.render('carrito/detalleMembresiaCarrito')
 })
 
 // FIN Ventas *YONIER*
