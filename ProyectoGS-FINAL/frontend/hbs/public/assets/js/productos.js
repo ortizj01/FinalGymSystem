@@ -195,7 +195,7 @@ const editarProductos = async () => {
     const EstadoProducto = document.getElementById('Estadoedit').value;
     const IdCategoriaProductos = document.getElementById('categoria').value;
 
-    if (!NombreProducto || !PrecioProducto || !IvaProducto || !EstadoProducto || !IdCategoriaProductos || !Imagen) {
+    if (!NombreProducto || !PrecioProducto || !IvaProducto || !EstadoProducto || !IdCategoriaProductos) {
         Swal.fire({
             icon: 'warning',
             title: 'Error',
@@ -209,9 +209,12 @@ const editarProductos = async () => {
     formData.append('NombreProducto', NombreProducto);
     formData.append('PrecioProducto', PrecioProducto);
     formData.append('IvaProducto', IvaProducto);
-    formData.append('Imagen', Imagen); // Añade el archivo aquí
     formData.append('EstadoProducto', EstadoProducto);
     formData.append('IdCategoriaProductos', IdCategoriaProductos);
+
+    if (Imagen) {
+        formData.append('Imagen', Imagen); // Añade el archivo aquí
+    }
 
     try {
         const response = await fetch(`${url}/${id}`, {

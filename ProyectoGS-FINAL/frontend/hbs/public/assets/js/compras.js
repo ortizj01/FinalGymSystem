@@ -193,7 +193,7 @@ const listarCompras = async () => {
                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
                             </a>
                             <a href="../formDevolucioncom?id=${compra.IdCompra}">
-                                <i class="fa fa-retweet fa-xl me-2"></i>
+                                <i class="fa fa-undo  fa-xl me-2"></i>
                             </a>
                                 
                         </td>
