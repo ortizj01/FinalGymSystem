@@ -2,10 +2,8 @@ function prellenarFormularioUsuario() {
     const usuario = JSON.parse(localStorage.getItem('usuario'));
 
     if (usuario) {
-        // Concatenar Nombres y Apellidos
         const nombreCompleto = `${usuario.Nombres} ${usuario.Apellidos}`;
 
-        // Prellenar los campos del formulario
         document.getElementById('nombreCliente').value = nombreCompleto || '';
         document.getElementById('emailCliente').value = usuario.Correo || '';
         document.getElementById('telefonoCliente').value = usuario.Telefono || '';
@@ -17,17 +15,20 @@ function prellenarFormularioUsuario() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Prellenar el formulario cuando se carga la página
     prellenarFormularioUsuario();
+    actualizarResumenCompra();
 });
-
 
 const actualizarResumenCompra = () => {
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const cartSummaryContainer = document.getElementById('cartSummary');
     const totalElement = document.getElementById('total');
-    const siguientePasoContainer = document.querySelector('.price-table-btn.button'); // Selecciona el contenedor del botón "Siguiente paso"
-
+    const siguientePasoBtn = document.getElementById('siguientePasoBtn');
+    const volverBtn = document.getElementById('volverBtn');
+    const acordeonPersonalData = document.getElementById('acordeonPersonalData');
+    const acordeonMembresias = document.getElementById('acordeonMembresias');
+    const membresiaContainer = document.getElementById('membresiaContainer');
+    
     let contenidoResumen = '';
     let total = 0;
     let contieneMembresia = false;
@@ -37,7 +38,6 @@ const actualizarResumenCompra = () => {
         const totalProducto = item.PrecioProducto * item.cantidad;
         total += totalProducto;
 
-        // Verifica si el item es una membresía
         if (esMembresia) {
             contieneMembresia = true;
         }
@@ -60,20 +60,54 @@ const actualizarResumenCompra = () => {
     });
 
     cartSummaryContainer.innerHTML = contenidoResumen;
-
-    // Actualizar total a pagar
     totalElement.textContent = `$${total.toFixed(0)}`;
 
-    // Mostrar o ocultar el botón "Siguiente paso" según la presencia de membresías en el carrito
     if (contieneMembresia) {
-        siguientePasoContainer.style.display = 'block'; // Muestra el botón si hay membresías
-        siguientePasoContainer.querySelector('a').href = "ruta-a-la-configuracion"; // Asegúrate de definir la ruta adecuada
+        siguientePasoBtn.classList.remove('disabled');
+        siguientePasoBtn.addEventListener('click', () => {
+            acordeonPersonalData.style.display = 'none';
+            acordeonMembresias.style.display = 'block';
+            document.getElementById('collapseMembresias').classList.add('show');
+            mostrarMembresias(carrito);
+        });
     } else {
-        siguientePasoContainer.style.display = 'none'; // Oculta el botón si no hay membresías
+        siguientePasoBtn.classList.add('disabled');
+        siguientePasoBtn.removeEventListener('click', null);
+        membresiaContainer.innerHTML = '';
     }
+
+    volverBtn.addEventListener('click', () => {
+        acordeonMembresias.style.display = 'none';
+        acordeonPersonalData.style.display = 'block';
+        document.getElementById('collapsePersonalData').classList.add('show');
+    });
 };
 
-// Ejecutar la función al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
-    actualizarResumenCompra();
-});
+const mostrarMembresias = (carrito) => {
+    const membresiaContainer = document.getElementById('membresiaContainer');
+    let contenidoMembresias = '';
+
+    carrito.forEach(item => {
+        if (item.hasOwnProperty('IdMembresia')) {
+            contenidoMembresias += `
+                <div class="membresia-single-item mb-3 d-flex align-items-center">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="membresia-img">
+                            <img src="${item.Imagen}" alt="${item.NombreProducto}" class="img-fluid" style="width: 50px; height: 50px;">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="membresia-content ms-3">
+                            <h6 class="mb-1">${item.NombreProducto}</h6>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <input type="text" class="form-control" placeholder="Documento del Beneficiario">
+                    </div>
+                </div>
+            `;
+        }
+    });
+
+    membresiaContainer.innerHTML = contenidoMembresias;
+};

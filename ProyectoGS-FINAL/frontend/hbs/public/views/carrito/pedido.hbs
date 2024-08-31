@@ -8,7 +8,6 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="../themes-envio/shopgrids/assets/images/logo/2936886.png" />
-   
 
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/bootstrap.min.css" />
@@ -31,7 +30,6 @@
           </div>
         </div>
       </div>
-
     <!-- Preloader -->
 
     <!-- Start Header Area -->
@@ -82,14 +80,14 @@
                 <div class="col-lg-8">
                     <div class="checkout-steps-form-style-1">
                         <ul id="accordionExample">
-                            <li>
-                                <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                    aria-expanded="true" aria-controls="collapseThree">
+                            <li id="acordeonPersonalData">
+                                <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapsePersonalData"
+                                    aria-expanded="true" aria-controls="collapsePersonalData">
                                     <img src="themes-envio/shopgrids/assets/images/logo/cliente.png" alt="Icono de usuario" width="10%" height="10%" />
                                     Datos personales
                                 </h6>
-                                <section class="checkout-steps-form-content collapse show" id="collapseThree"
-                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <section class="checkout-steps-form-content collapse show" id="collapsePersonalData"
+                                    aria-labelledby="headingPersonalData" data-bs-parent="#accordionExample">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="single-form form-default">
@@ -135,17 +133,45 @@
                                        <div class="col-md-12">
                                             <br>
                                             <div class="price-table-btn button">
-                                                <a href="javascript:void(0)" class="btn disabled">Siguiente paso</a>
+                                                <a href="javascript:void(0)" class="btn disabled" id="siguientePasoBtn">Siguiente paso</a>
                                             </div>
                                         </div>
+                                    </div>
+                                </section>
+                            </li>
 
+                            <li id="acordeonMembresias" style="display:none;">
+                                <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseMembresias"
+                                    aria-expanded="false" aria-controls="collapseMembresias">
+                                    <img src="themes-envio/shopgrids/assets/images/logo/pesas.png" alt="Icono de pesas" width="10%" height="10%" />
+                                    Configuración de Membresías
+                                </h6>
+                                <section class="checkout-steps-form-content collapse" id="collapseMembresias"
+                                    aria-labelledby="headingMembresias" data-bs-parent="#accordionExample">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="membresia-list">
+                                                <div class="row mb-3">
+                                                    <div class="col-lg-4 col-md-4 col-12"><strong>Imagen</strong></div>
+                                                    <div class="col-lg-4 col-md-4 col-12"><strong>Nombre de la Membresía</strong></div>
+                                                    <div class="col-lg-4 col-md-4 col-12"><strong>Documento del Beneficiario</strong></div>
+                                                </div>
+                                                <div id="membresiaContainer"></div> <!-- Contenedor para las membresías -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <br>
+                                            <div class="price-table-btn button">
+                                                <a href="javascript:void(0)" class="btn" id="volverBtn">Volver</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </section>
                             </li>
 
                             <li>
                                 <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive"
-                                    aria-expanded="false" aria-controls="collapsefive"><img src="themes-envio/shopgrids/assets/images/logo/pago.png" alt="Icono de usuario"  width="10%" height="10%" />Información sobre el pago</h6>
+                                    aria-expanded="false" aria-controls="collapsefive"><img src="themes-envio/shopgrids/assets/images/logo/pago.png" alt="Icono de pago"  width="10%" height="10%" />Información sobre el pago</h6>
                                 <section class="checkout-steps-form-content collapse" id="collapsefive"
                                     aria-labelledby="headingFive" data-bs-parent="#accordionExample">
                                     <div class="row">
@@ -158,7 +184,6 @@
                                                             <br>
                                                             <select id="metodoPago" name="metodoPago" class="form-control">
                                                                 <option value="tarjeta">QR</option>
-                                                                
                                                             </select>
                                                         </div>
                                                     </div>
@@ -198,8 +223,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </section>
@@ -286,12 +309,7 @@
     <script src="../themes-envio/shopgrids/assets/js/glightbox.min.js"></script>
     <script src="../themes-envio/shopgrids/assets/js/main.js"></script>
     <script src="../assets/js/FuncionesCarrito/funcionesPedido.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-
-
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 
