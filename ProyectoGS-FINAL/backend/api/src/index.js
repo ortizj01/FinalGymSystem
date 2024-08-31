@@ -36,6 +36,8 @@ import authRoutes from './routes/auth.routes.js'
 import rolesRoutes from './routes/roles.routes.js';
 import permisosRoutes from './routes/permisos.routes.js';
 import permisosRolesRoutes from './routes/permisosRoles.routes.js';
+import DevolucionVentasRoutes from './routes/devolucion.ventas.routes.js';
+import DevolucionVentasProductosRoutes from './routes/devolucion.ventas.productos.routes.js';
 
 import ventasRouter from './routes/ventas.router.js';
 import ventasProductosRouter from './routes/ventas.productos.routes.js';
@@ -103,8 +105,10 @@ app.use('/api', ventasProductosRouter);
 app.use('/api', ventasMembresiaRoutes);
 app.use('/api', estadosRouter);
 
-app.use('/api', usuarioRolRoutes)
+app.use('/api', DevolucionVentasRoutes);
+app.use('/api', DevolucionVentasProductosRoutes );
 
+app.use('/api', usuarioRolRoutes)
 app.use('/api', rolesRoutes);
 app.use('/api', permisosRoutes);
 app.use('/api', permisosRolesRoutes);

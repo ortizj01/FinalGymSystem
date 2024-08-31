@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getDevolucionVentas, postDevolucionVentas, putDevolucionVentas, deleteDevolucionVentas, getDevolucionVenta } from '../controllers/devolucion.ventas.controller.js';
+import {postDevolucionVentas, putDevolucionVentas, deleteDevolucionVentas, getDevolucionVenta, getDevolucionVentas } from '../controllers/devolucion.ventas.controller.js';
 
 const router = Router();
 

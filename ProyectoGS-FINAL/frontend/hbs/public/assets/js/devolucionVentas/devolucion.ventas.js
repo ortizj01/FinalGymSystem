@@ -7,7 +7,7 @@ const listarDevVentas = async () => {
     let contenido = '';
 
     try {
-        const response = await fetch(urlDevoluciones, {
+        const response = await fetch(urlDevoluciones, { // Asegúrate que este endpoint devuelva todas las devoluciones
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -22,38 +22,8 @@ const listarDevVentas = async () => {
         const devoluciones = await response.json();
 
         for (const devolucion of devoluciones) {
-            let nombreCliente = 'Nombre desconocido';
-
-            // Realiza una solicitud a la API de ventas para obtener el IdUsuario
-            try {
-                const ventaResponse = await fetch(`${urlVentas}/${devolucion.IdVenta}`, {
-                    method: 'GET',
-                    headers: {
-                        "Content-type": "application/json; charset=UTF-8"
-                    }
-                });
-
-                if (ventaResponse.ok) {
-                    const ventaData = await ventaResponse.json();
-                    const idUsuario = ventaData.IdUsuario;
-
-                    // Realiza una solicitud a la API de usuarios para obtener el nombre del cliente
-                    const usuarioResponse = await fetch(`${urlUsuarios}/${idUsuario}`, {
-                        method: 'GET',
-                        headers: {
-                            "Content-type": "application/json; charset=UTF-8"
-                        }
-                    });
-
-                    if (usuarioResponse.ok) {
-                        const usuarioData = await usuarioResponse.json();
-                        nombreCliente = `${usuarioData.Nombres} ${usuarioData.Apellidos}`;
-                    }
-                }
-            } catch (error) {
-                console.error(`Error al obtener la información del cliente: ${error}`);
-            }
-
+            const nombreCliente = `${devolucion.NombreCliente || 'Nombre desconocido'} ${devolucion.ApellidosCliente || ''}`;
+            
             contenido += `
                 <tr>
                     <td>${nombreCliente}</td>
@@ -101,7 +71,7 @@ const listarDevVentas = async () => {
         });
 
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error al listar devoluciones:', error);
     }
 };
 

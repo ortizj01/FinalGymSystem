@@ -1,0 +1,28 @@
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group select {
+    width: 100%;
+    margin-top: 5px;
+}
+
+#selectBeneficiario {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.table-bordered {
+    table-layout: fixed;
+}
+
+.table-bordered th, .table-bordered td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.form-select {
+    max-width: 100%;
+    box-sizing: border-box;
+}

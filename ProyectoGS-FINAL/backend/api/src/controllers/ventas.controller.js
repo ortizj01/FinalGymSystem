@@ -1,5 +1,34 @@
 import { pool } from '../db.js';
 
+// Obtener usuarios con el rol de "Cliente" y sus beneficiarios
+export const getClientesYBeneficiarios = async (req, res) => {
+    try {
+        const [rows] = await pool.query(`
+            SELECT 
+                u.IdUsuario,
+                u.Nombres,
+                u.Apellidos,
+                u.Documento,
+                r.NombreRol,
+                GROUP_CONCAT(CONCAT(b.Nombres, ' ', b.Apellidos) SEPARATOR ', ') AS BeneficiarioNombres,
+                GROUP_CONCAT(b.IdUsuario SEPARATOR ', ') AS IdBeneficiario
+            FROM Usuarios u
+            JOIN RolUsuario ru ON u.IdUsuario = ru.IdUsuario
+            JOIN Roles r ON ru.IdRol = r.IdRol
+            LEFT JOIN Usuarios b ON b.Beneficiario = u.IdUsuario
+            LEFT JOIN RolUsuario rbu ON b.IdUsuario = rbu.IdUsuario
+            LEFT JOIN Roles rb ON rbu.IdRol = rb.IdRol AND rb.NombreRol = 'Beneficiario'
+            WHERE r.NombreRol = 'Cliente'
+            GROUP BY u.IdUsuario;
+        `);
+
+        console.log('Usuarios y Beneficiarios:', rows);  
+        res.json(rows);
+    } catch (error) {
+        console.error('Error al obtener los usuarios con rol Cliente y Beneficiario:', error);
+        res.status(500).json({ message: 'Error al obtener los usuarios con rol Cliente y Beneficiario' });
+    }
+};
 // Obtener todas las ventas
 export const getVentas = async (req, res) => {
     try {
@@ -74,8 +103,8 @@ export const getVentasProducto = async (req, res) => {
 
 // Crear una nueva venta
 export const postVenta = async (req, res) => {
-    const { IdUsuario, productos = [], membresias = [] } = req.body; // Default to empty arrays if not provided
-    const estadoActivo = 1;  // Estado activo (por ejemplo, estado ID 1)
+    const { IdUsuario, productos = [], membresias = [], IdBeneficiario = null } = req.body;
+    const estadoActivo = 1;  // Estado activo
     let total = 0;
 
     try {
@@ -99,10 +128,15 @@ export const postVenta = async (req, res) => {
             total += membData[0].CostoVenta * membresia.Cantidad;
         }
 
+        // Verificar si no hay productos ni membresías
+        if (total === 0) {
+            return res.status(400).json({ message: 'Debe agregar al menos un producto o una membresía a la venta' });
+        }
+
         // Insertar la venta
         const [ventaResult] = await pool.query(
-            'INSERT INTO Ventas (IdUsuario, Total, EstadoVenta) VALUES (?, ?, ?)',
-            [IdUsuario, total, estadoActivo]
+            'INSERT INTO Ventas (IdUsuario, IdBeneficiario, Total, EstadoVenta) VALUES (?, ?, ?, ?)',
+            [IdUsuario, IdBeneficiario, total, estadoActivo]
         );
 
         const idVenta = ventaResult.insertId;
@@ -138,7 +172,6 @@ export const postVenta = async (req, res) => {
         res.status(500).json({ message: 'Error al crear la venta' });
     }
 };
-
 // Actualizar una venta
 export const putVenta = async (req, res) => {
     const { id } = req.params;
