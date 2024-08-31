@@ -58,3 +58,11 @@ body {
 }
 
 
+.select2-container--default .select2-selection--single {
+    height: 47px !important;
+    line-height: 47px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    padding: 10px 12px !important;
+}

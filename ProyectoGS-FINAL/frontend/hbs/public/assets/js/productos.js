@@ -248,66 +248,66 @@ const editarProductos = async () => {
 
 
 
-const agregarProducto = async () => {
-    const NombreProducto = document.getElementById('Nombreproducto').value;
-    const PrecioProducto = document.getElementById('Precioproducto').value;
-    const IvaProducto = document.getElementById('Ivaproducto').value;
-    const Imagen = document.getElementById('Imagen').files[0];  // Obtener el archivo de imagen
-    const IdCategoriaProductos = document.getElementById('SelectorCategoria').value;
+    const agregarProducto = async () => {
+        const NombreProducto = document.getElementById('Nombreproducto').value;
+        const PrecioProducto = document.getElementById('Precioproducto').value;
+        const IvaProducto = document.getElementById('Ivaproducto').value;
+        const Imagen = document.getElementById('Imagen').files[0];  // Obtener el archivo de imagen
+        const IdCategoriaProductos = document.getElementById('SelectorCategoria').value;
 
-    if (NombreProducto === "" || PrecioProducto === "" || IvaProducto === "" || !Imagen || IdCategoriaProductos === "") {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Error',
-            text: 'Llene todos los campos, incluyendo la imagen',
-            confirmButtonText: 'Aceptar'
-        });
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('NombreProducto', NombreProducto);
-    formData.append('PrecioProducto', PrecioProducto);
-    formData.append('IvaProducto', IvaProducto);
-    formData.append('Stock', '0');  // Asumiendo que Stock siempre es 0 al agregar
-    formData.append('Imagen', Imagen);
-    formData.append('EstadoProducto', '1');  // Asumiendo que EstadoProducto siempre es 1 al agregar
-    formData.append('IdCategoriaProductos', IdCategoriaProductos);
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            mode: 'cors',
-            body: formData
-        });
-
-        if (!response.ok) {
-            throw new Error('Error en la solicitud: ' + response.statusText);
+        if (NombreProducto === "" || PrecioProducto === "" || IvaProducto === "" || !Imagen || IdCategoriaProductos === "") {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Error',
+                text: 'Llene todos los campos, incluyendo la imagen',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
         }
 
-        const data = await response.json();
-        Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: 'Producto agregado con éxito',
-            confirmButtonText: 'Aceptar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '../productos';  // Redirigir a la lista de productos
-            }
-        });
+        const formData = new FormData();
+        formData.append('NombreProducto', NombreProducto);
+        formData.append('PrecioProducto', PrecioProducto);
+        formData.append('IvaProducto', IvaProducto);
+        formData.append('Stock', '0');  // Asumiendo que Stock siempre es 0 al agregar
+        formData.append('Imagen', Imagen);
+        formData.append('EstadoProducto', '1');  // Asumiendo que EstadoProducto siempre es 1 al agregar
+        formData.append('IdCategoriaProductos', IdCategoriaProductos);
 
-        // Actualizar la lista de productos después de agregar uno nuevo
-        listarProductos();
-    } catch (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Hubo un error al agregar el Producto',
-            confirmButtonText: 'Aceptar'
-        });
-    }
-};
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                mode: 'cors',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Error en la solicitud: ' + response.statusText);
+            }
+
+            const data = await response.json();
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: 'Producto agregado con éxito',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../productos';  // Redirigir a la lista de productos
+                }
+            });
+
+            // Actualizar la lista de productos después de agregar uno nuevo
+            listarProductos();
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un error al agregar el Producto',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    };
 
 
 

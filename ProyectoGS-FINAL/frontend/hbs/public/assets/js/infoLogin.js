@@ -1,5 +1,4 @@
 // Función para obtener el rol del usuario loggeado
-
 function obtenerRol(data) {
     if (data && data.Rol) {
         console.log('Rol del usuario loggeado:', data.Rol);
@@ -284,11 +283,9 @@ function mostrarInformacionUsuario() {
                         permisoElementoEventosCliente.style.display = "none";
                     } else {
                         if (permisoEventos.VistaAdmin === 0) {
-                            permisoElementoEventos.style.display = "none";
                             //Desactivar rutas
-                            if (window.location.pathname === '/eventos') {
+                            if (window.location.pathname === '/eventos' ) {
                                 window.location.href = '/eventosCliente';
-                                console.log('VistaAdmiruta');
                             }
                         } else {
                             permisoElementoEventosCliente.style.display = "none";
@@ -299,6 +296,15 @@ function mostrarInformacionUsuario() {
                     if (permisoRutinas.NombrePermiso === "Rutinas" && permisoRutinas.Visualizar === 0) {
                         permisoElementoRutinas.style.display = "none";
                     } else {
+                        if (permisoEventos.VistaAdmin === 0) {
+                            
+                            //Desactivar rutas
+                            if (window.location.pathname === '/rutinas' ) {
+                                window.location.href = '/rutina';
+                            }
+                        }
+                        
+
                         if (permisoBottonCrearRutina != null) {
                             if (permisoRutinas.Crear === 0) {
                                 permisoBottonCrearRutina.style.display = "none";

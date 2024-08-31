@@ -1,18 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const inputs = document.querySelectorAll('#formularioRegistro input, #formularioRegistro select');
+    const inputs = document.querySelectorAll('#formularioRegistro input, #formularioRegistro select, #formularioRegistro textarea');
 
     const expresiones = {
-        nombreEjercicio: /^.{1,}$/,
-        descripcionEjercicio: /^.{1,}$/,
-        repeticiones: /^[1-9][0-9]*$/
-        // El campo 'estado' se manejará dinámicamente según la presencia en el formulario
+        nombreEjercicio: /^.{1,}$/,  // Debe tener al menos un carácter
+        descripcionEjercicio: /^.{1,}$/, // Debe tener al menos un carácter
+        repeticiones: /^[1-9][0-9]*$/  // Solo números positivos
     };
 
     const campos = {
         nombreEjercicio: false,
         descripcionEjercicio: false,
         repeticiones: false,
-        estado: true  // Inicializado en true, ya que no se valida si no está presente
+        estado: true  // Asumido como verdadero ya que es un select de dos opciones
     };
 
     const validarFormulario = (e) => {
@@ -24,14 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
             case "repeticiones":
                 validarCampo(expresiones.repeticiones, e.target, 'repeticiones');
                 break;
-            case "estado":
-                validarCampo(expresiones.estado, e.target, 'estado');
-                break;
         }
     };
 
     const validarCampo = (expresion, input, campo) => {
-        if (expresion === null || expresion.test(input.value)) {
+        if (expresion.test(input.value)) {
             document.getElementById(`grupo__${campo}`).classList.remove('formularioRegistro__grupo-incorrecto');
             document.getElementById(`grupo__${campo}`).classList.add('formularioRegistro__grupo-correcto');
             document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
@@ -54,47 +50,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const formularioRegistro = document.getElementById('formularioRegistro');
+
+    // Función para resetear campos y validaciones
+    const limpiarFormulario = () => {
+        formularioRegistro.reset(); // Resetea el formulario
+
+        // Limpia los estilos de validación y restablece iconos y mensajes de error
+        document.querySelectorAll('.formularioRegistro__grupo').forEach((grupo) => {
+            grupo.classList.remove('formularioRegistro__grupo-incorrecto', 'formularioRegistro__grupo-correcto');
+            const icono = grupo.querySelector('i');
+            if (icono) {
+                icono.classList.remove('fa-check-circle', 'fa-times-circle');
+            }
+            const mensajeError = grupo.querySelector('.formularioRegistro__input-error');
+            if (mensajeError) {
+                mensajeError.classList.remove('formularioRegistro__input-error-activo');
+            }
+        });
+
+        // Restablece el estado de los campos de validación
+        Object.keys(campos).forEach(campo => campos[campo] = false);
+    };
+
+    // Llamar a limpiarFormulario al cancelar y al cerrar el modal
+    document.getElementById('btnCancelar').addEventListener('click', limpiarFormulario);
+    $('#registroModal').on('hidden.bs.modal', limpiarFormulario);
+
     formularioRegistro.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        // Validar campos esenciales según el tipo de formulario
-        if (campos.nombreEjercicio && campos.descripcionEjercicio && campos.repeticiones) {
-            // Validar estado solo si está presente en el formulario
-            if (document.getElementById('ejercicioId') && campos.estado) {
-                // Aquí puedes realizar acciones adicionales como enviar el formulario usando fetch
-                formularioRegistro.reset();
+        // Validar campos esenciales
+        const estadoValue = document.querySelector('select[name="estado"]').value;
+        const estadoValido = estadoValue === "1" || estadoValue === "0";
+        campos.estado = estadoValido;
 
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: '¡Excelente!',
-                    text: 'El ejercicio se guardó con éxito.',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
+        if (campos.nombreEjercicio && campos.descripcionEjercicio && campos.repeticiones && campos.estado) {
+            limpiarFormulario();
 
-                // Limpia los estilos de los campos correctos después de enviar el formulario
-                document.querySelectorAll('.formularioRegistro__grupo-correcto').forEach((icono) => {
-                    icono.classList.remove('formularioRegistro__grupo-correcto');
-                });
-            } else {
-                // Si no se necesita validar 'estado' o no está presente, también procede
-                formularioRegistro.reset();
-
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: '¡Excelente!',
-                    text: 'El ejercicio se guardó con éxito.',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-
-                // Limpia los estilos de los campos correctos después de enviar el formulario
-                document.querySelectorAll('.formularioRegistro__grupo-correcto').forEach((icono) => {
-                    icono.classList.remove('formularioRegistro__grupo-correcto');
-                });
-            }
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '¡Excelente!',
+                text: 'El ejercicio se guardó con éxito.',
+                showConfirmButton: false,
+                timer: 2000
+            });
         } else {
             // Si algún campo no es válido, muestra el mensaje de error
             Swal.fire({

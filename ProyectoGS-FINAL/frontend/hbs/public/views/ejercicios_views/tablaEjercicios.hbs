@@ -6,16 +6,7 @@
     <title>Ejercicios</title>
     {{> header}}
     <link rel="stylesheet" href="../assets/css/ejercicios.css">
-    <link rel="stylesheet" href="../assets/css/validacionesForms.css" />
-
-
-    <style>
-        #descripcionColumna {
-            width: 400px; /* Ajusta el ancho según sea necesario */
-        }
-    </style>
-
-    
+    <link rel="stylesheet" href="../assets/css/validacionesForms.css" />    
 </head>
 <body class="  ">
         <!-- Inicio del cargar -->
@@ -58,7 +49,7 @@
                                 </div>
                             </div>
                                                     </div>
-                            <div class="footer-buttons mt-1">
+                            <div class="footer-buttons mt-3">
                                 <a href="#" type="button" name="Cancelar" id="EjercicioBtnPermiso"
                                     class="btn btn-danger previous action-button-previous float-end me-2"
                                     data-bs-toggle="modal" data-bs-target="#registroModal">
@@ -167,7 +158,7 @@
                                 <div class="d-flex justify-content-end align-items-center">
                                     <input type="hidden" id="ejercicioId" name="ejercicioId">
                                     <button type="submit" class="btn btn-primary" id="guardarBtn">Guardar</button>
-                                    <button type="button" class="btn btn-dark ms-2" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-dark ms-2" id="btnCancelar" data-bs-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
                         </div>

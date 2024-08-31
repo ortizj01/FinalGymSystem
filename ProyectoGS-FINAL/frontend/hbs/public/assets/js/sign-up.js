@@ -2,6 +2,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const formularioRegistro = document.getElementById('formularioRegistro');
     const inputs = document.querySelectorAll('#formularioRegistro input, #formularioRegistro select');
 
+    // Función para validar que no haya campos vacíos
+    const validarCamposVacios = () => {
+        let camposValidos = true;
+
+        inputs.forEach((input) => {
+            const grupo = input.closest('.form-group');
+            const mensajeError = grupo.querySelector('.text-danger');
+            
+            if (input.value.trim() === '') {
+                grupo.classList.add('formularioRegistro__grupo-incorrecto');
+                grupo.classList.remove('formularioRegistro__grupo-correcto');
+                mensajeError.classList.remove('d-none');
+                camposValidos = false;
+            } else {
+                mensajeError.classList.add('d-none');
+                grupo.classList.remove('formularioRegistro__grupo-incorrecto');
+                grupo.classList.add('formularioRegistro__grupo-correcto');
+            }
+        });
+
+        return camposValidos;
+    };
+
     const expresiones = {
         Nombres: /^[a-zA-ZÀ-ÿ\s]{3,20}$/,
         Apellidos: /^[a-zA-ZÀ-ÿ\s]{3,40}$/,
@@ -125,96 +148,77 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         formularioRegistro.reset();
-        document.getElementById('formularioRegistro__mensaje-exito').classList.remove('d-none');
-    };
+        const mensajeExito = document.getElementById('formularioRegistro__mensaje-exito');
+        if (mensajeExito) {
+            mensajeExito.classList.remove('d-none');
+        }
 
-    const mostrarError = () => {
-        // Mostrar error con SweetAlert
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Por favor completa todos los campos correctamente.',
-            timer: 3000, // Cierra automáticamente después de 3 segundos
-            showConfirmButton: false
+        // Reiniciar los estilos de los campos
+        const grupos = document.querySelectorAll('.form-group');
+        grupos.forEach(grupo => {
+            grupo.classList.remove('formularioRegistro__grupo-correcto');
         });
 
-        document.getElementById('formularioRegistro__mensaje').classList.remove('d-none');
+        campos.Nombres = campos.Apellidos = campos.TipoDocumento = campos.Documento = campos.Correo = campos.Telefono = campos.FechaDeNacimiento = campos.Direccion = campos.Genero = campos.Contrasena = campos.confirmarPassword = campos.terminos = false;
     };
 
-    // Event listeners para validar en tiempo real
     inputs.forEach((input) => {
-        if (input.tagName === "SELECT") {
-            input.addEventListener('change', () => {
-                const campo = input.id;
-                validarSelect(input, campo);
-            });
-        } else {
-            input.addEventListener('keyup', () => {
-                const campo = input.id;
+        input.addEventListener('keyup', () => {
+            const campo = input.id;
+            if (expresiones[campo]) {
                 validarCampo(expresiones[campo], input, campo);
-            });
-
-            input.addEventListener('blur', () => {
-                const campo = input.id;
-                validarCampo(expresiones[campo], input, campo);
-            });
-        }
-    });
-
-    // Event listener para validar la confirmación de contraseña
-    const inputPassword1 = document.getElementById('Contrasena');
-    const inputPassword2 = document.getElementById('confirmarPassword');
-    inputPassword1.addEventListener('input', validarPassword2);
-    inputPassword2.addEventListener('input', validarPassword2);
-
-    // Event listener para validar los términos y condiciones
-    const checkboxTerminos = document.getElementById('terminos');
-    checkboxTerminos.addEventListener('change', () => {
-        validarTerminos(checkboxTerminos);
-    });
-
-    // Event listener para el envío del formulario
-    formularioRegistro.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Validar todos los campos
-        Object.keys(campos).forEach(campo => {
-            if (campo === 'TipoDocumento' || campo === 'Genero') {
-                validarSelect(document.getElementById(campo), campo);
-            } else if (campo !== 'confirmarPassword' && campo !== 'terminos') {
-                validarCampo(expresiones[campo], document.getElementById(campo), campo);
             }
         });
 
-        // Verificar si todos los campos son válidos
-        if (Object.values(campos).every(campo => campo)) {
+        input.addEventListener('blur', () => {
+            const campo = input.id;
+            if (expresiones[campo]) {
+                validarCampo(expresiones[campo], input, campo);
+            }
+        });
+
+        if (input.tagName === 'SELECT') {
+            input.addEventListener('change', () => {
+                validarSelect(input, input.id);
+            });
+        }
+
+        if (input.id === 'confirmarPassword') {
+            input.addEventListener('keyup', validarPassword2);
+            input.addEventListener('blur', validarPassword2);
+        }
+
+        if (input.id === 'FechaDeNacimiento') {
+            input.addEventListener('keyup', () => {
+                validarFechaNacimiento(input);
+            });
+            input.addEventListener('blur', () => {
+                validarFechaNacimiento(input);
+            });
+        }
+    });
+
+    const terminosCheckbox = document.getElementById('terminos');
+    if (terminosCheckbox) {
+        terminosCheckbox.addEventListener('change', () => {
+            validarTerminos(terminosCheckbox);
+        });
+    }
+
+    formularioRegistro.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const camposVacios = validarCamposVacios();
+
+        if (camposVacios && Object.values(campos).every(valor => valor === true)) {
             mostrarExito();
         } else {
-            mostrarError();
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Por favor, completa correctamente todos los campos requeridos.',
+                timer: 3000,
+                showConfirmButton: false
+            });
         }
     });
 });
-
-document.addEventListener('DOMContentLoaded', function() {
-    const togglePassword1 = document.getElementById('togglePassword1');
-    const togglePassword2 = document.getElementById('togglePassword2');
-    const passwordInput1 = document.getElementById('Contrasena');
-    const passwordInput2 = document.getElementById('confirmarPassword');
-    
-    togglePassword1.addEventListener('click', function () {
-        // Alternar el tipo de input entre 'password' y 'text'
-        const type = passwordInput1.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput1.setAttribute('type', type);
-        // Cambiar el ícono en función del tipo
-        this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-    });
-    
-    togglePassword2.addEventListener('click', function () {
-        // Alternar el tipo de input entre 'password' y 'text'
-        const type = passwordInput2.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput2.setAttribute('type', type);
-        // Cambiar el ícono en función del tipo
-        this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-    });
-});
-
