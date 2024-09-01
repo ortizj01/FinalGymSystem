@@ -1,316 +1,328 @@
-<!DOCTYPE html>
-<html class="no-js" lang="zxx">
+    <!DOCTYPE html>
+    <html class="no-js" lang="zxx">
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Pedidos</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="../themes-envio/shopgrids/assets/images/logo/2936886.png" />
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>Pedidos</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="shortcut icon" type="image/x-icon" href="../themes-envio/shopgrids/assets/images/logo/2936886.png" />
 
-    <!-- ========================= CSS here ========================= -->
-    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/Linelcons.3.0.css" />
-    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/tiny-slider.css" />
-    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/glightbox.min.css" />
-    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/main.css" />
-    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/formulario-validaciones.css" />
+        <!-- ========================= CSS here ========================= -->
+        <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/Linelcons.3.0.css" />
+        <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/tiny-slider.css" />
+        <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/glightbox.min.css" />
+        <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/main.css" />
+        <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/formulario-validaciones.css" />
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="preloader-inner">
-          <div class="preloader-icon">
-            <span></span>
-            <span class="gym-weight"></span>
-          </div>
+        <!-- Preloader -->
+        <div class="preloader">
+            <div class="preloader-inner">
+                <div class="preloader-icon">
+                    <span></span>
+                    <span class="gym-weight"></span>
+                </div>
+            </div>
         </div>
-      </div>
-    <!-- Preloader -->
+        <!-- Preloader -->
 
-    <!-- Start Header Area -->
-    <header class="header navbar-area">
-        <!-- Start Topbar -->
-                {{> _topbar}}
-        <!-- End Topbar -->
-        <!-- Start Header Middle -->
-        <div class="header-middle">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-3 col-7">
-                        <!-- Start Header Logo -->
-                        <a class="navbar-brand" href="indexCarrito">
-                            <img src="themes-envio/shopgrids/assets/images/logo/LOGO GYM SYSTEM.jpg" alt="Logo">
-                        </a>
-                        <!-- End Header Logo -->
-                    </div>
-                    <div class="col-lg-5 col-md-7 d-xs-none">
-                        <!-- Start Main Menu Search -->
-                        <div class="main-menu-search">
+        <!-- Start Header Area -->
+        <header class="header navbar-area">
+            <!-- Start Topbar -->
+            {{> _topbar}}
+            <!-- End Topbar -->
+            <!-- Start Header Middle -->
+            <div class="header-middle">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-7">
+                            <!-- Start Header Logo -->
+                            <a class="navbar-brand" href="indexCarrito">
+                                <img src="themes-envio/shopgrids/assets/images/logo/LOGO GYM SYSTEM.jpg" alt="Logo">
+                            </a>
+                            <!-- End Header Logo -->
                         </div>
-                        <!-- End Main Menu Search -->
-                    </div>
-                    <div class="col-lg-4 col-md-2 col-5">
-                        <div class="middle-right-area">
-                            
+                        <div class="col-lg-5 col-md-7 d-xs-none">
+                            <!-- Start Main Menu Search -->
+                            <div class="main-menu-search">
+                            </div>
+                            <!-- End Main Menu Search -->
+                        </div>
+                        <div class="col-lg-4 col-md-2 col-5">
+                            <div class="middle-right-area">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- End Header Middle -->
-        <!-- Inicio Cabecera Inferior-->
-         
-                {{> _headerr}}
-        
-        <!-- End Header Bottom -->
-    </header>
-    <!-- Fin de la zona de cabecera -->
+            <!-- End Header Middle -->
+            <!-- Inicio Cabecera Inferior-->
+            {{> _headerr}}
+            <!-- End Header Bottom -->
+        </header>
+        <!-- Fin de la zona de cabecera -->
 
-    <!--====== Pasos del formulario de pago Inicio de sesión ======-->
-
-    <section class="checkout-wrapper section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="checkout-steps-form-style-1">
-                        <ul id="accordionExample">
-                            <li id="acordeonPersonalData">
-                                <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapsePersonalData"
-                                    aria-expanded="true" aria-controls="collapsePersonalData">
-                                    <img src="themes-envio/shopgrids/assets/images/logo/cliente.png" alt="Icono de usuario" width="10%" height="10%" />
-                                    Datos personales
-                                </h6>
-                                <section class="checkout-steps-form-content collapse show" id="collapsePersonalData"
-                                    aria-labelledby="headingPersonalData" data-bs-parent="#accordionExample">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="single-form form-default">
-                                                <label for="documentoCliente">Documento</label>
-                                                <div class="form-input form">
-                                                    <input type="text" id="documentoCliente" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="single-form form-default">
-                                                <label for="nombreCliente">Nombre</label>
-                                                <div class="form-input form">
-                                                    <input type="text" id="nombreCliente" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="single-form form-default">
-                                                <label for="emailCliente">Correo electrónico</label>
-                                                <div class="form-input form">
-                                                    <input type="email" id="emailCliente" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="single-form form-default">
-                                                <label for="telefonoCliente">Teléfono</label>
-                                                <div class="form-input form">
-                                                    <input type="text" id="telefonoCliente" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="single-form form-default">
-                                                <label for="direccionCliente">Dirección</label>
-                                                <div class="form-input form">
-                                                    <input type="text" id="direccionCliente" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    
-                                       <div class="col-md-12">
-                                            <br>
-                                            <div class="price-table-btn button">
-                                                <a href="javascript:void(0)" class="btn disabled" id="siguientePasoBtn">Siguiente paso</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </li>
-
-                            <li id="acordeonMembresias" style="display:none;">
-                                <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseMembresias"
-                                    aria-expanded="false" aria-controls="collapseMembresias">
-                                    <img src="themes-envio/shopgrids/assets/images/logo/pesas.png" alt="Icono de pesas" width="10%" height="10%" />
-                                    Configuración de Membresías
-                                </h6>
-                                <section class="checkout-steps-form-content collapse" id="collapseMembresias"
-                                    aria-labelledby="headingMembresias" data-bs-parent="#accordionExample">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="membresia-list">
-                                                <div class="row mb-3">
-                                                    <div class="col-lg-4 col-md-4 col-12"><strong>Imagen</strong></div>
-                                                    <div class="col-lg-4 col-md-4 col-12"><strong>Nombre de la Membresía</strong></div>
-                                                    <div class="col-lg-4 col-md-4 col-12"><strong>Documento del Beneficiario</strong></div>
-                                                </div>
-                                                <div id="membresiaContainer"></div> <!-- Contenedor para las membresías -->
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <br>
-                                            <div class="price-table-btn button">
-                                                <a href="javascript:void(0)" class="btn" id="volverBtn">Volver</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </li>
-
-                            <li>
-                                <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive"
-                                    aria-expanded="false" aria-controls="collapsefive"><img src="themes-envio/shopgrids/assets/images/logo/pago.png" alt="Icono de pago"  width="10%" height="10%" />Información sobre el pago</h6>
-                                <section class="checkout-steps-form-content collapse" id="collapsefive"
-                                    aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="checkout-payment-form">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="checkout-payment-form">
-                                                            <label for="metodoPago">Selecciona un método de pago:</label>
-                                                            <br>
-                                                            <select id="metodoPago" name="metodoPago" class="form-control">
-                                                                <option value="tarjeta">QR</option>
-                                                            </select>
-                                                        </div>
+        <!--====== Pasos del formulario de pago Inicio de sesión ======-->
+        <section class="checkout-wrapper section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="checkout-steps-form-style-1">
+                            <ul id="accordionExample">
+                                <!-- Acordeón de Datos Personales -->
+                                <li id="acordeonPersonalData">
+                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapsePersonalData"
+                                        aria-expanded="true" aria-controls="collapsePersonalData">
+                                        <img src="themes-envio/shopgrids/assets/images/logo/cliente.png" alt="Icono de usuario" width="10%" height="10%" />
+                                        Datos personales
+                                    </h6>
+                                    <section class="checkout-steps-form-content collapse show" id="collapsePersonalData"
+                                        aria-labelledby="headingPersonalData" data-bs-parent="#accordionExample">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="documentoCliente">Documento</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="documentoCliente" readonly>
                                                     </div>
                                                 </div>
-                                                <br>
-                                                <div class="price-table-btn button">
-                                                    <a href="QrCarrito" class="btn">Pagar ahora</a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="nombreCliente">Nombre</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="nombreCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="emailCliente">Correo electrónico</label>
+                                                    <div class="form-input form">
+                                                        <input type="email" id="emailCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="telefonoCliente">Teléfono</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="telefonoCliente" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="single-form form-default">
+                                                    <label for="direccionCliente">Dirección</label>
+                                                    <div class="form-input form">
+                                                        <input type="text" id="direccionCliente" readonly>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </section>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-               <div class="col-lg-4">
-                    <div class="checkout-sidebar">
-                        <div class="checkout-sidebar-price-table mt-30">
-                            <h5 class="title">Resumen del pedido</h5>
+                                    </section>
+                                </li>
 
-                            <!-- Lista de productos en el carrito -->
-                            <ul class="shopping-list list-unstyled" id="cartSummary">
-                                <!-- Los productos se inyectarán aquí -->
+                                <!-- Acordeón de Configuración de Membresías (Condicional) -->
+                                <li id="acordeonMembresias" style="display:none;">
+                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseMembresias"
+                                        aria-expanded="false" aria-controls="collapseMembresias">
+                                        <img src="themes-envio/shopgrids/assets/images/logo/pesas.png" alt="Icono de pesas" width="10%" height="10%" />
+                                        Configuración de Membresías
+                                    </h6>
+                                    <section class="checkout-steps-form-content collapse" id="collapseMembresias"
+                                        aria-labelledby="headingMembresias" data-bs-parent="#accordionExample">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="membresia-list">
+                                                    <div class="row mb-3">
+                                                        <div class="col-lg-6 col-md-6 col-12"><strong>Nombre de la Membresía</strong></div>
+                                                        <div class="col-lg-6 col-md-6 col-12"><strong>Beneficiario de la Membresía</strong></div>
+                                                    </div>
+                                                    <div id="membresiaContainer"></div> <!-- Contenedor para las membresías -->
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <br>
+                                                <div class="price-table-btn button">
+                                                    <a href="javascript:void(0)" class="btn" id="guardarMembresiasBtn">Guardar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+
+                                <!-- Acordeón de Valoración Médica (Condicional) -->
+                                <li id="acordeonValoracionMedica" style="display:none;">
+                                    <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseValoracionMedica"
+                                        aria-expanded="false" aria-controls="collapseValoracionMedica">
+                                        <img src="themes-envio/shopgrids/assets/images/logo/medico.png" alt="Icono de valoración médica" width="10%" height="10%" />
+                                        Valoración Médica
+                                    </h6>
+                                    <section class="checkout-steps-form-content collapse" id="collapseValoracionMedica"
+                                        aria-labelledby="headingValoracionMedica" data-bs-parent="#accordionExample">
+                                        <div class="row">
+                                            <div id="valoracionMedicaContainer"></div>
+                                            <div class="col-md-12">
+                                                <br>
+                                                <div class="price-table-btn button">
+                                                    <a href="javascript:void(0)" class="btn" id="guardarValoracionMedicaBtn">Guardar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
+
+                                <!-- Acordeón de Información sobre el Pago -->
+                                <li id="acordeonPago">
+                                    <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsePago"
+                                        aria-expanded="false" aria-controls="collapsePago">
+                                        <img src="themes-envio/shopgrids/assets/images/logo/pago.png" alt="Icono de pago" width="10%" height="10%" />
+                                        Información sobre el pago
+                                    </h6>
+                                    <section class="checkout-steps-form-content collapse" id="collapsePago"
+                                        aria-labelledby="headingPago" data-bs-parent="#accordionExample">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="checkout-payment-form">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="checkout-payment-form">
+                                                                <label for="metodoPago">Selecciona un método de pago:</label>
+                                                                <br>
+                                                                <select id="metodoPago" name="metodoPago" class="form-control">
+                                                                    <option value="tarjeta">QR</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="price-table-btn button">
+                                                        <a href="#" id="pagarAhoraBtn" class="btn">Pagar ahora</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </li>
                             </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="checkout-sidebar">
+                            <div class="checkout-sidebar-price-table mt-30">
+                                <h5 class="title">Resumen del pedido</h5>
 
-                            <div class="total-payable">
-                                <div class="payable-price">
-                                    <p class="value">Total a pagar:</p>
-                                    <p class="price" id="total">$0.00</p>
+                                <!-- Lista de productos en el carrito -->
+                                <ul class="shopping-list list-unstyled" id="cartSummary">
+                                    <!-- Los productos se inyectarán aquí -->
+                                </ul>
+
+                                <div class="total-payable">
+                                    <div class="payable-price">
+                                        <p class="value">Total a pagar:</p>
+                                        <p class="price" id="total">$0.00</p>
+                                    </div>
+                                </div>
+                                <div class="price-table-btn button">
+                                    <a href="#" id="pagarAhoraBtn" class="btn">Pagar ahora</a>
+                                    <a href="carrito" class="btn btn-alt">Volver Carrito</a>
                                 </div>
                             </div>
-                            <div class="price-table-btn button">
-                                <a href="QrCarrito" class="btn">Pagar ahora</a>
-                                <a href="carrito" class="btn btn-alt">Volver Carrito</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--====== Pasos del formulario de pago Fin de la parte======-->
+
+        <!--/*======================================
+        Pie de pagina 
+    ========================================*/-->
+
+        <!-- Start Footer Area -->
+        <footer class="footer">
+            <!-- Start Footer Middle -->
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="bottom-inner">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-12">
+                                <!-- Single Widget -->
+                                <div class="single-footer f-contact">
+                                    <h3>Contáctenos</h3>
+                                    <p class="phone">3135497455</p>
+                                    <ul>
+                                        <li><span>Lunes a viernes: </span> 7.00 am - 10.00 pm</li>
+                                        <li><span>Sábado: </span> 8.00 am - 8.00 pm</li>
+                                    </ul>
+                                    <p class="mail">
+                                        <a href="mailto:support@shopgrids.com">gymsystem@gmail.com</a>
+                                    </p>
+                                </div>
+                                <!-- End Single Widget -->
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12">
+                                <!-- Single Widget -->
+                                <div class="single-footer our-app">
+                                    <h3>Nuestra aplicación móvil</h3>
+                                    <ul class="app-btn">
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <i class="lni lni-apple"></i>
+                                                <span class="small-title">Descargar en</span>
+                                                <span class="big-title">App Store</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <i class="lni lni-play-store"></i>
+                                                <span class="small-title">Descargar en</span>
+                                                <span class="big-title">Google Play</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- End Single Widget -->
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12">
+                                <!-- Single Widget -->
+                                <div class="single-footer f-link">
+                                    <h3>Información</h3>
+                                    <ul>
+                                        <li><a href="javascript:void(0)">Sobre nosotros</a></li>
+                                        <li><a href="javascript:void(0)">Preguntas frecuentes</a></li>
+                                    </ul>
+                                </div>
+                                <!-- End Single Widget -->
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!--====== Pasos del formulario de pago Fin de la parte======-->
+            <!-- End Footer Middle -->
+        </footer>
+        <!--/ End Footer Area -->
+        <!-- ========================= scroll-top ========================= -->
+        <a href="#" class="scroll-top">
+            <i class="lni lni-chevron-up"></i>
+        </a>
 
-    <!--/*======================================
-    Pie de pagina 
-========================================*/-->
+        <!-- ========================= JS here ========================= -->
+        <script src="../themes-envio/shopgrids/assets/js/bootstrap.min.js"></script>
+        <script src="../themes-envio/shopgrids/assets/js/tiny-slider.js"></script>
+        <script src="../themes-envio/shopgrids/assets/js/glightbox.min.js"></script>
+        <script src="../themes-envio/shopgrids/assets/js/main.js"></script>
+        <script src="../assets/js/FuncionesCarrito/funcionesPedido.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </body>
 
-   <!-- Start Footer Area -->
-   <footer class="footer">
-    <!-- Start Footer Middle -->
-    <div class="footer-middle">
-        <div class="container">
-            <div class="bottom-inner">
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <!-- Single Widget -->
-                        <div class="single-footer f-contact">
-                            <h3>Contáctenos</h3>
-                            <p class="phone">3135497455</p>
-                            <ul>
-                                <li><span>Lunes a viernes: </span> 7.00 am - 10.00 pm</li>
-                                <li><span>Sábado: </span> 8.00 am - 8.00 pm</li>
-                            </ul>
-                            <p class="mail">
-                                <a href="mailto:support@shopgrids.com">gymsystem@gmail.com</a>
-                            </p>
-                        </div>
-                        <!-- End Single Widget -->
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <!-- Single Widget -->
-                        <div class="single-footer our-app">
-                            <h3>Nuestra aplicación móvil</h3>
-                            <ul class="app-btn">
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i class="lni lni-apple"></i>
-                                        <span class="small-title">Descargar en</span>
-                                        <span class="big-title">App Store</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">
-                                        <i class="lni lni-play-store"></i>
-                                        <span class="small-title">Descargar en</span>
-                                        <span class="big-title">Google Play</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- End Single Widget -->
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <!-- Single Widget -->
-                        <div class="single-footer f-link">
-                            <h3>Información</h3>
-                            <ul>
-                                <li><a href="javascript:void(0)">Sobre nosotros</a></li>
-                                <li><a href="javascript:void(0)">Preguntas frecuentes</a></li>
-                            </ul>
-                        </div>
-                        <!-- End Single Widget -->
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-12">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Footer Middle -->
-</footer>
-<!--/ End Footer Area -->
-    <!-- ========================= scroll-top ========================= -->
-    <a href="#" class="scroll-top">
-        <i class="lni lni-chevron-up"></i>
-    </a>
-
-    <!-- ========================= JS here ========================= -->
-   
-    <script src="../themes-envio/shopgrids/assets/js/bootstrap.min.js"></script>
-    <script src="../themes-envio/shopgrids/assets/js/tiny-slider.js"></script>
-    <script src="../themes-envio/shopgrids/assets/js/glightbox.min.js"></script>
-    <script src="../themes-envio/shopgrids/assets/js/main.js"></script>
-    <script src="../assets/js/FuncionesCarrito/funcionesPedido.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-</body>
-
-</html>
+    </html>
