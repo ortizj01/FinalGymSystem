@@ -7,9 +7,60 @@
     <title>Agregar Membresía</title>
     {{> header}}
     <link rel="stylesheet" href="../assets/css/Productos.css" />
+    <style>
+        /* Asegura que el textarea se expanda a lo largo de su contenedor */
+        textarea {
+            width: calc(100% - 22px); /* Ajusta el ancho para incluir el padding y el borde */
+            box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+            margin: 0; /* Elimina cualquier margen predeterminado */
+        }
+
+        .formulario__grupo {
+            margin-bottom: 1rem; /* Espacio debajo del grupo de formulario */
+        }
+
+        .form-group {
+            margin-bottom: 1rem; /* Espacio debajo del grupo de formulario */
+        }
+
+        .formulario__input-error {
+            color: red; /* Color para los mensajes de error */
+            font-size: 0.875rem; /* Tamaño de fuente para los mensajes de error */
+        }
+
+        .formulario__mensaje {
+            display: none; /* Oculta el mensaje de error hasta que sea necesario */
+            color: red; /* Color para el mensaje de error */
+            font-size: 0.875rem; /* Tamaño de fuente para el mensaje de error */
+            margin-top: 1rem; /* Espacio superior para el mensaje de error */
+        }
+
+        .formulario__validacion-estado {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: red; /* Color del icono de validación */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Color de fondo del botón primario */
+            border: none; /* Sin borde para el botón primario */
+        }
+
+        .btn-dark {
+            background-color: #343a40; /* Color de fondo del botón oscuro */
+            border: none; /* Sin borde para el botón oscuro */
+        }
+
+        .btn-soft-info {
+            background-color: #17a2b8; /* Color de fondo del botón informativo */
+            border: none; /* Sin borde para el botón informativo */
+        }
+    </style>
 </head>
 
-<body class="  " onload="fetchServicios()">
+<body onload="fetchServicios()" >
     <!-- Inicio del cargar -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -51,26 +102,19 @@
                                     </div>
                                 </div>
 
-
                                 <!-- Frecuencia -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__Frecuencia">
                                     <div class="form-group">
                                         <label class="form-label" for="Frecuencia">Frecuencia*</label>
                                         <div class="formulario__grupo-input">
-                                            <select class="form-select" id="Frecuencia" name="Frecuencia" required>
-                                                <option value="" disabled selected hidden>Selecciona la frecuencia</option>
-                                                <option value="30">Mensual</option>
-                                                <option value="365">Anual</option>
-                                                <option value="7">Semanal</option>
-                                            </select>
+                                            <input type="number" class="form-control" name="Frecuencia" placeholder="Frecuencia" id="Frecuencia">
                                             <i class="formulario__validacion-estado fas fa-eye-slash" onclick="toggleVisibility('Frecuencia')"></i>
                                             <span class="error-message" id="frecuencia-error"></span>
                                         </div>
-                                        <p class="formulario__input-error">Por favor selecciona una frecuencia válida</p>
+                                         <p class="formulario__input-error">La frecuencia solo puede contener números. <br>La frecuencia debe ser mayor a 0.</p>
                                     </div>
                                 </div>
 
-                                
                                 <!-- Costo Venta -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__Costoventa">
                                     <div class="form-group">
@@ -79,7 +123,9 @@
                                             <input type="text" class="form-control" name="Costoventa" placeholder="Costo de la Membresía" id="CostoVenta" />
                                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                         </div>
-                                        <p class="formulario__input-error">Ingresa un costo de venta válido para la membresía</p>
+                                        <p class="formulario__input-error">Por favor, ingrese un costo de venta válido en pesos colombianos. <br>El costo de venta debe ser mayor a 0.
+                                        </p>
+
                                     </div>
                                 </div>
 
@@ -87,62 +133,51 @@
                                 <div class="formulario__mensaje" id="formulario__mensaje">
                                     <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario correctamente. </p>
                                 </div>
-                              
-                                <!-- Mensaje de Error -->
-
-                              <div class="col-md-6 formulario_grupo" id="grupo_Estado">
+                                <!-- Descripción -->
+                                <div class="col-md-12 formulario__grupo" id="grupo__Descripcion">
                                     <div class="form-group">
-                                        <label class="form-label" for="Estado">Estado*</label>
+                                        <label class="form-label" for="Descripcion">Descripción</label>
                                         <div class="formulario__grupo-input">
-                                            <select class="form-select" id="Estado" name="Estado" required>
-                                            <option value="">Selecciona el estado</option>
-                                            <option value="1">Activo</option>
-                                            <option value="0">Inactivo</option>
-                                        </select>
+                                            <textarea id="Descripcion" name="Descripcion" class="form-control" rows="3"></textarea>
                                             <i class="formulario__validacion-estado fas fa-eye-slash"></i>
-                                            <span class="error-message" id="estado-error"></span>
+                                            <span class="error-message" id="descripcion-error"></span>
                                         </div>
-                                        <p class="formulario__input-error">Por favor selecciona un estado</p>
+                                        <p class="formulario__input-error">Ingresa una descripción válida</p>
                                     </div>
                                 </div>
-                        <div class="mb-3">
-                        <label for="description" class="form-label">Descripción</label>
-                        <textarea id="Descripcion" name="Descripcion" class="form-control" rows="3"></textarea>
-                        <div class="invalid-feedback" id="DescriptionError"></div>
-                    </div>
-                     <div class="container-fluid content-inner">
-                               
+
                                 <!-- Servicios -->
-<table id="serviciosTable" class="table" style="width: 90%; border-collapse: collapse;">
-    <thead>
-        <tr>
-            <th style="width: 40%;">Selecciona unn servicio:</th>
-            <th style="width: 5%;">Acciones</th>
-        </tr>
-    </thead>
-    <tbody id="serviciosAgregados">
-        <tr class="servicioRow" id="servicioInicial">
-            <td>
-                <select class="selectServicio" id="selectServicio" name="servicios[]" style="width: 300px;" onchange="actualizarValorServicio(this)">
-                    <option selected="" disabled="" value="">Agregar servicio</option>
-                    <!-- Agrega más opciones según tus necesidades -->
-                </select>
-            </td>
-            <td>
-                <button type="button" class="btn btn-soft-info mt-2" onclick="agregarServicio()">
-                    <i class="fa-solid fa-plus fa-lg"></i>
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                                <div class="container-fluid content-inner">
+                                    <table id="serviciosTable" class="table" style="width: 90%; border-collapse: collapse;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 40%;">Selecciona un servicio:</th>
+                                                <th style="width: 5%;">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="serviciosAgregados">
+                                            <tr class="servicioRow" id="servicioInicial">
+                                                <td>
+                                                    <select class="selectServicio" id="selectServicio" name="servicios[]" style="width: 300px;" onchange="actualizarValorServicio(this)">
+                                                        <option selected="" disabled="" value="">Agregar servicio</option>
+                                                        <!-- Agrega más opciones según tus necesidades -->
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-soft-info mt-2" onclick="agregarServicio()">
+                                                        <i class="fa-solid fa-plus fa-lg"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
-
-                                <!-- Botones de Guardar y Cancelar -->
-                                <div class="row mt-4">
-                                    <div class="col-md-12 text-end">
-                                        <button type="submit" class="btn btn-primary next action-button">Guardar</button>
-                                        <a href="membresiasAdmin" class="btn btn-dark previous action-button-previous ms-2">Cancelar</a>
+                                    <!-- Botones de Guardar y Cancelar -->
+                                    <div class="row mt-4">
+                                        <div class="col-md-12 text-end">
+                                            <button type="submit" class="btn btn-primary next action-button">Guardar</button>
+                                            <a href="membresiasAdmin" class="btn btn-dark previous action-button-previous ms-2">Cancelar</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -158,9 +193,11 @@
     <footer class="footer">
         {{> copyright}}
     </footer>
-    <script src="../assets/js/Servicio.js"></script>
+    
     <script src="../assets/js/postMembresias.js"></script>
-    <script src="../assets/js/formMembresias.js"></script>
+        <script src="../assets/js/Servicio.js"></script>
+
+    {{!-- <script src="../assets/js/formMembresias.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{> footer}}

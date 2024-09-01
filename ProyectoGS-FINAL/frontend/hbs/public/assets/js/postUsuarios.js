@@ -25,6 +25,27 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        // Validación de la edad
+        const fechaNacimiento = new Date(jsonObject.FechaDeNacimiento);
+        const edadMinima = 18;
+        const hoy = new Date();
+        let edad = hoy.getFullYear() - fechaNacimiento.getFullYear(); // Cambia a let
+        const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+        
+        if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+            edad--;
+        }
+        
+        if (edad < edadMinima) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Edad inválida',
+                text: 'El usuario debe ser mayor de edad para registrarse.',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
+
         // Confirmar envío
         Swal.fire({
             title: 'Confirmación',
@@ -47,8 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     Direccion: jsonObject.Direccion,
                     Genero: jsonObject.Genero,
                     Contrasena: jsonObject.Contrasena,
-                    Estado: parseInt(jsonObject.Estado), // Convertir Estado a número
-                    Beneficiario: jsonObject.Beneficiario || null // Asegúrate de que Beneficiario sea null por defecto si no está presente
+                    Estado: 1, // Asegúrate de que el estado siempre sea activo
+                    Beneficiario: jsonObject.Beneficiario || null
                 };
 
                 // Enviar los datos a tu API para crear el usuario
@@ -68,15 +89,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     return response.json();
                 })
                 .then(data => {
-                    // Aquí puedes manejar la respuesta de tu API
                     console.log('Usuario creado:', data);
 
-                    // Ahora asignamos el rol al usuario recién creado
+                    // Asignar el rol al usuario recién creado
                     const usuarioRol = {
-                        IdRol: jsonObject.Rol // Asumiendo que jsonObject.Rol contiene el Id del rol seleccionado
+                        IdRol: jsonObject.Rol
                     };
 
-                    // Hacer la solicitud POST para asignar el rol al usuario
                     return fetch(`http://localhost:3000/api/usuariosRol/${data.IdUsuario}/roles`, {
                         method: 'POST',
                         headers: {
@@ -100,7 +119,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         text: "Usuario y rol registrados correctamente!",
                         icon: "success"
                     }).then(() => {
-                        location.reload();
+                        // Redirigir a la página usuariosAdmin
+                        window.location.href = '/usuariosAdmin';
                     });
                 })
                 .catch(error => {
@@ -115,6 +135,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
 
 
 function fetchRoles() {
@@ -157,7 +179,7 @@ const actualizarUsuario = async () => {
             usuarioData[key] = value;
         });
 
-        const requiredFields = ['Nombres', 'Apellidos', 'Correo', 'Telefono', 'TipoDocumento', 'Documento', 'FechaDeNacimiento', 'Direccion', 'Genero', 'Estado'];
+        const requiredFields = ['Nombres', 'Apellidos', 'Correo', 'Telefono', 'TipoDocumento', 'Documento', 'Direccion', 'Genero', 'Estado'];
         for (const field of requiredFields) {
             if (!usuarioData[field]) {
                 Swal.fire({

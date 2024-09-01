@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../assets/css/Productos.css" />
 </head>
 
-<body onload="fetchServicios(); precargarDatosMembresiaEnFormulario();">
+<body onload="precargarDatosMembresiaEnFormulario();">
     <!-- Inicio del cargar -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -86,8 +86,8 @@
                                     <div class="form-group">
                                         <label class="form-label" for="Estado">Estado*</label>
                                         <div class="formulario__grupo-input">
-                                            <select class="form-select" id="Estado" name="Estado">
-                                            <option value="" disabled>Selecciona el estado</option>
+                                            <select class="form-select" id="Estado" name="Estado" >
+                                            <option value="">Selecciona el estado</option>
                                             <option value="1">Activo</option>
                                             <option value="0">Inactivo</option>
                                         </select>
@@ -97,7 +97,6 @@
                                         <p class="formulario__input-error">Por favor selecciona un estado</p>
                                     </div>
                                 </div>
-
                                 <!-- Descripción -->
                                 <div class="mb-3">
                                     <label for="Descripcion" class="form-label">Descripción</label>
@@ -106,29 +105,30 @@
                                 </div>
 
                                 <!-- Servicios -->
-                                <table id="serviciosTable" class="table" style="width: 90%; border-collapse: collapse;">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 40%;">Selecciona un servicio:</th>
-                                            <th style="width: 5%;">Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="serviciosAgregados">
-                                        <tr class="servicioRow" id="servicioInicial">
-                                            <td>
-                                                <select class="selectServicio" name="servicios[]" style="width: 300px;">
-                                                    <option selected="" disabled="" value="">Agregar servicio</option>
-                                                    <!-- Opciones se llenarán dinámicamente -->
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-soft-info mt-2" onclick="agregarServicio()">
-                                                    <i class="fa-solid fa-plus fa-lg"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                               <table id="serviciosTable" class="table" style="width: 90%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th style="width: 40%;">Selecciona un servicio:</th>
+            <th style="width: 5%;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="serviciosAgregados">
+        <tr class="servicioRow" id="servicioInicial">
+            <td>
+                <select class="selectServicio" id="selectServicio" name="servicios[]" style="width: 300px;" onchange="actualizarValorServicio(this)">
+                    <option selected="" disabled="" value="">Agregar servicio</option>
+                    <!-- Opciones se llenarán dinámicamente -->
+                </select>
+            </td>
+            <td>
+                <button type="button" class="btn btn-soft-info mt-2" onclick="agregarServicio()">
+                    <i class="fa-solid fa-plus fa-lg"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 
                                 <!-- Botones de Guardar y Cancelar -->
                                 <div class="row mt-4">

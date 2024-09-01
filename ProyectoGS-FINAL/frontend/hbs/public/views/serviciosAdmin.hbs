@@ -4,11 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Servicios</title>
+    <!-- Cargar archivos CSS necesarios -->
+    <link rel="stylesheet" href="path/to/your/css/styles.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/all.min.css">
+    <style>
+       .formulario__grupo {
+    position: relative;
+    margin-bottom: 15px;
+}
 
-    <!-- Cargar archivos CSS necesarios, si los tienes -->
+.formulario__grupo-input {
+    position: relative;
+}
 
+.formulario__validacion-estado {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+.formulario__input-error {
+    color: red;
+    font-size: 14px;
+    display: none;
+}
+
+.formulario__grupo-incorrecto .formulario__input-error {
+    display: block;
+}
+
+.formulario__grupo-correcto .formulario__input-error {
+    display: none;
+}
+
+.formulario__grupo-correcto i {
+    color: green;
+}
+
+.formulario__grupo-incorrecto i {
+    color: red;
+}
+
+
+    </style>
     <!-- Cargar el script getServicios.js -->
-    <script src="getServicios.js"></script>
+    <script src="getServicios.js" defer></script>
 </head>
 <body>
 
@@ -33,10 +75,9 @@
                                 <!-- Aquí podrías añadir filtros u otros controles si es necesario -->
                             </div>
                             <div class="footer-buttons mt-1">
-                                <a href="formServicios" type="button" name="Agregar"
-                                    class="btn btn-primary float-end me-2">
+                                <button type="button" class="btn btn-primary float-end me-2" data-bs-toggle="modal" data-bs-target="#crearServicioModal">
                                     Agregar Servicio +
-                                </a>
+                                </button>
                             </div>
                         </div>
                         <div class="row">
@@ -57,7 +98,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="dataTableBody">
-                                        <!-- Aquí se insertarán los datos de los servicios -->
+                                        <!-- Aquí se insertarán los datos de los servicios obtenidos desde la API -->
                                     </tbody>
                                 </table>
                             </div>
@@ -70,27 +111,75 @@
 </div>
 <!-- Fin del contenido principal -->
 
-<!-- Modal para confirmar eliminar servicio -->
-<div class="modal fade" id="eliminarServicioModal" tabindex="-1" aria-labelledby="eliminarServicioModalLabel" aria-hidden="true">
+<!-- Modal para Crear Servicio -->
+<div class="modal fade" id="crearServicioModal" tabindex="-1" aria-labelledby="crearServicioModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="crearServicioModalLabel">Crear Nuevo Servicio</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form id="FormularioServicios">
+          <div class="mb-3" id="grupo__NombreClase">
+            <label for="nombreClase" class="form-label">Nombre de Clase</label>
+            <input type="text" class="form-control" id="nombreClase" name="NombreClase" required>
+            
+            <p class="formulario__input-error">Nombre de clase no válido. <br>
+            Debe contener almenos 5 caracteres.
+            </p>
+          </div>
+          <button type="submit" class="btn btn-primary">Crear</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Editar Servicio -->
+<div class="modal fade" id="editarServicioModal" tabindex="-1" aria-labelledby="editarServicioModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="m-0 font-weight-bold text-primary">Eliminar servicio</h3>
+                <h3 class="m-0 font-weight-bold text-primary">Editar Servicio</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="eliminarServicioForm">
-                    <div class="alert alert-danger d-flex align-items-center" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24">
-                            <use xlink:href="#exclamation-triangle-fill" />
-                        </svg>
-                        <div>
-                            ¿Seguro que deseas eliminar el servicio?
-                        </div>
+                <form id="editarServicioForm">
+                    <input type="hidden" id="editServicioId" name="IdServicio">
+                    <div class="mb-3" id="grupo__editNombreClase">
+                        <label for="editNombreClase" class="form-label">Nombre Clase</label>
+                        <input type="text" class="form-control" id="editNombreClase" name="NombreClase" required>
                     </div>
-                    <button type="submit" id="confirmarEliminar" class="btn btn-primary">Eliminar</button>
+                    <div class="mb-3" id="grupo__editEstado">
+                        <label for="editEstado" class="form-label">Estado</label>
+                        <select id="editEstado" name="Estado" class="form-select" required>
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal para Ver Detalle Servicio -->
+<div class="modal fade" id="verDetalleServicio" tabindex="-1" aria-labelledby="verDetalleServicioLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="m-0 font-weight-bold text-primary">Detalles del Servicio</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="detalleServicioNombre">Nombre Clase: </p>
+                <p id="detalleServicioEstado">Estado: </p>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -102,11 +191,11 @@
 </footer>
 
 <!-- Cargar el script postServicios.js -->
-<script src="../assets/js/postServicios.js"></script>
+<script src="../assets/js/postServicios.js" defer></script>
+<script src="../assets/js/formServicios.js" defer></script>
 
 {{> footer}}
 
 <!-- Scripts adicionales, si es necesario -->
-
 </body>
 </html>

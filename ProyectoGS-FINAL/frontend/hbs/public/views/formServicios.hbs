@@ -7,7 +7,7 @@
     {{> header}}
     <link rel="stylesheet" href="../assets/css/Productos.css" />
 </head>
-<body>
+<body onload="">
     <!-- Inicio del cargar -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -37,7 +37,6 @@
                     <div class="card-body">
                         <form id="FormularioServicios">
                             <div class="row">
-                                <!-- Nombre del servicio -->
                                 <div class="col-md-6 formulario_grupo" id="grupo_NombreClase">
                                     <div class="form-group">
                                         <label class="form-label">Nombre del servicio*</label>
@@ -48,26 +47,7 @@
                                         <p class="formulario__input-error">Por favor ingresa un nombre válido para el servicio</p>
                                     </div>
                                 </div>
-                                <!-- Estado -->
-                                <div class="col-md-6 formulario_grupo" id="grupo_Estado">
-                                    <div class="form-group">
-                                        <label class="form-label" for="Estado">Estado*</label>
-                                        <div class="formulario__grupo-input">
-                                            <select class="form-select" id="Estado" name="Estado" required>
-                                                <option value="" disabled selected hidden>Selecciona el estado</option>
-                                                <option value="1">Activo</option>
-                                                <option value="0">Inactivo</option>
-                                            </select>
-                                            <i class="formulario__validacion-estado fas fa-eye-slash"></i>
-                                            <span class="error-message" id="estado-error"></span>
-                                        </div>
-                                        <p class="formulario__input-error">Por favor selecciona un estado</p>
-                                    </div>
-                                </div>
-
-                               
-
-                            <div class="row mt-4">
+                                <div class="row mt-4">
                                 <div class="col-md-12 text-end">
                                     <button type="submit" class="btn btn-primary next action-button">Guardar</button>
                                     <a href="serviciosAdmin">

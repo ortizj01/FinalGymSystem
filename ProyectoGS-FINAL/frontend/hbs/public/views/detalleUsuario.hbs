@@ -6,8 +6,22 @@
     <title>Detalle usuario</title>
     {{> header}}
     <link rel="stylesheet" href="../assets/css/Productos.css" />
+    <style>
+        /* Estilo personalizado para campos deshabilitados */
+        .form-control[disabled], .form-select[disabled] {
+            background-color: #fff; /* Color de fondo blanco para campos deshabilitados */
+            color: #495057; /* Color de texto gris oscuro para campos deshabilitados */
+            border: 1px solid #ced4da; /* Bordes de color normal */
+            /* cursor: not-allowed; */ /* Quitar cursor de no permitido */
+        }
+        
+        /* Botón volver ajustado */
+        .btn-volver {
+            margin-top: 1rem; /* Ajustar margen superior según sea necesario */
+        }
+    </style>
 </head>
-<body>
+<body onload="precargarDatosUsuarioEnFormulario()">
     <!-- Inicio del cargar -->
     <div id="loading">
         <div class="loader simple-loader">
@@ -35,54 +49,156 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <td id="nombre">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Apellidos</th>
-                                        <td id="apellidos">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Correo electrónico</th>
-                                        <td id="email">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Teléfono</th>
-                                        <td id="telefono">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Tipo de documento</th>
-                                        <td id="tipoDocumento">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Documento</th>
-                                        <td id="documento">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Fecha de nacimiento</th>
-                                        <td id="fechaNacimiento">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Dirección</th>
-                                        <td id="direccion">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Género</th>
-                                        <td id="genero">-</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Estado</th>
-                                        <td id="estado">-</td>
-                                    </tr>
-                                   
-                                </tbody>
-                            </table>
-                        </div>
+                        <form id="formularioUsuariosEditar">
+                            <div class="row">
+                                <!-- Nombre -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre*</label>
+                                        <input type="text" class="form-control" name="Nombres" placeholder="Nombre" id="Nombre" disabled />
+                                        <span class="error-message" id="nombre-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Apellidos -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Apellidos*</label>
+                                        <input type="text" class="form-control" name="Apellidos" placeholder="Apellidos" id="Apellidos" disabled />
+                                        <span class="error-message" id="apellidos-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">E-mail*</label>
+                                        <input type="email" class="form-control" name="Correo" placeholder="E-mail" id="E-mail" disabled />
+                                        <span class="error-message" id="email-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Teléfono -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Teléfono*</label>
+                                        <input type="text" class="form-control" name="Telefono" placeholder="Teléfono" id="Teléfono" disabled />
+                                        <span class="error-message" id="telefono-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Tipo de Documento -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Tipo de Documento*</label>
+                                        <select class="form-select" name="TipoDocumento" id="TipoDocumento" disabled>
+                                            <option value="" disabled selected hidden>Seleccionar Documento</option>
+                                            <option value="cedula_ciudadania">Cédula de ciudadania</option>
+                                            <option value="pasaporte">Pasaporte</option>
+                                        </select>
+                                        <span class="error-message" id="tipoDocumento-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Documento -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Documento*</label>
+                                        <input type="text" class="form-control" name="Documento" placeholder="Documento" id="Documento" disabled />
+                                        <span class="error-message" id="cedula-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Fecha de Nacimiento -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Fecha de Nacimiento*</label>
+                                        <input type="date" class="form-control" name="FechaDeNacimiento" id="FechaDeNacimiento" disabled />
+                                        <span class="error-message" id="fechaDeNacimiento-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Dirección -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Dirección*</label>
+                                        <input type="text" class="form-control" name="Direccion" placeholder="Dirección" id="Direccion" disabled />
+                                        <span class="error-message" id="direccion-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Género -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Género*</label>
+                                        <select class="form-select" name="Genero" id="Genero" disabled>
+                                            <option value="" disabled selected hidden>Seleccionar Género</option>
+                                            <option value="Masculino">Masculino</option>
+                                            <option value="Femenino">Femenino</option>
+                                            <option value="Otro">Otro</option>
+                                        </select>
+                                        <span class="error-message" id="genero-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Rol -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Rol*</label>
+                                        <select class="form-select" name="Rol" id="Rol" disabled>
+                                            <option value="" disabled selected hidden>Seleccionar Rol</option>
+                                            <!-- Aquí se agregarán las opciones de roles dinámicamente -->
+                                        </select>
+                                        <span class="error-message" id="rol-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Estado -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Estado*</label>
+                                        <select class="form-select" name="Estado" id="Estado" disabled>
+                                            <option value="" disabled selected hidden>Seleccionar Estado</option>
+                                            <option value="1">Activo</option>
+                                            <option value="0">Inactivo</option>
+                                        </select>
+                                        <span class="error-message" id="estado-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Contraseña -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label"></label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="Contrasena" id="contrasena" placeholder="Contraseña" style="display: none;" disabled />
+                                            <div class="input-group-append">
+                                            </div>
+                                        </div>
+                                        <span class="error-message" id="contrasena-error"></span>
+                                    </div>
+                                </div>
+                                <input type="text" id="IdUser" style="display: none;" disabled />
+                                <!-- Confirmar Contraseña -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label"></label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="confirmarContrasena" id="confirmarContrasena" aria-describedby="confirmarContrasenaHelp" placeholder="Confirme Contraseña" style="display: none;" disabled />
+                                            <div class="input-group-append">
+                                            </div>
+                                        </div>
+                                        <span class="error-message" id="confirmarContrasena-error"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-md-12 text-end">
                         <button type="button" class="btn btn-primary float-end" onclick="window.location.href='../usuariosAdmin'">Volver</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

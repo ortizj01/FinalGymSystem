@@ -128,8 +128,8 @@ export const putMembresiaServicio = async (req, res) => {
     const { IdServicios } = req.body; // Array de IDs de servicios desde el cuerpo de la solicitud
 
     // Verifica que IdServicios sea un arreglo y contenga al menos un elemento
-    if (!Array.isArray(IdServicios)) {
-        return res.status(400).json({ message: 'IdServicios debe ser un arreglo' });
+    if (!Array.isArray(IdServicios) || IdServicios.length === 0) {
+        return res.status(400).json({ message: 'IdServicios debe ser un arreglo no vacío' });
     }
 
     let connection; // Definir la variable connection en el ámbito de la función
@@ -147,28 +147,15 @@ export const putMembresiaServicio = async (req, res) => {
             return res.status(404).json({ message: 'La membresía no existe' });
         }
 
-        // Obtener servicios actuales asociados
-        const [currentServices] = await connection.query('SELECT IdServicio FROM MembresiasServicios WHERE IdMembresia = ?', [IdMembresia]);
-        const currentServiceIds = currentServices.map(service => service.IdServicio);
+        // Eliminar asociaciones existentes para la membresía
+        await connection.query('DELETE FROM MembresiasServicios WHERE IdMembresia = ?', [IdMembresia]);
 
-        // Identificar servicios que deben eliminarse
-        const servicesToRemove = currentServiceIds.filter(serviceId => !IdServicios.includes(serviceId));
+        // Insertar todas las nuevas asociaciones de servicio
+        const insertPromises = IdServicios.map(IdServicio =>
+            connection.query('INSERT INTO MembresiasServicios (IdMembresia, IdServicio) VALUES (?, ?)', [IdMembresia, IdServicio])
+        );
 
-        // Identificar servicios que deben agregarse
-        const servicesToAdd = IdServicios.filter(serviceId => !currentServiceIds.includes(serviceId));
-
-        // Eliminar servicios que ya no están en la lista
-        if (servicesToRemove.length > 0) {
-            await connection.query('DELETE FROM MembresiasServicios WHERE IdMembresia = ? AND IdServicio IN (?)', [IdMembresia, servicesToRemove]);
-        }
-
-        // Insertar nuevos servicios
-        if (servicesToAdd.length > 0) {
-            const insertPromises = servicesToAdd.map(IdServicio =>
-                connection.query('INSERT INTO MembresiasServicios (IdMembresia, IdServicio) VALUES (?, ?)', [IdMembresia, IdServicio])
-            );
-            await Promise.all(insertPromises); // Esperar a que todas las inserciones se completen correctamente
-        }
+        await Promise.all(insertPromises); // Esperar a que todas las inserciones se completen correctamente
 
         // Commit la transacción si todo fue exitoso
         await connection.commit();
