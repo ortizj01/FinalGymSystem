@@ -1,74 +1,97 @@
+/* Estilos para el contenedor principal */
 .rutina-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 35px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.accordion {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.accordion:hover {
-    background-color: #d9d9d9;
-}
-
-.accordion.active {
-    background-color: #e6e6e6;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.panel {
-    padding: 15px;
-    background-color: #f9f9f9;
-    display: none;
-    overflow: hidden;
-    border: 1px solid #ccc;
-    border-top: none;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    font-size: 14px;
-}
-
-.ejercicio-list {
-    padding-left: 20px;
-}
-
-.ejercicio-list li {
+    padding: 20px;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilos para el contenedor de las tarjetas */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Espacio entre tarjetas */
+}
+
+/* Estilos para las tarjetas */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    max-width: 300px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease; /* Añadir transición para suavizar los cambios */
+}
+
+.additional-exercises {
+    display: none; /* Asegúrate de que por defecto esté oculto */
+}
+
+
+
+/* Estilos para el encabezado de la tarjeta */
+.card-header {
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 15px;
+    text-align: center;
+}
+
+/* Estilos para el cuerpo de la tarjeta */
+.card-body {
+    padding: 15px;
+    position: relative;
+}
+
+/* Estilos para cada ejercicio dentro de la tarjeta */
+.card-exercise {
     margin-bottom: 10px;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
+    border-bottom: 1px solid #eeeeee;
 }
 
-.ejercicio-list li:hover {
-    background-color: #f0f0f0;
+.card-title {
+    font-size: 16px;
+    font-weight: bold;
 }
 
-.ejercicio-list strong {
-    font-weight: 600;
+.card-text {
+    font-size: 14px;
+    color: #555555;
 }
 
-.ejercicio-info {
-    flex: 1;
-    margin-right: 10px;
+.card-series {
+    font-size: 14px;
+    color: #007bff;
+    font-weight: bold;
 }
 
-.ejercicio-series {
-    min-width: 100px;
-    text-align: right;
+/* Estilos para el botón de expansión/contracción */
+.toggle-btn {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-btn:hover {
+    background-color: #0056b3;
 }

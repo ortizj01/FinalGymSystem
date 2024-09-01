@@ -71,7 +71,7 @@
                                             <p class="formulario__input-error">Ingrese formato imagen valida</p>
                                         </div>
                                     </div> 
-                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Ivaproducto" >
+                                    <div class="col-md-6"class="formulario__grupo" id="grupo__Ivaproducto" style="display: none;">
                                         <div class="form-group" id="grupo__Ivaproducto">
                                             <label class="form-label" >Iva del producto*</label>
                                             <div class="formulario__grupo-input">
@@ -81,6 +81,7 @@
                                             <p class="formulario__input-error">Ingrese iva del producto valida</p>
                                         </div>
                                     </div> 
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-label" for="exampleFormControlSelect1">Categoria del producto*</label>
@@ -89,6 +90,12 @@
                                             </select>
                                         </div>
                                         </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="showIvaproducto">Editar Iva del producto</label>
+                                        <input type="checkbox" id="showIvaproducto" />
+                                    </div>
+                                </div>
 
 
                                     </div>
@@ -102,6 +109,17 @@
             </div>
         </div>
       </div>
+      <script>
+    // JavaScript to handle the display toggle
+    document.getElementById('showIvaproducto').addEventListener('change', function() {
+        var ivaProductoDiv = document.getElementById('grupo__Ivaproducto');
+        if (this.checked) {
+            ivaProductoDiv.style.display = 'block';
+        } else {
+            ivaProductoDiv.style.display = 'none';
+        }
+    });
+</script>
     <!-- Fin contenido --> 
 
     <!-- Footer Section Start -->

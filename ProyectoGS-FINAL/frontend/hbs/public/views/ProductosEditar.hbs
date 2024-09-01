@@ -39,55 +39,83 @@
                         </div>
                         <div class="card-body">
                             <!-- fieldsets -->
-                                    <form>
-                                    <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Nombre Producto</label>
-                                            <input type="text" class="form-control" name="Nombre Proveedor" placeholder="Nombre Producto" id="Nombreproducto" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <form id="Productos">
-                                        <div class="form-group">
-                                            <label class="form-label">Precio Producto</label>
-                                            <input type="text" class="form-control" name="contacto proveedor" placeholder="Precio Producto" id="Precioproducto" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Iva producto</label>
-                                            <input type="text" class="form-control" name="Telefono" placeholder="iva producto" id="ivaproducto" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="exampleFormControlSelect1">Categoria del producto*</label>
-                                            <select class="form-select" id="categoria" name="dia">
-                                            <option selected="" disabled="">Selecciona La Categoria del producto</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Imagen</label>
-                                            <input type="file" class="form-control" name="Telefono" placeholder="Imagen" id="Imagen"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Estado</label>
-                                            <select id="Estadoedit" class="form-control" name="estadoProveedor">
-                                                <option value="1">Activo</option>
-                                                <option value="0">Inactivo</option>
-                                            </select>
-                                        </div>
-                                    </div>
+<form id="formularioProductoedit">
+    <div class="row">
+        <!-- Nombre Producto -->
+        <div class="col-md-6">
+            <div class="form-group formulario__grupo" id="grupo__nombreProducto">
+                <label class="form-label">Nombre Producto</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="form-control" name="Nombre Producto" placeholder="Nombre Producto" id="Nombreproducto" />
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Ingrese un nombre de producto válido.</p>
+            </div>
+        </div>
+        
+        <!-- Precio Producto -->
+        <div class="col-md-6">
+            <div class="form-group formulario__grupo" id="grupo__precioProducto">
+                <label class="form-label">Precio Producto</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="form-control" name="Precio Producto" placeholder="Precio Producto" id="Precioproducto" />
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Ingrese un precio válido.</p>
+            </div>
+        </div>
 
-                                </div>
-                                <button type="button" onclick="editarProductos()" name="next" class="btn btn-primary next action-button float-end" value="Next" >Guardar</button>
-                                <a href="../productos"><button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Cancelar</button></a>
-                        </form>
+        <!-- IVA Producto -->
+        <div class="col-md-6">
+            <div class="form-group formulario__grupo" id="grupo__ivaProducto">
+                <label class="form-label">IVA Producto</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="form-control" name="IVA Producto" placeholder="IVA Producto" id="ivaproducto" />
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Ingrese un IVA válido.</p>
+            </div>
+        </div>
+
+        <!-- Categoria del Producto -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-label" for="exampleFormControlSelect1">Categoria del producto*</label>
+                <select class="form-select" id="categoria" name="categoria">
+                    <option selected="" disabled="">Selecciona la Categoria del producto</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Imagen del Producto -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-label">Imagen</label>
+                <input type="file" class="form-control" name="Imagen" placeholder="Imagen" id="Imagen"/>
+            </div>
+        </div>
+
+        <!-- Estado -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-label">Estado</label>
+                <select id="Estadoedit" class="form-control" name="estadoProveedor">
+                    <option value="1">Activo</option>
+                    <option value="0">Inactivo</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botones de Acción -->
+    <button type="button" onclick="editarProductos()" name="next" class="btn btn-primary next action-button float-end" value="Next">Guardar</button>
+    <a href="../productos"><button type="button" name="previous" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Cancelar</button></a>
+
+    <!-- Mensajes de Error y Éxito -->
+    <div id="formulario__mensaje" class="formulario__mensaje">Por favor complete todos los campos correctamente.</div>
+    <div id="formulario__mensaje-exito" class="formulario__mensaje-exito">Formulario enviado correctamente.</div>
+</form>
+
                         </div>
                     </div>
                 </div>
@@ -101,7 +129,9 @@
         {{> copyright}}
     </footer>
     <!-- Footer Section End -->
+    <link rel="stylesheet" href="../assets/css/Productos.css" />
     <script src="../assets/js/productos.js"></script>
+    <script src="../assets/js/producvaliedi.js"></script>
     {{> footer}}
 </body>
 </html>

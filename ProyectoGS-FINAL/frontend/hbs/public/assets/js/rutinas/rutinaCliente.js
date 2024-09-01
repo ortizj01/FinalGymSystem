@@ -63,50 +63,73 @@ function obtenerNombreDia(numeroDia) {
     return diasSemana[numeroDia] || 'Día desconocido';
 }
 
-// Función para mostrar la rutina en el frontend
+// Función para añadir funcionalidad de expansión/contracción
+function toggleExerciseDisplay(button) {
+    const targetId = button.getAttribute('data-target');
+    const additionalExercises = document.getElementById(targetId);
+    if (additionalExercises.style.display === 'none' || additionalExercises.style.display === '') {
+        additionalExercises.style.display = 'block';
+        button.textContent = '-';
+    } else {
+        additionalExercises.style.display = 'none';
+        button.textContent = '+';
+    }
+}
+
+// Añadir eventos después de que el contenido esté listo
+function attachToggleEvents() {
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            toggleExerciseDisplay(this);
+        });
+    });
+}
+
+// Modificar la función `mostrarRutina` para llamar a `attachToggleEvents`
 function mostrarRutina(rutina) {
     const rutinaContainer = document.getElementById('rutina-container');
 
     if (rutinaContainer) {
         if (rutina) {
-            let html = `<h2 class="text-center">Rutina Asignada - ${rutina.NombreRutina || 'Sin nombre'}</h2> <br>`;
+            let html = `<h2 class="text-center">Rutina Asignada - ${rutina.NombreRutina || 'Sin nombre'}</h2><br>`;
+            html += '<div class="card-container">'; // Contenedor para flexbox
             
+            let cardIndex = 0;
             for (const dia in rutina.DiasSemana) {
                 const nombreDia = obtenerNombreDia(dia); // Convertir número a nombre del día
+                const ejercicios = rutina.DiasSemana[dia];
                 html += `
-                    <div class="accordion text-center">${nombreDia}</div>
-                    <div class="panel">
-                        <ul class="ejercicio-list">
+                    <div class="card">
+                        <div class="card-header">
+                            ${nombreDia}
+                        </div>
+                        <div class="card-body">
+                            <div class="card-exercise">
+                                <h5 class="card-title">${ejercicios[0].NombreEjercicio || 'Sin nombre'}</h5>
+                                <p class="card-text">${ejercicios[0].DescripcionEjercicio || 'Sin descripción'}</p>
+                                <p class="card-series"><strong>Series:</strong> ${ejercicios[0].Series || 'Sin series'}</p>
+                            </div>
+                            ${ejercicios.length > 1 ? `
+                                <div class="additional-exercises" id="exercises-${cardIndex}" style="display: none;">
+                                    ${ejercicios.slice(1).map(ejercicio => `
+                                        <div class="card-exercise">
+                                            <h5 class="card-title">${ejercicio.NombreEjercicio || 'Sin nombre'}</h5>
+                                            <p class="card-text">${ejercicio.DescripcionEjercicio || 'Sin descripción'}</p>
+                                            <p class="card-series"><strong>Series:</strong> ${ejercicio.Series || 'Sin series'}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <button class="toggle-btn btn-show" data-target="exercises-${cardIndex}">+</button>
+                            ` : ''}
+                        </div>
+                    </div>
                 `;
-                
-                rutina.DiasSemana[dia].forEach(ejercicio => {
-                    html += `
-                        <li>
-                            <div class="ejercicio-info">
-                                <strong>Ejercicio:</strong> ${ejercicio.NombreEjercicio || 'Sin nombre'}<br>
-                                <strong>Descripción:</strong> ${ejercicio.DescripcionEjercicio || 'Sin descripción'}
-                            </div>
-                            <div class="ejercicio-series">
-                                <strong>Series:</strong> ${ejercicio.Series || 'Sin series'}
-                            </div>
-                        </li>
-                    `;
-                });
-
-                html += `</ul></div>`;
+                cardIndex++;
             }
 
+            html += '</div>'; // Cerrar contenedor de tarjetas
             rutinaContainer.innerHTML = html;
-
-            // Agregar funcionalidad de acordeón
-            const accordions = document.querySelectorAll('.accordion');
-            accordions.forEach(accordion => {
-                accordion.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    const panel = this.nextElementSibling;
-                    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-                });
-            });
+            attachToggleEvents();
         } else {
             rutinaContainer.innerHTML = '<h1>No hay rutinas asignadas</h1>';
         }
@@ -114,8 +137,6 @@ function mostrarRutina(rutina) {
         console.error('Elemento con id "rutina-container" no encontrado');
     }
 }
-
-
 
 // Inicializar la visualización de la rutina
 async function init() {
@@ -128,5 +149,4 @@ async function init() {
     }
 }
 
-// Llamar a la función de inicialización cuando el documento esté listo
 document.addEventListener('DOMContentLoaded', init);

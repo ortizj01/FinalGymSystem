@@ -94,6 +94,17 @@ function agregarProducto() {
     });
     cantidadCell.appendChild(nuevaCantidad);
 
+    const validarCantidad = () => {
+        let value = parseInt(nuevaCantidad.value, 10) || 0; // Convertir el valor a número entero
+        if (value < 1) {
+            value = 1;
+        } 
+        nuevaCantidad.value = value;
+        calcularValorTotal(tr); // Recalcular el valor total
+    };
+
+    nuevaCantidad.addEventListener('input', validarCantidad);
+
     var valorTotalCell = newRow.insertCell();
     var labelValorT = document.createElement("label");
     labelValorT.className = "valortotal";
@@ -182,7 +193,7 @@ const listarCompras = async () => {
                                 <i class="fa-regular fa-eye fa-xl me-2"></i>
                             </a>
                             <a href="../formDevolucioncom?id=${compra.IdCompra}">
-                                <i class="fa fa-retweet fa-xl me-2"></i>
+                                <i class="fa fa-undo  fa-xl me-2"></i>
                             </a>
                                 
                         </td>

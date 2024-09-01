@@ -39,51 +39,89 @@
                         </div>
                         <div class="card-body">
                             <!-- fieldsets -->
-                                    <form>
-                                    <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Nombre Proveedor</label>
-                                            <input type="text" id="Nombreedit" class="form-control" name="Nombre Proveedor" placeholder="Nombre Proveedor" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Contacto proveedor</label>
-                                            <input type="text" id="Contactoedit" class="form-control" name="contacto proveedor" placeholder="Contacto proveedor" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Telefono</label>
-                                            <input type="text" id="Telefonoedit" class="form-control" name="Telefono" placeholder="Telefono" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Direccion</label>
-                                            <input type="text" id="Direccionedit" class="form-control" name="Direccion" placeholder="Direccion" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">NIT</label>
-                                            <input type="text" id="NITedit" class="form-control" name="contacto proveedor" placeholder="Contacto proveedor" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Estado</label>
-                                            <select id="Estadoedit" class="form-control" name="estadoProveedor">
-                                                <option value="1">Activo</option>
-                                                <option value="0">Inactivo</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="button" onclick="editarProveedor()" name="Guardar" class="btn btn-primary next action-button float-end" value="Next" >Guardar</button>
-                                <a href="../Proveedores"><button type="button" name="Cancelar"  class="btn btn-dark previous action-button-previous float-end me-1" value="Previous" >Cancelar</button></a>
-                        </form>
+<form id="formularioEditarProveedor">
+    <div class="row">
+        <!-- Nombre Proveedor -->
+        <div class="col-md-6 formulario__grupo" id="grupo__Nombreedit">
+            <div class="form-group">
+                <label class="form-label">Nombre Proveedor*</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="form-control" name="Nombreedit" placeholder="Nombre Proveedor" id="Nombreedit" />
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Ingrese nombre proveedor válido</p>
+            </div>
+        </div>
+
+        <!-- Contacto Proveedor -->
+        <div class="col-md-6 formulario__grupo" id="grupo__Contactoedit">
+            <div class="form-group">
+                <label class="form-label">Contacto proveedor*</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="form-control" name="Contactoedit" placeholder="Contacto proveedor" id="Contactoedit" />
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Ingrese nombre de contacto válido</p>
+            </div>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="col-md-6 formulario__grupo" id="grupo__Telefonoedit">
+            <div class="form-group">
+                <label class="form-label">Teléfono*</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="form-control" name="Telefonoedit" placeholder="Teléfono" id="Telefonoedit" />
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Ingrese teléfono válido</p>
+            </div>
+        </div>
+
+        <!-- Dirección -->
+        <div class="col-md-6 formulario__grupo" id="grupo__Direccionedit">
+            <div class="form-group">
+                <label class="form-label">Dirección*</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="form-control" name="Direccionedit" placeholder="Dirección" id="Direccionedit" />
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Ingrese dirección válida</p>
+            </div>
+        </div>
+
+        <!-- NIT -->
+        <div class="col-md-6 formulario__grupo" id="grupo__NITedit">
+            <div class="form-group">
+                <label class="form-label">NIT*</label>
+                <div class="formulario__grupo-input">
+                    <input type="text" class="form-control" name="NITedit" placeholder="NIT" id="NITedit" />
+                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                </div>
+                <p class="formulario__input-error">Ingrese NIT válido</p>
+            </div>
+        </div>
+
+        <!-- Estado -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-label">Estado</label>
+                <select id="Estadoedit" class="form-control" name="estadoProveedor">
+                    <option value="1">Activo</option>
+                    <option value="0">Inactivo</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensajes de Error y Éxito -->
+    <div id="formulario__mensaje" class="formulario__mensaje">Por favor complete todos los campos correctamente.</div>
+    <div id="formulario__mensaje-exito" class="formulario__mensaje-exito">Formulario enviado correctamente.</div>
+
+    <!-- Botones -->
+    <button type="submit" class="btn btn-primary next action-button float-end">Guardar</button>
+    <a href="../Proveedores" class="btn btn-dark previous action-button-previous float-end me-1">Cancelar</a>
+</form>
+
                         </div>
                     </div>
                 </div>
@@ -98,6 +136,8 @@
     </footer>
     <!-- Footer Section End -->
     <script src="../assets/js/proveedores.js"></script>
+    <script src="../assets/js/proveedoredit.js"></script>
+    <link rel="stylesheet" href="../assets/css/Productos.css" />
     {{> footer}}
 </body>
 </html>

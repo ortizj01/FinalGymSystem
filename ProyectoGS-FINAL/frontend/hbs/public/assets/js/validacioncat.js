@@ -3,8 +3,8 @@ const inputs = document.querySelectorAll('#formularioCategoria input');
 
 
 const expresiones = {
-	Nombrecategoria: /^[A-Za-z]+$/,
-    categoria:/^[A-Za-z]+$/
+	Nombrecategoria: /^[a-zA-Z\s]+$/,
+    categoria:/^[a-zA-Z\s]+$/
 }
 
 const campos={
