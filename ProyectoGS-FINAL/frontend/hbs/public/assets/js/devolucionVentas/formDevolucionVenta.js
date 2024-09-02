@@ -13,9 +13,9 @@ async function precargarDatosVentaEnFormulario(ventaId) {
         // Pree-llenar los campos con los datos de la venta
         document.getElementById('valorDevolucionVenta').value = venta.Total;
         
-        // Mostrar datos del cliente
-        document.getElementById('nombreCliente').textContent = `${venta.NombreCliente} ${venta.ApellidosCliente}`;
-        document.getElementById('documentoCliente').textContent = venta.DocumentoCliente;
+        // Ya no es necesario mostrar los datos del cliente
+        // document.getElementById('nombreCliente').textContent = `${venta.NombreCliente} ${venta.ApellidosCliente}`;
+        // document.getElementById('documentoCliente').textContent = venta.DocumentoCliente;
 
         // Cargar y mostrar los productos de la venta en la tabla
         await cargarProductosDeVenta(ventaId);
@@ -23,6 +23,7 @@ async function precargarDatosVentaEnFormulario(ventaId) {
         console.error('Error al precargar los datos de la venta:', error);
     }
 }
+
 
 // Función para cargar los productos de la venta seleccionada
 const cargarProductosDeVenta = async (ventaId) => {
