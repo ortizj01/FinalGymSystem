@@ -9,13 +9,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Convertir FormData a objeto JSON
         const jsonObject = {};
         formData.forEach(function(value, key) {
-            jsonObject[key] = value;
+            jsonObject[key] = value.trim(); // Eliminar espacios en blanco
         });
+
+        // Mostrar los datos del formulario en la consola para depuración
+        console.log('Datos del formulario:', jsonObject);
 
         // Validar si todos los campos están llenos
         if (!jsonObject.Documento || !jsonObject.TipoDocumento || !jsonObject.Nombres || !jsonObject.Apellidos ||
             !jsonObject.Correo || !jsonObject.Telefono || !jsonObject.FechaDeNacimiento || !jsonObject.Direccion ||
-            !jsonObject.Genero || !jsonObject.Contrasena || !jsonObject.Estado || !jsonObject.Rol) {
+            !jsonObject.Genero || !jsonObject.Contrasena || !jsonObject.Rol) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Error',
@@ -29,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const fechaNacimiento = new Date(jsonObject.FechaDeNacimiento);
         const edadMinima = 18;
         const hoy = new Date();
-        let edad = hoy.getFullYear() - fechaNacimiento.getFullYear(); // Cambia a let
+        let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
         const mes = hoy.getMonth() - fechaNacimiento.getMonth();
         
         if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
@@ -71,6 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     Estado: 1, // Asegúrate de que el estado siempre sea activo
                     Beneficiario: jsonObject.Beneficiario || null
                 };
+
+                console.log('Datos del usuario a enviar:', JSON.stringify(usuario)); // Verificar los datos a enviar
 
                 // Enviar los datos a tu API para crear el usuario
                 fetch('http://localhost:3000/api/usuarios', {
@@ -135,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
 
 
 
