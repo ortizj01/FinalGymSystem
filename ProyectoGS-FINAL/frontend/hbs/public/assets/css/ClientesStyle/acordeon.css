@@ -72,3 +72,10 @@ h6.title.collapsed {
     transition: height 0.3s ease-out;
 }
 
+/* Eliminar los puntos de la lista del acordeón */
+#accordionBeneficiarios li {
+    list-style-type: none; /* Esto elimina el punto */
+    margin: 0;
+    padding: 0;
+}
+

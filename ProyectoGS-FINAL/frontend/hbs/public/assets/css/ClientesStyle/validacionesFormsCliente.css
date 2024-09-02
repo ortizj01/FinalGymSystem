@@ -1,24 +1,69 @@
-input {
-    border-width: 2px;
+/* Estilos para los inputs y selects */
+input, select {
+    padding: 8px 12px;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    border: 2px solid #ccc; /* Estilo base de los bordes */
 }
 
-input:invalid {
-    border-color: red;
+input:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border-color: rgba(81, 203, 238, 1);
 }
 
-input:valid {
-    border-color: green;
+/* Grupo de formularios */
+.formulario__grupo {
+    position: relative;
+    margin-bottom: 15px; /* Reducido para mantener los campos más juntos */
 }
 
-select:invalid {
-    border-color: red;
+/* Estilos del ícono de validación */
+.formulario__grupo .formulario__validacion-estado {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    display: none; /* No mostrar el icono al inicio */
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
 }
 
-select:valid {
-    border-color: green;
+/* Estado cuando es correcto */
+.formulario__grupo-correcto .formulario__validacion-estado {
+    color: green;
+    display: inline-flex; /* Mostrar el icono cuando sea correcto */
 }
 
-.error {
+/* Estado cuando hay error */
+.formulario__grupo-incorrecto .formulario__validacion-estado {
     color: red;
+    display: inline-flex; /* Mostrar el icono cuando hay error */
+}
+
+/* Mensajes de error */
+.formulario__input-error {
+    display: none;
     font-size: 12px;
+    color: red;
+    margin-top: 3px;
+    position: absolute;
+    left: 0;
+    bottom: -30px; /* Ajuste para que el mensaje de error esté justo debajo del input */
+}
+
+/* Mostrar mensaje de error activo */
+.formulario__input-error-activo {
+    display: block;
+}
+
+/* Asegurando el padding adecuado */
+.input-group .input-group-append {
+    margin-left: -1px;
 }

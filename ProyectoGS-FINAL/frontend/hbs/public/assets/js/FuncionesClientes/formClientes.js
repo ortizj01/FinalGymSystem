@@ -3,7 +3,7 @@ const inputs = document.querySelectorAll('#formularioRegistro input, #formulario
 
 const expresiones = {
     documento: /^[a-zA-Z0-9]{7,10}$/,
-    tipoDocumento: /^(cedula_ciudadania|cedula_extranjeria|tarjeta_identidad)$/,
+    tipoDocumento: /^(cedula_ciudadania|pasaporte)$/,
     nombres: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
     apellidos: /^[a-zA-ZÀ-ÿ\s]{1,40}$/,
     correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
@@ -26,197 +26,178 @@ const expresiones = {
     IMC: /^[0-9]{1,3}(\.[0-9]{1,2})?$/
 };
 
+const mensajesError = {
+    documento: 'El documento debe tener entre 7 y 10 caracteres alfanuméricos.',
+    tipoDocumento: 'Seleccione un tipo de documento válido.',
+    nombres: 'Los nombres solo pueden contener letras y espacios, y deben tener entre 1 y 40 caracteres.',
+    apellidos: 'Los apellidos solo pueden contener letras y espacios, y deben tener entre 1 y 40 caracteres.',
+    correo: 'El correo debe tener un formato válido (ejemplo@dominio.com).',
+    telefono: 'El teléfono debe tener entre 7 y 11 dígitos.',
+    fechaDeNacimiento: 'Ingresa una fecha de nacimiento válida (formato: AAAA-MM-DD).',
+    direccion: 'La dirección debe ser válida y puede contener números, letras y ciertos caracteres especiales.',
+    genero: 'Seleccione un género válido.',
+    contrasena: 'La contraseña debe tener entre 4 y 12 caracteres, incluyendo al menos una mayúscula y un número.',
+    confirmarContrasena: 'Las contraseñas no coinciden.',
+    beneficiario: 'Seleccione si es beneficiario o no.',
+    TieneCondicionCronica: 'Seleccione si tiene una condición crónica.',
+    CirugiaPrevia: 'Seleccione si ha tenido cirugía previa.',
+    AlergiasConocidas: 'Ingrese alergias conocidas válidas.',
+    MedicamentosActuales: 'Ingrese medicamentos actuales válidos.',
+    LesionesMusculoesqueleticas: 'Seleccione si tiene lesiones musculoesqueléticas.',
+    EnfermedadCardiacaVascular: 'Seleccione si tiene enfermedad cardíaca o vascular.',
+    AntecedentesFamiliares: 'Seleccione si tiene antecedentes familiares.',
+    TipoAfiliacion: 'Seleccione un tipo de afiliación válido.',
+    Peso: 'Ingrese un peso válido (ejemplo: 70).',
+    Altura: 'Ingrese una altura válida en metros (ejemplo: 1.75).',
+    IMC: 'Ingrese un IMC válido (se calcula automáticamente).'
+};
+
 const campos = {
-    documento: false,
-    tipoDocumento: false,
-    nombres: false,
-    apellidos: false,
-    correo: false,
-    telefono: false,
-    fechaDeNacimiento: false,
-    direccion: false,
-    genero: false,
-    contrasena: false,
-    confirmarContrasena: false,
-    beneficiario: false,
-    TieneCondicionCronica: false,
-    CirugiaPrevia: false,
-    AlergiasConocidas: false,
-    MedicamentosActuales: false,
-    LesionesMusculoesqueleticas: false,
-    EnfermedadCardiacaVascular: false,
-    AntecedentesFamiliares: false,
-    TipoAfiliacion: false,
-    Peso: false,
-    Altura: false,
-    IMC: false
+    documento: null,
+    tipoDocumento: null,
+    nombres: null,
+    apellidos: null,
+    correo: null,
+    telefono: null,
+    fechaDeNacimiento: null,
+    direccion: null,
+    genero: null,
+    contrasena: null,
+    confirmarContrasena: null,
+    beneficiario: null,
+    TieneCondicionCronica: null,
+    CirugiaPrevia: null,
+    AlergiasConocidas: null,
+    MedicamentosActuales: null,
+    LesionesMusculoesqueleticas: null,
+    EnfermedadCardiacaVascular: null,
+    AntecedentesFamiliares: null,
+    TipoAfiliacion: null,
+    Peso: null,
+    Altura: null,
+    IMC: null
 };
 
 const validarFormulario = (e) => {
-    switch (e.target.name) {
-        case "documento":
-        case "nombres":
-        case "apellidos":
-        case "correo":
-        case "telefono":
-        case "fechaDeNacimiento":
-        case "direccion":
-        case "contrasena":
-            validarCampo(expresiones[e.target.name], e.target, e.target.name);
-            if (e.target.name === "contrasena") {
-                validarConfirmacionContrasena();
-            }
-            break;
-        case "tipoDocumento":
-        case "genero":
-        case "beneficiario":
-        case "TieneCondicionCronica":
-        case "CirugiaPrevia":
-        case "LesionesMusculoesqueleticas":
-        case "EnfermedadCardiacaVascular":
-        case "AntecedentesFamiliares":
-        case "TipoAfiliacion":
-            validarSelect(expresiones[e.target.name], e.target, e.target.name);
-            break;
-        case "confirmarContrasena":
+    const campo = e.target.name;
+
+    if (e.target.value.trim() !== "") {
+        if (expresiones[campo]) {
+            validarCampo(expresiones[campo], e.target, campo);
+        }
+        if (campo === "contrasena") {
             validarConfirmacionContrasena();
-            break;
-        case "AlergiasConocidas":
-        case "MedicamentosActuales":
-        case "Peso":
-        case "Altura":
-        case "IMC":
-            validarCampo(expresiones[e.target.name], e.target, e.target.name);
-            break;
+        }
+    } else {
+        limpiarValidacion(e.target, campo);
     }
 };
 
 const validarCampo = (expresion, input, campo) => {
+    const grupo = document.getElementById(`grupo__${campo}`);
+    const icono = document.querySelector(`#grupo__${campo} i`);
+    const errorTexto = document.querySelector(`#grupo__${campo} .formulario__input-error`);
+
+    grupo.classList.remove('formulario__grupo-pendiente');
+    
     if (expresion.test(input.value)) {
-        input.style.borderColor = 'green';
-        document.getElementById(`error_${campo}`).textContent = '';
+        grupo.classList.remove('formulario__grupo-incorrecto');
+        grupo.classList.add('formulario__grupo-correcto');
+        icono.classList.add('fa-check-circle');
+        icono.classList.remove('fa-times-circle');
+        errorTexto.classList.remove('formulario__input-error-activo');
         campos[campo] = true;
     } else {
-        input.style.borderColor = 'red';
-        document.getElementById(`error_${campo}`).textContent = obtenerMensajeError(campo);
+        grupo.classList.add('formulario__grupo-incorrecto');
+        grupo.classList.remove('formulario__grupo-correcto');
+        icono.classList.remove('fa-check-circle');
+        icono.classList.add('fa-times-circle');
+        errorTexto.classList.add('formulario__input-error-activo');
+        errorTexto.textContent = mensajesError[campo];  // Mensaje de error específico
         campos[campo] = false;
     }
 };
 
-const validarSelect = (expresion, select, campo) => {
-    if (expresion.test(select.value)) {
-        select.style.borderColor = 'green';
-        document.getElementById(`error_${campo}`).textContent = '';
-        campos[campo] = true;
+// Agrega los manejadores de eventos para los botones de mostrar/ocultar contraseña
+document.getElementById('togglePassword').addEventListener('click', function () {
+    const passwordInput = document.getElementById('contrasena');
+    const toggleIcon = this.querySelector('span');
+
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
     } else {
-        select.style.borderColor = 'red';
-        document.getElementById(`error_${campo}`).textContent = obtenerMensajeError(campo);
-        campos[campo] = false;
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
     }
-};
+});
+
+document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+    const confirmPasswordInput = document.getElementById('confirmarContrasena');
+    const toggleIcon = this.querySelector('span');
+
+    if (confirmPasswordInput.type === 'password') {
+        confirmPasswordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+    } else {
+        confirmPasswordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+    }
+});
 
 const validarConfirmacionContrasena = () => {
     const contrasena = document.getElementById('contrasena');
     const confirmarContrasena = document.getElementById('confirmarContrasena');
+    const grupoConfirmarContrasena = document.getElementById('grupo__confirmarContrasena');
+    const icono = document.querySelector(`#grupo__confirmarContrasena i`);
+    const errorTexto = document.querySelector(`#grupo__confirmarContrasena .formulario__input-error`);
 
+    grupoConfirmarContrasena.classList.remove('formulario__grupo-pendiente');
+    
     if (contrasena.value !== confirmarContrasena.value || confirmarContrasena.value === '') {
-        confirmarContrasena.style.borderColor = 'red';
-        document.getElementById('error_confirmarContrasena').textContent = 'Las contraseñas no coinciden.';
+        grupoConfirmarContrasena.classList.add('formulario__grupo-incorrecto');
+        grupoConfirmarContrasena.classList.remove('formulario__grupo-correcto');
+        icono.classList.remove('fa-check-circle');
+        icono.classList.add('fa-times-circle');
+        errorTexto.classList.add('formulario__input-error-activo');
+        errorTexto.textContent = 'Las contraseñas no coinciden.';  // Mensaje específico para confirmación de contraseña
         campos['confirmarContrasena'] = false;
     } else {
-        confirmarContrasena.style.borderColor = 'green';
-        document.getElementById('error_confirmarContrasena').textContent = '';
+        grupoConfirmarContrasena.classList.remove('formulario__grupo-incorrecto');
+        grupoConfirmarContrasena.classList.add('formulario__grupo-correcto');
+        icono.classList.add('fa-check-circle');
+        icono.classList.remove('fa-times-circle');
+        errorTexto.classList.remove('formulario__input-error-activo');
         campos['confirmarContrasena'] = true;
     }
 };
 
-const obtenerMensajeError = (campo) => {
-    let mensaje = '';
-    switch (campo) {
-        case 'documento':
-            mensaje = 'Documento inválido. Debe contener entre 7 y 10 caracteres alfanuméricos.';
-            break;
-        case 'tipoDocumento':
-            mensaje = 'Seleccione un tipo de documento válido.';
-            break;
-        case 'nombres':
-            mensaje = 'Nombres inválidos. No pueden contener números o caracteres especiales.';
-            break;
-        case 'apellidos':
-            mensaje = 'Apellidos inválidos. No pueden contener números o caracteres especiales.';
-            break;
-        case 'correo':
-            mensaje = 'Correo electrónico inválido.';
-            break;
-        case 'telefono':
-            mensaje = 'Teléfono inválido. Debe contener entre 7 y 11 dígitos.';
-            break;
-        case 'fechaDeNacimiento':
-            mensaje = 'Fecha de nacimiento inválida.';
-            break;
-        case 'direccion':
-            mensaje = 'Dirección inválida.';
-            break;
-        case 'genero':
-            mensaje = 'Seleccione un género válido.';
-            break;
-        case 'contrasena':
-            mensaje = 'Contraseña inválida. Debe contener al menos un número, una letra mayúscula y tener entre 4 y 12 caracteres.';
-            break;
-        case 'confirmarContrasena':
-            mensaje = 'Las contraseñas no coinciden.';
-            break;
-        case 'beneficiario':
-            mensaje = 'Seleccione una opción válida para beneficiario.';
-            break;
-        case 'TieneCondicionCronica':
-            mensaje = 'Seleccione una opción válida para condición crónica.';
-            break;
-        case 'CirugiaPrevia':
-            mensaje = 'Seleccione una opción válida para cirugía previa.';
-            break;
-        case 'AlergiasConocidas':
-            mensaje = 'Ingrese alergias conocidas válidas.';
-            break;
-        case 'MedicamentosActuales':
-            mensaje = 'Ingrese medicamentos actuales válidos.';
-            break;
-        case 'LesionesMusculoesqueleticas':
-            mensaje = 'Seleccione una opción válida para lesiones musculoesqueléticas.';
-            break;
-        case 'EnfermedadCardiacaVascular':
-            mensaje = 'Seleccione una opción válida para enfermedad cardiaca o vascular.';
-            break;
-        case 'AntecedentesFamiliares':
-            mensaje = 'Seleccione una opción válida para antecedentes familiares.';
-            break;
-        case 'TipoAfiliacion':
-            mensaje = 'Seleccione un tipo de afiliación válido.';
-            break;
-        case 'Peso':
-            mensaje = 'Ingrese un peso válido.';
-            break;
-        case 'Altura':
-            mensaje = 'Ingrese una altura válida. Puede contener decimales.';
-            break;
-        case 'IMC':
-            mensaje = 'Ingrese un IMC válido.';
-            break;
-    }
-    return mensaje;
+const limpiarValidacion = (input, campo) => {
+    const grupo = document.getElementById(`grupo__${campo}`);
+    const icono = document.querySelector(`#grupo__${campo} i`);
+    const errorTexto = document.querySelector(`#grupo__${campo} .formulario__input-error`);
+
+    grupo.classList.add('formulario__grupo-pendiente');
+    grupo.classList.remove('formulario__grupo-incorrecto', 'formulario__grupo-correcto');
+    icono.classList.remove('fa-check-circle', 'fa-times-circle');
+    errorTexto.classList.remove('formulario__input-error-activo');
+    campos[campo] = null;
 };
 
-// Event listeners para validar en cada cambio o blur
 inputs.forEach((input) => {
-    if (input.type !== 'checkbox') {
-        input.addEventListener('change', validarFormulario);
-        input.addEventListener('keyup', validarFormulario);
-        input.addEventListener('blur', validarFormulario);
-    }
+    input.classList.add('formulario__grupo-pendiente');
+    input.addEventListener('change', validarFormulario);
+    input.addEventListener('keyup', validarFormulario);
+    input.addEventListener('blur', validarFormulario);
 });
 
 formularioRegistro.addEventListener('submit', (e) => {
     e.preventDefault();
+
     const camposValidos = Object.values(campos).every(campo => campo === true);
     const camposLlenos = Array.from(inputs).every(input => input.value.trim() !== '');
 
@@ -230,24 +211,3 @@ formularioRegistro.addEventListener('submit', (e) => {
         });
     }
 });
-
-// Mostrar/ocultar contraseña
-document.querySelectorAll('[id^=toggle]').forEach(button => {
-    button.addEventListener('click', function() {
-        const inputId = this.getAttribute('data-toggle');
-        togglePasswordVisibility(inputId);
-    });
-});
-
-function togglePasswordVisibility(inputId) {
-    const passwordInput = document.getElementById(inputId);
-    const button = document.querySelector(`[data-toggle=${inputId}] span`);
-
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        button.className = 'fa-regular fa-eye fa-xl me-2';
-    } else {
-        passwordInput.type = 'password';
-        button.className = 'fa-regular fa-eye-slash fa-xl me-2';
-    }
-}
