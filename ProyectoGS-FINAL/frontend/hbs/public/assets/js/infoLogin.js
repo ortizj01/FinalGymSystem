@@ -298,7 +298,6 @@ function mostrarInformacionUsuario() {
                     } else {
                         if (permisoEventos.VistaAdmin === 0) {
                             
-                            //Desactivar rutas
                             if (window.location.pathname === '/rutinas' ) {
                                 window.location.href = '/rutina';
                             }
@@ -465,10 +464,20 @@ function mostrarInformacionUsuario() {
                 } else {
                     // Permisos Gestión de Ventas
                     if (permisoGestionVentas.NombrePermiso === "GestionVentas" && permisoGestionVentas.Visualizar === 0) {
+
                         if (permisoElementoGestionVentas != null) {
                             permisoElementoGestionVentas.style.display = "none";
                         }
                     } else {
+
+                        if (permisoGestionVentas.VistaAdmin === 0) {
+                                console.log('Current pathname:', window.location.pathname);
+                            if (window.location.pathname === '/GestionVentas') {
+                                console.log('Redirecting to /ventasCliente');
+                                window.location.href = '/ventasCliente';
+                            }
+                        }
+
                         if (permisoBottonCrearGestionVentas != null) {
                             if (permisoGestionVentas.Crear === 0) {
                                 permisoBottonCrearGestionVentas.style.display = "none";
@@ -569,6 +578,15 @@ function mostrarInformacionUsuario() {
                             permisoElementoPedidos.style.display = "none";
                         }
                     } else {
+
+                        //Vista ADMIN/CLIENTE
+                        if (permisoPedidos.VistaAdmin === 0) {
+                            //Desactivar rutas
+                            if (window.location.pathname === '/pedidos' ) {
+                                window.location.href = '/pedidoCliente';
+                            }
+                        }
+
                         if (permisoBottonCrearPedido != null) {
                             if (permisoPedidos.Crear === 0) {
                                 permisoBottonCrearPedido.style.display = "none";
@@ -670,41 +688,6 @@ function mostrarInformacionUsuario() {
                                 }
                             }
                         }
-
-                        // Verifica si el usuario tiene el rol con id 2 o 3
-                        // Asume que 'data.IdRol' contiene el id del rol del usuario loggeado.
-                        if (data.IdRol === 3) {
-                            const rutasRestringidas = [
-                                '/usuariosAdmin',
-                                '/roles2',
-                                '/proveedores',
-                                '/Categoriaprod',
-                                '/Productos',
-                                '/Compras',
-                                '/DevolucionCom',
-                                '/GestionDevoluciones',
-                                '/clientes',
-                                '/beneficiarios',
-                                '/pedidos',
-                                '/gestionCarrito',
-                                '/GestionVentas',
-                                '/GestionDevoluciones'
-                            ];
-
-                            if (rutasRestringidas.includes(window.location.pathname)) {
-                                // Redirigir al usuario a una página de inicio o a una página de error
-                                window.location.href = '/404'; // Cambia '/inicio' a la ruta a la que quieres redirigir
-                            }
-                        }
-
-
-                        if (data.IdRol === 3) {
-                            // Bloquea las rutas /roles y /compras
-                            if (window.location.pathname === '/roles' || window.location.pathname === '/compras') {
-                                window.location.href = '/unaRutaAlternativa'; // Redirige a otra ruta
-                            }
-                        }
-
 
                 })
                 .catch(error => console.error('Error al obtener los datos del rol:', error));

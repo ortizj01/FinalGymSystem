@@ -31,7 +31,8 @@ async function cargarVentas() {
             `;
             listaVentas.appendChild(row);
         }
-
+        
+        $('#dataTable').DataTable().destroy();
         $('#dataTable').DataTable({
             pageLength: 5,
             language: {

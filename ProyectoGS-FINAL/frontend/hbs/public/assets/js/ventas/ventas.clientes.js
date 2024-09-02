@@ -86,6 +86,7 @@ function mostrarVentasEnTabla(ventas) {
         });
 
         // Inicializar DataTable con configuraciones
+        $('#dataTable').DataTable().destroy();
         $('#dataTable').DataTable({
             pageLength: 5,
             order: [[1, 'desc']], // Ordenar por fecha de venta descendente

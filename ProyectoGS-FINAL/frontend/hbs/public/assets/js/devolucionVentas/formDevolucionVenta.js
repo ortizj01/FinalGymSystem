@@ -180,7 +180,7 @@ async function enviarDevVenta() {
             confirmButtonText: 'Aceptar'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '../Devolucionven'; // Redirigir a la página de gestión de devoluciones
+                window.location.href = '../GestionDevoluciones'; // Redirigir a la página de gestión de devoluciones
             }
         });
     } catch (error) {
