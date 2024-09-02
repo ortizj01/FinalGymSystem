@@ -3,6 +3,29 @@ const url2 = 'http://localhost:3000/api/ventasproducto';
 const url3 = 'http://localhost:3000/api/ventas';
 
 // Función para cargar los productos de la venta seleccionada
+async function precargarDatosVentaEnFormulario(ventaId) {
+    try {
+        const response = await fetch(`${url3}/${ventaId}`);
+        if (!response.ok) throw new Error('Error al obtener los datos de la venta');
+
+        const venta = await response.json();
+
+        // Pree-llenar los campos con los datos de la venta
+        document.getElementById('valorDevolucionVenta').value = venta.Total;
+        
+        // Ya no es necesario mostrar los datos del cliente
+        // document.getElementById('nombreCliente').textContent = `${venta.NombreCliente} ${venta.ApellidosCliente}`;
+        // document.getElementById('documentoCliente').textContent = venta.DocumentoCliente;
+
+        // Cargar y mostrar los productos de la venta en la tabla
+        await cargarProductosDeVenta(ventaId);
+    } catch (error) {
+        console.error('Error al precargar los datos de la venta:', error);
+    }
+}
+
+
+// Función para cargar los productos de la venta seleccionada
 const cargarProductosDeVenta = async (ventaId) => {
     try {
         const response = await fetch(`${url2}/${ventaId}`, {
@@ -48,7 +71,7 @@ const cargarProductosDeVenta = async (ventaId) => {
             inputCantidad.type = 'number';
             inputCantidad.style.width = '50px';
             inputCantidad.min = 0;
-            inputCantidad.max = producto.CantidadProducto;
+            inputCantidad.max = producto.CantidadProducto; // Permite devoluciones parciales
             inputCantidad.value = producto.CantidadProducto;
             inputCantidad.name = 'cantidades[]';
 
@@ -88,24 +111,6 @@ const cargarProductosDeVenta = async (ventaId) => {
         console.error('Error al cargar los productos de la venta:', error);
     }
 };
-
-// Función para precargar los datos de la venta en el formulario
-async function precargarDatosVentaEnFormulario(ventaId) {
-    try {
-        const response = await fetch(`${url3}/${ventaId}`);
-        if (!response.ok) throw new Error('Error al obtener los datos de la venta');
-
-        const venta = await response.json();
-
-        // Pree-llenar los campos con los datos de la venta
-        document.getElementById('valorDevolucionVenta').value = venta.Total;
-
-        // Cargar y mostrar los productos de la venta en la tabla
-        await cargarProductosDeVenta(ventaId);
-    } catch (error) {
-        console.error('Error al precargar los datos de la venta:', error);
-    }
-}
 
 // Cargar los datos al cargar la página
 document.addEventListener('DOMContentLoaded', async function() {
