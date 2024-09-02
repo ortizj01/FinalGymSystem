@@ -1,8 +1,8 @@
 // Mapa de estados de pedidos
 const estadoMap = {
-    1: 'PENDIENTE DE PAGO',
-    2: 'PAGADO',
-    3: 'ANULADO'
+    1: 'Pendiente de pago',
+    2: 'Pagado',
+    3: 'Anulado'
 };
 
 // Función para obtener el documento del cliente por su ID

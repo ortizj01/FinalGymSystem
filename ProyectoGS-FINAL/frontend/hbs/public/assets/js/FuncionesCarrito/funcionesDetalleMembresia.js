@@ -69,9 +69,7 @@ const agregarAlCarrito = (item, cantidadSeleccionada = 1) => {
     let cantidad = parseInt(cantidadSeleccionada, 10);
 
     const esMembresia = item.hasOwnProperty('IdMembresia');
-    const itemExistente = carrito.find(i => esMembresia ? i.IdMembresia === item.IdMembresia : i.IdProducto === i.IdProducto);
-
-    const nombreItem = esMembresia ? item.NombreProducto : item.NombreProducto;
+    const itemExistente = carrito.find(i => esMembresia ? i.IdMembresia === item.IdMembresia : i.IdProducto === item.IdProducto);
 
     if (itemExistente) {
         itemExistente.cantidad += cantidad;
@@ -80,7 +78,8 @@ const agregarAlCarrito = (item, cantidadSeleccionada = 1) => {
             ...item,
             cantidad,
             Imagen: esMembresia ? '/themes-envio/shopgrids/assets/images/logo/Membresia.jpg' : item.Imagen,
-            NombreProducto: nombreItem // Asegura que el nombre sea correcto
+            IdProducto: esMembresia ? null : item.IdProducto, // Asegura que IdProducto solo sea asignado si es un producto
+            IdMembresia: esMembresia ? item.IdMembresia : null // Asegura que IdMembresia solo sea asignado si es una membresía
         };
         carrito.push(nuevoItem);
     }
@@ -91,7 +90,7 @@ const agregarAlCarrito = (item, cantidadSeleccionada = 1) => {
     Swal.fire({
         icon: 'success',
         title: esMembresia ? 'Membresía agregada al carrito' : 'Producto agregado al carrito',
-        text: `${nombreItem} se ha añadido al carrito.`,
+        text: `${esMembresia ? item.NombreProducto : item.NombreProducto} se ha añadido al carrito.`,
     });
 };
 

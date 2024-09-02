@@ -127,7 +127,7 @@ const mostrarMembresias = async (carrito) => {
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-12">
-                                <select class="form-control" name="beneficiarioMembresia${contador}">
+                                <select class="form-control" name="beneficiarioMembresia${item.IdMembresia}">
                                     <!-- Opciones se añadirán dinámicamente -->
                                 </select>
                             </div>
@@ -195,15 +195,15 @@ const validarYGuardarConfiguracionMembresias = () => {
     let configuracionesMembresias = [];
     let formularioCompleto = true;
 
-    selectElements.forEach(select => {
+    selectElements.forEach((select) => {
         if (!select.value) {
             formularioCompleto = false;
             Swal.fire('Error', 'Por favor, selecciona un beneficiario para cada membresía.', 'error');
         } else {
-            const idMembresia = select.getAttribute('name').replace('beneficiarioMembresia', '');
+            const idMembresia = parseInt(select.name.replace('beneficiarioMembresia', ''), 10);
             configuracionesMembresias.push({
                 IdMembresia: idMembresia,
-                IdBeneficiario: select.value
+                IdBeneficiario: parseInt(select.value, 10)
             });
         }
     });
@@ -211,8 +211,11 @@ const validarYGuardarConfiguracionMembresias = () => {
     if (formularioCompleto) {
         localStorage.setItem('configuracionesMembresias', JSON.stringify(configuracionesMembresias));
         Swal.fire('Configuración guardada', 'Las configuraciones de membresías se han guardado correctamente.', 'success');
+    } else {
+        console.error('Configuraciones incompletas:', configuracionesMembresias);
     }
 };
+
 
 const mostrarFormularioValoracion = (beneficiarios) => {
     const valoracionMedicaContainer = document.getElementById('valoracionMedicaContainer');
@@ -404,33 +407,37 @@ const validarYGuardarValoracionMedica = () => {
 const validarFormularioCompleto = (event) => {
     event.preventDefault(); // Previene la redirección automática
 
-    const acordeonMembresias = document.getElementById('acordeonMembresias');
-    const acordeonValoracionMedica = document.getElementById('acordeonValoracionMedica');
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const configuracionesMembresias = JSON.parse(localStorage.getItem('configuracionesMembresias')) || [];
+    const valoracionesMedicas = JSON.parse(localStorage.getItem('valoracionMedica')) || [];
+    
     let formularioCompleto = true;
 
-    // Verificar si el acordeón de membresías está visible y validado
-    if (acordeonMembresias.style.display !== 'none') {
-        const configuracionesMembresias = JSON.parse(localStorage.getItem('configuracionesMembresias')) || [];
-        const selectElements = document.querySelectorAll('select[name^="beneficiarioMembresia"]');
-        
-        // Asegurarse de que cada select tenga un valor seleccionado
-        selectElements.forEach(select => {
-            if (!select.value) {
-                formularioCompleto = false;
-                Swal.fire('Configuración de membresías incompleta', 'Por favor, asegúrate de que todas las membresías estén configuradas.', 'error');
-                return;
-            }
-        });
+    // Validar que el carrito no esté vacío
+    if (!carrito.length) {
+        formularioCompleto = false;
+        Swal.fire('Carrito vacío', 'No hay productos o membresías en el carrito para procesar el pedido.', 'error');
+        return;
+    }
 
-        if (configuracionesMembresias.length !== selectElements.length) {
+    // Validar que las membresías estén configuradas si hay alguna en el carrito
+    const membresiasEnCarrito = carrito.filter(item => item.hasOwnProperty('IdMembresia'));
+    const tieneMembresias = membresiasEnCarrito.length > 0;
+
+    if (tieneMembresias) {
+        const totalConfiguraciones = configuracionesMembresias.length;
+        const totalMembresias = membresiasEnCarrito.reduce((total, item) => total + item.cantidad, 0);
+
+        if (totalConfiguraciones !== totalMembresias) {
             formularioCompleto = false;
-            Swal.fire('Configuración de membresías incompleta', 'Por favor, asegúrate de que todas las membresías estén configuradas.', 'error');
+            Swal.fire('Configuración incompleta', 'Por favor, asegúrate de que todas las membresías estén configuradas.', 'error');
+            return;
         }
     }
 
-    // Verificar si el acordeón de valoración médica está visible y validado
+    // Validar que las valoraciones médicas estén completas si son necesarias
+    const acordeonValoracionMedica = document.getElementById('acordeonValoracionMedica');
     if (acordeonValoracionMedica.style.display !== 'none') {
-        const valoracionesMedicas = JSON.parse(localStorage.getItem('valoracionMedica')) || [];
         const formulariosValoracion = document.querySelectorAll('form[id^="valoracionMedicaForm"]');
         
         formulariosValoracion.forEach(form => {
@@ -444,6 +451,7 @@ const validarFormularioCompleto = (event) => {
         if (valoracionesMedicas.length !== formulariosValoracion.length) {
             formularioCompleto = false;
             Swal.fire('Valoración médica incompleta', 'Por favor, asegúrate de que todas las valoraciones médicas estén completadas.', 'error');
+            return;
         }
     }
 
