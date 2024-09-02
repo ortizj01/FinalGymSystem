@@ -7,12 +7,15 @@
 }
 
 /* Estilos para el contenedor de las tarjetas */
+/* Asegúrate de que las tarjetas no se alineen en la misma altura */
 .card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px; /* Espacio entre tarjetas */
+    gap: 20px;
+    align-items: flex-start; /* Cambia esto para que no estiren la altura */
 }
+
 
 /* Estilos para las tarjetas */
 .card {
@@ -23,13 +26,23 @@
     width: 30%;
     max-width: 300px;
     margin-bottom: 20px;
-    overflow: hidden;
-    transition: all 0.3s ease; /* Añadir transición para suavizar los cambios */
+    overflow: hidden; /* Asegura que el contenido extra no se desborde */
+    transition: max-height 0.3s ease; /* Suaviza los cambios en la altura */
 }
 
+/* Estilos para los ejercicios adicionales */
 .additional-exercises {
-    display: none; /* Asegúrate de que por defecto esté oculto */
+    max-height: 0; /* Oculto por defecto */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out; /* Suaviza los cambios al mostrar */
 }
+
+
+.card.expanded {
+    height: auto;
+    max-height: none; /* Asegúrate de que la altura no esté limitada */
+}
+
 
 
 

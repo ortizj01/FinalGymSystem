@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getUsuarioRolById, agregarRolAUsuario, eliminarRolDeUsuario, getRolesDeUsuario } from '../controllers/usuarioRol.controller.js';
+import { getUsuarioRolById, agregarRolAUsuario, eliminarRolDeUsuario, getRolesDeUsuario, putUsuarioRol } from '../controllers/usuarioRol.controller.js';
 
 const router = Router();
 
@@ -14,5 +14,9 @@ router.post('/usuariosRol/:IdUsuario/roles', agregarRolAUsuario);
 
 // Ruta para eliminar un rol de un usuario
 router.delete('/usuariosRol/roles/:IdRolUsuario', eliminarRolDeUsuario);
+
+// Ruta para editar un rol de un usuario
+router.put('/usuariosRol/:IdUsuario', putUsuarioRol);
+
 
 export default router;

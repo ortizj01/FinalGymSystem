@@ -63,18 +63,23 @@ function obtenerNombreDia(numeroDia) {
     return diasSemana[numeroDia] || 'Día desconocido';
 }
 
-// Función para añadir funcionalidad de expansión/contracción
 function toggleExerciseDisplay(button) {
     const targetId = button.getAttribute('data-target');
     const additionalExercises = document.getElementById(targetId);
-    if (additionalExercises.style.display === 'none' || additionalExercises.style.display === '') {
-        additionalExercises.style.display = 'block';
+    const card = button.closest('.card');
+
+    if (additionalExercises.style.maxHeight === '0px' || additionalExercises.style.maxHeight === '') {
+        additionalExercises.style.maxHeight = `${additionalExercises.scrollHeight}px`;
+        card.classList.add('expanded');
         button.textContent = '-';
     } else {
-        additionalExercises.style.display = 'none';
+        additionalExercises.style.maxHeight = '0px';
+        card.classList.remove('expanded');
         button.textContent = '+';
     }
 }
+
+
 
 // Añadir eventos después de que el contenido esté listo
 function attachToggleEvents() {
@@ -110,7 +115,7 @@ function mostrarRutina(rutina) {
                                 <p class="card-series"><strong>Series:</strong> ${ejercicios[0].Series || 'Sin series'}</p>
                             </div>
                             ${ejercicios.length > 1 ? `
-                                <div class="additional-exercises" id="exercises-${cardIndex}" style="display: none;">
+                                <div class="additional-exercises" id="exercises-${cardIndex}">
                                     ${ejercicios.slice(1).map(ejercicio => `
                                         <div class="card-exercise">
                                             <h5 class="card-title">${ejercicio.NombreEjercicio || 'Sin nombre'}</h5>
@@ -129,7 +134,7 @@ function mostrarRutina(rutina) {
 
             html += '</div>'; // Cerrar contenedor de tarjetas
             rutinaContainer.innerHTML = html;
-            attachToggleEvents();
+            attachToggleEvents(); // Importante: esto debe ser llamado después de crear las tarjetas
         } else {
             rutinaContainer.innerHTML = '<h1>No hay rutinas asignadas</h1>';
         }
@@ -137,6 +142,7 @@ function mostrarRutina(rutina) {
         console.error('Elemento con id "rutina-container" no encontrado');
     }
 }
+
 
 // Inicializar la visualización de la rutina
 async function init() {

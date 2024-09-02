@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle de la Membresía</title>
     {{> header}}
+
+    <!-- Añadir el estilo CSS en el <head> -->
+    <style>
+        /* Ocultar la segunda columna de la tabla serviciosTable */
+        #serviciosTable td:nth-child(2),
+        #serviciosTable th:nth-child(2) {
+            display: none;
+        }
+        
+        /* Estilo personalizado para campos deshabilitados */
+        .form-control[disabled], .form-select[disabled] {
+            background-color: #fff; /* Color de fondo blanco para campos deshabilitados */
+            color: #495057; /* Color de texto gris oscuro para campos deshabilitados */
+            border: 1px solid #ced4da; /* Bordes de color normal */
+            cursor: default; /* Cambiar cursor a uno normal */
+        }
+        
+        /* Botón volver ajustado */
+        .btn-volver {
+            margin-top: 1rem; /* Ajustar margen superior según sea necesario */
+        }
+    </style>
 </head>
 <body onload="cargarDetalleMembresia()">
     <!-- Inicio del cargar -->
@@ -36,50 +58,58 @@
                     <div class="card-body">
                         <form>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6 formulario__grupo">
                                     <div class="form-group">
-                                        <label class="form-label">Nombre de Membresía:</label>
-                                        <label id="NombreMembresia" name="NombreMembresia"></label>
+                                        <label class="form-label">Nombre de la Membresía*</label>
+                                        <input type="text" class="form-control" name="NombreMembresia" placeholder="Nombre de la Membresía" id="NombreMembresia" disabled />
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+
+                                <!-- Frecuencia -->
+                                <div class="col-md-6 formulario__grupo">
                                     <div class="form-group">
-                                        <label class="form-label">Frecuencia:</label>
-                                        <label id="Frecuencia" name="Frecuencia"></label>
+                                        <label class="form-label" for="Frecuencia">Frecuencia*</label>
+                                        <input type="number" class="form-control" name="Frecuencia" placeholder="Frecuencia" id="Frecuencia" disabled>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+
+                                <!-- Costo Venta -->
+                                <div class="col-md-6 formulario__grupo">
                                     <div class="form-group">
-                                        <label class="form-label">Costo Total:</label>
-                                        <label id="CostoTotal" name="CostoTotal"></label>
+                                        <label class="form-label">Costo Venta*</label>
+                                        <input type="text" class="form-control" name="CostoVenta" placeholder="Costo de la Membresía" id="CostoVenta" disabled />
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+
+                                <!-- Estado -->
+                                <div class="col-md-6 formulario__grupo">
                                     <div class="form-group">
-                                        <label class="form-label">Costo Venta:</label>
-                                        <label id="CostoVenta" name="CostoVenta"></label>
+                                        <label class="form-label" for="Estado">Estado*</label>
+                                        <select class="form-select" id="Estado" name="select" disabled>
+                                            <option value="">Selecciona el estado</option>
+                                            <option value="1">Activo</option>
+                                            <option value="0">Inactivo</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Estado:</label>
-                                        <label id="Estado" name="Estado"></label>
-                                    </div>
+
+                                <!-- Descripción -->
+                                <div class="mb-3">
+                                    <label for="Descripcion" class="form-label">Descripción</label>
+                                    <textarea id="Descripcion" name="Descripcion" class="form-control" rows="3" disabled></textarea>
                                 </div>
-                                <table class="table table-bordered dataTable" id="dataTable" width="60%"
-                                    cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 60%;">
+
+                                <table class="table table-bordered dataTable" id="serviciosTable" width="60%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 60%;" style="display: none;">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 93.
-                                            
-                                            0156px;">Nombre de la Clase</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Nombre de la Clase: activate to sort column ascending" style="width: 93px;">Nombre de la Clase</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="TableServicios"></tbody>
+                                    <tbody id="serviciosAgregados"></tbody>
                                 </table>
                             </div>
                             <a href="../membresiasAdmin">
-                                <button type="button" name="Cancelar" class="btn btn-dark previous action-button-previous float-end me-1" value="Previous">Volver</button>
+                        <button type="button" class="btn btn-primary float-end" onclick="window.location.href='../membresiasAdmin'">Volver</button>
                             </a>
                         </form>
                     </div>

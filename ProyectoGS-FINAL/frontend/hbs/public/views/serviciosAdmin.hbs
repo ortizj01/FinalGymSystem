@@ -3,12 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plantilla</title>
+    <title>Gestión de Servicios</title>
+    <!-- Cargar archivos CSS necesarios -->
+    <link rel="stylesheet" href="path/to/your/css/styles.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/all.min.css">
+    <style>
+       .formulario__grupo {
+    position: relative;
+    margin-bottom: 15px;
+}
 
-    <!-- Cargar archivos CSS necesarios, si los tienes -->
+.formulario__grupo-input {
+    position: relative;
+}
 
+.formulario__validacion-estado {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+.formulario__input-error {
+    color: red;
+    font-size: 14px;
+    display: none;
+}
+
+.formulario__grupo-incorrecto .formulario__input-error {
+    display: block;
+}
+
+.formulario__grupo-correcto .formulario__input-error {
+    display: none;
+}
+
+.formulario__grupo-correcto i {
+    color: green;
+}
+
+.formulario__grupo-incorrecto i {
+    color: red;
+}
+
+
+    </style>
     <!-- Cargar el script getServicios.js -->
-    <script src="getServicios.js"></script>
+    <script src="getServicios.js" defer></script>
 </head>
 <body>
 
@@ -19,35 +61,49 @@
 
 <!-- Contenido principal -->
 <div class="container-fluid content-inner">
+    <div class="card-header py-2">
+        <h2 class="m-2 font-weight-bold text-primary">Gestión de Servicios</h2>
+    </div>
     <div class="container-fluid">
-        <!-- Botón para agregar servicio en el lado izquierdo -->
-        <a href="formServicios" class="btn btn-primary btn-sm mb-3">
-            <i class="fa-regular fa-plus fa-xs me-1"></i> Agregar Servicio
-        </a>
-
-        <!-- Card para mostrar los servicios -->
+        <!-- DataTables Example -->
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h3 class="m-0 font-weight-bold text-primary">Gestión de Servicios</h3>
-            </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Nombre Clase</th>
-                                <th>Costo Venta</th>
-                                <th>Estado</th>
-                                <th>Acciones</th> <!-- Nueva columna para botones -->
-                            </tr>
-                        </thead>
-                        <tbody id="dataTableBody">
-                            <!-- Aquí se agregarán las filas de datos -->
-                            <!-- Ejemplo de una fila de datos -->
-                            
-
-                        </tbody>
-                    </table>
+                    <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                        <div class="card-header py-3 d-flex justify-content-between">
+                            <div class="d-flex">
+                                <!-- Aquí podrías añadir filtros u otros controles si es necesario -->
+                            </div>
+                            <div class="footer-buttons mt-1">
+                                <button type="button" class="btn btn-primary float-end me-2" data-bs-toggle="modal" data-bs-target="#crearServicioModal">
+                                    Agregar Servicio +
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered dataTable" id="dataTable" width="100%"
+                                    cellspacing="0" role="grid" aria-describedby="dataTable_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Nombre Clase: activate to sort column ascending"
+                                                style="width: 150px;">Nombre Clase</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Estado: activate to sort column ascending"
+                                                style="width: 100px;">Estado</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                                colspan="1" aria-label="Acciones: activate to sort column ascending"
+                                                style="width: 150px;">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dataTableBody">
+                                        <!-- Aquí se insertarán los datos de los servicios obtenidos desde la API -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div> 
@@ -55,25 +111,55 @@
 </div>
 <!-- Fin del contenido principal -->
 
-<!-- Modal para confirmar eliminar servicio -->
-<div class="modal fade" id="eliminarServicioModal" tabindex="-1" aria-labelledby="eliminarServicioModalLabel" aria-hidden="true">
+<!-- Modal para Crear Servicio -->
+<div class="modal fade" id="crearServicioModal" tabindex="-1" aria-labelledby="crearServicioModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="crearServicioModalLabel">Crear Nuevo Servicio</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <form id="FormularioServicios">
+          <div class="mb-3" id="grupo__NombreClase">
+            <label for="nombreClase" class="form-label">Nombre de Clase</label>
+            <input type="text" class="form-control" id="nombreClase" name="NombreClase" required>
+            
+            <p class="formulario__input-error">Nombre de clase no válido. <br>
+            Debe contener almenos 5 caracteres.
+            </p>
+          </div>
+          <button type="submit" class="btn btn-primary">Crear</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Editar Servicio -->
+<div class="modal fade" id="editarServicioModal" tabindex="-1" aria-labelledby="editarServicioModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="m-0 font-weight-bold text-primary">Eliminar servicio</h3>
+                <h3 class="m-0 font-weight-bold text-primary">Editar Servicio</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="eliminarServicioForm">
-                    <div class="alert alert-danger d-flex align-items-center" role="alert">
-                        <svg class="bi flex-shrink-0 me-2" width="24" height="24">
-                            <use xlink:href="#exclamation-triangle-fill" />
-                        </svg>
-                        <div>
-                            ¿Seguro que deseas eliminar el servicio?
-                        </div>
+                <form id="editarServicioForm">
+                    <input type="hidden" id="editServicioId" name="IdServicio">
+                    <div class="mb-3" id="grupo__editNombreClase">
+                        <label for="editNombreClase" class="form-label">Nombre Clase</label>
+                        <input type="text" class="form-control" id="editNombreClase" name="NombreClase" required>
                     </div>
-                    <button type="submit" id="confirmarEliminar" class="btn btn-primary">Eliminar</button>
+                    <div class="mb-3" id="grupo__editEstado">
+                        <label for="editEstado" class="form-label">Estado</label>
+                        <select id="editEstado" name="Estado" class="form-select" required>
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </form>
             </div>
@@ -81,17 +167,35 @@
     </div>
 </div>
 
-<!-- Fin del contenido principal -->
-<script src="../assets/js/postServicios.js"></script>
+
+<!-- Modal para Ver Detalle Servicio -->
+<div class="modal fade" id="verDetalleServicio" tabindex="-1" aria-labelledby="verDetalleServicioLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="m-0 font-weight-bold text-primary">Detalles del Servicio</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="detalleServicioNombre">Nombre Clase: </p>
+                <p id="detalleServicioEstado">Estado: </p>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Incluir footer y otros componentes finales -->
 <footer class="footer">
     {{> copyright}}
 </footer>
-<!-- Footer Section End -->
+
+<!-- Cargar el script postServicios.js -->
+<script src="../assets/js/postServicios.js" defer></script>
+<script src="../assets/js/formServicios.js" defer></script>
 
 {{> footer}}
-<!-- Scripts adicionales, si es necesario -->
 
+<!-- Scripts adicionales, si es necesario -->
 </body>
 </html>

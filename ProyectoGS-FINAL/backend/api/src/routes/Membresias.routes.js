@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteMembresia, getMembresias, postMembresia, putMembresia, getMembresia } from "../controllers/Membresias.js";
+import { deleteMembresia, getMembresias, postMembresia, putMembresia, getMembresia, changeState  } from "../controllers/Membresias.js";
 
 const router = Router();
 
@@ -14,5 +14,8 @@ router.post('/membresias', postMembresia);
 router.put('/membresias/:id', putMembresia);
 
 router.delete('/membresias/:id', deleteMembresia);
+
+router.put('/Membresias/:id/change-state', changeState);
+
 
 export default router;

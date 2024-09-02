@@ -3,14 +3,29 @@ import bcrypt from "bcryptjs";
 
 export const getUsuarios = async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM Usuarios');
+        // Consulta SQL corregida
+        const query = `
+            SELECT u.*
+            FROM Usuarios u
+            LEFT JOIN RolUsuario ru ON u.IdUsuario = ru.IdUsuario
+            LEFT JOIN Roles r ON ru.IdRol = r.IdRol
+            WHERE r.NombreRol <> 'Beneficiario' OR r.NombreRol IS NULL
+        `;
+        
+        // Ejecutar la consulta en la base de datos
+        const [rows] = await pool.query(query);
+        
+        // Devolver los resultados en formato JSON
         res.json(rows);
     } catch (error) {
+        // Manejo de errores
+        console.error('Error al obtener usuarios:', error.message);
         return res.status(500).json({
-            message: 'something goes wrong'
+            message: 'Something went wrong'
         });
     }
-}
+};
+
 
 export const getUsuario = async (req, res) => {
     try {

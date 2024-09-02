@@ -1,194 +1,165 @@
-const formularioUsuarios = document.getElementById('formularioUsuarios');
-const inputsUsuarios = document.querySelectorAll('#formularioUsuarios input');
-const selectsUsuarios = document.querySelectorAll('#formularioUsuarios select');
+document.addEventListener('DOMContentLoaded', () => {
+    // Obtener el formulario y los campos
+    const formularioUsuarios = document.getElementById('formularioUsuarios');
+    const inputsUsuarios = document.querySelectorAll('#formularioUsuarios input');
+    const selectsUsuarios = document.querySelectorAll('#formularioUsuarios select');
 
-const expresionesUsuarios = {
-    Nombre: /^[a-zA-ZÀ-ÿ\s]{1,50}$/,
-    Apellidos: /^[a-zA-ZÀ-ÿ\s]{1,50}$/,
-    Email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-    Telefono: /^[0-9]+$/,
-    Rol: /^[a-zA-ZÀ-ÿ\s]{1,50}$/,
-    Cedula: /^[a-zA-Z0-9]+$/,
-    contraseña: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
-};
+    // Expresiones regulares para validación
+    const expresionesUsuarios = {
+        Nombre: /^[a-zA-ZÀ-ÿ\s]{1,50}$/,
+        Apellidos: /^[a-zA-ZÀ-ÿ\s]{1,50}$/,
+        Email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+        Telefono: /^[0-9]{10}$/,
+        FechaDeNacimiento: /^\d{4}-\d{2}-\d{2}$/, // Formato de fecha YYYY-MM-DD
+Direccion: /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚüÜ.,-]+$/,
+        Genero: /^[a-zA-Z]+$/,
+        Rol: /^[a-zA-Z]+$/,
+        Estado: /^[01]$/,
+      
+    };
 
-const camposUsuarios = {
-    Nombre: false,
-    Apellidos: false,
-    Email: false,
-    Telefono: false,
-    Rol: false,
-    Cedula: false,
-    contraseña: false,
-    ConfirmarContraseña: false
-};
+    // Estado de los campos
+    const camposUsuarios = {
+        Nombre: false,
+        Apellidos: false,
+        Email: false,
+        Telefono: false,
+        FechaDeNacimiento: false,
+        Direccion: false,
+        Genero: false,
+        Rol: false,
+        Estado: false,
+       
+    };
 
-const validarFormularioUsuarios = (e) => {
-    switch (e.target.name) {
-        case "Nombre":
-            validarCampoUsuarios(expresionesUsuarios.Nombre, e.target, 'Nombre');
-            break;
-        case "Apellidos":
-            validarCampoUsuarios(expresionesUsuarios.Apellidos, e.target, 'Apellidos');
-            break;
-        case "Email":
-            validarCampoUsuarios(expresionesUsuarios.Email, e.target, 'Email');
-            break;
-        case "Telefono":
-            validarCampoUsuarios(expresionesUsuarios.Telefono, e.target, 'Telefono');
-            break;
-        case "Rol":
-            validarRol();
-            break;
-        case "Cedula":
-            validarCampoUsuarios(expresionesUsuarios.Cedula, e.target, 'Cedula');
-            break;
-        case "contraseña":
-            validarCampoUsuarios(expresionesUsuarios.contraseña, e.target, 'contraseña');
-            validarConfirmarContraseña();
-            break;
-        case "confirmarContrasena":
-            validarConfirmarContraseña();
-            break;
-    }
-};
+    // Función para validar un campo
+    const validarCampoUsuarios = (expresion, input, campo) => {
+        const grupoCampo = document.getElementById(`grupo__${campo}`);
+        const icono = grupoCampo.querySelector('i');
+        const error = grupoCampo.querySelector('.formulario__input-error');
 
-const validarCampoUsuarios = (expresion, input, campo) => {
-    if (expresion.test(input.value)) {
-        document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
-        document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
-        document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
-        camposUsuarios[campo] = true;
-    } else {
-        document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
-        document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
-        document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
-        document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
-        document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
-        camposUsuarios[campo] = false;
-    }
-};
+        if (expresion.test(input.value)) {
+            grupoCampo.classList.remove('formulario__grupo-incorrecto');
+            grupoCampo.classList.add('formulario__grupo-correcto');
+            icono.classList.remove('fa-times-circle');
+            icono.classList.add('fa-check-circle');
+            error.classList.remove('formulario__input-error-activo');
+            camposUsuarios[campo] = true;
+        } else {
+            grupoCampo.classList.add('formulario__grupo-incorrecto');
+            grupoCampo.classList.remove('formulario__grupo-correcto');
+            icono.classList.remove('fa-check-circle');
+            icono.classList.add('fa-times-circle');
+            error.classList.add('formulario__input-error-activo');
+            camposUsuarios[campo] = false;
+        }
+    };
 
-const validarRol = () => {
-    const selectsRol = document.querySelectorAll('select[name="Rol"]');
-    let rolValido = false;
-    
-    selectsRol.forEach(select => {
-        if (select.value !== "") {
-            rolValido = true;
+    // Función para validar la confirmación de la contraseña
+    const validarConfirmarContraseña = () => {
+        const inputContrasena = document.getElementById('contrasena');
+        const inputConfirmarContrasena = document.getElementById('confirmarContrasena');
+        const grupoCampo = document.getElementById('grupo__ConfirmarContrasena');
+        const icono = grupoCampo.querySelector('i');
+        const error = grupoCampo.querySelector('.formulario__input-error');
+
+        if (inputContrasena.value === inputConfirmarContrasena.value && camposUsuarios.Contrasena) {
+            grupoCampo.classList.remove('formulario__grupo-incorrecto');
+            grupoCampo.classList.add('formulario__grupo-correcto');
+            icono.classList.remove('fa-times-circle');
+            icono.classList.add('fa-check-circle');
+            error.classList.remove('formulario__input-error-activo');
+            camposUsuarios.ConfirmarContrasena = true;
+        } else {
+            grupoCampo.classList.add('formulario__grupo-incorrecto');
+            grupoCampo.classList.remove('formulario__grupo-correcto');
+            icono.classList.remove('fa-check-circle');
+            icono.classList.add('fa-times-circle');
+            error.classList.add('formulario__input-error-activo');
+            camposUsuarios.ConfirmarContrasena = false;
+        }
+    };
+
+    // Función para manejar la validación del formulario
+    const validarFormularioUsuarios = (e) => {
+        switch (e.target.id) {
+            case "Nombre":
+                validarCampoUsuarios(expresionesUsuarios.Nombre, e.target, 'Nombre');
+                break;
+            case "Apellidos":
+                validarCampoUsuarios(expresionesUsuarios.Apellidos, e.target, 'Apellidos');
+                break;
+            case "Email":
+                validarCampoUsuarios(expresionesUsuarios.Email, e.target, 'Email');
+                break;
+            case "Telefono":
+                validarCampoUsuarios(expresionesUsuarios.Telefono, e.target, 'Telefono');
+                break;
+            case "FechaDeNacimiento":
+                validarCampoUsuarios(expresionesUsuarios.FechaDeNacimiento, e.target, 'FechaDeNacimiento');
+                break;
+            case "Direccion":
+                validarCampoUsuarios(expresionesUsuarios.Direccion, e.target, 'Direccion');
+                break;
+            case "Genero":
+                validarCampoUsuarios(expresionesUsuarios.Genero, e.target, 'Genero');
+                break;
+            case "Rol":
+                validarCampoUsuarios(expresionesUsuarios.Rol, e.target, 'Rol');
+                break;
+            case "Estado":
+                validarCampoUsuarios(expresionesUsuarios.Estado, e.target, 'Estado');
+                break;
+            
+        }
+    };
+
+    // Event listeners para validar campos al escribir o hacer blur
+    inputsUsuarios.forEach(input => {
+        input.addEventListener('keyup', validarFormularioUsuarios);
+        input.addEventListener('blur', validarFormularioUsuarios);
+    });
+
+    // Event listeners para validar selects al cambiar
+    selectsUsuarios.forEach(select => {
+        select.addEventListener('change', validarFormularioUsuarios);
+    });
+
+    // Event listener para el submit del formulario
+    formularioUsuarios.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Verificar si todos los campos son válidos
+        const check = Object.values(camposUsuarios).every(Boolean);
+
+        if (check) {
+            // Código para enviar el formulario
+            console.log('Formulario válido, enviando...');
+            // Aquí puedes añadir el código para enviar el formulario
+        } else {
+            console.log('Formulario no válido');
         }
     });
 
-    if (rolValido) {
-        document.getElementById(`grupo__Rol`).classList.remove('formulario__grupo-incorrecto');
-        document.getElementById(`grupo__Rol`).classList.add('formulario__grupo-correcto');
-        document.querySelector(`#grupo__Rol i`).classList.remove('fa-times-circle');
-        document.querySelector(`#grupo__Rol i`).classList.add('fa-check-circle');
-        document.querySelector(`#grupo__Rol .formulario__input-error`).classList.remove('formulario__input-error-activo');
-        camposUsuarios['Rol'] = true;
-    } else {
-        document.getElementById(`grupo__Rol`).classList.add('formulario__grupo-incorrecto');
-        document.getElementById(`grupo__Rol`).classList.remove('formulario__grupo-correcto');
-        document.querySelector(`#grupo__Rol i`).classList.remove('fa-check-circle');
-        document.querySelector(`#grupo__Rol i`).classList.add('fa-times-circle');
-        document.querySelector(`#grupo__Rol .formulario__input-error`).classList.add('formulario__input-error-activo');
-        camposUsuarios['Rol'] = false;
+    // Toggle visibility for passwords
+    function togglePasswordVisibility(inputId, buttonId) {
+        const passwordInput = document.getElementById(inputId);
+        const button = document.getElementById(buttonId).querySelector('span');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            button.className = 'fa-regular fa-eye fa-xl me-2';
+        } else {
+            passwordInput.type = 'password';
+            button.className = 'fa-regular fa-eye-slash fa-xl me-2';
+        }
     }
-};
 
-const validarConfirmarContraseña = () => {
-    const inputContraseña = document.getElementById('contraseña');
-    const inputConfirmarContraseña = document.getElementById('confirmarContrasena');
-    const iconoConfirmarContraseña = document.querySelector('#grupo__confirmarContrasena i');
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        togglePasswordVisibility('contrasena', 'togglePassword');
+    });
 
-    if (inputContraseña.value === inputConfirmarContraseña.value && inputConfirmarContraseña.value !== '') {
-        document.getElementById('grupo__confirmarContrasena').classList.remove('formulario__grupo-incorrecto');
-        document.getElementById('grupo__confirmarContrasena').classList.add('formulario__grupo-correcto');
-        iconoConfirmarContraseña.classList.remove('fa-times-circle');
-        iconoConfirmarContraseña.classList.add('fa-check-circle');
-        document.querySelector('#grupo__confirmarContrasena .formulario__input-error').classList.remove('formulario__input-error-activo');
-        camposUsuarios['ConfirmarContraseña'] = true;
-    } else {
-        document.getElementById('grupo__confirmarContrasena').classList.add('formulario__grupo-incorrecto');
-        document.getElementById('grupo__confirmarContrasena').classList.remove('formulario__grupo-correcto');
-        iconoConfirmarContraseña.classList.remove('fa-check-circle');
-        iconoConfirmarContraseña.classList.add('fa-times-circle');
-        document.querySelector('#grupo__confirmarContrasena .formulario__input-error').classList.add('formulario__input-error-activo');
-        camposUsuarios['ConfirmarContraseña'] = false;
-    }
-};
-
-function togglePassword(inputId) {
-    const inputElement = document.getElementById(inputId);
-    const iconElement = document.querySelector(`#grupo__${inputId} i`);
-
-    const type = inputElement.getAttribute('type') === 'password' ? 'text' : 'password';
-    inputElement.setAttribute('type', type);
-
-    if (type === 'password') {
-        iconElement.classList.remove('fa-eye');
-        iconElement.classList.add('fa-eye-slash');
-    } else {
-        iconElement.classList.remove('fa-eye-slash');
-        iconElement.classList.add('fa-eye');
-    }
-};
-
-inputsUsuarios.forEach((input) => {
-    input.addEventListener('keyup', validarFormularioUsuarios);
-    input.addEventListener('blur', validarFormularioUsuarios);
-});
-
-selectsUsuarios.forEach((select) => {
-    select.addEventListener('change', validarFormularioUsuarios);
-});
-
-// Evento para mostrar/ocultar la contraseña
-const iconoContraseña = document.querySelector('#grupo__contrasena i');
-iconoContraseña.addEventListener('click', togglePassword);
-
-formularioUsuarios.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (camposUsuarios.Nombre && camposUsuarios.Apellidos && camposUsuarios.Email && camposUsuarios.Telefono && camposUsuarios.Rol && camposUsuarios.Cedula && camposUsuarios.contraseña && camposUsuarios.ConfirmarContraseña) {
-        formularioUsuarios.reset();
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            }
-        });
-        Toast.fire({
-            icon: "success",
-            title: "Guardado correctamente"
-        });
-        document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
-            icono.classList.remove('formulario__grupo-correcto')
-        });
-        setTimeout(() => {
-            window.location.href = 'usuariosAdmin'; // Ajusta el nombre de la página si es necesario
-        }, 2000);
-    } else {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            }
-        });
-        Toast.fire({
-            icon: "error",
-            title: "Ingrese los datos correctamente"
-        });
-    }
+    document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+        togglePasswordVisibility('confirmarContrasena', 'toggleConfirmPassword');
+    });
 });

@@ -203,6 +203,9 @@ app.get('/membresiasAdmin', (req, res)=>{
 app.get('/detalleMembresia', (req, res)=>{
     res.render('detalleMembresia')
 })
+app.get('/membresiasCliente', (req, res)=>{
+    res.render('membresiasCliente')
+})
 //fin weimar
 
 // INICIO RUTINA *JUANES*

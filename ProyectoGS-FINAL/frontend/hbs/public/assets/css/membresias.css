@@ -1,0 +1,51 @@
+.membership-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.membership-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px;
+    text-align: center;
+    background-color: #fff;
+    flex: 1 1 calc(33% - 30px); /* Tres columnas */
+    box-sizing: border-box;
+}
+
+.membership-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.membership-price {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.list-unstyled {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-unstyled li {
+    margin-bottom: 10px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}

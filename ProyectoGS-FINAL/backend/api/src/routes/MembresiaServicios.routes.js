@@ -19,7 +19,7 @@ router.get('/membresias-servicios/:IdMembresia', getMembresiaServicio);
 router.post('/membresias-servicios/:IdMembresia', postServicioDeMembresia);
 
 // Ruta para actualizar un detalle de membresía y servicio por su ID
-router.put('/membresias-servicios/:IdMembresia/:id', putMembresiaServicio);
+router.put('/membresias-servicios/:IdMembresia', putMembresiaServicio);
 
 // Ruta para eliminar un detalle de membresía y servicio por su ID
 router.delete('/membresias-servicios/:id', deleteDetalleDeMembresia);

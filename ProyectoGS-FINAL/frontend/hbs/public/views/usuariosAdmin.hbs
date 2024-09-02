@@ -90,7 +90,7 @@
     <footer class="footer">
         {{> copyright}}
     </footer>
-    <script src="../assets/js/Usuarios.js"></script>
+    <script src="../assets/js/postUsuarios.js"></script>
     <!-- Footer Section End -->
 
     {{> footer}}
@@ -99,7 +99,7 @@
         // Función para listar usuarios
         async function listarUsuarios() {
             try {
-                const response = await fetch('http://localhost:3000/api/usuarioss');
+                const response = await fetch('http://localhost:3000/api/usuarios');
                 const users = await response.json();
                 
                 // Obtener la tabla
@@ -120,34 +120,43 @@
                             <td>${user.Telefono}</td>
                             <td>${estado}</td>
                             <td>
-                                <a href="detalleUsuario?id=${user.IdUsuario}" class="text-info"><i class="fa-regular fa-eye fa-xl me-2" aria-hidden="true"></i></a>
-                                <a href="formUsuariosModal?id=${user.IdUsuario}" class="text-warning"><i class="fa-regular fa-pen-to-square fa-xl me-2"></i></a>
+                                <a href="detalleUsuario?id=${user.IdUsuario}"><i class="fa-regular fa-eye fa-lg me-2"></i></a>
+                                <a href="formUsuariosModal?id=${user.IdUsuario}"><i class="fa-regular fa-pen-to-square fa-xl me-2"></i></a>
+
                             </td>
                         </tr>
                     `;
                     userTableBody.insertAdjacentHTML('beforeend', row);
                 });
 
+
+              
                 // Inicializar DataTable
-                $('#userTable').DataTable({
-                    "paging": true,
-                    "pagingType": "simple",
-                    "pageLength": 5,
-                    "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "Todos"]],
-                    "language": {
-                        "search": "Buscar:",
-                        "lengthMenu": "Mostrar _MENU_ registros",
-                        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                        "infoEmpty": "Mostrando 0 a 0 de 0 registros",
-                        "infoFiltered": "(filtrado de _MAX_ registros en total)",
-                        "emptyTable": "No hay datos disponibles en la tabla",
-                        "zeroRecords": "No se encontraron registros coincidentes",
-                        "paginate": {
-                            "previous": "Anterior",
-                            "next": "Siguiente"
-                        }
-                    }
-                });
+                 $('#userTable').DataTable({
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            }, 
+            lengthMenu: [5, 10, 25, 50], // Opciones de selección de registros por página
+            pageLength: 5 
+        });
+
             } catch (error) {
                 console.error('Error:', error);
             }
