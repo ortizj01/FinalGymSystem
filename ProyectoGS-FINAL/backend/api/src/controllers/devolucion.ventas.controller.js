@@ -131,7 +131,7 @@ export const postDevolucionVentas = async (req, res) => {
         if (productosRestantes[0].totalProductos === 0 && membresiasRestantes[0].totalMembresias === 0) {
             // Si no quedan productos ni membresías, actualizar el estado de la venta
             await connection.query(`
-                UPDATE Ventas SET EstadoVenta = 3 WHERE IdVenta = ?
+                UPDATE Ventas SET EstadoVenta = 5 WHERE IdVenta = ?
             `, [IdVenta]); // Estado 3 puede representar "Devolución completa" o similar
         }
 

@@ -257,12 +257,6 @@ app.get('/eventosCliente', (req, res)=>{
 // FIN SERVICIOS
 
 
-// ROLES *JOHANY* 
-
-// app.get('/roles', (req, res)=>{
-//     res.render('roles')
-// })
-
 app.get('/roles2', (req, res)=>{
     res.render('roles_permisos/tablaRoles')
 })
@@ -275,9 +269,25 @@ app.get('/CrearRol', (req, res)=>{
     res.render('CrearRol')
 })
 
+// JOHANY
+
 app.get('/GestionVentas', (req, res)=>{
     res.render('ventas_vistas/GestionVentas')
 })
+
+app.get('/visualizarventa', (req, res)=>{
+    res.render('ventas_vistas/visualizarventa')
+})
+
+app.get('/ventasCliente', (req, res)=>{
+    res.render('ventas_vistas/ventasCliente')
+})
+
+app.get('/visualizarVentasClientes', (req, res)=>{
+    res.render('ventas_vistas/visualizarVentasClientes')
+})
+
+
 
 app.get('/formuVenta', (req, res)=>{
     res.render('ventas_vistas/formuVenta')
