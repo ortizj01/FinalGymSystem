@@ -1,4 +1,3 @@
-// EDITAR BENEFICIARIO
 async function inicializarDatosEditarBeneficiario() {
     try {
         const urlParams = new URLSearchParams(window.location.search);
@@ -36,47 +35,19 @@ async function inicializarDatosEditarBeneficiario() {
         document.getElementById('genero').value = cliente.Genero;
         document.getElementById('estado').value = cliente.Estado;
 
-        // Obtener el beneficiario actual y buscar sus datos
+        // Verificar si el cliente está asociado con un beneficiario y cargar los datos
         if (cliente.Beneficiario) {
             const beneficiarioResponse = await fetch(`http://localhost:3000/api/usuarios/${cliente.Beneficiario}`);
             if (beneficiarioResponse.ok) {
                 const beneficiario = await beneficiarioResponse.json();
-                document.getElementById('beneficiario').value = beneficiario.IdUsuario;
-                document.getElementById('buscarBeneficiario').value = beneficiario.Documento;
-                document.getElementById('beneficiarioHelp').textContent = `Usuario seleccionado: ${beneficiario.Nombres} ${beneficiario.Apellidos}`;
+                document.getElementById('cliente').value = beneficiario.IdUsuario;
+                document.getElementById('buscarCliente').value = beneficiario.Documento;
+                document.getElementById('nombreClienteSeleccionado').value = `${beneficiario.Nombres} ${beneficiario.Apellidos}`;
             }
         }
 
-        // Añadir event listener para la búsqueda del beneficiario
-        document.getElementById('buscarBeneficiario').addEventListener('input', async function(event) {
-            const documento = event.target.value;
-            const resultadosBusqueda = document.getElementById('resultadosBusqueda');
-            resultadosBusqueda.innerHTML = ''; // Limpiar resultados anteriores
-
-            if (documento.length >= 3) { // Realizar la búsqueda si hay al menos 3 caracteres
-                const usuarios = await buscarUsuariosPorDocumento(documento);
-
-                if (usuarios && usuarios.length > 0) {
-                    usuarios.forEach(usuario => {
-                        const item = document.createElement('a');
-                        item.classList.add('list-group-item', 'list-group-item-action');
-                        item.textContent = `${usuario.Documento} - ${usuario.Nombres} ${usuario.Apellidos}`;
-                        item.addEventListener('click', () => {
-                            document.getElementById('beneficiario').value = usuario.IdUsuario;
-                            document.getElementById('buscarBeneficiario').value = usuario.Documento;
-                            resultadosBusqueda.innerHTML = '';
-                            document.getElementById('beneficiarioHelp').textContent = `Usuario seleccionado: ${usuario.Nombres} ${usuario.Apellidos}`;
-                        });
-                        resultadosBusqueda.appendChild(item);
-                    });
-                } else {
-                    const item = document.createElement('div');
-                    item.classList.add('list-group-item');
-                    item.textContent = 'No se encontraron coincidencias';
-                    resultadosBusqueda.appendChild(item);
-                }
-            }
-        });
+        // Inicializar la búsqueda de cliente
+        inicializarBusquedaCliente();
 
     } catch (error) {
         console.error('Error:', error);
@@ -87,6 +58,73 @@ async function inicializarDatosEditarBeneficiario() {
         });
     }
 }
+
+async function inicializarBusquedaCliente() {
+    const documentosMostrados = new Set();
+
+    document.getElementById('buscarCliente').addEventListener('input', async function(event) {
+        const documento = event.target.value;
+        const resultadosBusqueda = document.getElementById('resultadosBusqueda');
+
+        // Validar que solo se ingresen caracteres numéricos
+        if (!/^\d*$/.test(documento)) {
+            event.target.value = documento.replace(/\D/g, ''); // Remover caracteres no numéricos
+            return;
+        }
+
+        resultadosBusqueda.innerHTML = ''; // Limpiar resultados previos
+        documentosMostrados.clear(); // Reiniciar el conjunto de documentos mostrados
+
+        if (documento.length >= 1) { // Realizar la búsqueda si hay al menos 1 carácter
+            const clientes = await buscarClientesPorDocumento(documento);
+
+            if (clientes && clientes.length > 0) {
+                clientes.forEach(cliente => {
+                    if (!documentosMostrados.has(cliente.Documento)) {
+                        documentosMostrados.add(cliente.Documento);
+                        const item = document.createElement('a');
+                        item.classList.add('list-group-item', 'list-group-item-action');
+                        item.textContent = `${cliente.Documento} - ${cliente.Nombres} ${cliente.Apellidos}`;
+                        item.addEventListener('click', () => {
+                            document.getElementById('cliente').value = cliente.IdUsuario;
+                            document.getElementById('buscarCliente').value = cliente.Documento;
+                            document.getElementById('nombreClienteSeleccionado').value = `${cliente.Nombres} ${cliente.Apellidos}`;
+                            resultadosBusqueda.innerHTML = '';
+                        });
+                        resultadosBusqueda.appendChild(item);
+                    }
+                });
+            } else {
+                resultadosBusqueda.innerHTML = '<div class="list-group-item">No se encontraron coincidencias</div>';
+            }
+        } else {
+            resultadosBusqueda.innerHTML = ''; // Limpiar resultados si no hay caracteres
+        }
+    });
+
+    // Función de búsqueda de clientes por documento
+    const buscarClientesPorDocumento = async (documento) => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/clientes/buscar/${documento}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('No se encontraron coincidencias');
+            }
+
+            const clientes = await response.json();
+            return clientes;
+
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
+    };
+}
+
 
 const buscarUsuariosPorDocumento = async (documento) => {
     try {
@@ -154,7 +192,7 @@ async function editarBeneficiario() {
             Genero: data.genero || currentData.Genero,
             Contrasena: currentData.Contrasena,
             Estado: data.estado,
-            Beneficiario: data.beneficiario || currentData.Beneficiario // Actualizar beneficiario
+            Beneficiario: data.cliente || currentData.Beneficiario // Actualizar beneficiario
         };
 
         const putResponse = await fetch(`http://localhost:3000/api/usuarios/${id}`, {

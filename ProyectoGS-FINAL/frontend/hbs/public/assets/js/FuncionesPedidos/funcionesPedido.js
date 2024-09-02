@@ -1,8 +1,8 @@
 // Mapa de estados de pedidos
 const estadoMap = {
-    1: 'PENDIENTE DE PAGO',
-    2: 'PAGADO',
-    3: 'ANULADO'
+    1: 'Pendiente de pago',
+    2: 'Pagado',
+    3: 'Anulado'
 };
 
 // Función para obtener el documento del cliente por su ID
@@ -88,25 +88,26 @@ const listarPedidos = async () => {
             console.error('No se encontró el elemento con id "contenido"');
         }
 
-        // Inicializar DataTables después de agregar los datos al DOM
-        $('#dataTable').DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json',
-                paginate: { previous: "Anterior", next: "Siguiente" },
-                search: "Buscar:",
-                lengthMenu: "Mostrar _MENU_ registros",
-                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                infoEmpty: "No hay registros disponibles",
-                infoFiltered: "(filtrado de _MAX_ registros totales)",
-                zeroRecords: "No se encontraron coincidencias",
-                emptyTable: "No hay datos disponibles en la tabla",
-                loadingRecords: "Cargando...",
-                processing: "Procesando...",
-            },
-            pageLength: 5,
-            lengthChange: false,
-            destroy: true // Destruir cualquier instancia previa de DataTables para evitar conflictos
-        });
+        // Inicializar DataTable si no está inicializado
+        if (!$.fn.DataTable.isDataTable('#dataTable')) {
+            $('#dataTable').DataTable({
+                pageLength: 5,
+                language: {
+                    "lengthMenu": "Mostrar _MENU_ entradas",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+                    "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    "search": "Buscar:"
+                }
+            });
+        }
     } catch (error) {
         console.error('Error:', error.message);
     }

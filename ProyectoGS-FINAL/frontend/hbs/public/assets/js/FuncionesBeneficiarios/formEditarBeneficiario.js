@@ -17,10 +17,10 @@ const expresiones = {
     telefono: /^[0-9]{7,11}$/,
     fechaDeNacimiento: /^(\d{4})-(\d{2})-(\d{2})$/,
     direccion: /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚüÜ.,-]+$/,
-    genero: /^(masculino|femenino|otro)$/,
+    genero: /^(Masculino|Femenino|Otro)$/,
     beneficiario: /^(1|0)$/,
     estado: /^(0|1)$/,
-    tipoDocumento: /^(cedula_ciudadania|cedula_extranjeria|tarjeta_identidad)$/
+    tipoDocumento: /^(cedula_ciudadania|pasaporte|tarjeta_identidad)$/
 };
 
 const campos = {
@@ -75,6 +75,13 @@ const validarFormulario = (e) => {
     }
 };
 
+inputs.forEach((input) => {
+    input.addEventListener('keyup', validarFormulario);
+    input.addEventListener('change', validarFormulario);
+    input.addEventListener('blur', validarFormulario);
+});
+
+
 const validarCampo = (expresion, input, campo) => {
     if (expresion.test(input.value)) {
         document.getElementById(`grupo__${campo}`).classList.remove('formularioEditar__grupo-incorrecto');
@@ -119,8 +126,13 @@ formularioEditar.addEventListener('submit', (e) => {
     if (campos.documento && campos.tipoDocumento && campos.nombres && campos.apellidos &&
         campos.correo && campos.telefono && campos.fechaDeNacimiento && campos.direccion && 
         campos.genero && campos.beneficiario && campos.estado) {
-
+        // Aquí puedes agregar la lógica para enviar el formulario si todos los campos son válidos
+        editarBeneficiario();  // Llamada a la función de edición
     } else {
-        
+        Swal.fire({
+            icon: 'error',
+            title: 'Error de Validación',
+            text: 'Por favor completa correctamente todos los campos obligatorios.'
+        });
     }
 });

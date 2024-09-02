@@ -1,24 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-
-    // Eventos para calcular el IMC
-    const pesoInput = document.getElementById('Peso');
-    const alturaInput = document.getElementById('Altura');
-    const imcInput = document.getElementById('IMC');
-
-    const calcularIMC = () => {
-        const peso = parseFloat(pesoInput.value);
-        const altura = parseFloat(alturaInput.value);
-
-        if (peso > 0 && altura > 0) {
-            const imc = peso / (altura * altura);
-            imcInput.value = imc.toFixed(2);
-        }
-    };
-
-    pesoInput.addEventListener('input', calcularIMC);
-    alturaInput.addEventListener('input', calcularIMC);
-});
-
 async function inicializarBusquedaCliente() {
     const documentosMostrados = new Set();
 
@@ -86,7 +65,6 @@ async function inicializarBusquedaCliente() {
     };
 }
 
-// Funciones de registro combinadas
 async function registrar() {
     const formBeneficiario = document.getElementById('formularioRegistro');
 
@@ -249,5 +227,27 @@ async function registrar() {
             title: "¡Oops...",
             text: "Ocurrió un error al registrar el usuario"
         });
+    }
+}
+
+// Manejo de la visibilidad de la contraseña
+document.getElementById('togglePassword').addEventListener('click', function () {
+    togglePasswordVisibility('contrasena');
+});
+
+document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+    togglePasswordVisibility('confirmarContrasena');
+});
+
+function togglePasswordVisibility(inputId) {
+    var passwordInput = document.getElementById(inputId);
+    var buttonText = document.getElementById('toggle' + inputId.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase());
+
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        buttonText.textContent = 'Ocultar';
+    } else {
+        passwordInput.type = 'password';
+        buttonText.textContent = 'Mostrar';
     }
 }

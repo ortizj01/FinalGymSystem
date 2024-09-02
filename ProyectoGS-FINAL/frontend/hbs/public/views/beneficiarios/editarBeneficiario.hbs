@@ -39,6 +39,23 @@
                             <div class="row">
                                 <!-- ID -->
                                 <input type="hidden" id="clienteId" name="id">
+
+                                <!-- Tipo de Documento -->
+                                <div class="col-lg-6">
+                                    <div class="form-group formularioEditar__grupo" id="grupo__tipoDocumento">
+                                        <div class="formularioEditar__grupo-input">
+                                            <label for="tipoDocumento" class="formularioEditar__label">Tipo de Documento *</label>
+                                            <select class="form-control" name="tipoDocumento" id="tipoDocumento" aria-describedby="tipoDocumentoHelp" required>
+                                                <option value="">Seleccione Tipo de Documento</option>
+                                                <option value="cedula_ciudadania">Cédula de Ciudadanía</option>
+                                                <option value="pasaporte">Pasaporte</option>
+                                                <option value="tarjeta_identidad">Tarjeta de Identidad</option>
+                                            </select>
+                                        </div>
+                                        <p class="formularioEditar__input-error">Ingresa un tipo de documento válido</p>
+                                        <div><small id="tipoDocumentoHelp" class="form-text text-muted"><br></small></div>
+                                    </div>
+                                </div>
                                 <!-- Documento -->
                                 <div class="col-lg-6">
                                     <div class="form-group formularioEditar__grupo" id="grupo__documento">
@@ -51,22 +68,7 @@
                                         <div><small id="documentoHelp" class="form-text text-muted"><br></small></div>
                                     </div>
                                 </div>
-                                <!-- Tipo de Documento -->
-                                <div class="col-lg-6">
-                                    <div class="form-group formularioEditar__grupo" id="grupo__tipoDocumento">
-                                        <div class="formularioEditar__grupo-input">
-                                            <label for="tipoDocumento" class="formularioEditar__label">Tipo de Documento *</label>
-                                            <select class="form-control" name="tipoDocumento" id="tipoDocumento" aria-describedby="tipoDocumentoHelp" required>
-                                                <option value="">Seleccione Tipo de Documento</option>
-                                                <option value="cedula_ciudadania">Cédula de Ciudadanía</option>
-                                                <option value="cedula_extranjeria">Cédula de Extranjería</option>
-                                                <option value="tarjeta_identidad">Tarjeta de Identidad</option>
-                                            </select>
-                                        </div>
-                                        <p class="formularioEditar__input-error">Ingresa un tipo de documento válido</p>
-                                        <div><small id="tipoDocumentoHelp" class="form-text text-muted"><br></small></div>
-                                    </div>
-                                </div>
+                                
                                 <!-- Nombres -->
                                 <div class="col-lg-6">
                                     <div class="form-group formularioEditar__grupo" id="grupo__nombres">
@@ -146,9 +148,8 @@
                                             <label for="genero" class="formularioEditar__label">Género *</label>
                                             <select class="form-control" name="genero" id="genero" aria-describedby="generoHelp" required>
                                                 <option value="">Seleccione Género</option>
-                                                <option value="masculino">Masculino</option>
-                                                <option value="femenino">Femenino</option>
-                                                <option value="otro">Otro</option>
+                                                <option value="Masculino">Masculino</option>
+                                                <option value="Femenino">Femenino</option>
                                             </select>
                                         </div>
                                         <p class="formularioEditar__input-error">Ingresa un género válido</p>
@@ -162,22 +163,28 @@
                                             <label for="estado" class="formularioEditar__label">Estado *</label>
                                             <select class="form-control" name="estado" id="estado" aria-describedby="estadoHelp" required>
                                                 <option value="">Seleccione Estado</option>
-                                                <option value="0">Activo</option>
-                                                <option value="1">Inactivo</option>
+                                                <option value="1">Activo</option>
+                                                <option value="0">Inactivo</option>
                                             </select>
                                         </div>
                                         <p class="formularioEditar__input-error">Ingresa un estado válido</p>
                                         <div><small id="estadoHelp" class="form-text text-muted"><br></small></div>
                                     </div>
                                 </div>
-                                <!-- Beneficiario -->
+                                <!-- Cliente -->
                                 <div class="col-md-6">
-                                    <div class="form-group formularioEditar__grupo formularioEditar__grupo-beneficiario" id="grupo__beneficiario">
-                                        <label for="buscarBeneficiario">Buscar Beneficiario por Documento *</label>
-                                        <input type="text" class="form-control" name="buscarBeneficiario" id="buscarBeneficiario" placeholder="Ingrese Documento del Beneficiario" required/>
-                                        <input type="hidden" name="beneficiario" id="beneficiario">
+                                    <div class="form-group formulario__grupo" id="grupo__cliente">
+                                        <label for="buscarCliente">Buscar Cliente por Documento *</label>
+                                        <input type="text" class="form-control" name="buscarCliente" id="buscarCliente" placeholder="Ingrese Documento del Cliente" required />
+                                        <input type="hidden" name="cliente" id="cliente">
                                         <div id="resultadosBusqueda" class="list-group mt-2"></div>
-                                        <small id="beneficiarioHelp" class="form-text text-muted"><br></small>
+                                    </div>
+                                </div>
+                                <!-- Cliente Seleccionado -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nombreClienteSeleccionado">Cliente Seleccionado</label>
+                                        <input type="text" class="form-control" id="nombreClienteSeleccionado" name="nombreClienteSeleccionado" readonly>
                                     </div>
                                 </div>
                             </div>

@@ -20,3 +20,66 @@
     padding: 10px; /* Espaciado interno */
 }
 
+/* Eliminar el punto de los elementos de lista */
+#accordionExample,
+#accordionBeneficiario {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+/* Estilo para los títulos de los acordeones */
+h6.title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px 0;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Margen inferior para separar acordeones */
+#accordionBeneficiario > li {
+    margin-bottom: 15px;
+}
+
+/* Estilo para el contenido de los acordeones */
+.checkout-steps-form-content {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+/* Ajustar estilos en los inputs */
+.single-form.form-default input {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    width: 100%;
+}
+
+/* Ocultar borde y cambiar color de los títulos activos */
+h6.title.collapsed {
+    border-color: #f8f9fa;
+    color: #f8f9fa;
+}
+
+/* Transición suave para colapsar y expandir */
+.collapse {
+    transition: height 0.3s ease-out;
+}
+
+/* Eliminar los puntos de la lista del acordeón */
+#accordionBeneficiarios li {
+    list-style-type: none; /* Esto elimina el punto */
+    margin: 0;
+    padding: 0;
+}
+
+ul#accordionCliente {
+    list-style-type: none; /* Elimina el punto o viñeta */
+    padding-left: 0; /* Elimina el espacio a la izquierda */
+}

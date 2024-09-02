@@ -160,6 +160,7 @@ const registrarVenta = async (pedidoId) => {
         const { IdUsuario, Total } = pedido[0];
 
         const [productos] = await pool.query('SELECT IdProducto, Cantidad FROM PedidosProducto WHERE IdPedido = ?', [pedidoId]);
+        const [membresias] = await pool.query('SELECT IdMembresia, COUNT(IdMembresia) AS Cantidad FROM PedidosMembresia WHERE IdPedido = ? GROUP BY IdMembresia', [pedidoId]);
 
         const [ventaResult] = await pool.query(
             'INSERT INTO Ventas (IdUsuario, Total, EstadoVenta) VALUES (?, ?, ?)',
@@ -168,15 +169,19 @@ const registrarVenta = async (pedidoId) => {
 
         const idVenta = ventaResult.insertId;
 
+        // Registrar los productos en la venta
         for (let producto of productos) {
             await pool.query(
                 'INSERT INTO VentasProducto (IdVenta, IdProducto, CantidadProducto) VALUES (?, ?, ?)',
                 [idVenta, producto.IdProducto, producto.Cantidad]
             );
+        }
 
+        // Registrar las membresías en la venta
+        for (let membresia of membresias) {
             await pool.query(
-                'UPDATE Productos SET Stock = Stock - ? WHERE IdProducto = ?',
-                [producto.Cantidad, producto.IdProducto]
+                'INSERT INTO VentasMembresia (IdVenta, IdMembresia, Cantidad) VALUES (?, ?, ?)',
+                [idVenta, membresia.IdMembresia, membresia.Cantidad]
             );
         }
 

@@ -1,0 +1,152 @@
+/* Estilo para el encabezado de las tablas */
+.table thead tr {
+    background-color: coral; /* Fondo anaranjado */
+    color: white; /* Texto blanco */
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Estilo para el encabezado de la tabla de TOTAL PEDIDO */
+.table tfoot tr,
+.table thead tr th {
+    background-color: coral; /* Fondo anaranjado */
+    color: white; /* Texto blanco */
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Estilo para el cuerpo de las tablas */
+.table tbody tr {
+    background-color: #ffffff; /* Fondo blanco */
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Fondo alternado ligeramente gris */
+}
+
+/* Estilo para las celdas de las tablas */
+.table th,
+.table td {
+    padding: 12px 15px; /* Espaciado interno */
+    border: 1px solid #ddd; /* Borde suave entre celdas */
+    text-align: center; /* Centrar el texto en las celdas */
+    vertical-align: middle; /* Centrar verticalmente */
+    font-size: 14px; /* Tamaño de fuente legible */
+}
+
+/* Estilo del borde de la tabla */
+.table-bordered {
+    border-color: coral; /* Color del borde de la tabla */
+}
+
+/* Estilo general para el formulario */
+.single-form.form-default input {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Estilo para el contenedor general */
+.container-fluid.content-inner {
+    padding: 20px;
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Estilo del borde de la tabla */
+.table-bordered {
+    border-color: coral; /* Color del borde de la tabla */
+}
+
+/* Espaciado adicional entre las secciones */
+.container-fluid .row {
+    margin-bottom: 20px;
+}
+
+/* Estilo de botones para que combinen con el tema */
+.btn-dark {
+    background-color: #2c3e50;
+    border-color: #2c3e50;
+    color: white;
+}
+
+.btn-dark:hover {
+    background-color: #34495e;
+    border-color: #34495e;
+    color: #fff;
+}
+
+/* Ajuste para la altura y apariencia de los inputs */
+.form-input.form input {
+    height: 38px;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+/* Mejorar la legibilidad en los acordeones */
+.checkout-steps-form-style-1 ul li {
+    margin-bottom: 15px;
+}
+
+/* Estilos de los acordeones */
+h6.title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px 0;
+    cursor: pointer;
+    background-color: coral; /* Fondo anaranjado */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    color: #fff;
+}
+
+/* Estilo para los acordeones al estar colapsados */
+h6.title.collapsed {
+    background-color: #2c3e50; /* Fondo oscuro al estar colapsado */
+    color: #fff; /* Texto blanco */
+}
+
+/* Separación entre acordeones */
+#accordionBeneficiario > li {
+    margin-bottom: 20px; /* Espaciado para separar los acordeones */
+}
+
+/* Estilo para el contenido de los acordeones */
+.checkout-steps-form-content {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f8f9fa; /* Fondo gris claro */
+}
+
+/* Estilo para los inputs */
+.single-form.form-default input {
+    background-color: #fff; /* Fondo blanco */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    width: 100%;
+}
+
+/* Ajustar estilos en los inputs */
+.form-input.form input {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Transición suave para colapsar y expandir */
+.collapse {
+    transition: height 0.3s ease-out;
+}
+
+/* Estilo para las etiquetas de los formularios */
+.single-form.form-default label {
+    font-weight: bold;
+    color: #2c3e50; /* Color oscuro */
+}
