@@ -33,6 +33,26 @@ function mostrarPedidosEnTabla(pedidos) {
     } else {
         contenido.innerHTML = '<tr><td colspan="6" class="text-center">No tienes pedidos registrados</td></tr>';
     }
+    // Inicializar DataTable si no está inicializado
+    if (!$.fn.DataTable.isDataTable('#dataTable')) {
+        $('#dataTable').DataTable({
+            pageLength: 5,
+            language: {
+                "lengthMenu": "Mostrar _MENU_ entradas",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+                "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "search": "Buscar:"
+            }
+        });
+    }
 }
 
 // Función para obtener el ID del usuario autenticado
