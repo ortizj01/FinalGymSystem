@@ -257,7 +257,7 @@ export const getClientesPorDocumento = async (req, res) => {
             SELECT DISTINCT u.IdUsuario, u.Documento, u.Nombres, u.Apellidos 
             FROM Usuarios u 
             JOIN RolUsuario ru ON u.IdUsuario = ru.IdUsuario
-            WHERE u.Documento LIKE ? AND ru.IdRol = 3 AND u.Estado = 0
+            WHERE u.Documento LIKE ? AND ru.IdRol = 3
         `, [`%${documento}%`]);
 
         if (rows.length > 0) {
@@ -270,6 +270,7 @@ export const getClientesPorDocumento = async (req, res) => {
         res.status(500).json({ message: 'Error al buscar usuarios por documento' });
     }
 };
+
 
 
 export const getBeneficiariosActivosPorDocumento = async (req, res) => {

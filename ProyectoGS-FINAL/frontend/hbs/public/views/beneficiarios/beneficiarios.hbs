@@ -29,12 +29,12 @@
     <!-- Inicio contenido -->
     <div class="container-fluid content-inner">
         <div class="container-fluid">
+            <div class="card-header py-3">
+                        <h2 class="m-0 font-weight-bold text-primary">Gestión Beneficiarios</h2>
+                    </div>
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    <div class="card-header py-3">
-                        <h2 class="m-0 font-weight-bold text-primary">Gestión Beneficiarios</h2>
-                    </div>
                     <div class="table-responsive">
                         <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="card-header py-3 d-flex justify-content-between">
@@ -79,6 +79,71 @@
                                     </table>
                                 </div>
                             </div>
+                            <!-- Modal para Ver Detalle Beneficiario -->
+<div class="modal fade" id="modalVerDetalleBeneficiario" tabindex="-1" aria-labelledby="modalVerDetalleBeneficiarioLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalVerDetalleBeneficiarioLabel">Detalles del Beneficiario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="tipoDocumentoBeneficiario" class="form-label">Tipo de Documento</label>
+                                <input type="text" class="form-control" id="tipoDocumentoBeneficiario" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="nombreBeneficiario" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombreBeneficiario" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="TelefonoBeneficiario" class="form-label">Teléfono</label>
+                                <input type="text" class="form-control" id="TelefonoBeneficiario" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="emailBeneficiario" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="emailBeneficiario" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="direccionBeneficiario" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="direccionBeneficiario" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="documentoBeneficiario" class="form-label">Documento</label>
+                                <input type="text" class="form-control" id="documentoBeneficiario" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellidosBeneficiario" class="form-label">Apellidos</label>
+                                <input type="text" class="form-control" id="apellidosBeneficiario" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fechaNacimientoBeneficiario" class="form-label">Fecha de Nacimiento</label>
+                                <input type="text" class="form-control" id="fechaNacimientoBeneficiario" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="estadoBeneficiario" class="form-label">Estado</label>
+                                <input type="text" class="form-control" id="estadoBeneficiario" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="generoBeneficiario" class="form-label">Género</label>
+                                <input type="text" class="form-control" id="generoBeneficiario" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
                         </div>
                     </div>
                 </div>

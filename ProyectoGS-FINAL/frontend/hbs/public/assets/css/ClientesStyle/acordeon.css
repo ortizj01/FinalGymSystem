@@ -79,3 +79,7 @@ h6.title.collapsed {
     padding: 0;
 }
 
+ul#accordionCliente {
+    list-style-type: none; /* Elimina el punto o viñeta */
+    padding-left: 0; /* Elimina el espacio a la izquierda */
+}
