@@ -34,7 +34,7 @@ async function listarPermisos(rolId) {
             row.appendChild(nombreCell);
 
             // Columnas de los checkboxes para CRUD
-            ['Crear', 'Editar', 'Visualizar'].forEach(accion => {
+            ['Crear', 'Editar', 'Visualizar', 'VistaAdmin'].forEach(accion => {
                 const cell = document.createElement('td');
                 cell.classList.add('text-center');
 
@@ -83,11 +83,12 @@ async function cargarPermisosAsignados(rolId) {
         const response = await fetch(`http://localhost:3000/api/permisoRolesDetalle/rol?rolId=${rolId}`);
         const permisosAsignados = await response.json();
 
-        permisosAsignados.forEach(({ IdPermiso, Crear, Editar, Visualizar }) => {
+        permisosAsignados.forEach(({ IdPermiso, Crear, Editar, Visualizar, VistaAdmin }) => {
             document.querySelectorAll(`input[data-permiso-id="${IdPermiso}"]`).forEach(checkbox => {
                 if (checkbox.dataset.accion === 'Crear') checkbox.checked = Crear === 1;
                 if (checkbox.dataset.accion === 'Editar') checkbox.checked = Editar === 1;
                 if (checkbox.dataset.accion === 'Visualizar') checkbox.checked = Visualizar === 1;
+                if (checkbox.dataset.accion === 'VistaAdmin') checkbox.checked = VistaAdmin === 1;
             });
         });
     } catch (error) {
@@ -108,7 +109,8 @@ document.getElementById('guardarPermisosBtn').addEventListener('click', async ()
             IdPermiso: permisoId,
             Crear: row.querySelector('input[data-accion="Crear"]').checked ? 1 : 0,
             Editar: row.querySelector('input[data-accion="Editar"]').checked ? 1 : 0,
-            Visualizar: row.querySelector('input[data-accion="Visualizar"]').checked ? 1 : 0
+            Visualizar: row.querySelector('input[data-accion="Visualizar"]').checked ? 1 : 0,
+            VistaAdmin: row.querySelector('input[data-accion="VistaAdmin"]').checked ? 1 : 0
         };
 
         permisos.push(permiso);
@@ -129,7 +131,7 @@ document.getElementById('guardarPermisosBtn').addEventListener('click', async ()
                 title: 'Éxito',
                 text: 'Permisos asignados correctamente.',
                 icon: 'success',
-                timer: 2000, // La alerta se cerrará automáticamente después de 2 segundos
+                timer: 1000, // La alerta se cerrará automáticamente después de 2 segundos
                 timerProgressBar: true,
                 didClose: () => {
                     location.reload(); // Recargar la página después de que la alerta se haya cerrado

@@ -72,45 +72,47 @@
 
     <!-- modal editar -->
     
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-         <br>
-         <br>
-         <br>
-         <br>
-         <br>
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar Categoria</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="" class="formularioCategoria" id="formularioCategoria">
-          <div class="mb-3" class="form-group" id="grupo__categoria">
-            <label for="recipient-name" class="col-form-label" class="form-label">Nombre categoria:</label>
-            <div class="formulario__grupo-input">
-            <input type="text" class="form-control" id="categoria" placeholder="Nombre categoria">
-            <i  class="formulario__validacion-estado fas fa-times-circle"></i>
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <br><br><br><br><br>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar Categoria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <p class="formulario__input-error">ojo</p>
-          </div>
-          <div class="form-group">
-                <label class="form-label">Estado</label>
-                    <select id="Estado" class="form-control" name="estadoCategoria">
-                        <option value="1">Activo</option>
-                        <option value="0">Inactivo</option>
-                    </select>
+            <div class="modal-body">
+                <form action="" class="formularioCategoriaedit" id="formularioCategoriaedit">
+                    <!-- Nombre Categoria -->
+                    <div class="form-group formulario__grupo" id="grupo__categoriaEdit">
+                        <label for="recipient-name" class="col-form-label form-label">Nombre categoria:</label>
+                        <div class="formulario__grupo-input">
+                            <input type="text" class="form-control" id="categoriaEdit" placeholder="Nombre categoria">
+                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                        </div>
+                        <p class="formulario__input-error">Ingrese un nombre de categoría válido</p>
+                    </div>
+                    <!-- Estado -->
+                    <div class="form-group">
+                        <label class="form-label">Estado</label>
+                        <select id="Estado" class="form-control" name="estadoCategoria">
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                    </div>
+                    <!-- Campo Oculto -->
+                    <input type="hidden" id="id" name="campoOculto">
+                    <!-- Mensajes de Error y Éxito -->
+                    <div id="formulario__mensaje" class="formulario__mensaje">Por favor complete todos los campos correctamente.</div>
+                    <div id="formulario__mensaje-exito" class="formulario__mensaje-exito">Formulario enviado correctamente.</div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" value="submit" id="btn-enviar1" onclick="editarCategoria(document.getElementById('id').value)" class="btn btn-primary">Modificar categoria</button>
+            </div>
         </div>
-        <input type="hidden" id="id" name="campoOculto">
-      </div>
-      <div class="modal-footer">
-        <button type="button" value="submith" id="btn-enviar1" onclick="editarCategoria(document.getElementById('id').value)" class="btn btn-primary">Modificar categoria</button>
-      </div>
-      </form>
     </div>
-  </div>
 </div>
-    </div>
+
 
 
 
@@ -183,6 +185,7 @@
     </footer>
    <!-- Footer Section End -->
    <script src="../assets/js/validacioncat.js"></script>
+   <script src="../assets/js/validacioncatedi.js"></script>
    <script src="../assets/js/cateogriaproductos.js"></script>
    
     {{> footer}}

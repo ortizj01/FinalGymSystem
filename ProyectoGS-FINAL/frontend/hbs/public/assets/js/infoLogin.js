@@ -1,5 +1,4 @@
 // Función para obtener el rol del usuario loggeado
-
 function obtenerRol(data) {
     if (data && data.Rol) {
         console.log('Rol del usuario loggeado:', data.Rol);
@@ -83,10 +82,10 @@ function mostrarInformacionUsuario() {
 
             const permisoCarrito = roleDataArray.find(permiso => permiso.NombrePermiso === "Carrito");
             
-            // const permisoServicios = roleDataArray.find(permiso => permiso.NombrePermiso === "Servicios");
+            const permisoServicios = roleDataArray.find(permiso => permiso.NombrePermiso === "Servicios");
             const permisoUsuarios = roleDataArray.find(permiso => permiso.NombrePermiso === "Usuarios");
             const permisoRoles = roleDataArray.find(permiso => permiso.NombrePermiso === "Roles");
-            // const permisoMembresias = roleDataArray.find(permiso => permiso.NombrePermiso === "Membresias");
+            const permisoMembresias = roleDataArray.find(permiso => permiso.NombrePermiso === "Membresias");
 
             
 
@@ -114,11 +113,11 @@ function mostrarInformacionUsuario() {
             const permisoElementoPedidos = document.getElementById("PermisoPedidos");
 
             const permisoElementoCarrito = document.getElementById("PermisoCarrito");
-            // const permisoElementoServicios = document.getElementById("PermisoServicios");
+            const permisoElementoServicios = document.getElementById("PermisoServicios");
             const permisoElementoUsuarios = document.getElementById("PermisoUsuarios");
             const permisoElementoRoles = document.getElementById("PermisoRoles");
             const permisoElementoConfiguracionPadre = document.getElementById("ConfiguracionPadre");
-            // const permisoElementoMembresias = document.getElementById("PermisoMembresias");
+            const permisoElementoMembresias = document.getElementById("PermisoMembresias");
 
             
             
@@ -143,6 +142,10 @@ function mostrarInformacionUsuario() {
             // Botones para crear CONFIGURACION
             const permisoBottonCrearUsuario = document.getElementById("UsuarioBtnPermiso");
             const permisoBottonCrearRol = document.getElementById("RolBtnPermiso");
+
+            // Botones para crear SERVICIOS
+            const permisoBottonCrearServicios = document.getElementById("ServiciosBtnPermiso");
+            const permisoBottonCrearMembresias = document.getElementById("MembresiasBtnPermiso");
             
 
             //Permisos Editar
@@ -155,6 +158,14 @@ function mostrarInformacionUsuario() {
                 //Rutinas
             const permisoBottonheaderCrearRutina = document.getElementById("PermisoHeaderRutinas");
             const permisoBottnCrearRutina = document.querySelectorAll(".column-to-hide-rutina");
+
+            // Servicios
+            const permisoBottonheaderCrearServicios = document.getElementById("PermisoHeaderServicios");
+            const permisoBottnCrearServicios = document.querySelectorAll(".column-to-hide-servicios");
+
+            // Membresías
+            const permisoBottonheaderCrearMembresias = document.getElementById("PermisoHeaderMembresias");
+            const permisoBottnCrearMembresias = document.querySelectorAll(".column-to-hide-membresias");
 
             //COMPRAS
 
@@ -207,81 +218,127 @@ function mostrarInformacionUsuario() {
             const permisoBottnCrearRol = document.querySelectorAll(".column-to-hide-rol");
             
             
-            //Permisos SERVICIOS    
-            if (permisoRutinas.NombrePermiso === "Rutinas" && permisoRutinas.Visualizar === 0 
-                && permisoEjercicios.NombrePermiso === "Ejercicios" 
-                && permisoEjercicios.Visualizar === 0
-                && permisoEventos.Visualizar === 0) {
-                    permisoElementoServiciosPadre.style.display = "none";
-                        
-                        }else{
-
-                            //Permisos Eventos
-                            if (permisoEventos.NombrePermiso === "Eventos" && permisoEventos.Visualizar === 0) {
-                                permisoElementoEventos.style.display = "none";
-                                permisoElementoEventosCliente.style.display = "none";
-                                
-                            }else{
-                                if (data.IdRol === 3) {
-                                    permisoElementoEventos.style.display = "none";
-                                    //Desactivar rutas
-                                    if (window.location.pathname === '/eventos' 
-                                    ) {
-                                        window.location.href = '/eventosCliente';
-                                    }
-                                }else{
-                                    permisoElementoEventosCliente.style.display = "none";
-                                }
-                                
-                        }
-
-                            //Permisos Rutinas
-                            if (permisoRutinas.NombrePermiso === "Rutinas" && permisoRutinas.Visualizar === 0) {
-                                permisoElementoRutinas.style.display = "none";
-                            } else {
-
-                                if (permisoBottonCrearRutina != null) {
-                                    if (permisoRutinas.Crear === 0) {
-                                        console.log("dandole1 Ejercicio");
-                                        permisoBottonCrearRutina.style.display = "none";
-                                    }
-                                }
-
-                                if (permisoRutinas.Editar === 0) {
-                                    console.log("dandole2 Ejercicio");
-                                    if (permisoBottonheaderCrearRutina != null) {
-                                        permisoBottonheaderCrearRutina.style.display = "none";
-                                    }
-                                    
-                                    if (permisoBottnCrearRutina != null) {
-                                            permisoBottnCrearRutina.forEach(element => {
-                                                element.style.display = "none";
-                                            });
-                                        }
-                                    }      
-                        }
-            
-
-                //Permisos Ejercicios
-                if (permisoEjercicios.NombrePermiso === "Ejercicios" && permisoEjercicios.Visualizar === 0) {
-                    
-                        permisoElementoEjercicios.style.display = "none";
-                    
+            // Permisos SERVICIOS    
+                if (permisoRutinas.NombrePermiso === "Rutinas" && permisoRutinas.Visualizar === 0 
+                    && permisoEjercicios.NombrePermiso === "Ejercicios" 
+                    && permisoEjercicios.Visualizar === 0
+                    && permisoEventos.Visualizar === 0
+                    && permisoServicios.Visualizar === 0
+                    && permisoMembresias.Visualizar === 0) {
+                        permisoElementoServiciosPadre.style.display = "none";
                 } else {
-                    if (permisoBottonCrearEjercicio != null) {
-                        if (permisoEjercicios.Crear === 0) {
-                            console.log("dandole1 Ejercicio");
-                            permisoBottonCrearEjercicio.style.display = "none";
+                    // Permisos Servicios
+                    if (permisoServicios.NombrePermiso === "Servicios" && permisoServicios.Visualizar === 0) {
+                        if (permisoElementoServicios != null) {
+                            permisoElementoServicios.style.display = "none";
+                        }
+                    } else {
+                        if (permisoBottonCrearServicios != null) {
+                            if (permisoServicios.Crear === 0) {
+                                permisoBottonCrearServicios.style.display = "none";
+                            }
+                        }
+
+                        if (permisoServicios.Editar === 0) {
+                            if (permisoBottonheaderCrearServicios != null) {
+                                permisoBottonheaderCrearServicios.style.display = "none";
+                            }
+
+                            if (permisoBottnCrearServicios != null) {
+                                permisoBottnCrearServicios.forEach(element => {
+                                    element.style.display = "none";
+                                });
+                            }
                         }
                     }
 
-                    if (permisoEjercicios.Editar === 0) {
-                        console.log("dandole2 Ejercicio");
-                        if (permisoBottonheaderCrearEjercicio != null) {
-                            permisoBottonheaderCrearEjercicio.style.display = "none";
+                    // Permisos Membresias
+                    if (permisoMembresias.NombrePermiso === "Membresias" && permisoMembresias.Visualizar === 0) {
+                        if (permisoElementoMembresias != null) {
+                            permisoElementoMembresias.style.display = "none";
+                        }
+                    } else {
+                        if (permisoBottonCrearMembresias != null) {
+                            if (permisoMembresias.Crear === 0) {
+                                permisoBottonCrearMembresias.style.display = "none";
+                            }
+                        }
+
+                        if (permisoMembresias.Editar === 0) {
+                            if (permisoBottonheaderCrearMembresias != null) {
+                                permisoBottonheaderCrearMembresias.style.display = "none";
+                            }
+
+                            if (permisoBottnCrearMembresias != null) {
+                                permisoBottnCrearMembresias.forEach(element => {
+                                    element.style.display = "none";
+                                });
+                            }
+                        }
+                    }
+
+                    // Permisos Eventos
+                    if (permisoEventos.NombrePermiso === "Eventos" && permisoEventos.Visualizar === 0) {
+                        permisoElementoEventos.style.display = "none";
+                        permisoElementoEventosCliente.style.display = "none";
+                    } else {
+                        if (permisoEventos.VistaAdmin === 0) {
+                            //Desactivar rutas
+                            if (window.location.pathname === '/eventos' ) {
+                                window.location.href = '/eventosCliente';
+                            }
+                        } else {
+                            permisoElementoEventosCliente.style.display = "none";
+                        }
+                    }
+
+                    // Permisos Rutinas
+                    if (permisoRutinas.NombrePermiso === "Rutinas" && permisoRutinas.Visualizar === 0) {
+                        permisoElementoRutinas.style.display = "none";
+                    } else {
+                        if (permisoEventos.VistaAdmin === 0) {
+                            
+                            if (window.location.pathname === '/rutinas' ) {
+                                window.location.href = '/rutina';
+                            }
                         }
                         
-                        if (permisoBottnCrearEjercicio != null) {
+
+                        if (permisoBottonCrearRutina != null) {
+                            if (permisoRutinas.Crear === 0) {
+                                permisoBottonCrearRutina.style.display = "none";
+                            }
+                        }
+
+                        if (permisoRutinas.Editar === 0) {
+                            if (permisoBottonheaderCrearRutina != null) {
+                                permisoBottonheaderCrearRutina.style.display = "none";
+                            }
+
+                            if (permisoBottnCrearRutina != null) {
+                                permisoBottnCrearRutina.forEach(element => {
+                                    element.style.display = "none";
+                                });
+                            }
+                        }
+                    }
+
+                    // Permisos Ejercicios
+                    if (permisoEjercicios.NombrePermiso === "Ejercicios" && permisoEjercicios.Visualizar === 0) {
+                        permisoElementoEjercicios.style.display = "none";
+                    } else {
+                        if (permisoBottonCrearEjercicio != null) {
+                            if (permisoEjercicios.Crear === 0) {
+                                permisoBottonCrearEjercicio.style.display = "none";
+                            }
+                        }
+
+                        if (permisoEjercicios.Editar === 0) {
+                            if (permisoBottonheaderCrearEjercicio != null) {
+                                permisoBottonheaderCrearEjercicio.style.display = "none";
+                            }
+
+                            if (permisoBottnCrearEjercicio != null) {
                                 permisoBottnCrearEjercicio.forEach(element => {
                                     element.style.display = "none";
                                 });
@@ -289,6 +346,8 @@ function mostrarInformacionUsuario() {
                         }
                     }
                 }
+
+
                 
                 // Permisos COMPRAS
                 if (permisoProveedores.NombrePermiso === "Proveedores" && permisoProveedores.Visualizar === 0 
@@ -405,10 +464,20 @@ function mostrarInformacionUsuario() {
                 } else {
                     // Permisos Gestión de Ventas
                     if (permisoGestionVentas.NombrePermiso === "GestionVentas" && permisoGestionVentas.Visualizar === 0) {
+
                         if (permisoElementoGestionVentas != null) {
                             permisoElementoGestionVentas.style.display = "none";
                         }
                     } else {
+
+                        if (permisoGestionVentas.VistaAdmin === 0) {
+                                console.log('Current pathname:', window.location.pathname);
+                            if (window.location.pathname === '/GestionVentas') {
+                                console.log('Redirecting to /ventasCliente');
+                                window.location.href = '/ventasCliente';
+                            }
+                        }
+
                         if (permisoBottonCrearGestionVentas != null) {
                             if (permisoGestionVentas.Crear === 0) {
                                 permisoBottonCrearGestionVentas.style.display = "none";
@@ -509,6 +578,15 @@ function mostrarInformacionUsuario() {
                             permisoElementoPedidos.style.display = "none";
                         }
                     } else {
+
+                        //Vista ADMIN/CLIENTE
+                        if (permisoPedidos.VistaAdmin === 0) {
+                            //Desactivar rutas
+                            if (window.location.pathname === '/pedidos' ) {
+                                window.location.href = '/pedidoCliente';
+                            }
+                        }
+
                         if (permisoBottonCrearPedido != null) {
                             if (permisoPedidos.Crear === 0) {
                                 permisoBottonCrearPedido.style.display = "none";
@@ -610,41 +688,6 @@ function mostrarInformacionUsuario() {
                                 }
                             }
                         }
-
-                        // Verifica si el usuario tiene el rol con id 2 o 3
-                        // Asume que 'data.IdRol' contiene el id del rol del usuario loggeado.
-                        if (data.IdRol === 3) {
-                            const rutasRestringidas = [
-                                '/usuariosAdmin',
-                                '/roles2',
-                                '/proveedores',
-                                '/Categoriaprod',
-                                '/Productos',
-                                '/Compras',
-                                '/DevolucionCom',
-                                '/GestionDevoluciones',
-                                '/clientes',
-                                '/beneficiarios',
-                                '/pedidos',
-                                '/gestionCarrito',
-                                '/GestionVentas',
-                                '/GestionDevoluciones'
-                            ];
-
-                            if (rutasRestringidas.includes(window.location.pathname)) {
-                                // Redirigir al usuario a una página de inicio o a una página de error
-                                window.location.href = '/404'; // Cambia '/inicio' a la ruta a la que quieres redirigir
-                            }
-                        }
-
-
-                        if (data.IdRol === 3) {
-                            // Bloquea las rutas /roles y /compras
-                            if (window.location.pathname === '/roles' || window.location.pathname === '/compras') {
-                                window.location.href = '/unaRutaAlternativa'; // Redirige a otra ruta
-                            }
-                        }
-
 
                 })
                 .catch(error => console.error('Error al obtener los datos del rol:', error));

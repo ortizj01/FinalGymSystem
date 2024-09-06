@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html class="no-js" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Detalle de la membresia</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="../themes-envio/shopgrids/assets/images/logo/2936886.png" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/Linelcons.3.0.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="../themes-envio/shopgrids/assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/CarritoStyle/detalleMembresia.css" />
+
+</head>
+<body>
+      <!-- Inicio del cargar -->
+      <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+          <div class="preloader-icon">
+            <span></span>
+            <span class="gym-weight"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Fin cargar -->
+
+       <!-- Start Header Area -->
+    <header class="header navbar-area">
+
+      <!-- Start Topbar -->
+                {{> _topbar}}
+        <!-- End Topbar -->
+
+        <!-- Start Header Middle -->
+        <div class="header-middle">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-7">
+                        <!-- Start Header Logo -->
+                        <a class="navbar-brand" href="indexCarrito">
+                            <img src="../themes-envio/shopgrids/assets/images/logo/LOGO GYM SYSTEM.jpg" alt="Logo">
+                        </a>
+                        <!-- End Header Logo -->
+                    </div>
+                    <div class="col-lg-5 col-md-7 d-xs-none">
+                        <!-- Start Main Menu Search -->
+                        <div class="main-menu-search">
+                        </div>
+                        <!-- End Main Menu Search -->
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-5">
+                        <div class="middle-right-area">
+                            <div class="nav-hotline">
+                            </div>
+                            <div class="navbar-cart">
+                                <div class="cart-items">
+                                    <a href="javascript:void(0)" class="main-btn">
+                                        <i class="lni lni-cart"></i>
+                                        <span class="total-items">0</span>
+                                    </a>
+
+                                  <!-- Artículo de compra-->
+                                  
+                                    <div class="shopping-item">
+                                        <div class="dropdown-cart-header">
+                                            <span>0 artículos</span>
+                                            <a href="carrito">Ver carrito</a>
+                                        </div>
+                                        <ul class="shopping-list">
+                                            <!-- Los productos del carrito se insertarán aquí de manera dinámica -->
+                                        </ul>
+                                        <div class="bottom">
+                                            <div class="total">
+                                                <span>Total</span>
+                                                <span class="total-amount">$0</span>
+                                            </div>
+                                            <div class="button">
+                                                <a href="carrito" class="btn">Ver carrito</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/Fin de la compra -->
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Extremo Cabecera Medio -->
+        <!-- Inicio Cabecera Inferior-->
+         
+                {{> _headerr}}
+        
+        <!-- End Header Bottom -->
+    </header>
+    <!-- End Header Area -->
+
+
+<!-- Start Detalle Membresia Area -->
+<section id="detalle-membresia" class="detalle-membresia-area section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="detalle-membresia-video">
+                    <video id="videoMembresia" class="img-fluid rounded shadow" autoplay loop muted>
+                        <source src="../themes-envio/shopgrids/assets/videos/membresia.mp4" type="video/mp4">
+                        Tu navegador no soporta la reproducción de videos.
+                    </video>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="detalle-membresia-content">
+                    <h2 id="nombreMembresia" class="membresia-title">Nombre de la Membresía</h2>
+                    <div class="membresia-info">
+                        <div class="info-item">
+                            <i class="lni lni-calendar"></i>
+                            <span><strong>Frecuencia:</strong> <span id="frecuenciaMembresia">0</span> meses</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="lni lni-dollar"></i>
+                            <span><strong>Costo:</strong> $<span id="costoMembresia">0.00</span></span>
+                        </div>
+                        <div class="info-item">
+                            <i class="lni lni-checkmark-circle"></i>
+                            <span><strong>Estado:</strong> <span id="estadoMembresia">Activo</span></span>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)" id="agregarCarrito" class="btn animate">Agregar al carrito</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-12">
+                <h3>Beneficios de la Membresía</h3>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <i class="lni lni-sport"></i>
+                        <h4>Acceso Ilimitado</h4>
+                        <p>Disfruta de acceso ilimitado a todas nuestras instalaciones durante el horario completo.</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="lni lni-users"></i>
+                        <h4>Clases Grupales</h4>
+                        <p>Participa en todas las clases grupales sin ningún costo adicional.</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="lni lni-dumbbell"></i>
+                        <h4>Entrenamiento Personalizado</h4>
+                        <p>Recibe rutinas de entrenamiento adaptadas a tus objetivos.</p>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="lni lni-discount"></i>
+                        <h4>Descuentos Exclusivos</h4>
+                        <p>Obtén descuentos especiales en productos y servicios asociados.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Detalle Membresia Area -->
+
+
+    <!-- Start Footer Area -->
+    <footer class="footer">
+        <!-- Start Footer Middle -->
+        <div class="footer-middle">
+            <div class="container">
+                <div class="bottom-inner">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-12">
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <!-- Single Widget -->
+                            <div class="single-footer our-app">
+                                <h3>App movil</h3>
+                                <ul class="app-btn">
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <i class="lni lni-apple"></i>
+                                            <span class="small-title"></span>
+                                            <span class="big-title">App Store</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <i class="lni lni-play-store"></i>
+                                            <span class="small-title"></span>
+                                            <span class="big-title">Google Play</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Single Widget -->
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                            <!-- Single Widget -->
+                            <div class="single-footer f-link">
+                                <h3>Información</h3>
+                                <ul>
+                                    <li><a href="javascript:void(0)">Sobre nosotros</a></li>
+                                    <li><a href="javascript:void(0)">Contactanos</a></li>
+                                    <li><a href="javascript:void(0)">Preguntas frecuentes</a></li>
+                                </ul>
+                            </div>
+                            <!-- End Single Widget -->
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-12">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/ End Footer Area -->
+
+    <!-- ========================= scroll-top ========================= -->
+    <a href="#" class="scroll-top">
+        <i class="lni lni-chevron-up"></i>
+    </a>
+
+    
+    <!-- ========================= JS here ========================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../themes-envio/shopgrids/assets/js/bootstrap.min.js"></script>
+    <script src="../themes-envio/shopgrids/assets/js/tiny-slider.js"></script>
+    <script src="../themes-envio/shopgrids/assets/js/glightbox.min.js"></script>
+    <script src="../themes-envio/shopgrids/assets/js/main.js"></script>
+    <script src="../assets/js/FuncionesCarrito/funcionesDetalleMembresia.js"></script>
+ 
+</body>
+
+</html>

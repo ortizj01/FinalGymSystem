@@ -1,0 +1,115 @@
+/* Estilos para el contenedor principal */
+.rutina-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilos para el contenedor de las tarjetas */
+/* Asegúrate de que las tarjetas no se alineen en la misma altura */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    align-items: flex-start; /* Cambia esto para que no estiren la altura */
+}
+
+
+/* Estilos para las tarjetas */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    max-width: 300px;
+    min-height: 300px; /* Altura mínima para todas las tarjetas */
+    margin-bottom: 20px;
+    overflow: hidden; /* Asegura que el contenido extra no se desborde */
+    transition: max-height 0.3s ease; /* Suaviza los cambios en la altura */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye el espacio de manera uniforme */
+}
+
+/* Estilos para los ejercicios adicionales */
+.additional-exercises {
+    max-height: 0; /* Oculto por defecto */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out; /* Suaviza los cambios al mostrar */
+}
+
+
+.card.expanded {
+    height: auto;
+    max-height: none; /* Asegúrate de que la altura no esté limitada */
+}
+
+
+
+
+/* Estilos para el encabezado de la tarjeta */
+.card-header {
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 15px;
+    text-align: center;
+}
+
+/* Estilos para el cuerpo de la tarjeta */
+.card-body {
+    padding: 15px;
+    flex-grow: 1; /* Permite que el cuerpo de la tarjeta crezca para llenar el espacio disponible */
+    position: relative;
+}
+
+/* Estilos para cada ejercicio dentro de la tarjeta */
+.card-exercise {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 14px;
+    color: #555555;
+}
+
+.card-series {
+    font-size: 14px;
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Estilos para el botón de expansión/contracción */
+.toggle-btn {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-btn:hover {
+    background-color: #0056b3;
+}

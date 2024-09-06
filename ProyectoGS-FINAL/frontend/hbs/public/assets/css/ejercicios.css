@@ -32,6 +32,18 @@ font-size: 1.2rem; /* Ajuste del tamaño del botón de cierre */
     box-shadow: 0 0 8px rgba(115, 115, 115, 0.6); /* Aumenta el sombreado cuando tiene foco */
 }
 
-    
+/* Estilo para truncar el texto en la columna de descripción */
+#tablaEjercicios td {
+    max-width: 200px; /* Ajusta el ancho máximo según tus necesidades */
+    white-space: nowrap; /* Evita que el texto se envuelva */
+    overflow: hidden; /* Oculta el texto que desborda el contenedor */
+    text-overflow: ellipsis; /* Muestra "..." cuando el texto es demasiado largo */
+}
+
+/* Opcional: Estilo para la cabecera de la columna de descripción */
+#tablaEjercicios th#descripcionColumna {
+    max-width: 200px; /* Ajusta el ancho máximo según tus necesidades */
+}
+
 
   

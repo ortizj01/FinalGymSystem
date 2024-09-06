@@ -40,9 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //funcion para finalizar pedido
 
-async function finalizarPedido() {
+const finalizarPedido = async () => {
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const usuario = JSON.parse(localStorage.getItem('usuario'));
+    const configuracionesMembresias = JSON.parse(localStorage.getItem('configuracionesMembresias')) || [];
+    const valoracionesMedicas = JSON.parse(localStorage.getItem('valoracionMedica')) || [];
 
     if (!carrito.length) {
         Swal.fire({
@@ -53,12 +55,12 @@ async function finalizarPedido() {
         return;
     }
 
-    const FechaPedido = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    const Total = carrito.reduce((total, item) => total + item.PrecioProducto * item.cantidad, 0);
-    const EstadoPedido = 0;  // Estado pendiente de pago
-
     try {
-        // Crear el pedido
+        const ahora = new Date();
+        const FechaPedido = ahora.toISOString().slice(0, 19).replace('T', ' ');
+        const Total = carrito.reduce((total, item) => total + item.PrecioProducto * item.cantidad, 0);
+        const EstadoPedido = 1;
+
         const responsePedido = await fetch('http://localhost:3000/api/pedidos', {
             method: 'POST',
             headers: {
@@ -68,8 +70,6 @@ async function finalizarPedido() {
             body: JSON.stringify({
                 IdUsuario: usuario.IdUsuario,
                 FechaPedido: FechaPedido,
-                PagoNeto: 0,  // Se establece en 0 como indicaste
-                Iva: 0,       // Se establece en 0 como indicaste
                 Total: Total,
                 EstadoPedido: EstadoPedido
             })
@@ -81,44 +81,18 @@ async function finalizarPedido() {
 
         const { id: IdPedido } = await responsePedido.json();
 
-        // Insertar cada producto en PedidosProducto y actualizar el stock
         for (const item of carrito) {
-            const responsePedidoProducto = await fetch('http://localhost:3000/api/pedidosProducto', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-token': localStorage.getItem('token')
-                },
-                body: JSON.stringify({
-                    IdPedido: IdPedido,
-                    IdProducto: item.IdProducto,
-                    Cantidad: item.cantidad,
-                    Total: item.PrecioProducto * item.cantidad
-                })
-            });
-
-            if (!responsePedidoProducto.ok) {
-                throw new Error('Error al registrar el producto en el pedido');
-            }
-
-            // Actualizar el stock del producto
-            const responseActualizarProducto = await fetch(`http://localhost:3000/api/productos/${item.IdProducto}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-token': localStorage.getItem('token')
-                },
-                body: JSON.stringify({
-                    Stock: item.Stock - item.cantidad
-                })
-            });
-
-            if (!responseActualizarProducto.ok) {
-                throw new Error('Error al actualizar el stock del producto');
+            if (item.IdProducto !== null) {
+                await registrarProductoEnPedido(item, IdPedido);
+            } else {
+                await registrarMembresiaEnPedido(item, IdPedido, configuracionesMembresias);
             }
         }
 
-        // Mostrar la alerta de éxito
+        for (const valoracion of valoracionesMedicas) {
+            await registrarValoracionMedica(valoracion);
+        }
+
         Swal.fire({
             icon: 'success',
             title: 'Pedido registrado',
@@ -127,14 +101,11 @@ async function finalizarPedido() {
             showConfirmButton: false
         });
 
-        // Redirigir al usuario a WhatsApp para compartir el comprobante
         const mensaje = `Pedido registrado con Id: ${IdPedido}, Documento: ${usuario.Documento}, Total: ${Total.toFixed(2)}`;
         window.location.href = `https://api.whatsapp.com/send?phone=3135497455&text=${encodeURIComponent(mensaje)}`;
 
-        // Limpiar el carrito
         localStorage.removeItem('carrito');
 
-        // Redirigir al usuario al inicio después de 3 segundos
         setTimeout(() => {
             window.location.href = '/indexCarrito';
         }, 2000);
@@ -147,6 +118,113 @@ async function finalizarPedido() {
             text: 'Ocurrió un error al registrar el pedido. Por favor, intenta de nuevo.',
         });
     }
+};
+
+
+async function registrarProductoEnPedido(item, IdPedido) {
+    try {
+        const responsePedidoProducto = await fetch('http://localhost:3000/api/pedidosProducto', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+                IdPedido: IdPedido,
+                IdProducto: item.IdProducto,
+                Cantidad: item.cantidad,
+                Total: item.PrecioProducto * item.cantidad
+            })
+        });
+
+        if (!responsePedidoProducto.ok) {
+            throw new Error('Error al registrar el producto en el pedido');
+        }
+
+        // Actualizar el stock del producto
+        const responseActualizarProducto = await fetch(`http://localhost:3000/api/productos/${item.IdProducto}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+                Stock: item.Stock - item.cantidad
+            })
+        });
+
+        if (!responseActualizarProducto.ok) {
+            throw new Error('Error al actualizar el stock del producto');
+        }
+    } catch (error) {
+        console.error('Error al registrar producto:', error);
+        throw error;
+    }
+}
+
+async function registrarMembresiaEnPedido(item, IdPedido, configuracionesMembresias) {
+    try {
+        const configuracion = configuracionesMembresias.find(config => config.IdMembresia === item.IdMembresia);
+
+        if (configuracion) {
+            const responseMembresia = await fetch(`http://localhost:3000/api/membresias/${item.IdMembresia}`);
+            if (!responseMembresia.ok) {
+                throw new Error('Error al obtener detalles de la membresía');
+            }
+
+            const membresia = await responseMembresia.json();
+            const frecuencia = membresia.Frecuencia;
+
+            const fechaInicio = new Date();
+            const fechaFin = new Date(fechaInicio);
+            fechaFin.setDate(fechaFin.getDate() + frecuencia);
+
+            // Registrar cada membresía según la cantidad
+            for (let i = 0; i < item.cantidad; i++) {
+                const responsePedidoMembresia = await fetch('http://localhost:3000/api/pedidosMembresia', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-token': localStorage.getItem('token')
+                    },
+                    body: JSON.stringify({
+                        IdPedido: IdPedido,
+                        IdMembresia: item.IdMembresia,
+                        FechaInicio: fechaInicio.toISOString().slice(0, 10),
+                        FechaFin: fechaFin.toISOString().slice(0, 10),
+                        Total: item.PrecioProducto,
+                        IdUsuario: configuracion.IdBeneficiario
+                    })
+                });
+
+                if (!responsePedidoMembresia.ok) {
+                    throw new Error('Error al registrar la membresía en el pedido');
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error al registrar membresía:', error);
+        throw error;
+    }
 }
 
 
+async function registrarValoracionMedica(valoracion) {
+    try {
+        const responseValoracionMedica = await fetch('http://localhost:3000/api/valoracionesMedicas', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify(valoracion)
+        });
+
+        if (!responseValoracionMedica.ok) {
+            throw new Error('Error al registrar la valoración médica');
+        }
+    } catch (error) {
+        console.error('Error al registrar valoración médica:', error);
+        throw error;
+    }
+}

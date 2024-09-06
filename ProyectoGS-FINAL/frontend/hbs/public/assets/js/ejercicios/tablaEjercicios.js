@@ -176,14 +176,18 @@ const enviarFormulario = async (event) => {
             throw new Error('Error en la solicitud: ' + response.statusText);
         }
 
+        // Cerrar el modal después de enviar el formulario
+        $('#registroModal').modal('hide');
+
         const result = await response.json();
         console.log('Resultado:', result);
 
         // Cerrar el modal después de enviar el formulario
         $('#registroModal').modal('hide');
+        setTimeout(() => {
+            listarEjercicios();
+        }, 300); // Un pequeño retraso de 300ms para permitir que el modal se cierre completamente
 
-        // Actualizar la lista de ejercicios
-        listarEjercicios();
 
     } catch (error) {
         console.error('Error:', error);

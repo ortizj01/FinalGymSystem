@@ -1,5 +1,3 @@
-// funcionesCliente.js
-
 // LISTAR CLIENTES
 const listarClientes = async () => {
     try {
@@ -20,7 +18,7 @@ const listarClientes = async () => {
         let contenido = '';
 
         listarClientes.forEach(cliente => {
-            const estadoTexto = cliente.Estado === 0 ? 'Activo' : 'Inactivo';
+            const estadoTexto = cliente.Estado === 1 ? 'Activo' : 'Inactivo';
 
             contenido += `<tr>` +
                 `<td>${cliente.Documento}</td>` +
@@ -31,7 +29,7 @@ const listarClientes = async () => {
                 `<td style="text-align: center;">
                     <div class="centered-container">
                         <a href="editarCliente?id=${cliente.IdUsuario}"><i class="fa-regular fa-pen-to-square fa-xl me-2"></i></a>
-                        <a href="detalleCliente?id=${cliente.IdUsuario}"><i class="fa-regular fa-eye fa-xl me-2"></i></a>`;
+                        <a href="#" onclick="verDetalleCliente(${cliente.IdUsuario})" data-bs-toggle="modal" data-bs-target="#modalVerDetalleCliente"><i class="fa-regular fa-eye fa-xl me-2"></i></a>`;
             
             // Mostrar el icono si tiene beneficiarios
             if (cliente.TieneBeneficiarios > 0) {
@@ -50,33 +48,73 @@ const listarClientes = async () => {
             console.error('No se encontró el elemento con id "contenido"');
         }
 
-        // Inicializar DataTables después de agregar los datos al DOM
-        $('#dataTable').DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json',
-                paginate: {
-                    previous: "Anterior",
-                    next: "Siguiente"
-                },
-                search: "Buscar:",
-                lengthMenu: "Mostrar _MENU_ registros",
-                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                infoEmpty: "No hay registros disponibles",
-                infoFiltered: "(filtrado de _MAX_ registros totales)",
-                zeroRecords: "No se encontraron coincidencias",
-                emptyTable: "No hay datos disponibles en la tabla",
-                loadingRecords: "Cargando...",
-                processing: "Procesando...",
-            },
-            pageLength: 2,
-            lengthChange: false,
-            destroy: true // Destruir cualquier instancia previa de DataTables para evitar conflictos
-        });
+        // Inicializar DataTable si no está inicializado
+        if (!$.fn.DataTable.isDataTable('#dataTable')) {
+            $('#dataTable').DataTable({
+                pageLength: 5,
+                language: {
+                    "lengthMenu": "Mostrar _MENU_ entradas",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+                    "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    "search": "Buscar:"
+                }
+            });
+        }
 
     } catch (error) {
         console.error('Error:', error.message);
-        // Manejar el error en caso necesario
     }
 };
 
 document.addEventListener('DOMContentLoaded', listarClientes);
+
+async function verDetalleCliente(clienteId) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/usuarios/${clienteId}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al obtener los detalles del cliente');
+        }
+
+        const cliente = await response.json();
+
+        const estadoTexto = cliente.Estado === 1 ? 'Activo' : 'Inactivo';
+        const fecha = new Date(cliente.FechaDeNacimiento);
+        const fechaFormateada = `${String(fecha.getDate()).padStart(2, '0')}/${String(fecha.getMonth() + 1).padStart(2, '0')}/${fecha.getFullYear()}`;
+
+        // Conversión del tipo de documento para mostrar en el frontend
+        let tipoDocumentoTexto = cliente.TipoDocumento;
+        if (tipoDocumentoTexto === "cedula_ciudadania") {
+            tipoDocumentoTexto = "Cédula de ciudadanía";
+        } else if (tipoDocumentoTexto === "pasaporte") {
+            tipoDocumentoTexto = "Pasaporte";
+        }
+
+        document.getElementById('documentoCliente').value = cliente.Documento;
+        document.getElementById('nombreCliente').value = cliente.Nombres;
+        document.getElementById('emailCliente').value = cliente.Correo;
+        document.getElementById('TelefonoCliente').value = cliente.Telefono;
+        document.getElementById('direccionCliente').value = cliente.Direccion;
+        document.getElementById('apellidosCliente').value = cliente.Apellidos;
+        document.getElementById('tipoDocumentoCliente').value = tipoDocumentoTexto;
+        document.getElementById('fechaNacimientoCliente').value = fechaFormateada;
+        document.getElementById('estadoCliente').value = estadoTexto;
+        document.getElementById('generoCliente').value = cliente.Genero;
+    } catch (error) {
+        console.error('Error al cargar los detalles del cliente:', error);
+    }
+}

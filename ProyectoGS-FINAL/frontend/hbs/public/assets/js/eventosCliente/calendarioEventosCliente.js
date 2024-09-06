@@ -86,6 +86,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         calendar.render();
 
+         // Función para cambiar los nombres de los botones a español
+    function cambiarTextoBotones(calendar) {
+        calendar.setOption('buttonText', {
+            prev: 'Anterior',
+            next: 'Siguiente',
+            today: 'Hoy',
+            month: 'Mes',
+            week: 'Semana',
+            day: 'Día',
+            list: 'Agenda'
+        });
+    }
+
+      // Llamada a la función para cambiar los textos de los botones
+      cambiarTextoBotones(calendar);
+
+
         // Lógica para guardar un evento (nuevo o editado)
         document.getElementById('saveEventButton').addEventListener('click', function() {
             var eventId = document.getElementById('eventId').value;

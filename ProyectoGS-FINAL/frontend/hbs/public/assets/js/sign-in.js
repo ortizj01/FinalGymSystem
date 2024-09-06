@@ -75,8 +75,8 @@ function handleLogin() {
         }
     })
     .catch(error => {
-        console.error('Error al conectar con el servidor:', error);
-        document.getElementById('loginError').innerText = 'Error al conectar con el servidor';
+        console.error('Error al conectar, intente nuevamente:', error);
+        document.getElementById('loginError').innerText = 'Error al conectar, intente nuevamente';
     });
 }
 

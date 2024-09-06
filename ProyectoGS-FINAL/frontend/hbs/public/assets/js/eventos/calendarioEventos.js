@@ -5,14 +5,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (calendarEl) {
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            locale: 'es',
             initialView: 'dayGridMonth',
+            locale: 'es',
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
             },
             timeZone: 'local',
+            editable: true, // Habilitar la edición para arrastrar y soltar
             eventTimeFormat: {
                 hour: '2-digit',
                 minute: '2-digit',
@@ -66,6 +67,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
 
+                 // Reiniciar el formulario antes de mostrar el modal
+                 resetEventForm();
+
                 // Mostrar modal para crear un nuevo evento
                 var modal = new bootstrap.Modal(document.getElementById('eventModal'));
                 document.getElementById('eventId').value = ''; // Limpiar ID del evento (nuevo evento)
@@ -84,6 +88,9 @@ document.addEventListener('DOMContentLoaded', function() {
             eventClick: function(info) {
                 var today = new Date().toISOString().split('T')[0];
                 var eventStartDate = info.event.startStr.split('T')[0];
+
+                // Reiniciar el formulario antes de mostrar el modal
+                resetEventForm();
                 
                 // Mostrar modal para editar un evento existente
                 var modal = new bootstrap.Modal(document.getElementById('eventModal'));
@@ -110,12 +117,102 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 loadSelectOptionsAndShowModal(modal, info); // Cargar opciones de select y luego mostrar el modal
             },
+            eventDrop: function(info) {
+                var event = info.event;
+                var eventId = event.id;
+                var title = event.title;
+                var employee = event.extendedProps.employeeId;
+                var startDate = event.start.toISOString().slice(0, 19).replace('T', ' ');
+                var endDate = event.end ? event.end.toISOString().slice(0, 19).replace('T', ' ') : null;
+                var description = event.extendedProps.description;
+                var isActive = event.extendedProps.isActive ? 1 : 0;
+            
+                var eventDetails = {
+                    IdServicio: parseInt(title),
+                    IdUsuario: parseInt(employee),
+                    FechaInicio: startDate,
+                    FechaFin: endDate,
+                    HoraInicio: event.start.toISOString().slice(11, 16),
+                    HoraFin: event.end ? event.end.toISOString().slice(11, 16) : null,
+                    DescripcionEvento: description,
+                    EstadoAgenda: isActive
+                };
+            
+                fetch(`http://localhost:3000/api/eventos/${eventId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(eventDetails)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al actualizar el evento');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Evento actualizado',
+                        text: 'El evento ha sido movido exitosamente.'
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al actualizar el evento:', error);
+                    info.revert();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Hubo un problema al mover el evento.'
+                    });
+                });
+            },
             datesSet: function() {
                 console.log('Calendario completamente renderizado. Puedes interactuar con los eventos.');
             }
         });
 
         calendar.render();
+
+
+    // Función para cambiar los nombres de los botones a español
+    function cambiarTextoBotones(calendar) {
+        calendar.setOption('buttonText', {
+            prev: 'Anterior',
+            next: 'Siguiente',
+            today: 'Hoy',
+            month: 'Mes',
+            week: 'Semana',
+            day: 'Día',
+            list: 'Agenda'
+        });
+    }
+
+    // Llamada a la función para cambiar los textos de los botones
+    cambiarTextoBotones(calendar);
+
+         // Función para reiniciar el formulario de evento
+         function resetEventForm() {
+            // Restablecer todos los campos de entrada
+            document.getElementById('eventForm').reset();
+
+            // Eliminar clases de error
+            document.querySelectorAll('#eventForm .is-invalid').forEach(el => {
+                el.classList.remove('is-invalid');
+            });
+
+            // Ocultar mensajes de error
+            document.querySelectorAll('#eventForm .invalid-feedback').forEach(el => {
+                el.textContent = '';
+            });
+
+            // Restablecer los campos deshabilitados
+            document.querySelectorAll('#eventForm input, #eventForm select, #eventForm textarea').forEach(el => {
+                el.disabled = false;
+            });
+        }
 
         // Lógica para guardar un evento (nuevo o editado)
         document.getElementById('saveEventButton').addEventListener('click', function() {
@@ -237,6 +334,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(data => {
                     console.log('Respuesta del servidor:', data);
 
+                    // Aquí, en lugar de manipular manualmente los eventos, podemos recargar los eventos del calendario
+                    calendar.refetchEvents();
+
                     if (eventId) {
                         // Actualizar evento existente en el calendario
                         var existingEvent = calendar.getEventById(eventId);
@@ -266,13 +366,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     var modal = bootstrap.Modal.getInstance(document.getElementById('eventModal'));
                     modal.hide();
 
-                    // Mostrar notificación de éxito y recargar la página
                     toastr.success('El evento se guardó correctamente.', 'Éxito', {
                         positionClass: 'toast-top-right',
                         timeOut: 3000, // Duración de la notificación en milisegundos
-                        onHidden: function() {
-                            location.reload(); // Recargar la página
-                        }
                     });
                 })
                 .catch(error => {

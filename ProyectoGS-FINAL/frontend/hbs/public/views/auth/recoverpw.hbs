@@ -99,7 +99,12 @@
 
         // Validar que el campo de email no esté vacío
         if (emailInput.value.trim() === '') {
-            errorEmail.textContent = 'El correo electrónico es requerido.';
+            errorEmail.textContent = '';
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'El correo electrónico es requerido.',
+            });
             return;
         }
 
@@ -123,15 +128,28 @@
         .then(data => {
             // Verificar la respuesta del servidor
             if (data.msg === 'Usuario no encontrado') {
-                errorEmail.textContent = 'No se encontró ningún usuario con este correo electrónico.';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se encontró ningún usuario con este correo electrónico.',
+                });
             } else {
-                alert('Correo electrónico de recuperación enviado. Por favor, revise su bandeja de entrada.');
-                window.location.href = '/confirmacion'; // Redirigir a la página de confirmación
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Correo enviado',
+                    text: 'Correo electrónico de recuperación enviado. Por favor, revise su bandeja de entrada.',
+                }).then(() => {
+                    window.location.href = '/confirmacion'; // Redirigir a la página de confirmación
+                });
             }
         })
         .catch(error => {
             console.error('Error al enviar solicitud de recuperación de contraseña:', error);
-            alert('Hubo un error al enviar la solicitud. Por favor, inténtelo más tarde.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un error al enviar la solicitud. Por favor, inténtelo más tarde.',
+            });
         });
     });
 });

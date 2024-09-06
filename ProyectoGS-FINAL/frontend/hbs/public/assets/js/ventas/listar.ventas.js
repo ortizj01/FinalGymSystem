@@ -6,13 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarEstados(); // Cargar los estados disponibles
 });
 
-
-
 async function cargarVentas() {
     try {
         const response = await fetch(urlVentas);
         if (!response.ok) throw new Error('Error al obtener las ventas');
-        
+
         const ventas = await response.json();
         const listaVentas = document.getElementById('listaVentas');
         listaVentas.innerHTML = '';
@@ -27,14 +25,14 @@ async function cargarVentas() {
                 <td>${venta.EstadoVenta || 'Estado desconocido'}</td>
                 <td>
                     <i class="fa-regular fa-eye fa-xl me-2" style="color: #f06d00;" onclick="verDetalleVenta(${venta.IdVenta})"></i>
-                    <i class="fa-solid fa-exchange-alt fa-xl me-2" style="color: #f06d00;" onclick="abrirModalCambioEstado(${venta.IdVenta}, '${venta.EstadoVenta}')" title="Cambiar Estado"></i>
+                    <i class="fa-solid fa-ban fa-xl me-2" style="color: #f06d00;" onclick="confirmarAnulacion(${venta.IdVenta})" title="Anular Venta"></i>
                     <i class="fa-solid fa-undo fa-xl me-2" style="color: #f06d00;" onclick="redirigirDevolucion(${venta.IdVenta})" title="Devolver Venta"></i>
                 </td>
             `;
             listaVentas.appendChild(row);
         }
-
-        // Inicializar DataTable con 5 filas por página y acciones en color naranjado
+        
+        $('#dataTable').DataTable().destroy();
         $('#dataTable').DataTable({
             pageLength: 5,
             language: {
@@ -56,6 +54,30 @@ async function cargarVentas() {
         console.error('Error al cargar las ventas:', error);
     }
 }
+
+async function confirmarAnulacion(idVenta) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡Esta acción anulará la venta y devolverá el stock!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, anular venta',
+        cancelButtonText: 'Cancelar'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            await anularVenta(idVenta);
+            Swal.fire(
+                '¡Anulada!',
+                'La venta ha sido anulada y el stock ha sido devuelto.',
+                'success'
+            );
+            cargarVentas(); // Recargar las ventas después de anular una
+        }
+    });
+}
+
 
 async function cargarEstados() {
     try {
@@ -87,51 +109,6 @@ function abrirModalCambioEstado(idVenta, estadoActual) {
     $('#cambiarEstadoModal').modal('show');
 }
 
-async function cambiarEstado() {
-    const idVenta = document.getElementById('cambiarEstadoForm').getAttribute('data-id');
-    const nuevoEstado = document.getElementById('nuevoEstado').value;
-
-    try {
-        const response = await fetch(`${urlVentas}/${idVenta}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ EstadoVenta: nuevoEstado }) // Enviar el estado correcto
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            // Verificar si el nuevo estado es "Anulado" (ID 2)
-            if (nuevoEstado === '2') {
-                await anularVenta(idVenta);
-            }
-
-            Swal.fire(
-                '¡Éxito!',
-                data.message || 'Estado de la venta cambiado correctamente',
-                'success'
-            );
-
-            $('#cambiarEstadoModal').modal('hide');
-            cargarVentas(); // Recargar las ventas después del cambio de estado
-        } else {
-            Swal.fire(
-                '¡Error!',
-                data.message || 'Hubo un problema al cambiar el estado de la venta',
-                'error'
-            );
-        }
-    } catch (error) {
-        console.error('Error al cambiar el estado de la venta:', error);
-        Swal.fire(
-            '¡Error!',
-            'Error al cambiar el estado de la venta',
-            'error'
-        );
-    }
-}
 
 async function anularVenta(idVenta) {
     try {

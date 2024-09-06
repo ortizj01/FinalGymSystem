@@ -1,4 +1,9 @@
-
+// Mapa de estados de pedidos
+const estadoMap = {
+    1: 'Pendiente de pago',
+    2: 'Pagado',
+    3: 'Anulado'
+};
 
 // Función para obtener el documento del cliente por su ID
 const obtenerDocumentoCliente = async (idUsuario) => {
@@ -6,9 +11,7 @@ const obtenerDocumentoCliente = async (idUsuario) => {
         const response = await fetch(`http://localhost:3000/api/usuarios/${idUsuario}`, {
             method: 'GET',
             mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json' }
         });
 
         if (!response.ok) {
@@ -23,31 +26,24 @@ const obtenerDocumentoCliente = async (idUsuario) => {
     }
 };
 
-
-
 // Función para formatear la fecha en DD/MM/AAAA
 const formatearFecha = (fecha) => {
     const date = new Date(fecha);
-    const dia = String(date.getDate()).padStart(2, '0');
-    const mes = String(date.getMonth() + 1).padStart(2, '0');
-    const anio = date.getFullYear();
-    return `${dia}/${mes}/${anio}`;
+    return `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
 };
 
 // Función para formatear números como cantidades de dinero sin decimales con separadores de miles
 const formatearDinero = (cantidad) => {
-    return cantidad.toLocaleString('es-ES', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return cantidad.toLocaleString('es-ES', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
 };
 
-// LISTAR PEDIDOS
+// Función para listar los pedidos y mostrarlos en la tabla
 const listarPedidos = async () => {
     try {
         const response = await fetch('http://localhost:3000/api/pedidos', {
             method: 'GET',
             mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json' }
         });
 
         if (!response.ok) {
@@ -57,32 +53,32 @@ const listarPedidos = async () => {
         const pedidos = await response.json();
         let contenido = '';
 
-        const estadoMap = {
-            0: 'PENDIENTE DE PAGO',
-            1: 'PAGADO',
-            2: 'ENTREGADO',
-            3: 'ANULADO'
-        };
-
         for (const pedido of pedidos) {
-            const documentoCliente = await obtenerDocumentoCliente(pedido.IdUsuario);
-            const estadoTexto = estadoMap[pedido.EstadoPedido];
-            const fechaFormateada = formatearFecha(pedido.FechaPedido);
-            const totalFormateado = formatearDinero(pedido.Total);
+            try {
+                const documentoCliente = await obtenerDocumentoCliente(pedido.IdUsuario);
 
-            contenido += `<tr>` +
-                `<td>${pedido.IdPedido}</td>` +
-                `<td>${documentoCliente}</td>` +
-                `<td>${fechaFormateada}</td>` +
-                `<td>${totalFormateado}</td>` +
-                `<td>${estadoTexto}</td>` +
-                `<td style="text-align: center;">
-                    <div class="centered-container">
-                        <a href="editarPedido?id=${pedido.IdPedido}"><i class="fa-regular fa-pen-to-square fa-xl me-2"></i></a>
-                        <a href="detallePedido?id=${pedido.IdPedido}"><i class="fa-regular fa-eye fa-xl me-2"></i></a>
-                    </div>
-                </td>` +
-                `</tr>`;
+                const estadoTexto = estadoMap[pedido.EstadoPedido];
+                const fechaFormateada = formatearFecha(pedido.FechaPedido);
+                const totalFormateado = formatearDinero(pedido.Total);
+
+                contenido += `
+                    <tr>
+                        <td>${pedido.IdPedido}</td>
+                        <td>${documentoCliente}</td>
+                        <td>${fechaFormateada}</td>
+                        <td>${totalFormateado}</td>
+                        <td>${estadoTexto}</td>
+                        <td style="text-align: center;">
+                            <div class="centered-container">
+                                <a href="javascript:void(0);" onclick="abrirModalEditarEstado(${pedido.IdPedido}, ${pedido.EstadoPedido})"><i class="fa-regular fa-pen-to-square fa-xl me-2"></i></a>
+                                <a href="detallePedido?id=${pedido.IdPedido}"><i class="fa-regular fa-eye fa-xl me-2"></i></a>
+                            </div>
+                        </td>
+                    </tr>`;
+            } catch (error) {
+                console.error(`Error al procesar el pedido ${pedido.IdPedido}:`, error.message);
+                continue; // Continuar con el siguiente pedido si hay un error
+            }
         }
 
         const objectId = document.getElementById('contenido');
@@ -92,141 +88,189 @@ const listarPedidos = async () => {
             console.error('No se encontró el elemento con id "contenido"');
         }
 
-        // Inicializar DataTables después de agregar los datos al DOM
-        $('#dataTable').DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json',
-                paginate: {
-                    previous: "Anterior",
-                    next: "Siguiente"
-                },
-                search: "Buscar:",
-                lengthMenu: "Mostrar _MENU_ registros",
-                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                infoEmpty: "No hay registros disponibles",
-                infoFiltered: "(filtrado de _MAX_ registros totales)",
-                zeroRecords: "No se encontraron coincidencias",
-                emptyTable: "No hay datos disponibles en la tabla",
-                loadingRecords: "Cargando...",
-                processing: "Procesando...",
-            },
-            pageLength: 5,
-            lengthChange: false,
-            destroy: true // Destruir cualquier instancia previa de DataTables para evitar conflictos
-        });
-
-
+        // Inicializar DataTable si no está inicializado
+        if (!$.fn.DataTable.isDataTable('#dataTable')) {
+            $('#dataTable').DataTable({
+                pageLength: 5,
+                language: {
+                    "lengthMenu": "Mostrar _MENU_ entradas",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+                    "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    "search": "Buscar:"
+                }
+            });
+        }
     } catch (error) {
         console.error('Error:', error.message);
     }
 };
 
-// Función para obtener los pedidos por ID de usuario
-const obtenerPedidosPorUsuarioId = async (idUsuario) => {
+
+// Función para editar el estado del pedido y actualizarlo si es necesario
+const editarEstadoPedido = async (pedidoId, nuevoEstado) => {
+    if (nuevoEstado == 3) { // Si el estado es "ANULADO"
+        const confirmResult = await Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción anulará el pedido y devolverá el stock asociado.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, anular',
+            cancelButtonText: 'Cancelar'
+        });
+
+        if (!confirmResult.isConfirmed) {
+            return; // Si el usuario cancela, no hacemos nada
+        }
+
+        try {
+            // Anular el pedido y devolver el stock
+            await anularPedido(pedidoId);
+            // Recargar la página después de cerrar el modal para reflejar los cambios
+            return;
+        } catch (error) {
+            console.error('Error al anular el pedido:', error.message);
+            return; // Terminar si hay un error
+        }
+    } else if (nuevoEstado == 2) { // Si el estado es "PAGADO"
+        const confirmResult = await Swal.fire({
+            title: '¿Confirmar Pago?',
+            text: "Esta acción registrará la venta y actualizará el estado del pedido a PAGADO.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, confirmar',
+            cancelButtonText: 'Cancelar'
+        });
+
+        if (!confirmResult.isConfirmed) {
+            return; // Si el usuario cancela, no hacemos nada
+        }
+    }
+
     try {
-        const response = await fetch(`http://localhost:3000/api/pedidos/${idUsuario}`, {
-            method: 'GET',
+        // Actualizar el estado del pedido
+        const response = await fetch(`http://localhost:3000/api/pedidos/estado/${pedidoId}`, {
+            method: 'PUT',
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify({ EstadoPedido: nuevoEstado })
         });
 
         if (!response.ok) {
-            throw new Error('Error al obtener los pedidos del usuario');
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error al actualizar el estado del pedido');
         }
 
-        const pedidos = await response.json();
-        return pedidos;
+        Swal.fire({
+            icon: 'success',
+            title: 'Pagado',
+            text: 'El pedido ha sido PAGADO, la venta fue registrada',
+        }).then(() => {
+            location.reload(); // Recarga la página después de que se cierra el SweetAlert
+        });
+
+        listarPedidos(); // Actualizar la lista de pedidos
+
     } catch (error) {
         console.error('Error:', error.message);
-        return [];
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message || 'Hubo un problema al actualizar el estado del pedido.'
+        });
+    }
+}
+
+// Función para anular un pedido y devolver el stock
+const anularPedido = async (pedidoId) => {
+    try {
+        const response = await fetch(`http://localhost:3000/api/pedidos/cancelar/${pedidoId}`, {
+            method: 'PUT',
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error al anular el pedido');
+        }
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Anulado',
+            text: 'El pedido ha sido anulado y el stock ha sido devuelto correctamente.',
+        }).then(() => {
+            location.reload(); // Recarga la página después de que se cierra el SweetAlert
+        });
+        
+        listarPedidos();
+        
+    } catch (error) {
+        console.error('Error:', error.message);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message || 'Hubo un problema al anular el pedido.'
+        });
     }
 };
 
-// Función para listar los pedidos de un usuario en el acordeón
-const listarPedidosUsuario = async (idUsuario) => {
-    const pedidos = await obtenerPedidosPorUsuarioId(idUsuario);
-    let contenido = '';
+// Función para abrir el modal de edición de estado del pedido
+function abrirModalEditarEstado(pedidoId, estadoActual) {
+    pedidoIdGlobal = pedidoId;
 
-    const estadoMap = {
-        0: 'PENDIENTE DE PAGO',
-        1: 'PAGADO',
-        2: 'ENTREGADO',
-        3: 'ANULADO'
-    };
+    const selectEstado = document.getElementById('nuevoEstado');
+    const guardarBtn = document.getElementById('guardarBtn');
 
-    for (const pedido of pedidos) {
-        const estadoTexto = estadoMap[pedido.EstadoPedido];
-        const fechaFormateada = formatearFecha(pedido.FechaPedido);
-        const totalFormateado = formatearDinero(pedido.Total);
+    selectEstado.innerHTML = `
+        <option value="1" ${estadoActual == 1 ? 'selected' : ''}>PENDIENTE DE PAGO</option>
+        <option value="2" ${estadoActual == 2 ? 'selected' : ''}>PAGADO</option>
+        <option value="3" ${estadoActual == 3 ? 'selected' : ''}>ANULADO</option>
+    `;
 
-        contenido += `<tr>` +
-            `<td>${pedido.IdPedido}</td>` +
-            `<td>${fechaFormateada}</td>` +
-            `<td>${totalFormateado}</td>` +
-            `<td>${estadoTexto}</td>` +
-            `</tr>`;
-    }
-
-    const tablaPedidos = document.getElementById('tablaPedidos');
-    if (tablaPedidos) {
-        tablaPedidos.innerHTML = contenido;
+    // Deshabilitar el selector y ocultar el botón "Guardar" si el estado es ANULADO o PAGADO
+    if (estadoActual == 3 || estadoActual == 2) {
+        selectEstado.disabled = true;
+        guardarBtn.style.display = 'none'; // Ocultar el botón "Guardar"
     } else {
-        console.error('No se encontró el elemento con id "tablaPedidos"');
+        selectEstado.disabled = false;
+        guardarBtn.style.display = 'inline-block'; // Mostrar el botón "Guardar"
     }
-};
 
-document.addEventListener('DOMContentLoaded', () => {
-    listarPedidos();
-    const idUsuario = new URLSearchParams(window.location.search).get('id');
-    if (idUsuario) {
-        listarPedidosUsuario(idUsuario);
-    }
+    $('#modalEditarEstado').modal('show');
+}
+
+// Función para actualizar el estado del pedido desde el modal
+function actualizarEstadoPedido() {
+    const nuevoEstado = document.getElementById('nuevoEstado').value;
+    editarEstadoPedido(pedidoIdGlobal, nuevoEstado);
+    $('#modalEditarEstado').modal('hide');
+}
+
+// Vincular evento de cierre al botón "Guardar"
+document.querySelector('#guardarBtn').addEventListener('click', () => {
+    $('#modalEditarEstado').modal('hide');
 });
 
-async function cargarProductos() {
-    const pedidoId = obtenerPedidoId();
-    const productos = await obtenerProductosPedido(pedidoId);
-    mostrarProductosEnTabla(productos);
-}
+// Vincular evento de cierre al botón "Cancelar"
+document.querySelector('.btn-secondary').addEventListener('click', () => {
+    $('#modalEditarEstado').modal('hide');
+});
 
-function obtenerPedidoId() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('pedidoId');
-}
-
-async function obtenerProductosPedido(pedidoId) {
-    try {
-        const response = await fetch(`/api/pedidos/${pedidoId}/productos`);
-        if (!response.ok) {
-            throw new Error('Error al obtener los productos del pedido');
-        }
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-}
-
-function mostrarProductosEnTabla(productos) {
-    const tablaProductos = document.getElementById('tablaProductos');
-    const totalProductos = document.getElementById('totalProductos');
-    tablaProductos.innerHTML = ''; // Limpiar contenido previo
-
-    let total = 0;
-    productos.forEach(producto => {
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-            <td>${producto.NombreProducto}</td>
-            <td>${producto.PrecioUnitario}</td>
-            <td>${producto.Iva}</td>
-            <td>${producto.Cantidad}</td>
-            <td>${producto.SubTotal}</td>
-        `;
-        total += parseFloat(producto.SubTotal);
-        tablaProductos.appendChild(fila);
-    });
-
-    totalProductos.textContent = total.toFixed(2);
-}
+// Vincular evento de cierre al botón "X"
+document.querySelector('.close').addEventListener('click', () => {
+    $('#modalEditarEstado').modal('hide');
+});

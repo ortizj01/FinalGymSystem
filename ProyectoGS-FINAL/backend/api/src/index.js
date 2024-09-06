@@ -36,6 +36,8 @@ import authRoutes from './routes/auth.routes.js'
 import rolesRoutes from './routes/roles.routes.js';
 import permisosRoutes from './routes/permisos.routes.js';
 import permisosRolesRoutes from './routes/permisosRoles.routes.js';
+import DevolucionVentasRoutes from './routes/devolucion.ventas.routes.js';
+import DevolucionVentasProductosRoutes from './routes/devolucion.ventas.productos.routes.js';
 
 import ventasRouter from './routes/ventas.router.js';
 import ventasProductosRouter from './routes/ventas.productos.routes.js';
@@ -49,6 +51,9 @@ import pedidosRoutes from './routes/pedidos.routes.js';
 import pedidosProductoRoutes from './routes/pedidosProducto.routes.js';
 import pedidosMembresiaRoutes from './routes/pedidosMembresia.routes.js';
 import valoracionMedicaRoutes from './routes/valoracionMedica.routes.js';
+import carritoRoutes from './routes/carrito.routes.js';
+import estadoPedidosRoutes from './routes/estadoPedidos.routes.js';
+import pedidoMembresiaBeneficiario from './routes/pedidoMembresiaBeneficiario.routes.js';
 
 const app = express();
 
@@ -103,8 +108,10 @@ app.use('/api', ventasProductosRouter);
 app.use('/api', ventasMembresiaRoutes);
 app.use('/api', estadosRouter);
 
-app.use('/api', usuarioRolRoutes)
+app.use('/api', DevolucionVentasRoutes);
+app.use('/api', DevolucionVentasProductosRoutes );
 
+app.use('/api', usuarioRolRoutes)
 app.use('/api', rolesRoutes);
 app.use('/api', permisosRoutes);
 app.use('/api', permisosRolesRoutes);
@@ -115,6 +122,10 @@ app.use('/api', pedidosRoutes);
 app.use('/api', pedidosProductoRoutes);
 app.use('/api', pedidosMembresiaRoutes);
 app.use('/api', valoracionMedicaRoutes);
+app.use('/api', carritoRoutes);
+app.use('/api', estadoPedidosRoutes);
+app.use('/api', pedidoMembresiaBeneficiario);
+
 
 
 

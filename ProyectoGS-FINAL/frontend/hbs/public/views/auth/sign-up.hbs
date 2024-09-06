@@ -50,8 +50,8 @@
                       <label for="TipoDocumento">Tipo de documento:</label>
                       <select class="form-control" id="TipoDocumento" name="TipoDocumento">
                         <option value="" disabled selected hidden>Seleccione...</option>
-                        <option value="Cedula">Cédula de Ciudadanía</option>
-                        <option value="Pasaporte">Pasaporte</option>
+                        <option value="cedula_ciudadania">Cédula de Ciudadanía</option>
+                        <option value="pasaporte">Pasaporte</option>
                       </select>
                       <small class="text-danger d-none">Seleccione el tipo de documento.</small>
                     </div>
@@ -97,33 +97,32 @@
                     </div>
                   </div>
                   <div class="form-row">
-  <div class="form-group col-md-6">
-    <label for="Contrasena">Contraseña *</label>
-    <div class="input-group">
-      <input type="password" class="form-control" id="Contrasena" name="Contrasena">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" id="togglePassword1"><i class="fas fa-eye"></i></button>
-      </div>
-    </div>
-    <small class="text-danger d-none">
-      La contraseña debe contener:
-      <br>- Mínimo un número,
-      <br>- Una letra mayúscula,
-      <br>- Máximo 12 caracteres.
-    </small>
-  </div>
-  <div class="form-group col-md-6" id="grupo__confirmarPassword">
-    <label for="confirmarPassword">Confirmar Contraseña *</label>
-    <div class="input-group">
-      <input type="password" class="form-control" id="confirmarPassword" name="confirmarPassword">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" id="togglePassword2"><i class="fas fa-eye"></i></button>
-      </div>
-    </div>
-    <small class="text-danger d-none">La contraseña no coincide.</small>
-  </div>
-</div>
-
+                      <div class="form-group col-md-6">
+                        <label for="Contrasena">Contraseña *</label>
+                        <div class="input-group">
+                          <input type="password" class="form-control" id="Contrasena" name="Contrasena">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword1"><i class="fas fa-eye"></i></button>
+                          </div>
+                        </div>
+                        <small class="text-danger d-none">
+                          La contraseña debe contener:
+                          <br>- Mínimo un número,
+                          <br>- Una letra mayúscula,
+                          <br>- Máximo 12 caracteres.
+                        </small>
+                      </div>
+                      <div class="form-group col-md-6" id="grupo__confirmarPassword">
+                        <label for="confirmarPassword">Confirmar Contraseña *</label>
+                        <div class="input-group">
+                          <input type="password" class="form-control" id="confirmarPassword" name="confirmarPassword">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword2"><i class="fas fa-eye"></i></button>
+                          </div>
+                        </div>
+                        <small class="text-danger d-none">La contraseña no coincide.</small>
+                      </div>
+                    </div>
                   <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="terminos" name="terminos">
                     <label class="form-check-label" for="terminos">Acepto las condiciones de uso</label>

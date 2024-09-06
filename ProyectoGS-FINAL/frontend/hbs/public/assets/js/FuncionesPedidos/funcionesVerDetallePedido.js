@@ -25,11 +25,11 @@ async function cargarDatosPedido() {
         document.getElementById('emailCliente').value = cliente.Correo;
         document.getElementById('telCliente').value = cliente.Telefono;
         document.getElementById('dirCliente').value = cliente.Direccion;
-        document.getElementById('estadoCliente').value = cliente.Estado === 0 ? 'ACTIVO' : 'INACTIVO';
+        document.getElementById('estadoCliente').value = cliente.Estado === 0 ? 'INACTIVO' : 'ACTIVO';
 
         // Llenar datos del pedido en campos independientes
         document.getElementById('fechaPedido').value = new Date(pedido.FechaPedido).toISOString().split('T')[0];
-        const estadoPedidoMap = ["PENDIENTE DE PAGO", "PAGADO", "ENTREGADO", "ANULADO"];
+        const estadoPedidoMap = ["","PENDIENTE DE PAGO","PAGADO", "ANULADO"];
         document.getElementById('estadoPedido').value = estadoPedidoMap[pedido.EstadoPedido];
 
         // Cargar productos y servicios del pedido
@@ -85,77 +85,105 @@ async function cargarServiciosPedido(pedidoId) {
         const tablaServicios = document.getElementById('tablaServicios');
         tablaServicios.innerHTML = ''; // Limpiar contenido previo
 
-        let total = 0;
+        // Agrupar membresías y beneficiarios
+        const membresiaMap = new Map();
+        const beneficiarioMap = new Map();
+
         for (const servicioPedido of serviciosPedidoFiltrados) {
             const membresiaResponse = await fetch(`http://localhost:3000/api/membresias/${servicioPedido.IdMembresia}`);
             const membresia = await membresiaResponse.json();
+
+            // Agrupar membresías por IdMembresia
+            if (membresiaMap.has(servicioPedido.IdMembresia)) {
+                membresiaMap.get(servicioPedido.IdMembresia).Cantidad += 1;
+            } else {
+                membresiaMap.set(servicioPedido.IdMembresia, {
+                    ...membresia,
+                    Cantidad: 1,
+                    Total: parseFloat(servicioPedido.Total)
+                });
+            }
+
+            // Agrupar beneficiarios por IdUsuario
+            if (!beneficiarioMap.has(servicioPedido.IdUsuario)) {
+                const beneficiarioResponse = await fetch(`http://localhost:3000/api/usuarios/${servicioPedido.IdUsuario}`);
+                const beneficiario = await beneficiarioResponse.json();
+                beneficiarioMap.set(servicioPedido.IdUsuario, beneficiario);
+            }
+        }
+
+        let total = 0;
+
+        // Mostrar las membresías agrupadas en la tabla
+        membresiaMap.forEach((membresia) => {
             const fila = document.createElement('tr');
             fila.innerHTML = `
                 <td>${membresia.NombreMembresia}</td>
                 <td>${formatearCOP(membresia.CostoVenta)}</td>
-                <td>1</td>
-                <td>${formatearCOP(servicioPedido.Total)}</td>
+                <td>${membresia.Cantidad}</td>
+                <td>${formatearCOP(membresia.CostoVenta * membresia.Cantidad)}</td>
             `;
-            total += parseFloat(servicioPedido.Total);
+            total += membresia.CostoVenta * membresia.Cantidad;
             tablaServicios.appendChild(fila);
+        });
 
-            // Mostrar información de todos los beneficiarios
-            const beneficiarioResponse = await fetch(`http://localhost:3000/api/usuarios/${servicioPedido.IdUsuario}`);
-            const beneficiario = await beneficiarioResponse.json();
+        document.getElementById('totalServicios').textContent = formatearCOP(total);
+        document.getElementById('totalServicios').dataset.valor = total;
 
-            // Crear acordeón para cada beneficiario
+        // Mostrar la información de los beneficiarios agrupados
+        beneficiarioMap.forEach((beneficiario, IdUsuario) => {
             const beneficiarioElemento = document.createElement('li');
             beneficiarioElemento.innerHTML = `
-                <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}"
-                    aria-expanded="true" aria-controls="collapseBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}">Datos Beneficiario (${beneficiario.Nombres} ${beneficiario.Apellidos})</h6>
-                <section class="checkout-steps-form-content collapse" id="collapseBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}"
-                    aria-labelledby="headingBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}" data-bs-parent="#accordionBeneficiario">
+                <h6 class="title" data-bs-toggle="collapse" data-bs-target="#collapseBeneficiarioAcc_${IdUsuario}"
+                    aria-expanded="true" aria-controls="collapseBeneficiarioAcc_${IdUsuario}">Datos Beneficiario (${beneficiario.Nombres} ${beneficiario.Apellidos})</h6>
+                <section class="checkout-steps-form-content collapse" id="collapseBeneficiarioAcc_${IdUsuario}"
+                    aria-labelledby="headingBeneficiarioAcc_${IdUsuario}" data-bs-parent="#accordionBeneficiario">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="single-form form-default">
-                                <label for="docBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}">Documento</label>
+                                <label for="docBeneficiarioAcc_${IdUsuario}">Documento</label>
                                 <div class="form-input form">
-                                    <input type="text" id="docBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}" value="${beneficiario.Documento}" readonly>
+                                    <input type="text" id="docBeneficiarioAcc_${IdUsuario}" value="${beneficiario.Documento}" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="single-form form-default">
-                                <label for="nombreBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}">Nombre</label>
+                                <label for="nombreBeneficiarioAcc_${IdUsuario}">Nombre</label>
                                 <div class="form-input form">
-                                    <input type="text" id="nombreBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}" value="${beneficiario.Nombres} ${beneficiario.Apellidos}" readonly>
+                                    <input type="text" id="nombreBeneficiarioAcc_${IdUsuario}" value="${beneficiario.Nombres} ${beneficiario.Apellidos}" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="single-form form-default">
-                                <label for="emailBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}">Correo electrónico</label>
+                                <label for="emailBeneficiarioAcc_${IdUsuario}">Correo electrónico</label>
                                 <div class="form-input form">
-                                    <input type="email" id="emailBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}" value="${beneficiario.Correo}" readonly>
+                                    <input type="email" id="emailBeneficiarioAcc_${IdUsuario}" value="${beneficiario.Correo}" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="single-form form-default">
-                                <label for="telBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}">Teléfono</label>
+                                <label for="telBeneficiarioAcc_${IdUsuario}">Teléfono</label>
                                 <div class="form-input form">
-                                    <input type="text" id="telBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}" value="${beneficiario.Telefono}" readonly>
+                                    <input type="text" id="telBeneficiarioAcc_${IdUsuario}" value="${beneficiario.Telefono}" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="single-form form-default">
-                                <label for="dirBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}">Dirección</label>
+                                <label for="dirBeneficiarioAcc_${IdUsuario}">Dirección</label>
                                 <div class="form-input form">
-                                    <input type="text" id="dirBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}" value="${beneficiario.Direccion}" readonly>
+                                    <input type="text" id="dirBeneficiarioAcc_${IdUsuario}" value="${beneficiario.Direccion}" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="single-form form-default">
-                                <label for="estadoBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}">Estado</label>
+                                <label for="estadoBeneficiarioAcc_${IdUsuario}">Estado</label>
                                 <div class="form-input form">
-                                    <input type="text" id="estadoBeneficiarioAcc_${servicioPedido.IdPedidoMembresia}" value="${beneficiario.Estado === 0 ? 'ACTIVO' : 'INACTIVO'}" readonly>
+                                    <input type="text" id="estadoBeneficiarioAcc_${IdUsuario}" value="${beneficiario.Estado === 0 ? 'INACTIVO' : 'ACTIVO'}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -163,14 +191,13 @@ async function cargarServiciosPedido(pedidoId) {
                 </section>
             `;
             document.getElementById('accordionBeneficiario').appendChild(beneficiarioElemento);
-        }
+        });
 
-        document.getElementById('totalServicios').textContent = formatearCOP(total);
-        document.getElementById('totalServicios').dataset.valor = total;
     } catch (error) {
         console.error('Error al cargar servicios del pedido:', error);
     }
 }
+
 
 // Función para calcular el total del pedido
 const calcularTotalPedido = () => {

@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
         Telefono: /^[0-9]{10}$/,
         FechaDeNacimiento: /^\d{4}-\d{2}-\d{2}$/, // Formato de fecha YYYY-MM-DD
-Direccion: /^[a-zA-Z0-9\s,.-#]{5,100}$/,
+Direccion: /^[A-Za-z0-9\s#áéíóúÁÉÍÓÚüÜ.,-]+$/,
         Genero: /^[a-zA-Z]+$/,
         Rol: /^[a-zA-Z]+$/,
         Estado: /^[01]$/,

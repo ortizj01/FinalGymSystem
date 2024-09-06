@@ -34,6 +34,10 @@ app.get('/ingresar', (req, res)=>{
     res.render('auth/sign-in')
 })
 
+app.get('/pruebaGit', (req, res)=>{
+    res.render('pruebaGit')
+})
+
 
 app.get('/registrar-usuario', (req, res)=>{
     res.render('auth/sign-up')
@@ -51,10 +55,9 @@ app.get('/perfil', (req, res)=>{
     res.render('auth/user-account-setting')
 })
 
-app.get('/restablecer/:token', (req, res) => {
-    const { token } = req.params;
-    res.render('auth/new-password', { token });
-});
+app.get('/restablecer', (req, res) => {
+    res.render('auth/new-password'); // Renderiza el formulario sin lógica adicional aquí
+  });
 
 
 // FIN GESTION ACCESO
@@ -256,12 +259,6 @@ app.get('/eventosCliente', (req, res)=>{
 // FIN SERVICIOS
 
 
-// ROLES *JOHANY* 
-
-// app.get('/roles', (req, res)=>{
-//     res.render('roles')
-// })
-
 app.get('/roles2', (req, res)=>{
     res.render('roles_permisos/tablaRoles')
 })
@@ -274,9 +271,25 @@ app.get('/CrearRol', (req, res)=>{
     res.render('CrearRol')
 })
 
+// JOHANY
+
 app.get('/GestionVentas', (req, res)=>{
     res.render('ventas_vistas/GestionVentas')
 })
+
+app.get('/visualizarventa', (req, res)=>{
+    res.render('ventas_vistas/visualizarventa')
+})
+
+app.get('/ventasCliente', (req, res)=>{
+    res.render('ventas_vistas/ventasCliente')
+})
+
+app.get('/visualizarVentasClientes', (req, res)=>{
+    res.render('ventas_vistas/visualizarVentasClientes')
+})
+
+
 
 app.get('/formuVenta', (req, res)=>{
     res.render('ventas_vistas/formuVenta')
@@ -336,6 +349,9 @@ app.get('/editarValoracionMedica', (req, res)=>{
 app.get('/pedidos', (req, res)=>{
     res.render('pedidos/pedidos')
 })
+app.get('/pedidoCliente', (req, res)=>{
+    res.render('pedidos/pedidoCliente')
+})
 app.get('/editarPedido', (req, res)=>{
     res.render('pedidos/editarPedido')
 })
@@ -356,6 +372,9 @@ app.get('/pedidoCarrito', (req, res)=>{
 })
 app.get('/QrCarrito', (req, res)=>{
     res.render('carrito/QR')
+})
+app.get('/detalleMembresiaCarrito', (req, res)=>{
+    res.render('carrito/detalleMembresiaCarrito')
 })
 
 // FIN Ventas *YONIER*

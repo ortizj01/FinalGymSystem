@@ -48,26 +48,22 @@ const listarProductos = async () => {
         tablaProductos.innerHTML = contenidoTabla;
 
         // Inicializar DataTables después de agregar los datos al DOM
-        $('#dataTable').DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json',
-                paginate: {
-                    previous: "Anterior",
-                    next: "Siguiente"
-                },
-                search: "Buscar:",
-                lengthMenu: "Mostrar _MENU_ registros",
-                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-                infoEmpty: "No hay registros disponibles",
-                infoFiltered: "(filtrado de _MAX_ registros totales)",
-                zeroRecords: "No se encontraron coincidencias",
-                emptyTable: "No hay datos disponibles en la tabla",
-                loadingRecords: "Cargando...",
-                processing: "Procesando...",
-            },
+        $('#dataTableProductos').DataTable({
             pageLength: 5,
-            lengthChange: false,
-            destroy: true // Destruir cualquier instancia previa de DataTables para evitar conflictos
+            language: {
+                "lengthMenu": "Mostrar _MENU_ entradas",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+                "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "search": "Buscar:"
+            }
         });
 
     } else {
@@ -83,74 +79,261 @@ const listarProductos = async () => {
     });
 };
 
+// Función para obtener las membresías de la API
+const obtenerMembresias = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/api/membresias', {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al obtener las membresías');
+        }
+
+        const membresias = await response.json();
+        return membresias;
+    } catch (error) {
+        console.error('Error:', error.message);
+        return [];
+    }
+};
+
+// Función para listar membresías en la tabla
+const listarMembresias = async () => {
+    const membresias = await obtenerMembresias();
+    let contenidoTabla = '';
+
+    for (const membresia of membresias) {
+        contenidoTabla += `<tr>` +
+            `<td>${membresia.IdMembresia}</td>` +
+            `<td>${membresia.NombreMembresia}</td>` +
+            `<td>${membresia.Frecuencia}</td>` +
+            `<td>${membresia.CostoVenta}</td>` +
+            `<td>${membresia.Estado == 1 ? 'Activo' : 'Inactivo'}</td>` +
+            `<td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" data-membresia-id="${membresia.IdMembresia}">
+                        <i class="fas fa-shopping-cart"></i> Gestionar
+                    </button>
+                </div>
+            </td>` +
+            `</tr>`;
+    }
+
+    const tablaMembresias = document.getElementById('tablaMembresias');
+    if (tablaMembresias) {
+        tablaMembresias.innerHTML = contenidoTabla;
+
+        // Inicializar DataTables después de agregar los datos al DOM
+        $('#dataTableMembresias').DataTable({
+            pageLength: 5,
+            language: {
+                "lengthMenu": "Mostrar _MENU_ entradas",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+                "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                },
+                "search": "Buscar:"
+            }
+        });
+
+    } else {
+        console.error('No se encontró el elemento con id "tablaMembresias"');
+    }
+
+    // Re-bind click event for buttons
+    document.querySelectorAll('[data-membresia-id]').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const membresiaId = event.currentTarget.getAttribute('data-membresia-id');
+            abrirModalMembresia(membresiaId);
+        });
+    });
+};
+
 // Función para abrir el modal de opciones de producto
-const abrirModalProducto = (productId) => {
+const abrirModalProducto = async (productId) => {
     const saveButton = document.getElementById('saveProductChanges');
     saveButton.setAttribute('data-product-id', productId);
 
     // Restablecer el estado del checkbox
     document.getElementById('showInCatalog').checked = false;
 
-    // Cargar el estado del producto desde localStorage
-    const productosCatalogo = JSON.parse(localStorage.getItem('productosCatalogo')) || [];
-    const productoEnCatalogo = productosCatalogo.find(prod => prod.IdProducto == productId);
-    if (productoEnCatalogo) {
-        document.getElementById('showInCatalog').checked = true;
-    }
+    // Obtener el estado actual del producto en el catálogo desde el backend
+    try {
+        const response = await fetch(`http://localhost:3000/api/carrito/catalogo/producto/${productId}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
-    $('#productOptionsModal').modal('show');
+        if (!response.ok) {
+            throw new Error('Error al obtener el estado del producto en el catálogo');
+        }
+
+        const productoCatalogo = await response.json();
+
+        if (productoCatalogo.en_catalogo) {
+            document.getElementById('showInCatalog').checked = true;
+        }
+
+        $('#productOptionsModal').modal('show');
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
 };
 
-// Agregar un listener manual al botón de cierre
-document.querySelectorAll('[data-dismiss="modal"]').forEach(button => {
-    button.addEventListener('click', () => {
-        $('#productOptionsModal').modal('hide');
-    });
-});
+// Función para abrir el modal de opciones de membresía
+const abrirModalMembresia = async (membresiaId) => {
+    const saveButton = document.getElementById('saveMembershipChanges');
+    saveButton.setAttribute('data-membresia-id', membresiaId);
 
+    // Restablecer el estado del checkbox
+    document.getElementById('showMembershipInCatalog').checked = false;
+
+    // Obtener el estado actual de la membresía en el catálogo desde el backend
+    try {
+        const response = await fetch(`http://localhost:3000/api/carrito/catalogo/membresia/${membresiaId}`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al obtener el estado de la membresía en el catálogo');
+        }
+
+        const membresiaCatalogo = await response.json();
+
+        if (membresiaCatalogo.en_catalogo) {
+            document.getElementById('showMembershipInCatalog').checked = true;
+        }
+
+        $('#membershipOptionsModal').modal('show');
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
+};
+
+
+// Listener para guardar los cambios de producto
 document.getElementById('saveProductChanges').addEventListener('click', async () => {
     const productId = document.getElementById('saveProductChanges').getAttribute('data-product-id');
     const showInCatalog = document.getElementById('showInCatalog').checked;
 
-    const productos = await obtenerProductos();
-    const producto = productos.find(prod => prod.IdProducto == productId);
+    try {
+        const response = await fetch(`http://localhost:3000/api/carrito/catalogo/producto/${productId}`, {
+            method: 'PATCH',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ en_catalogo: showInCatalog })
+        });
 
-    if (producto) {
-        let productosCatalogo = JSON.parse(localStorage.getItem('productosCatalogo')) || [];
-
-        if (showInCatalog) {
-            if (!productosCatalogo.some(prod => prod.IdProducto == productId)) {
-                productosCatalogo.push(producto);
-            }
-        } else {
-            productosCatalogo = productosCatalogo.filter(prod => prod.IdProducto != productId);
+        if (!response.ok) {
+            throw new Error('Error al actualizar el producto en el catálogo');
         }
 
-        localStorage.setItem('productosCatalogo', JSON.stringify(productosCatalogo));
-        
-        // Mostrar mensaje de éxito
         Swal.fire({
             icon: 'success',
             title: 'Producto actualizado',
             text: 'El producto ha sido actualizado en el catálogo correctamente.',
         });
-    } else {
-        // Mostrar mensaje de error
+
+        $('#productOptionsModal').modal('hide');
+    } catch (error) {
         Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'El producto no se pudo actualizar. Inténtalo nuevamente.',
+            text: `El producto no se pudo actualizar. ${error.message}`,
         });
-        console.error('Producto no encontrado');
+        console.error('Error al actualizar el catálogo:', error);
     }
-
-    $('#productOptionsModal').modal('hide');
-
-    // Re-list products in the catalog
-    listarProductosEnCatalogo();
 });
 
-// Cargar la lista de productos al cargar el DOM
+// Listener para guardar los cambios de membresía
+document.getElementById('saveMembershipChanges').addEventListener('click', async () => {
+    const membresiaId = document.getElementById('saveMembershipChanges').getAttribute('data-membresia-id');
+    const showMembershipInCatalog = document.getElementById('showMembershipInCatalog').checked;
+
+    try {
+        const response = await fetch(`http://localhost:3000/api/carrito/catalogo/membresia/${membresiaId}`, {
+            method: 'PATCH',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ en_catalogo: showMembershipInCatalog })
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al actualizar la membresía en el catálogo');
+        }
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Membresía actualizada',
+            text: 'La membresía ha sido actualizada en el catálogo correctamente.',
+        });
+
+        $('#membershipOptionsModal').modal('hide');
+    } catch (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: `La membresía no se pudo actualizar. ${error.message}`,
+        });
+        console.error('Error al actualizar el catálogo:', error);
+    }
+});
+
+// Listener manual para el botón de cerrar (X) en la esquina del modal
+document.querySelectorAll('.modal .close').forEach(closeBtn => {
+    closeBtn.addEventListener('click', () => {
+        $('.modal').modal('hide');
+    });
+});
+
+// Listener manual para el botón "Cerrar" en el pie del modal
+document.querySelectorAll('.modal-footer .btn-secondary').forEach(closeBtn => {
+    closeBtn.addEventListener('click', () => {
+        $('.modal').modal('hide');
+    });
+});
+
+
+
+// Funciones para alternar vistas
+document.getElementById('showProductos').addEventListener('click', () => {
+    document.getElementById('productosTable').style.display = 'block';
+    document.getElementById('membresiasTable').style.display = 'none';
+});
+
+document.getElementById('showMembresias').addEventListener('click', () => {
+    document.getElementById('productosTable').style.display = 'none';
+    document.getElementById('membresiasTable').style.display = 'block';
+});
+
+
+
+// Cargar las listas al cargar el DOM
 document.addEventListener('DOMContentLoaded', () => {
     listarProductos();
+    listarMembresias();
 });
+
+

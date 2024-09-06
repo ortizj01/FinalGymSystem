@@ -23,6 +23,14 @@ export const getEjerciciosDeRutina = async (req, res) => {
 export const agregarEjercicioARutina = async (req, res) => {
     const { IdRutina } = req.params;
     const { IdEjercicio } = req.body;
+
+    // Verificar si el ejercicio ya está asociado a la rutina
+    const [existingRows] = await pool.query('SELECT * FROM RutinasEjercicios WHERE IdRutina = ? AND IdEjercicio = ?', [IdRutina, IdEjercicio]);
+
+    if (existingRows.length > 0) {
+        return res.status(200).json({ message: 'El ejercicio ya está asociado a esta rutina' });
+    }
+
     const [rows] = await pool.query('INSERT INTO RutinasEjercicios (IdRutina, IdEjercicio) VALUES (?, ?)', [IdRutina, IdEjercicio]);
     res.send({
         id: rows.insertId,
@@ -30,6 +38,7 @@ export const agregarEjercicioARutina = async (req, res) => {
         IdEjercicio
     });
 };
+
 
 export const actualizarEjercicioDeRutina = async (req, res) => {
     const { IdRutina } = req.params;
@@ -68,6 +77,20 @@ export const getDetallesDeRutinaPorDiaSemana = async (req, res) => {
 export const agregarEjercicioARutinaPorDiaSemana = async (req, res) => {
     const { IdRutinaEjercicio } = req.params;
     const { DiaSemana, Series } = req.body;
+    
+    // Verificar el valor de IdRutinaEjercicio
+    console.log('IdRutinaEjercicio:', IdRutinaEjercicio);
+    
+    // Validar que IdRutinaEjercicio esté definido y no sea 'undefined'
+    if (IdRutinaEjercicio === 'undefined' || IdRutinaEjercicio === undefined) {
+        return res.status(400).json({ error: 'IdRutinaEjercicio es requerido' });
+    }
+    
+    // Validar que Series esté definido y sea un número válido
+    if (isNaN(Series) || Series <= 0) {
+        return res.status(400).json({ error: 'Series debe ser un número válido' });
+    }
+    
     const [rows] = await pool.query('INSERT INTO RutinasEjerciciosDiaSemana (IdRutinaEjercicio, DiaSemana, Series) VALUES (?, ?, ?)', [IdRutinaEjercicio, DiaSemana, Series]);
     res.send({
         id: rows.insertId,
@@ -76,29 +99,33 @@ export const agregarEjercicioARutinaPorDiaSemana = async (req, res) => {
         Series
     });
 };
+
 
 export const actualizarEjercicioDeRutinaPorDiaSemana = async (req, res) => {
     const { IdRutinaEjercicio } = req.params;
     const { DiaSemana, Series } = req.body;
 
-    // Verificar si ya existe un registro para este ejercicio y día de la semana
-    const [existingRows] = await pool.query('SELECT * FROM RutinasEjerciciosDiaSemana WHERE IdRutinaEjercicio = ? AND DiaSemana = ?', [IdRutinaEjercicio, DiaSemana]);
+    try {
+        const [existingRows] = await pool.query('SELECT * FROM RutinasEjerciciosDiaSemana WHERE IdRutinaEjercicio = ? AND DiaSemana = ?', [IdRutinaEjercicio, DiaSemana]);
 
-    if (existingRows.length > 0) {
-        // Si existe, actualizar el campo Series
-        await pool.query('UPDATE RutinasEjerciciosDiaSemana SET Series = ? WHERE IdRutinaEjercicio = ? AND DiaSemana = ?', [Series, IdRutinaEjercicio, DiaSemana]);
-        return res.status(200).json({ message: 'Ejercicio actualizado con éxito', Series });
+        if (existingRows.length > 0) {
+            await pool.query('UPDATE RutinasEjerciciosDiaSemana SET Series = ? WHERE IdRutinaEjercicio = ? AND DiaSemana = ?', [Series, IdRutinaEjercicio, DiaSemana]);
+            return res.status(200).json({ message: 'Ejercicio actualizado con éxito', Series });
+        }
+
+        const [rows] = await pool.query('INSERT INTO RutinasEjerciciosDiaSemana (IdRutinaEjercicio, DiaSemana, Series) VALUES (?, ?, ?)', [IdRutinaEjercicio, DiaSemana, Series]);
+        res.send({
+            id: rows.insertId,
+            IdRutinaEjercicio,
+            DiaSemana,
+            Series
+        });
+    } catch (error) {
+        console.error('Error al actualizar o agregar el ejercicio de la rutina por día de semana:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
     }
-
-    // Si no existe, lo agregamos
-    const [rows] = await pool.query('INSERT INTO RutinasEjerciciosDiaSemana (IdRutinaEjercicio, DiaSemana, Series) VALUES (?, ?, ?)', [IdRutinaEjercicio, DiaSemana, Series]);
-    res.send({
-        id: rows.insertId,
-        IdRutinaEjercicio,
-        DiaSemana,
-        Series
-    });
 };
+
 
 export const eliminarEjercicioDeRutinaPorDiaSemana = async (req, res) => {
     const { IdRutinaEjercicioDiaSemana } = req.params;

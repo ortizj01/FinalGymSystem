@@ -50,11 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             console.log('Rol asignado correctamente:', data);
-            alert('Registro exitoso y rol asignado correctamente.');
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Hubo un problema en el proceso. Por favor, inténtalo de nuevo.');
         });
     });
 });

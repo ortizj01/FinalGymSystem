@@ -15,90 +15,93 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+const tokenStore = new Map(); 
+
 // Función para generar un token de recuperación
 function generatePasswordResetToken() {
     return crypto.randomBytes(20).toString('hex');
 }
 
-// Controlador para solicitar la recuperación de contraseña
 export const requestPasswordReset = async (req, res) => {
     const { email } = req.body;
 
     try {
         const [rows] = await pool.query('SELECT * FROM Usuarios WHERE Correo = ?', [email]);
         if (rows.length <= 0) {
-            return res.status(404).json({
-                msg: 'Usuario no encontrado'
-            });
+            return res.status(404).json({ msg: 'Usuario no encontrado' });
         }
 
         const user = rows[0];
         const token = generatePasswordResetToken();
-        const expiration = new Date(Date.now() + 3600000); // Token válido por 1 hora
-        const resetLink = `http://localhost:8086/restablecer/${token}`;
+        const expiration = Date.now() + 3600000; // Token válido por 1 hora
 
-        // Aquí se asume que la columna se llama 'userId'
-        await pool.query('INSERT INTO PasswordResetTokens (userId, token, expiration) VALUES (?, ?, ?)', [user.IdUsuario, token, expiration]);
+        // Almacenar el token en memoria
+        tokenStore.set(token, { userId: user.IdUsuario, expiration });
+
+        const resetLink = `http://localhost:8086/restablecer?token=${token}`;
 
         const mailOptions = {
             from: 'gymsysteminfo@gmail.com',
             to: email,
             subject: 'Restablecer Contraseña',
-            text: `Ingresa al link para restablecer tu contraseña: ${resetLink}`
+            html: `
+                <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+                    <h2 style="color: #000; font-size: 24px; text-align: center;">Restablecer tu contraseña</h2>
+                    <p style="font-size: 16px; color: #555; text-align: center;">Hola ${user.Nombres},</p>
+                    <p style="font-size: 16px; color: #555;">Recibimos una solicitud para restablecer tu contraseña. Haz clic en el botón de abajo para proceder:</p>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <a href="${resetLink}" style="background-color: #FF5733; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 18px;">Restablecer Contraseña</a>
+                    </div>
+                    <p style="font-size: 14px; color: #555;">Este enlace es válido por 1 hora. Si no solicitaste un cambio de contraseña, por favor ignora este correo.</p>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <p style="font-size: 12px; color: #999;">© 2024 GymSystem. Todos los derechos reservados.</p>
+                        <a href="http://localhost:8086/indexCarrito" style="font-size: 12px; color: #FF5733;">Visita nuestro sitio web</a>
+                    </div>
+                </div>
+            `
         };
 
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.error("Error al enviar el correo electrónico:", error);
-                return res.status(500).json({
-                    msg: 'Error al enviar el correo electrónico'
-                });
-            }
-            res.json({ msg: 'Correo electrónico de recuperación enviado' });
-        });
+        await transporter.sendMail(mailOptions);
+
+        res.json({ msg: 'Correo electrónico de recuperación enviado' });
     } catch (error) {
-        console.error("Error en el controlador de solicitud de restablecimiento de contraseña:", error);
-        res.status(500).json({
-            msg: 'Hable con el administrador'
-        });
+        console.error("Error al solicitar restablecimiento de contraseña:", error);
+        res.status(500).json({ msg: 'Error al enviar el correo electrónico' });
     }
 };
 
-// Controlador para restablecer la contraseña
+
+
 export const resetPassword = async (req, res) => {
-    const { token } = req.params;
-    const { password, confirmPassword } = req.body;
+    const { token } = req.params; // Obtener el token de los parámetros de ruta
+    const { password } = req.body;
 
-    if (!password || !confirmPassword) {
-        return res.status(400).json({ msg: 'Por favor ingrese todos los campos' });
-    }
-
-    if (password !== confirmPassword) {
-        return res.status(400).json({ msg: 'Las contraseñas no coinciden' });
+    if (!password) {
+        return res.status(400).json({ msg: 'Por favor ingrese una contraseña' });
     }
 
     try {
-        const [rows] = await pool.query('SELECT * FROM PasswordResetTokens WHERE token = ? AND expiration > NOW()', [token]);
-        if (rows.length <= 0) {
-            return res.status(400).json({
-                msg: 'Token no válido o expirado'
-            });
+        // Verificar el token
+        const tokenData = tokenStore.get(token);
+        if (!tokenData || tokenData.expiration < Date.now()) {
+            return res.status(400).json({ msg: 'Token no válido o expirado' });
         }
 
-        const userId = rows[0].userId;  // Aquí se asume que la columna se llama 'userId'
+        // Actualizar la contraseña del usuario
         const hashedPassword = await bcrypt.hash(password, 10);
+        await pool.query('UPDATE Usuarios SET Contrasena = ? WHERE IdUsuario = ?', [hashedPassword, tokenData.userId]);
 
-        await pool.query('UPDATE Usuarios SET Contrasena = ? WHERE IdUsuario = ?', [hashedPassword, userId]);
-        await pool.query('DELETE FROM PasswordResetTokens WHERE token = ?', [token]);
+        // Eliminar el token
+        tokenStore.delete(token);
 
         res.json({ msg: 'Contraseña restablecida con éxito' });
     } catch (error) {
         console.error("Error en el controlador de restablecimiento de contraseña:", error);
-        res.status(500).json({
-            msg: 'Hable con el administrador'
-        });
+        res.status(500).json({ msg: 'Error al restablecer la contraseña' });
     }
 };
+
+
 
 // Controlador para la autenticación de usuarios
 export const login = async (req, res) => {

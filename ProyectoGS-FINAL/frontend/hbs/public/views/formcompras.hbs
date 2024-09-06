@@ -96,7 +96,7 @@
                 <label id="valorProducto" class="valorProducto">$ 0</label>
             </td>
             <td>
-                <input style="width: 100%; max-width: 90px;" type="number" name="cantidades[]" value="1" min="1" required oninput="calcularValorTotal(this.closest('tr'))">
+                <input style="width:90px" id="cantidadInput" type="number" name="cantidades[]" value="1" min="1" required oninput="calcularValorTotal(this.closest('tr'))">
             </td>
             <td>
                 <label id="valortotal" class="valortotal">$ 0</label>
@@ -126,7 +126,26 @@
         </div>
       </div>
     <!-- Fin contenido --> 
+<script>
+    // Función para filtrar entradas
+    const filtro = (event, inputElement) => {
+        let piso = parseInt(inputElement.value, 10) || 0; // Obtenemos el valor como entero
+        var tecla = event.key;
+        
+        // Prevenir teclas específicas
+        if (['.', '0', '-', '+'].includes(tecla)) {
+            event.preventDefault();
+        }
 
+        // Limitar el valor máximo
+        if (piso >= 999) {
+            inputElement.value = ''; // Resetea el valor si supera 999
+        }
+    };
+
+    // Añadir el event listener 'keydown' para ejecutar 'filtro'
+    document.getElementById('cantidadInput').addEventListener('keydown', (event) => filtro(event, event.target));
+</script>
     <!-- Footer Section Start -->
     <footer class="footer">
         {{> copyright}}

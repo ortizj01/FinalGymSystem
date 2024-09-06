@@ -5,7 +5,7 @@ const url = 'http://localhost:3000/api/categorias'
 
 
 const editarCategoria = async (id) => {
-    const NombreCategoriaProductos = document.getElementById('categoria').value;
+    const NombreCategoriaProductos = document.getElementById('categoriaEdit').value;
     const EstadoCategoriaProductos = document.getElementById('Estado').value;
 
 
@@ -209,7 +209,7 @@ const precargarDatosCategoriaEnFormulario = async (Id) => {
         const categoria = await response.json();
 
         // Precargar los datos del proveedor en el formulario
-        document.getElementById('categoria').value = categoria.NombreCategoriaProductos;
+        document.getElementById('categoriaEdit').value = categoria.NombreCategoriaProductos;
         document.getElementById('Estado').value = categoria.EstadoCategoriaProductos;
         document.getElementById('id').value = categoria.IdCategoriaProductos;
 

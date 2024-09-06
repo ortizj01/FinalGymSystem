@@ -27,7 +27,7 @@ const listarProductos= async () => {
             console.log('producto:', producto);
             
             // Asegurarse de que las propiedades existan
-            if (producto.NombreProducto && producto.PrecioProducto && producto.IvaProducto && producto.Imagen && producto.IdCategoriaProductos !== undefined) {
+            if (producto.NombreProducto && producto.PrecioProducto && producto.Imagen && producto.IdCategoriaProductos !== undefined) {
                 contenido += `
                     <tr>
                         <td>${producto.NombreProducto}</td>
@@ -195,7 +195,7 @@ const editarProductos = async () => {
     const EstadoProducto = document.getElementById('Estadoedit').value;
     const IdCategoriaProductos = document.getElementById('categoria').value;
 
-    if (!NombreProducto || !PrecioProducto || !IvaProducto || !EstadoProducto || !IdCategoriaProductos || !Imagen) {
+    if (!NombreProducto || !PrecioProducto || !IvaProducto || !EstadoProducto || !IdCategoriaProductos) {
         Swal.fire({
             icon: 'warning',
             title: 'Error',
@@ -209,9 +209,12 @@ const editarProductos = async () => {
     formData.append('NombreProducto', NombreProducto);
     formData.append('PrecioProducto', PrecioProducto);
     formData.append('IvaProducto', IvaProducto);
-    formData.append('Imagen', Imagen); // Añade el archivo aquí
     formData.append('EstadoProducto', EstadoProducto);
     formData.append('IdCategoriaProductos', IdCategoriaProductos);
+
+    if (Imagen) {
+        formData.append('Imagen', Imagen); // Añade el archivo aquí
+    }
 
     try {
         const response = await fetch(`${url}/${id}`, {
@@ -251,9 +254,12 @@ const editarProductos = async () => {
 const agregarProducto = async () => {
     const NombreProducto = document.getElementById('Nombreproducto').value;
     const PrecioProducto = document.getElementById('Precioproducto').value;
-    const IvaProducto = document.getElementById('Ivaproducto').value;
+    let IvaProducto = document.getElementById('Ivaproducto').value;
     const Imagen = document.getElementById('Imagen').files[0];  // Obtener el archivo de imagen
     const IdCategoriaProductos = document.getElementById('SelectorCategoria').value;
+
+
+    IvaProducto = IvaProducto ? IvaProducto : 0;
 
     if (NombreProducto === "" || PrecioProducto === "" || IvaProducto === "" || !Imagen || IdCategoriaProductos === "") {
         Swal.fire({
@@ -265,49 +271,49 @@ const agregarProducto = async () => {
         return;
     }
 
-    const formData = new FormData();
-    formData.append('NombreProducto', NombreProducto);
-    formData.append('PrecioProducto', PrecioProducto);
-    formData.append('IvaProducto', IvaProducto);
-    formData.append('Stock', '0');  // Asumiendo que Stock siempre es 0 al agregar
-    formData.append('Imagen', Imagen);
-    formData.append('EstadoProducto', '1');  // Asumiendo que EstadoProducto siempre es 1 al agregar
-    formData.append('IdCategoriaProductos', IdCategoriaProductos);
+        const formData = new FormData();
+        formData.append('NombreProducto', NombreProducto);
+        formData.append('PrecioProducto', PrecioProducto);
+        formData.append('IvaProducto', IvaProducto);
+        formData.append('Stock', '0');  // Asumiendo que Stock siempre es 0 al agregar
+        formData.append('Imagen', Imagen);
+        formData.append('EstadoProducto', '1');  // Asumiendo que EstadoProducto siempre es 1 al agregar
+        formData.append('IdCategoriaProductos', IdCategoriaProductos);
 
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            mode: 'cors',
-            body: formData
-        });
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                mode: 'cors',
+                body: formData
+            });
 
-        if (!response.ok) {
-            throw new Error('Error en la solicitud: ' + response.statusText);
-        }
-
-        const data = await response.json();
-        Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: 'Producto agregado con éxito',
-            confirmButtonText: 'Aceptar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '../productos';  // Redirigir a la lista de productos
+            if (!response.ok) {
+                throw new Error('Error en la solicitud: ' + response.statusText);
             }
-        });
 
-        // Actualizar la lista de productos después de agregar uno nuevo
-        listarProductos();
-    } catch (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Hubo un error al agregar el Producto',
-            confirmButtonText: 'Aceptar'
-        });
-    }
-};
+            const data = await response.json();
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: 'Producto agregado con éxito',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '../productos';  // Redirigir a la lista de productos
+                }
+            });
+
+            // Actualizar la lista de productos después de agregar uno nuevo
+            listarProductos();
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un error al agregar el Producto',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    };
 
 
 
@@ -357,9 +363,9 @@ const inputs = document.querySelectorAll('#formularioProductos input');
 
 
 const expresiones = {
-	Nombreproducto: /^[^0-9][a-zA-Z0-9]*$/, 
+	Nombreproducto: /[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ\s]+$/, 
     Precioproducto: /^(?:\d{1,3}(?:,\d{3})*(?:\.\d{1,2})?|\d+(?:\.\d{1,2})?)$/,
-	Ivaproducto:  /^([1-9]|[1-9][0-9]|100)%?$/
+	Ivaproducto:  /^([0-9]|[1-9][0-9]|100)%?$/
 }
 
 const campos={
