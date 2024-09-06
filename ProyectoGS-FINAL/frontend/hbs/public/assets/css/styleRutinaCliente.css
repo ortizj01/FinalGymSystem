@@ -25,9 +25,13 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 30%;
     max-width: 300px;
+    min-height: 300px; /* Altura mínima para todas las tarjetas */
     margin-bottom: 20px;
     overflow: hidden; /* Asegura que el contenido extra no se desborde */
     transition: max-height 0.3s ease; /* Suaviza los cambios en la altura */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye el espacio de manera uniforme */
 }
 
 /* Estilos para los ejercicios adicionales */
@@ -58,6 +62,7 @@
 /* Estilos para el cuerpo de la tarjeta */
 .card-body {
     padding: 15px;
+    flex-grow: 1; /* Permite que el cuerpo de la tarjeta crezca para llenar el espacio disponible */
     position: relative;
 }
 

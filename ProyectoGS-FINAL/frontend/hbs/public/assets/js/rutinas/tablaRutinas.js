@@ -32,7 +32,7 @@ const listarRutinas = async () => {
         
             if (rutina.NombreRutina && rutina.NombreCompletoUsuario && rutina.EstadoRutina !== undefined) {
                 
-                const estadoTexto = rutina.EstadoRutina === 1 ? 'ACTIVO' : 'INACTIVO';
+                const estadoTexto = rutina.EstadoRutina === 1 ? 'Activo' : 'Inactivo';
         
                 contenido += `
                     <tr>

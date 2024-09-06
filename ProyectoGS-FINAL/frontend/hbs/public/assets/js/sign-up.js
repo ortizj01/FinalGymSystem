@@ -2,6 +2,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const formularioRegistro = document.getElementById('formularioRegistro');
     const inputs = document.querySelectorAll('#formularioRegistro input, #formularioRegistro select');
 
+    // Funcionalidad de mostrar/ocultar contraseña
+    const togglePassword1 = document.getElementById('togglePassword1');
+    const togglePassword2 = document.getElementById('togglePassword2');
+    const passwordInput1 = document.getElementById('Contrasena');
+    const passwordInput2 = document.getElementById('confirmarPassword');
+
+    togglePassword1.addEventListener('click', function() {
+        const type = passwordInput1.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput1.setAttribute('type', type);
+        this.querySelector('i').classList.toggle('fa-eye-slash');
+    });
+
+    togglePassword2.addEventListener('click', function() {
+        const type = passwordInput2.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput2.setAttribute('type', type);
+        this.querySelector('i').classList.toggle('fa-eye-slash');
+    });
+
     // Función para validar que no haya campos vacíos
     const validarCamposVacios = () => {
         let camposValidos = true;

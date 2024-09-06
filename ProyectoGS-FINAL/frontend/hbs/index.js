@@ -55,10 +55,9 @@ app.get('/perfil', (req, res)=>{
     res.render('auth/user-account-setting')
 })
 
-app.get('/restablecer/:token', (req, res) => {
-    const { token } = req.params;
-    res.render('auth/new-password', { token });
-});
+app.get('/restablecer', (req, res) => {
+    res.render('auth/new-password'); // Renderiza el formulario sin lógica adicional aquí
+  });
 
 
 // FIN GESTION ACCESO

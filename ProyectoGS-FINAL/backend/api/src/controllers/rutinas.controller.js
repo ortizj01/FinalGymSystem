@@ -108,12 +108,16 @@ export const createRutinas = async (req, res) =>{
 export const updateRutina = async (req, res) => {
     const { IdRutina } = req.params;
     const { NombreRutina, EstadoRutina, IdUsuario } = req.body;
-    const [result] = await pool.query('UPDATE Rutinas SET NombreRutina = IFNULL(?, NombreRutina), EstadoRutina = IFNULL(?, EstadoRutina), IdUsuario = IFNULL(?, IdUsuario) WHERE IdRutina = ?',
-        [NombreRutina, EstadoRutina, IdUsuario, IdRutina]);
-    if(result.affectedRows === 0 ) return res.status(404).json({ message: 'Rutina no encontrada' });
-    const [rows] = await pool.query('SELECT * FROM Rutinas WHERE IdRutina = ?', [IdRutina]);
-    res.json(rows[0]);
+
+    try {
+        await pool.query('UPDATE Rutinas SET NombreRutina = ?, EstadoRutina = ?, IdUsuario = ? WHERE IdRutina = ?', [NombreRutina, EstadoRutina, IdUsuario, IdRutina]);
+        res.status(200).json({ message: 'Rutina actualizada con éxito' });
+    } catch (error) {
+        console.error('Error al actualizar la rutina:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
 };
+
 
 
 export const deleteRutina = async (req, res) => {
@@ -182,11 +186,44 @@ export const deleteEjerciciosDeRutina = async (req, res) => {
     }
 }
 
+export const eliminarEjercicioDeRutina = async (req, res) => {
+    const { IdRutina, IdEjercicio, DiaSemana } = req.params;
+
+    // Validar que diaSemana no sea undefined o esté fuera de rango
+    if (!DiaSemana || isNaN(DiaSemana) || DiaSemana < 1 || DiaSemana > 7) {
+        return res.status(400).json({ error: 'Día de la semana inválido' });
+    }
+
+    const query = `
+        DELETE FROM RutinasEjerciciosDiaSemana 
+        WHERE IdRutinaEjercicio = (
+            SELECT IdRutinaEjercicio 
+            FROM RutinasEjercicios 
+            WHERE IdRutina = ? AND IdEjercicio = ?
+            LIMIT 1
+        ) 
+        AND DiaSemana = ?
+    `;
+
+    try {
+        const [results] = await pool.query(query, [IdRutina, IdEjercicio, DiaSemana]);
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ error: 'Ejercicio no encontrado en la rutina para el día especificado' });
+        }
+
+        res.json({ success: true, message: 'Ejercicio eliminado de la rutina' });
+    } catch (error) {
+        console.error('Error al eliminar el ejercicio de la rutina:', error);
+        res.status(500).json({ error: 'Error al eliminar el ejercicio de la rutina' });
+    }
+};
+
 
 export const getRutinaCompletaPorUsuario = async (req, res) => {
     const { IdUsuario } = req.params;
 
-    // Consulta SQL para obtener los detalles de la rutina, incluyendo días de la semana, ejercicios, series y descripción del ejercicio
+    // Consulta SQL actualizada para incluir el campo RepeticionesEjercicio
     const query = `
         SELECT 
             r.IdRutina,
@@ -195,6 +232,7 @@ export const getRutinaCompletaPorUsuario = async (req, res) => {
             reds.DiaSemana,
             e.NombreEjercicio,
             e.DescripcionEjercicio,
+            e.RepeticionesEjercicio,  -- Nuevo campo agregado
             reds.Series
         FROM 
             Rutinas r
@@ -233,10 +271,11 @@ export const getRutinaCompletaPorUsuario = async (req, res) => {
                 acc[row.IdRutina].DiasSemana[row.DiaSemana] = [];
             }
 
-            // Agregar el ejercicio, su descripción y las series al día de la semana correspondiente
+            // Agregar el ejercicio, su descripción, las repeticiones y las series al día de la semana correspondiente
             acc[row.IdRutina].DiasSemana[row.DiaSemana].push({
                 NombreEjercicio: row.NombreEjercicio,
                 DescripcionEjercicio: row.DescripcionEjercicio,
+                RepeticionesEjercicio: row.RepeticionesEjercicio,  // Nuevo campo agregado
                 Series: row.Series
             });
 

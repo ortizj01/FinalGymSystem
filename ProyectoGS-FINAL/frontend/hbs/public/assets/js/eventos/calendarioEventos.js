@@ -366,11 +366,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     var modal = bootstrap.Modal.getInstance(document.getElementById('eventModal'));
                     modal.hide();
 
-                    // Mostrar notificación de éxito y recargar la página
                     toastr.success('El evento se guardó correctamente.', 'Éxito', {
                         positionClass: 'toast-top-right',
-                        timeOut: 3000,
-                         // Duración de la notificación en milisegundos
+                        timeOut: 3000, // Duración de la notificación en milisegundos
                     });
                 })
                 .catch(error => {
