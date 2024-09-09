@@ -35,7 +35,7 @@ const listarProductos = async () => {
             `<td><img src="${producto.Imagen}" alt="${producto.NombreProducto}" style="width:50px;height:50px;"></td>` +
             `<td>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary" data-product-id="${producto.IdProducto}">
+                    <button type="button" class="btn btn-primary btn-gestionar" data-product-id="${producto.IdProducto}">
                         <i class="fas fa-shopping-cart"></i> Gestionar
                     </button>
                 </div>
@@ -66,18 +66,16 @@ const listarProductos = async () => {
             }
         });
 
+        // Delegación de eventos para todos los botones de gestionar
+        $('#dataTableProductos').on('click', '.btn-gestionar', function () {
+            const productId = $(this).attr('data-product-id');
+            abrirModalProducto(productId);
+        });
     } else {
         console.error('No se encontró el elemento con id "tablaProductos"');
     }
-
-    // Re-bind click event for buttons
-    document.querySelectorAll('[data-product-id]').forEach(button => {
-        button.addEventListener('click', (event) => {
-            const productId = event.currentTarget.getAttribute('data-product-id');
-            abrirModalProducto(productId);
-        });
-    });
 };
+
 
 // Función para obtener las membresías de la API
 const obtenerMembresias = async () => {
@@ -116,7 +114,7 @@ const listarMembresias = async () => {
             `<td>${membresia.Estado == 1 ? 'Activo' : 'Inactivo'}</td>` +
             `<td>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-secondary" data-membresia-id="${membresia.IdMembresia}">
+                    <button type="button" class="btn btn-secondary btn-gestionar-membresia" data-membresia-id="${membresia.IdMembresia}">
                         <i class="fas fa-shopping-cart"></i> Gestionar
                     </button>
                 </div>
@@ -147,18 +145,16 @@ const listarMembresias = async () => {
             }
         });
 
+        // Delegación de eventos para todos los botones de gestionar membresías
+        $('#dataTableMembresias').on('click', '.btn-gestionar-membresia', function () {
+            const membresiaId = $(this).attr('data-membresia-id');
+            abrirModalMembresia(membresiaId);
+        });
     } else {
         console.error('No se encontró el elemento con id "tablaMembresias"');
     }
-
-    // Re-bind click event for buttons
-    document.querySelectorAll('[data-membresia-id]').forEach(button => {
-        button.addEventListener('click', (event) => {
-            const membresiaId = event.currentTarget.getAttribute('data-membresia-id');
-            abrirModalMembresia(membresiaId);
-        });
-    });
 };
+
 
 // Función para abrir el modal de opciones de producto
 const abrirModalProducto = async (productId) => {

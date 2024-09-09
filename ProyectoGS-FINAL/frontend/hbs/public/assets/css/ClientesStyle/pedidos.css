@@ -1,6 +1,6 @@
 /* Estilo para el encabezado de las tablas */
 .table thead tr {
-    background-color: coral; /* Fondo anaranjado */
+    background-color: gray; /* Fondo anaranjado */
     color: white; /* Texto blanco */
     font-weight: bold; /* Texto en negrita */
 }
@@ -8,7 +8,7 @@
 /* Estilo para el encabezado de la tabla de TOTAL PEDIDO */
 .table tfoot tr,
 .table thead tr th {
-    background-color: coral; /* Fondo anaranjado */
+    background-color: gray; /* Fondo anaranjado */
     color: white; /* Texto blanco */
     font-weight: bold; /* Texto en negrita */
 }
