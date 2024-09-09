@@ -51,10 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             <td>${servicio.NombreClase}</td>
                             <td>${estado}</td>
                             <td>
-                                <div class="d-flex justify-content-start">
-                                    <a href="#" class="btn-view me-2" data-id="${servicio.IdServicio}"><i class="fa-regular fa-eye fa-xl"></i></a>
-                                    <a href="#" class="btn-edit me-2" data-id="${servicio.IdServicio}"><i class="fa-regular fa-pen-to-square fa-xl"></i></a>
-                                </div>
+                                <div class="d-flex justify-content-center">
+    <a href="#" class="btn-view me-2" data-id="${servicio.IdServicio}"><i class="fa-regular fa-eye fa-xl"></i></a>
+    <a href="#" class="btn-edit me-2" data-id="${servicio.IdServicio}"><i class="fa-regular fa-pen-to-square fa-xl"></i></a>
+</div>
+
                             </td>
                         `;
                         tableBody.appendChild(row);

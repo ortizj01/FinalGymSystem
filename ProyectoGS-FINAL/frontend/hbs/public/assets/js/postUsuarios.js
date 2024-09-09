@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Datos del formulario:', jsonObject);
 
         // Validar si todos los campos están llenos
-        if (!jsonObject.Documento || !jsonObject.TipoDocumento || !jsonObject.Nombres || !jsonObject.Apellidos ||
-            !jsonObject.Correo || !jsonObject.Telefono || !jsonObject.FechaDeNacimiento || !jsonObject.Direccion ||
-            !jsonObject.Genero || !jsonObject.Contrasena || !jsonObject.Rol) {
+        if (!jsonObject.Documento || !jsonObject.TipoDocumento || !jsonObject.Nombre || !jsonObject.Apellidos ||
+            !jsonObject.Email || !jsonObject.Telefono || !jsonObject.FechaDeNacimiento || !jsonObject.Direccion ||
+            !jsonObject.Genero || !jsonObject.contrasena || !jsonObject.Rol) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Error',
@@ -63,14 +63,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 const usuario = {
                     Documento: jsonObject.Documento,
                     TipoDocumento: jsonObject.TipoDocumento,
-                    Nombres: jsonObject.Nombres,
+                    Nombres: jsonObject.Nombre, // Actualizado de 'Nombres' a 'Nombre'
                     Apellidos: jsonObject.Apellidos,
-                    Correo: jsonObject.Correo,
+                    Correo: jsonObject.Email, // Actualizado de 'Correo' a 'Email'
                     Telefono: jsonObject.Telefono,
                     FechaDeNacimiento: jsonObject.FechaDeNacimiento,
                     Direccion: jsonObject.Direccion,
                     Genero: jsonObject.Genero,
-                    Contrasena: jsonObject.Contrasena,
+                    Contrasena: jsonObject.contrasena, // Actualizado de 'Contrasena' a 'contrasena'
                     Estado: 1, // Asegúrate de que el estado siempre sea activo
                     Beneficiario: jsonObject.Beneficiario || null
                 };
@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
 
 
@@ -389,6 +390,5 @@ const precargarDatosUsuarioEnFormulario = async () => {
     }
 };
 
-// Llamar a la función cuando la página se cargue
 
 

@@ -37,6 +37,31 @@
                     <div class="card-body">
                         <form id="formularioUsuariosEditar">
                             <div class="row">
+                              
+                             <!-- Tipo de Documento -->
+
+                               <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Tipo de Documento*</label>
+                                        <select class="form-select" name="TipoDocumento" id="TipoDocumento" required>
+                                            <option value="" disabled selected hidden>Seleccionar Documento</option>
+                                            <option value="cedula_ciudadania">Cédula de ciudadania</option>
+                                            <option value="pasaporte">Pasaporte</option>
+                                        </select>
+                                        <span class="error-message" id="tipoDocumento-error"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Documento -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Documento*</label>
+                                        <input type="text" class="form-control" name="Documento" placeholder="Documento" id="Documento" required />
+                                        <span class="error-message" id="cedula-error"></span>
+                                    </div>
+                                </div>
+
+                              
                                 <!-- Nombre -->
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -73,28 +98,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Tipo de Documento -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Tipo de Documento*</label>
-                                        <select class="form-select" name="TipoDocumento" id="TipoDocumento" required>
-                                            <option value="" disabled selected hidden>Seleccionar Documento</option>
-                                            <option value="cedula_ciudadania">Cédula de ciudadania</option>
-                                            <option value="pasaporte">Pasaporte</option>
-                                        </select>
-                                        <span class="error-message" id="tipoDocumento-error"></span>
-                                    </div>
-                                </div>
-
-                                <!-- Documento -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Documento*</label>
-                                        <input type="text" class="form-control" name="Documento" placeholder="Documento" id="Documento" required />
-                                        <span class="error-message" id="cedula-error"></span>
-                                    </div>
-                                </div>
-
+                               
                                 <!-- Fecha de Nacimiento -->
                                 <div class="col-md-6">
                                     <div class="form-group">
