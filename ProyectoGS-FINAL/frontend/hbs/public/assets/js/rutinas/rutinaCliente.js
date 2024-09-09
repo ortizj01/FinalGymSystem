@@ -52,13 +52,13 @@ async function obtenerRutinaAsignada(idUsuario) {
 // Función para convertir número de día a nombre del día en español
 function obtenerNombreDia(numeroDia) {
     const diasSemana = {
-        1: 'LUNES',
-        2: 'MARTES',
-        3: 'MIÉRCOLES',
-        4: 'JUEVES',
-        5: 'VIERNES',
-        6: 'SÁBADO',
-        7: 'DOMINGO'
+        1: 'Lunes',
+        2: 'Martes',
+        3: 'Miércoles',
+        4: 'Jueves',
+        5: 'Viernes',
+        6: 'Sábado',
+        7: 'Domingo'
     };
     return diasSemana[numeroDia] || 'Día desconocido';
 }
@@ -112,6 +112,7 @@ function mostrarRutina(rutina) {
                             <div class="card-exercise">
                                 <h5 class="card-title">${ejercicios[0].NombreEjercicio || 'Sin nombre'}</h5>
                                 <p class="card-text">${ejercicios[0].DescripcionEjercicio || 'Sin descripción'}</p>
+                                <p class="card-repeticiones"><strong>Repeticiones:</strong> ${ejercicios[0].RepeticionesEjercicio || 'Sin Repeticiones:'}</p>
                                 <p class="card-series"><strong>Series:</strong> ${ejercicios[0].Series || 'Sin series'}</p>
                             </div>
                             ${ejercicios.length > 1 ? `
@@ -120,6 +121,7 @@ function mostrarRutina(rutina) {
                                         <div class="card-exercise">
                                             <h5 class="card-title">${ejercicio.NombreEjercicio || 'Sin nombre'}</h5>
                                             <p class="card-text">${ejercicio.DescripcionEjercicio || 'Sin descripción'}</p>
+                                            <p class="card-repeticiones"><strong>Repeticiones:</strong> ${ejercicio.RepeticionesEjercicio || 'Sin Repeticiones'}</p>
                                             <p class="card-series"><strong>Series:</strong> ${ejercicio.Series || 'Sin series'}</p>
                                         </div>
                                     `).join('')}

@@ -37,8 +37,11 @@ function mostrarInformacionUsuario() {
         console.log('Datos del usuario recibidos:', data); // Verificar los datos recibidos
             // Actualizar el nombre y el rol del usuario en la topbar
             if (document.getElementById('userName')) {
-                document.getElementById('userName').textContent = data.Nombres || '';
+                const nombres = data.Nombres || '';
+                const apellidos = data.Apellidos || '';
+                document.getElementById('userName').textContent = `${nombres} ${apellidos}`;
             }
+            
             if (document.getElementById('userRole')) {
                 document.getElementById('userRole').textContent = data.Rol || ''; // Asegúrate de que esta clave coincide con los datos devueltos
             }

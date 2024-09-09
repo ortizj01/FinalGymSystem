@@ -25,7 +25,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 30%;
     max-width: 300px;
-    min-height: 300px; /* Altura mínima para todas las tarjetas */
+    min-height: 350px; /* Altura mínima para todas las tarjetas */
     margin-bottom: 20px;
     overflow: hidden; /* Asegura que el contenido extra no se desborde */
     transition: max-height 0.3s ease; /* Suaviza los cambios en la altura */
@@ -86,6 +86,12 @@
 .card-series {
     font-size: 14px;
     color: #007bff;
+    font-weight: bold;
+}
+
+.card-repeticiones {
+    font-size: 14px;
+    color: #000000;
     font-weight: bold;
 }
 
