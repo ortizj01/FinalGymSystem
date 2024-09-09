@@ -9,7 +9,7 @@ const expresiones = {
     Email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, // Correo electrónico
     Telefono: /^\d{10}$/, // Teléfono de 10 dígitos
     FechaDeNacimiento: /^\d{4}-\d{2}-\d{2}$/, // Fecha en formato YYYY-MM-DD
-    Direccion: /^[a-zA-Z0-9\s,.-]+$/, // Direcciones comunes
+    Direccion: /^[a-zA-Z0-9\s,.\-#]+$/, // Direcciones comunes
     Genero: /^(Masculino|Femenino|Otro)$/,
     Rol: /^(?!Seleccionar Rol$).*$/, // Excluye el valor por defecto "Seleccionar Rol"
     contrasena: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,12}$/, // Mínimo 8 caracteres, al menos una letra y un número
@@ -33,7 +33,7 @@ const campos = {
 
 const validarFormularioUsuarios = (e) => {
 
-    console.log(`Evento: ${e.type}, Campo: ${e.target.name}`); // Agrega este log
+    console.log(`Evento: ${e.type}, Campo: ${e.target.name}`); // Agrega este log para depuración
 
     switch (e.target.name) {
         case "TipoDocumento":
@@ -68,10 +68,10 @@ const validarFormularioUsuarios = (e) => {
             break;
         case "contrasena":
             validarCampo(expresiones.contrasena, e.target, "contrasena");
-            validarConfirmarContrasena();
+            validarConfirmarContrasena();  // Aquí también se llama a validarConfirmarContrasena
             break;
         case "ConfirmarContrasena":
-            validarConfirmarContrasena();
+            validarConfirmarContrasena();  // Sigue validando normalmente este campo
             break;
     }
 };
@@ -107,8 +107,7 @@ const validarConfirmarContrasena = () => {
     const contrasena = document.getElementById('contrasena').value;
     const confirmarContrasena = document.getElementById('confirmarContrasena').value;
 
-    console.log(`Contraseña: ${contrasena}, Confirmar Contraseña: ${confirmarContrasena}`); // Agrega este log
-
+    console.log(`Contraseña: ${contrasena}, Confirmar Contraseña: ${confirmarContrasena}`); // Log para depuración
 
     if (contrasena === confirmarContrasena && contrasena !== "") {
         document.getElementById('grupo__confirmarContrasena').classList.remove("formulario__grupo-incorrecto");
@@ -126,6 +125,7 @@ const validarConfirmarContrasena = () => {
         campos.ConfirmarContrasena = false;
     }
 };
+
 
 inputs.forEach((input) => {
     input.addEventListener('keyup', validarFormularioUsuarios);
