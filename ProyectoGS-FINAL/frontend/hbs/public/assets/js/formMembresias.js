@@ -4,14 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const expresiones = {
         NombreMembresia: /^.{3,}$/,  // Al menos 3 caracteres
         Frecuencia: /^[1-9]\d*$/,  // Solo números mayores a 0
-        CostoVenta: /^[1-9]\d*(\.\d{1,2})?$/,  // Números mayores a 0, hasta dos decimales
+        Costoventa: /^[1-9]\d*(\.\d{1,2})?$/,  // Números mayores a 0, hasta dos decimales
         Descripcion: /^.{10,}$/  // Al menos 10 caracteres
     };
 
     const campos = {
         NombreMembresia: false,
         Frecuencia: false,
-        CostoVenta: false,
+        Costoventa: false,
         Descripcion: false
     };
 
@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
             case "Frecuencia":
                 validarCampo(expresiones.Frecuencia, e.target, 'Frecuencia');
                 break;
-            case "CostoVenta":
-                validarCampo(expresiones.CostoVenta, e.target, 'CostoVenta');
+            case "Costoventa":
+                validarCampo(expresiones.Costoventa, e.target, 'Costoventa');
                 break;
             case "Descripcion":
                 validarCampo(expresiones.Descripcion, e.target, 'Descripcion');
@@ -75,6 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     text: 'La membresía se guardó con éxito.',
                     icon: 'success',
                     confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirigir a la página de membresiasAdmin
+                        window.location.href = '/membresiasAdmin'; // Asegúrate de que la URL sea correcta
+                    }
                 });
 
                 // Resetea el formulario

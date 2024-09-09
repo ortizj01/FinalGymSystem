@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${membresia.Frecuencia}</td>
                     <td>${estado}</td>
                     <td>
-                        <div class="d-flex justify-content-start">
+                        <div class="d-flex justify-content-center">
                             <a href="detalleMembresia?id=${membresia.IdMembresia}" class="me-2"><i class="fa-regular fa-eye fa-lg"></i></a>
                             <a href="formMembresiasModal?id=${membresia.IdMembresia}" class="me-2"><i class="fa-regular fa-pen-to-square fa-lg"></i></a>
                         </div>
@@ -156,13 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data) {
                 console.log('Servicios asignados a la membresía:', data);
             }
-            Swal.fire({
-                title: "¡Excelente!",
-                text: "Membresía registrada correctamente!",
-                icon: "success"
-            }).then(() => {
-                location.reload();
-            });
         })
         .catch(error => {
             console.error('Error:', error);

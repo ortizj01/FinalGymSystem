@@ -1,5 +1,8 @@
-const formularioUsuarios = document.getElementById('formularioUsuarios');
-const inputs = document.querySelectorAll('#formularioUsuarios input, #formularioUsuarios select');
+document.addEventListener('DOMContentLoaded', () => {
+    // Aquí va tu código de validación
+
+const formularioUsuarios = document.getElementById('formularioUsuariosEditar');
+const inputs = document.querySelectorAll('#formularioUsuariosEditar input, #formularioUsuariosEditar select');
 
 const expresiones = {
     TipoDocumento: /^(cedula_ciudadania|pasaporte)$/,
@@ -12,7 +15,7 @@ const expresiones = {
     Direccion: /^[a-zA-Z0-9\s,.-]+$/, // Direcciones comunes
     Genero: /^(Masculino|Femenino|Otro)$/,
     Rol: /^(?!Seleccionar Rol$).*$/, // Excluye el valor por defecto "Seleccionar Rol"
-    contrasena: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,12}$/, // Mínimo 8 caracteres, al menos una letra y un número
+    contrasena: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, // Mínimo 8 caracteres, al menos una letra y un número
     ConfirmarContrasena: /^.*$/ // Solo se valida si coincide con la contraseña
 };
 
@@ -149,4 +152,6 @@ formularioUsuarios.addEventListener('submit', (e) => {
             document.getElementById('formulario__mensaje').classList.remove('formulario__mensaje-activo');
         }, 3000);
     }
+});
+    // Aquí va tu código de validación
 });

@@ -39,7 +39,7 @@
                             <div class="row">
                                 <!-- Tipo de Documento -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__TipoDocumento">
-                                    <div class="form-group">
+                                    <div class="form-group" id="grupo__TipoDocumento">
                                         <label class="form-label">Tipo de Documento*</label>
                                         <div class="formulario__grupo-input">
                                             <select class="form-select" name="TipoDocumento" id="TipoDocumento" required>
@@ -47,7 +47,7 @@
                                                 <option value="cedula_ciudadania">Cédula de Ciudadanía</option>
                                                 <option value="Pasaporte">Pasaporte</option>
                                             </select>
-                                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                            <i  class="formulario__validacion-estado fas fa-times-circle"></i>
                                         </div>
                                         <p class="formulario__input-error">Por favor selecciona un tipo de documento</p>
                                     </div>
@@ -55,7 +55,7 @@
 
                                 <!-- Documento -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__Documento">
-                                    <div class="form-group">
+                                    <div class="form-group" id="grupo__Documento">
                                         <label class="form-label">Documento*</label>
                                         <div class="formulario__grupo-input">
                                             <input type="text" class="form-control" name="Documento" id="Documento2" placeholder="Documento" required />
@@ -67,10 +67,10 @@
 
                                 <!-- Nombre -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__Nombre">
-                                    <div class="form-group">
+                                    <div class="form-group" id="grupo__Nombre">
                                         <label class="form-label">Nombre*</label>
                                         <div class="formulario__grupo-input">
-                                            <input type="text" class="form-control" name="Nombres" id="Nombre" placeholder="Nombre" required />
+                                            <input type="text" class="form-control" name="Nombre" id="Nombre" placeholder="Nombre" required />
                                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                         </div>
                                         <p class="formulario__input-error">Por favor ingresa un nombre válido</p>
@@ -79,7 +79,7 @@
 
                                 <!-- Apellidos -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__Apellidos">
-                                    <div class="form-group">
+                                    <div class="form-group" id="grupo__Apellidos">
                                         <label class="form-label">Apellidos*</label>
                                         <div class="formulario__grupo-input">
                                             <input type="text" class="form-control" name="Apellidos" id="Apellidos2" placeholder="Apellidos" required />
@@ -91,10 +91,10 @@
 
                                 <!-- Email -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__Email">
-                                    <div class="form-group">
-                                        <label class="form-label">Correo electrónico</label>
+                                    <div class="form-group" id="grupo__Email">
+                                        <label class="form-label">Correo electrónico*</label>
                                         <div class="formulario__grupo-input">
-                                            <input type="email" class="form-control" name="Correo" id="Email" placeholder="E-mail" />
+                                            <input type="email" class="form-control" name="Email" id="Email" placeholder="E-mail" />
                                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                                         </div>
                                         <p class="formulario__input-error">Por favor ingresa un correo electrónico válido</p>
@@ -103,7 +103,7 @@
 
                                 <!-- Teléfono -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__Telefono">
-                                    <div class="form-group">
+                                    <div class="form-group" id="grupo__Telefono">
                                         <label class="form-label">Teléfono*</label>
                                         <div class="formulario__grupo-input">
                                             <input type="text" class="form-control" name="Telefono" id="Telefono2" placeholder="Teléfono" required />
@@ -115,7 +115,7 @@
 
                                 <!-- Fecha de Nacimiento -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__FechaDeNacimiento">
-                                    <div class="form-group">
+                                    <div class="form-group" id="grupo__FechaDeNacimiento">
                                         <label class="form-label">Fecha de Nacimiento*</label>
                                         <div class="formulario__grupo-input">
                                             <input type="date" class="form-control" name="FechaDeNacimiento" id="FechaDeNacimiento2" required />
@@ -127,7 +127,7 @@
 
                                 <!-- Dirección -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__Direccion">
-                                    <div class="form-group">
+                                    <div class="form-group" id="grupo__Direccion">
                                         <label class="form-label">Dirección*</label>
                                         <div class="formulario__grupo-input">
                                             <input type="text" class="form-control" name="Direccion" id="Direccion2" placeholder="Dirección" required />
@@ -139,7 +139,7 @@
 
                                 <!-- Género -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__Genero">
-                                    <div class="form-group">
+                                    <div class="form-group" id="grupo__Genero">
                                         <label class="form-label">Género*</label>
                                         <div class="formulario__grupo-input">
                                             <select class="form-select" name="Genero" id="Genero2" required>
@@ -156,7 +156,7 @@
 
                                 <!-- Rol -->
                                 <div class="col-md-6 formulario__grupo" id="grupo__Rol">
-                                    <div class="form-group">
+                                    <div class="form-group" id="grupo__Rol">
                                         <label class="form-label">Rol*</label>
                                         <div class="formulario__grupo-input">
                                             <select id="rolesSelect" class="form-select" name="Rol" required>
@@ -168,36 +168,46 @@
                                     </div>
                                 </div>
                                 <!-- Contraseña -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Contraseña*</label>
-                                        <div class="input-group">
-                                            <input type="password" class="form-control" name="Contrasena" id="contrasena" placeholder="Contraseña" required />
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                                    <span class="fa-regular fa-eye-slash fa-xl me-2"></span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <span class="error-message" id="contrasena-error"></span>
-                                    </div>
-                                </div>
+                              <div class="col-md-6">
+    <div class="form-group formulario__grupo" id="grupo__contrasena">
+        <div class="formulario__grupo-input">
+            <label for="contrasena">Contraseña *</label>
+            <div class="input-group">
+                <input type="password" class="form-control" name="contrasena" id="contrasena" aria-describedby="contrasenaHelp" placeholder="Contraseña" required />
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                        <span class="fa-regular fa-eye-slash fa-xl me-2"></span>
+                    </button>
+                </div>
+            </div>
+            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+        </div>
+        <p class="formulario__input-error" id="contrasena-error">La contraseña debe tener entre 4 y 12 caracteres, incluyendo al menos una mayúscula y un número.</p>
+        <small id="contrasenaHelp" class="form-text text-muted"><br></small>
+    </div>
+</div>
+
 
                                 <!-- Confirmar Contraseña -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label">Confirmar Contraseña*</label>
-                                        <div class="input-group">
-                                            <input type="password" class="form-control" name="confirmarContrasena" id="confirmarContrasena" placeholder="Confirme Contraseña" required />
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
-                                                    <span class="fa-regular fa-eye-slash fa-xl me-2"></span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <span class="error-message" id="confirmarContrasena-error"></span>
-                                    </div>
-                                </div>
+                               <div class="col-md-6">
+    <div class="form-group formulario__grupo" id="grupo__confirmarContrasena">
+        <div class="formulario__grupo-input">
+            <label for="confirmarContrasena">Confirmar Contraseña *</label>
+            <div class="input-group">
+                <input type="password" class="form-control" name="confirmarContrasena" id="confirmarContrasena" aria-describedby="confirmarContrasenaHelp" placeholder="Confirme Contraseña" required />
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                        <span class="fa-regular fa-eye-slash fa-xl me-2"></span>
+                    </button>
+                </div>
+            </div>
+            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+        </div>
+        <p class="formulario__input-error" id="confirmarContrasena-error">Las contraseñas no coinciden</p>
+        <small id="confirmarContrasenaHelp" class="form-text text-muted"><br></small>
+    </div>
+</div>
+
                             </div>
 
                             <div class="row mt-4">
@@ -244,7 +254,7 @@
         });
     </script>
     <script src="../assets/js/postUsuarios.js"></script>
-    {{!-- <script src="../assets/js/UsuarosValidaciones.js"></script> --}}
+    <script src="../assets/js/UsuarosValidaciones.js"></script>
 
     {{> footer}}
 </body>
