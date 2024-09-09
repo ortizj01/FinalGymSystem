@@ -108,11 +108,6 @@ const validarFormulario = (e) => {
         }
     } else {
         limpiarValidacion(e.target, campo);
-        Swal.fire({
-            icon: 'error',
-            title: 'Campo vacío',
-            text: `Por favor, complete el campo ${campo}.`
-        });
     }
 };
 
