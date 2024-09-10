@@ -61,7 +61,7 @@ export const getDevolucionVenta = async (req, res) => {
         console.error('Error al obtener la devolución:', error);
         res.status(500).json({ message: 'Error al obtener la devolución' });
     }
-};``
+};
 
 export const postDevolucionVentas = async (req, res) => {
     const { Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta, FechaDevolucion, productos } = req.body;
