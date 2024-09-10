@@ -34,7 +34,7 @@ const formatearFecha = (fecha) => {
 
 // Función para formatear números como cantidades de dinero sin decimales con separadores de miles
 const formatearDinero = (cantidad) => {
-    return cantidad.toLocaleString('es-ES', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+    return cantidad.toLocaleString('es-ES');
 };
 
 // Función para listar los pedidos y mostrarlos en la tabla
