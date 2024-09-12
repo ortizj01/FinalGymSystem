@@ -9,7 +9,7 @@ const expresiones = {
     Email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, // Correo electrónico
     Telefono: /^\d{10}$/, // Teléfono de 10 dígitos
     FechaDeNacimiento: /^\d{4}-\d{2}-\d{2}$/, // Fecha en formato YYYY-MM-DD
-    Direccion: /^[a-zA-Z0-9\s,.-]+$/, // Direcciones comunes
+    Direccion: /^[a-zA-Z0-9\s,.\-#]+$/, // Direcciones comunes
     Genero: /^(Masculino|Femenino|Otro)$/,
     Rol: /^(?!Seleccionar Rol$).*$/, // Excluye el valor por defecto "Seleccionar Rol"
     contrasena: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{4,12}$/, // Mínimo 8 caracteres, al menos una letra y un número

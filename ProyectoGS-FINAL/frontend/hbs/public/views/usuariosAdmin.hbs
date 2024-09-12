@@ -99,7 +99,7 @@
         // Función para listar usuarios
         async function listarUsuarios() {
             try {
-                const response = await fetch('http://localhost:3000/api/usuarios');
+                const response = await fetch('https://finalgymsystem.onrender.com/api/usuarios');
                 const users = await response.json();
                 
                 // Obtener la tabla
