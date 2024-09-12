@@ -93,7 +93,7 @@ const cargarProductosDeVenta = async (ventaId) => {
             const btnEliminar = document.createElement('button');
             btnEliminar.type = 'button';
             btnEliminar.className = 'btn btn-soft-danger';
-            btnEliminar.textContent = 'Eliminar';
+            btnEliminar.textContent = 'Quitar Devolución';
             btnEliminar.onclick = function() {
                 tr.remove();
                 calcularValorTotal();
