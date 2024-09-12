@@ -11,7 +11,7 @@ function obtenerRol(data) {
 
 // Función para obtener y mostrar información del usuario
 function mostrarInformacionUsuario() {
-    const url3 = "http://localhost:3000/api/permisoRolesDetallePrincipal";
+    const url3 = "https://finalgymsystem.onrender.com/api/permisoRolesDetallePrincipal";
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -19,7 +19,7 @@ function mostrarInformacionUsuario() {
         return;
     }
 
-    fetch('http://localhost:3000/api/auth/usuario-autenticado', {
+    fetch('https://finalgymsystem.onrender.com/api/auth/usuario-autenticado', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -757,7 +757,7 @@ async function cerrarSesion() {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/api/auth/logout', { 
+        const response = await fetch('https://finalgymsystem.onrender.com/api/auth/logout', { 
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

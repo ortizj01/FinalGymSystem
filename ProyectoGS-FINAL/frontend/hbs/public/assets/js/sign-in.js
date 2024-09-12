@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3000/api/auth/login';
+const apiUrl = 'https://finalgymsystem.onrender.com/api/auth/login';
 
 function handleLogin() {
     const email = document.getElementById('email').value;
@@ -41,7 +41,7 @@ function handleLogin() {
             localStorage.setItem('token', data.token); // Guardar el token en localStorage
 
             // Realizar una solicitud para obtener los detalles del usuario autenticado
-            fetch('http://localhost:3000/api/auth/usuario-autenticado', {
+            fetch('https://finalgymsystem.onrender.com/api/auth/usuario-autenticado', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

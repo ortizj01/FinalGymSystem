@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         jsonObject['Estado'] = 1;
 
         // Paso 1: Enviar los datos a tu API para crear el usuario
-        fetch('http://localhost:3000/api/usuarios', {
+        fetch('https://finalgymsystem.onrender.com/api/usuarios', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const userId = data.IdUsuario; // Asumo que el ID del usuario se devuelve como IdUsuario en la respuesta
 
             // Paso 3: Asignar el rol de cliente al usuario creado
-            return fetch('http://localhost:3000/api/assign-role', {
+            return fetch('https://finalgymsystem.onrender.com/api/assign-role', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

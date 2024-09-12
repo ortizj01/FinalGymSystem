@@ -20,9 +20,9 @@ $(document).ready(function() {
     }
 
     function fetchEjercicios(rutinaId, getAll = true) {
-        let url = 'http://localhost:3000/api/ejercicios';
+        let url = 'https://finalgymsystem.onrender.com/api/ejercicios';
         if (rutinaId && !getAll) {
-            url = `http://localhost:3000/api/rutinas/${rutinaId}/detallada`;
+            url = `https://finalgymsystem.onrender.com/api/rutinas/${rutinaId}/detallada`;
         }
         return fetchWithAuth(url)
             .then(response => response.json())
@@ -30,7 +30,7 @@ $(document).ready(function() {
     }
 
     function fetchUsuarios() {
-        return fetchWithAuth('http://localhost:3000/api/usuariosRutina')
+        return fetchWithAuth('https://finalgymsystem.onrender.com/api/usuariosRutina')
             .then(response => response.json())
             .then(usuarios => {
                 // Aquí no filtramos por IdRol, asumiendo que la API ya maneja esto
@@ -176,7 +176,7 @@ $(document).ready(function() {
             // Verificar que el día de la semana sea válido
             if (dayNumber !== undefined) {
                 // Enviar solicitud DELETE para eliminar el ejercicio de la rutina
-                fetchWithAuth(`http://localhost:3000/api/rutinas/${rutinaId}/ejercicios/${ejercicioId}/${dayNumber}`, {
+                fetchWithAuth(`https://finalgymsystem.onrender.com/api/rutinas/${rutinaId}/ejercicios/${ejercicioId}/${dayNumber}`, {
                     method: 'DELETE'
                 })
                 .then(response => {
@@ -222,7 +222,7 @@ $(document).ready(function() {
     let loadedExercises = {}; // Objeto para almacenar los ejercicios por día
 
 function loadRoutineData(rutinaId) {
-    fetchWithAuth(`http://localhost:3000/api/rutinas/${rutinaId}`)
+    fetchWithAuth(`https://finalgymsystem.onrender.com/api/rutinas/${rutinaId}`)
         .then(response => response.json())
         .then(async data => {
             console.log('Datos de la rutina recibidos:', data);
@@ -382,7 +382,7 @@ function loadRoutineData(rutinaId) {
         };
     
         const method = rutinaId ? 'PUT' : 'POST';
-        const endpoint = rutinaId ? `http://localhost:3000/api/rutinas/${rutinaId}` : 'http://localhost:3000/api/rutinas';
+        const endpoint = rutinaId ? `https://finalgymsystem.onrender.com/api/rutinas/${rutinaId}` : 'https://finalgymsystem.onrender.com/api/rutinas';
     
         if (rutinaId) {
             const estadoRutina = $('select[name="estadoRutina"]').val();
@@ -404,7 +404,7 @@ function loadRoutineData(rutinaId) {
             const promises = [];
     
             // Obtener los ejercicios existentes en la rutina
-            return fetchWithAuth(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios`)
+            return fetchWithAuth(`https://finalgymsystem.onrender.com/api/rutinas/${newRutinaId}/ejercicios`)
             .then(response => response.json())
             .then(existingExercises => {
                 const existingExerciseMap = {};
@@ -430,7 +430,7 @@ function loadRoutineData(rutinaId) {
     
                                 if (existingExerciseMap[key]) {
                                     // Si el ejercicio ya existe, actualizamos las series si son diferentes
-                                    const promise = fetchWithAuth(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios/${existingExerciseMap[key]}/detalles`, {
+                                    const promise = fetchWithAuth(`https://finalgymsystem.onrender.com/api/rutinas/${newRutinaId}/ejercicios/${existingExerciseMap[key]}/detalles`, {
                                         method: 'PUT',
                                         body: JSON.stringify({ Series: series })
                                     });
@@ -439,13 +439,13 @@ function loadRoutineData(rutinaId) {
                                     delete existingExerciseMap[key]; // Quitamos este ejercicio del mapa ya que lo estamos manejando
                                 } else {
                                     // Si el ejercicio no existe, lo agregamos
-                                    const promise = fetchWithAuth(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios`, {
+                                    const promise = fetchWithAuth(`https://finalgymsystem.onrender.com/api/rutinas/${newRutinaId}/ejercicios`, {
                                         method: 'POST',
                                         body: JSON.stringify({ IdEjercicio: ejercicioId })
                                     })
                                     .then(response => response.json())
                                     .then(data => {
-                                        const detallePromise = fetchWithAuth(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios/${data.id}/detalles`, {
+                                        const detallePromise = fetchWithAuth(`https://finalgymsystem.onrender.com/api/rutinas/${newRutinaId}/ejercicios/${data.id}/detalles`, {
                                             method: 'POST',
                                             body: JSON.stringify({ DiaSemana: dayNumber, Series: series })
                                         });
@@ -463,7 +463,7 @@ function loadRoutineData(rutinaId) {
                 // Eliminar los ejercicios que ya no están en el formulario
                 Object.keys(existingExerciseMap).forEach(key => {
                     const rutinaEjercicioId = existingExerciseMap[key];
-                    const deletePromise = fetchWithAuth(`http://localhost:3000/api/rutinas/${newRutinaId}/ejercicios/${rutinaEjercicioId}`, {
+                    const deletePromise = fetchWithAuth(`https://finalgymsystem.onrender.com/api/rutinas/${newRutinaId}/ejercicios/${rutinaEjercicioId}`, {
                         method: 'DELETE'
                     });
                     promises.push(deletePromise);

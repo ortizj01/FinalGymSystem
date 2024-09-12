@@ -2,7 +2,7 @@
 async function obtenerIdUsuario() {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3000/api/auth/usuario-autenticado', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/auth/usuario-autenticado', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ async function obtenerIdUsuario() {
 // Función para obtener la rutina asignada al cliente
 async function obtenerRutinaAsignada(idUsuario) {
     try {
-        const response = await fetch(`http://localhost:3000/api/rutinas/completa/${idUsuario}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/rutinas/completa/${idUsuario}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

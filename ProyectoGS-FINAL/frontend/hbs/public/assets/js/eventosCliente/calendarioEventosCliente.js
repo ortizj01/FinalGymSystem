@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 // Cargar eventos desde la API utilizando el token JWT
-                fetch('http://localhost:3000/api/eventos', {
+                fetch('https://finalgymsystem.onrender.com/api/eventos', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     EstadoAgenda: isActive ? 1 : 0
                 };
 
-                var url = eventId ? `http://localhost:3000/api/eventos/${eventId}` : 'http://localhost:3000/api/eventos';
+                var url = eventId ? `https://finalgymsystem.onrender.com/api/eventos/${eventId}` : 'https://finalgymsystem.onrender.com/api/eventos';
                 var method = eventId ? 'PUT' : 'POST';
 
                 // Enviar solicitud al servidor con JWT
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             return Promise.all([
-                fetch('http://localhost:3000/api/servicios', {
+                fetch('https://finalgymsystem.onrender.com/api/servicios', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     return response.json();
                 }),
-                fetch('http://localhost:3000/api/entrenadores', {
+                fetch('https://finalgymsystem.onrender.com/api/entrenadores', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'

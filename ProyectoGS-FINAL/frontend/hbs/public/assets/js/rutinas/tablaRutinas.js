@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/api/rutinas/';
+const url = 'https://finalgymsystem.onrender.com/api/rutinas/';
 
 const listarRutinas = async () => {
     let ObjectId = document.getElementById('contenidoRutina'); 

@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/api/ejercicios';
+const url = 'https://finalgymsystem.onrender.com/api/ejercicios';
 let editingMode = false;
 
 // Función para listar ejercicios en la tabla

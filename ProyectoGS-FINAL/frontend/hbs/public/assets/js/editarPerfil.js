@@ -12,7 +12,7 @@ async function actualizarDatos(event) {
 
     try {
         // Obtener datos del usuario autenticado desde la API
-        const response = await fetch('http://localhost:3000/api/auth/usuario-autenticado', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/auth/usuario-autenticado', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ async function actualizarDatos(event) {
         }
 
         // Realizar la actualización de los datos del usuario si hay cambios
-        const updateResponse = await fetch(`http://localhost:3000/api/usuarios/${usuarioActual.IdUsuario}`, {
+        const updateResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${usuarioActual.IdUsuario}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

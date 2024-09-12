@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function listarRoles() {
     try {
         // Realiza la solicitud al backend para obtener los roles
-        const response = await fetch('http://localhost:3000/api/rolesDos');
+        const response = await fetch('https://finalgymsystem.onrender.com/api/rolesDos');
         const roles = await response.json();
 
         // Selecciona el cuerpo de la tabla donde se van a insertar los roles
@@ -79,7 +79,7 @@ function editarRol(idRol) {
     rolIdParaEditar = idRol;
 
     // Obtén los datos del rol seleccionado
-    fetch(`http://localhost:3000/api/rolesDos/${idRol}`)
+    fetch(`https://finalgymsystem.onrender.com/api/rolesDos/${idRol}`)
         .then(response => response.json())
         .then(rol => {
             // Rellena el formulario del modal con los datos del rol
@@ -108,7 +108,7 @@ document.getElementById('FormularioRolModal').addEventListener('submit', async (
     try {
         if (rolIdParaEditar) {
             // Actualiza un rol existente
-            const response = await fetch(`http://localhost:3000/api/rolesDos/${rolIdParaEditar}`, {
+            const response = await fetch(`https://finalgymsystem.onrender.com/api/rolesDos/${rolIdParaEditar}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -136,7 +136,7 @@ document.getElementById('FormularioRolModal').addEventListener('submit', async (
             }
         } else {
             // Crea un nuevo rol
-            const response = await fetch('http://localhost:3000/api/rolesDos', {
+            const response = await fetch('https://finalgymsystem.onrender.com/api/rolesDos', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
