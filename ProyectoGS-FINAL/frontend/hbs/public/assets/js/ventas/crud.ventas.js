@@ -1,8 +1,8 @@
-const urlVentas = 'http://localhost:3000/api/ventas'; 
-const urlProductos = 'http://localhost:3000/api/productos';
-const urlMembresias = 'http://localhost:3000/api/membresias';
-const urlUsuarios = 'http://localhost:3000/api/usuarios';
-const urlClientesBeneficiario = 'http://localhost:3000/api/clientesBeneficiarios';
+const urlVentas = 'https://finalgymsystem.onrender.com/api/ventas'; 
+const urlProductos = 'https://finalgymsystem.onrender.com/api/productos';
+const urlMembresias = 'https://finalgymsystem.onrender.com/api/membresias';
+const urlUsuarios = 'https://finalgymsystem.onrender.com/api/usuarios';
+const urlClientesBeneficiario = 'https://finalgymsystem.onrender.com/api/clientesBeneficiarios';
 
 let usuarios = [];
 

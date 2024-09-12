@@ -2,7 +2,7 @@
 async function obtenerIdUsuario() {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3000/api/auth/usuario-autenticado', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/auth/usuario-autenticado', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ async function obtenerIdUsuario() {
 // Función para obtener las ventas asociadas al cliente
 async function obtenerVentasCliente(idUsuario) {
     try {
-        const response = await fetch(`http://localhost:3000/api/venta/usuario/${idUsuario}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/venta/usuario/${idUsuario}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ async function cargarDatosVenta() {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/venta/detalle/${idVenta}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/venta/detalle/${idVenta}`);
         const data = await response.json();
 
         // Precargar los datos en el formulario

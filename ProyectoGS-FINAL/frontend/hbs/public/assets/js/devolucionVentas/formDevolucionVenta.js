@@ -1,6 +1,6 @@
-const url1 = 'http://localhost:3000/api/devolucionventas';
-const url2 = 'http://localhost:3000/api/ventasproducto';
-const url3 = 'http://localhost:3000/api/ventas';
+const url1 = 'https://finalgymsystem.onrender.com/api/devolucionventas';
+const url2 = 'https://finalgymsystem.onrender.com/api/ventasproducto';
+const url3 = 'https://finalgymsystem.onrender.com/api/ventas';
 
 // Función para cargar los productos de la venta seleccionada
 async function precargarDatosVentaEnFormulario(ventaId) {
@@ -131,13 +131,14 @@ async function enviarDevVenta() {
     const urlParams = new URLSearchParams(window.location.search);
     const ventaId = urlParams.get('id');
     const Motivo = document.getElementById("motivo").value;
-    const ValorDevolucionVenta = document.getElementById("valorDevolucionVenta").value;
+    const ValorDevolucionVenta = parseFloat(document.getElementById("valorDevolucionVenta").value);
 
-    if (Motivo === "" || ValorDevolucionVenta === "") {
+    // Validar que el motivo y el valor de la devolución sean válidos
+    if (Motivo === "" || ValorDevolucionVenta <= 0) {
         Swal.fire({
             icon: 'warning',
             title: 'Error',
-            text: 'Llene todos los campos',
+            text: 'El valor de la devolución debe ser mayor a 0 y debe llenar todos los campos',
             confirmButtonText: 'Aceptar'
         });
         return;
