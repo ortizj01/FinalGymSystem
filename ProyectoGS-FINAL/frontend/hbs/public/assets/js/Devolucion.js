@@ -1,6 +1,6 @@
-const url1 = 'http://localhost:3000/api/devolucioncompras'
-const url2 = 'http://localhost:3000/api/comprasproducto'
-const url3 = 'http://localhost:3000/api/compras'
+const url1 = 'https://finalgymsystem.onrender.com/api/devolucioncompras'
+const url2 = 'https://finalgymsystem.onrender.com/api/comprasproducto'
+const url3 = 'https://finalgymsystem.onrender.com/api/compras'
 
 const precargarDatosCompraEnFormulario = async () => {
     var urlParams = new URLSearchParams(window.location.search);
@@ -38,7 +38,7 @@ const precargarDatosproductosEnFormulario = async () => {
     var compraId = urlParams.get('id');
 
     try {
-        const response = await fetch(`http://localhost:3000/api/comprasproducto/${compraId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/comprasproducto/${compraId}`, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -184,7 +184,7 @@ async function enviarDevCompra() {
     };
 
     try {
-        const responsedevcompra = await fetch('http://localhost:3000/api/devolucioncompras', {
+        const responsedevcompra = await fetch('https://finalgymsystem.onrender.com/api/devolucioncompras', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -217,7 +217,7 @@ async function enviarDevCompra() {
                 };
                 console.log(productoCompra);
 
-                const responseProducto = await fetch('http://localhost:3000/api/devolucioncomprasproducto', {
+                const responseProducto = await fetch('https://finalgymsystem.onrender.com/api/devolucioncomprasproducto', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
