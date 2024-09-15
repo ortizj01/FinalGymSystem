@@ -20,7 +20,7 @@ app.set('view engine', 'hbs')
 hbs.registerPartials(__dirname + '/public/views/partials')
 
 app.get('/', (req, res)=>{
-    res.render('index', {
+    res.render('carrito/index', {
         "nombre":"Juan Ortiz",
         "email":"juanes@gmail.com"
     })//Redireccionar hacia el archivo hbs
