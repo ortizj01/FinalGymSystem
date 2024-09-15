@@ -63,7 +63,7 @@ async function registrarCliente() {
 
     try {
         // Registrar usuario
-        const response = await fetch('http://localhost:3000/api/usuarios', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/usuarios', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -87,7 +87,7 @@ async function registrarCliente() {
 
             // Asignar roles
             const asignacionRolesPromises = rolesAsignados.map(async (rol) => {
-                const rolResponse = await fetch(`http://localhost:3000/api/usuariosRol/${usuarioId}/roles`, {
+                const rolResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuariosRol/${usuarioId}/roles`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -119,7 +119,7 @@ async function registrarCliente() {
                         IMC: data.IMC
                     };
 
-                    const valoracionResponse = await fetch('http://localhost:3000/api/valoracionesMedicas', {
+                    const valoracionResponse = await fetch('https://finalgymsystem.onrender.com/api/valoracionesMedicas', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

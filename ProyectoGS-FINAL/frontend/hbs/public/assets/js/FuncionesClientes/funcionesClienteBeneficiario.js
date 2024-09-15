@@ -6,7 +6,7 @@ async function cargarDatosBeneficiarios() {
 
     if (id) {
         try {
-            const response = await fetch(`http://localhost:3000/api/beneficiarios/cliente/${id}`, {
+            const response = await fetch(`https://finalgymsystem.onrender.com/api/beneficiarios/cliente/${id}`, {
                 method: 'GET',
                 mode: 'cors',
                 headers: {

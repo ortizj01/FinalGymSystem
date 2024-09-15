@@ -50,7 +50,7 @@ const guardarCambios = async () => {
     };
 
     try {
-        const response = await fetch(`http://localhost:3000/api/pedidos/estado-fecha/${pedidoId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/pedidos/estado-fecha/${pedidoId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ const cargarDatosPedido = async () => {
 
     try {
         // Obtener datos del pedido
-        const pedidoResponse = await fetch(`http://localhost:3000/api/pedidos/${pedidoId}`);
+        const pedidoResponse = await fetch(`https://finalgymsystem.onrender.com/api/pedidos/${pedidoId}`);
         if (!pedidoResponse.ok) throw new Error('Error al obtener datos del pedido');
         const pedido = await pedidoResponse.json();
 
@@ -102,7 +102,7 @@ const cargarDatosPedido = async () => {
         estadoPedidoSelect.value = ["PENDIENTE DE PAGO", "PAGADO", "ENTREGADO", "ANULADO"][pedido.EstadoPedido];
 
         // Obtener datos del cliente
-        const clienteResponse = await fetch(`http://localhost:3000/api/usuarios/${pedido.IdUsuario}`);
+        const clienteResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${pedido.IdUsuario}`);
         if (!clienteResponse.ok) throw new Error('Error al obtener datos del cliente');
         const cliente = await clienteResponse.json();
 
@@ -115,14 +115,14 @@ const cargarDatosPedido = async () => {
         document.getElementById('estadoCliente').value = cliente.Estado === 0 ? 'ACTIVO' : 'INACTIVO';
 
         // Obtener productos del pedido
-        const productosPedidoResponse = await fetch(`http://localhost:3000/api/pedidos/${pedidoId}/productos`);
+        const productosPedidoResponse = await fetch(`https://finalgymsystem.onrender.com/api/pedidos/${pedidoId}/productos`);
         if (!productosPedidoResponse.ok) throw new Error('Error al obtener productos del pedido');
         const productosPedido = await productosPedidoResponse.json();
 
         // Obtener todos los productos y categorías
-        const todosProductosResponse = await fetch(`http://localhost:3000/api/productos`);
+        const todosProductosResponse = await fetch(`https://finalgymsystem.onrender.com/api/productos`);
         todosProductos = await todosProductosResponse.json();
-        const categoriasResponse = await fetch(`http://localhost:3000/api/categorias`);
+        const categoriasResponse = await fetch(`https://finalgymsystem.onrender.com/api/categorias`);
         const categorias = await categoriasResponse.json();
 
         const productosContainer = document.getElementById('productosContainer');
@@ -232,7 +232,7 @@ const agregarProducto = async () => {
 
     // Obtener categorías disponibles y llenar el select
     try {
-        const categoriasResponse = await fetch(`http://localhost:3000/api/categorias`);
+        const categoriasResponse = await fetch(`https://finalgymsystem.onrender.com/api/categorias`);
         const categorias = await categoriasResponse.json();
         const selectCategoria = document.getElementById(`categoriaProducto_${uniqueId}`);
         categorias.forEach(categoria => {
@@ -252,7 +252,7 @@ const filtrarProductos = async (selectCategoria, idProducto) => {
     const selectProducto = document.getElementById(`selectProducto_${idProducto}`);
 
     try {
-        const productosResponse = await fetch(`http://localhost:3000/api/productos`);
+        const productosResponse = await fetch(`https://finalgymsystem.onrender.com/api/productos`);
         const productos = await productosResponse.json();
         const productosFiltrados = productos.filter(producto => producto.IdCategoriaProductos === parseInt(categoriaId));
 
@@ -276,7 +276,7 @@ const actualizarDatosProducto = async (selectProducto, idProducto) => {
     const valorInput = document.getElementById(`valorProducto_${idProducto}`);
 
     try {
-        const productoResponse = await fetch(`http://localhost:3000/api/productos/${productoId}`);
+        const productoResponse = await fetch(`https://finalgymsystem.onrender.com/api/productos/${productoId}`);
         const producto = await productoResponse.json();
 
         if (verificarStockProducto(productoId, producto.Stock)) {
@@ -443,7 +443,7 @@ const guardarCambiosProductos = async () => {
     try {
         // Eliminar productos
         for (const idProductoPedido of productosEliminados) {
-            await fetch(`http://localhost:3000/api/pedidosProducto/${idProductoPedido}`, {
+            await fetch(`https://finalgymsystem.onrender.com/api/pedidosProducto/${idProductoPedido}`, {
                 method: 'DELETE'
             });
         }
@@ -452,7 +452,7 @@ const guardarCambiosProductos = async () => {
         for (const productoData of productosNuevos) {
             if (productoData.IdPedidoProducto) {
                 // Actualizar producto
-                await fetch(`http://localhost:3000/api/pedidosProducto/${productoData.IdPedidoProducto}`, {
+                await fetch(`https://finalgymsystem.onrender.com/api/pedidosProducto/${productoData.IdPedidoProducto}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -461,7 +461,7 @@ const guardarCambiosProductos = async () => {
                 });
             } else {
                 // Agregar producto
-                await fetch('http://localhost:3000/api/pedidosProducto', {
+                await fetch('https://finalgymsystem.onrender.com/api/pedidosProducto', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -503,13 +503,13 @@ const cargarDatosServicios = async () => {
 
     try {
         // Obtener servicios del pedido
-        const serviciosPedidoResponse = await fetch(`http://localhost:3000/api/pedidosMembresia`);
+        const serviciosPedidoResponse = await fetch(`https://finalgymsystem.onrender.com/api/pedidosMembresia`);
         if (!serviciosPedidoResponse.ok) throw new Error('Error al obtener servicios del pedido');
         const serviciosPedido = await serviciosPedidoResponse.json();
         const serviciosPedidoFiltrados = serviciosPedido.filter(s => s.IdPedido == pedidoId);
 
         // Obtener todas las membresías
-        const todasMembresiasResponse = await fetch(`http://localhost:3000/api/membresias`);
+        const todasMembresiasResponse = await fetch(`https://finalgymsystem.onrender.com/api/membresias`);
         const todasMembresias = await todasMembresiasResponse.json();
 
         const serviciosContainer = document.getElementById('serviciosContainer');
@@ -631,7 +631,7 @@ const cargarDatosServicios = async () => {
 // Función para obtener el documento del beneficiario
 async function obtenerDocumentoBeneficiario(idUsuario) {
     try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/${idUsuario}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${idUsuario}`);
         const usuario = await response.json();
         return `${usuario.Documento}`;
     } catch (error) {
@@ -643,7 +643,7 @@ async function obtenerDocumentoBeneficiario(idUsuario) {
 // Función para obtener el correo del beneficiario
 async function obtenerCorreoBeneficiario(idUsuario) {
     try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/${idUsuario}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${idUsuario}`);
         const usuario = await response.json();
         return `${usuario.Correo}`;
     } catch (error) {
@@ -655,7 +655,7 @@ async function obtenerCorreoBeneficiario(idUsuario) {
 // Función para obtener el teléfono del beneficiario
 async function obtenerTelefonoBeneficiario(idUsuario) {
     try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/${idUsuario}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${idUsuario}`);
         const usuario = await response.json();
         return `${usuario.Telefono}`;
     } catch (error) {
@@ -667,7 +667,7 @@ async function obtenerTelefonoBeneficiario(idUsuario) {
 // Función para obtener la dirección del beneficiario
 async function obtenerDireccionBeneficiario(idUsuario) {
     try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/${idUsuario}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${idUsuario}`);
         const usuario = await response.json();
         return `${usuario.Direccion}`;
     } catch (error) {
@@ -679,7 +679,7 @@ async function obtenerDireccionBeneficiario(idUsuario) {
 // Función para obtener el estado del beneficiario
 async function obtenerEstadoBeneficiario(idUsuario) {
     try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/${idUsuario}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${idUsuario}`);
         const usuario = await response.json();
         return usuario.Estado === 0 ? 'ACTIVO' : 'INACTIVO';
     } catch (error) {
@@ -732,7 +732,7 @@ const agregarServicio = async () => {
 
     // Obtener membresías disponibles y llenar el select
     try {
-        const membresiasResponse = await fetch(`http://localhost:3000/api/membresias`);
+        const membresiasResponse = await fetch(`https://finalgymsystem.onrender.com/api/membresias`);
         const membresias = await membresiasResponse.json();
         const selectMembresia = document.getElementById(`selectMembresia_${uniqueId}`);
         membresias.forEach(membresia => {
@@ -754,7 +754,7 @@ async function buscarBeneficiarioActivo(id) {
 
     if (documento.length >= 3) { // Realizar la búsqueda si hay al menos 3 caracteres
         try {
-            const response = await fetch(`http://localhost:3000/api/beneficiarios/activos/buscar/${documento}`);
+            const response = await fetch(`https://finalgymsystem.onrender.com/api/beneficiarios/activos/buscar/${documento}`);
             const usuarios = await response.json();
             console.log('Usuarios encontrados:', usuarios); // Para depuración
 
@@ -804,7 +804,7 @@ const actualizarDatosMembresia = async (selectMembresia, idMembresia) => {
     const totalInput = document.getElementById(`totalServicio_${idMembresia}`);
 
     try {
-        const membresiaResponse = await fetch(`http://localhost:3000/api/membresias/${membresiaId}`);
+        const membresiaResponse = await fetch(`https://finalgymsystem.onrender.com/api/membresias/${membresiaId}`);
         const membresia = await membresiaResponse.json();
 
         // Calcular las fechas de inicio y fin
@@ -911,7 +911,7 @@ const guardarCambiosServicios = async () => {
     try {
         // Eliminar servicios
         for (const idServicioPedido of serviciosEliminados) {
-            await fetch(`http://localhost:3000/api/pedidosMembresia/${idServicioPedido}`, {
+            await fetch(`https://finalgymsystem.onrender.com/api/pedidosMembresia/${idServicioPedido}`, {
                 method: 'DELETE'
             });
         }
@@ -920,7 +920,7 @@ const guardarCambiosServicios = async () => {
         for (const servicioData of serviciosNuevos) {
             if (servicioData.IdPedidoMembresia) {
                 // Actualizar servicio
-                await fetch(`http://localhost:3000/api/pedidosMembresia/${servicioData.IdPedidoMembresia}`, {
+                await fetch(`https://finalgymsystem.onrender.com/api/pedidosMembresia/${servicioData.IdPedidoMembresia}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -929,7 +929,7 @@ const guardarCambiosServicios = async () => {
                 });
             } else {
                 // Agregar servicio
-                await fetch('http://localhost:3000/api/pedidosMembresia', {
+                await fetch('https://finalgymsystem.onrender.com/api/pedidosMembresia', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -959,7 +959,7 @@ const guardarCambiosServicios = async () => {
 // Función para obtener el nombre del beneficiario
 async function obtenerNombreBeneficiario(idUsuario) {
     try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/${idUsuario}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${idUsuario}`);
         const usuario = await response.json();
         return `${usuario.Nombres} ${usuario.Apellidos}`;
     } catch (error) {

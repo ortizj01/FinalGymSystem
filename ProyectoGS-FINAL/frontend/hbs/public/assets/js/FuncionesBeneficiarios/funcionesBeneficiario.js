@@ -2,7 +2,7 @@
 
 const listarBeneficiarios = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/beneficiarios', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/beneficiarios', {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -17,7 +17,7 @@ const listarBeneficiarios = async () => {
         const listarBeneficiarios = await response.json();
 
         // Obtener todos los usuarios para verificar beneficiarios
-        const responseUsuarios = await fetch('http://localhost:3000/api/usuarios', {
+        const responseUsuarios = await fetch('https://finalgymsystem.onrender.com/api/usuarios', {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', listarBeneficiarios);
 
 async function verDetalleBeneficiario(beneficiarioId) {
     try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/${beneficiarioId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${beneficiarioId}`, {
             method: 'GET',
             mode: 'cors',
             headers: {

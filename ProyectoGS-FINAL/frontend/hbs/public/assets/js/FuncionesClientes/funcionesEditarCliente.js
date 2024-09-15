@@ -38,7 +38,7 @@ async function cargarDatosEditarCliente() {
             return;
         }
 
-        const response = await fetch(`http://localhost:3000/api/usuarios/${usuarioId}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${usuarioId}`);
         if (!response.ok) {
             throw new Error('Error al obtener datos del cliente: ' + response.statusText);
         }
@@ -60,7 +60,7 @@ async function cargarDatosEditarCliente() {
         document.getElementById('estado').value = cliente.Estado;
 
         // Obtener roles actuales del usuario
-        const rolesResponse = await fetch(`http://localhost:3000/api/usuariosRol/${usuarioId}/roles`);
+        const rolesResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuariosRol/${usuarioId}/roles`);
         if (!rolesResponse.ok) {
             throw new Error('Error al obtener roles del cliente: ' + rolesResponse.statusText);
         }
@@ -101,7 +101,7 @@ async function actualizarCliente() {
         const data = Object.fromEntries(formData.entries());
         const id = data.id;
 
-        const getResponse = await fetch(`http://localhost:3000/api/usuarios/${id}`);
+        const getResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${id}`);
         if (!getResponse.ok) {
             throw new Error('Error al obtener datos del cliente: ' + getResponse.statusText);
         }
@@ -122,7 +122,7 @@ async function actualizarCliente() {
             Beneficiario: null // Siempre enviar Beneficiario como null
         };
 
-        const putResponse = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+        const putResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -135,7 +135,7 @@ async function actualizarCliente() {
         }
 
         // Obtener roles actuales del usuario
-        const rolesResponse = await fetch(`http://localhost:3000/api/usuariosRol/${id}/roles`);
+        const rolesResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuariosRol/${id}/roles`);
         if (!rolesResponse.ok) {
             throw new Error('Error al obtener roles del cliente: ' + rolesResponse.statusText);
         }
@@ -146,7 +146,7 @@ async function actualizarCliente() {
 
         if (beneficiarioSelect.value === "1" && !tieneRolBeneficiario) {
             // Asignar el rol de beneficiario
-            const rolResponse = await fetch(`http://localhost:3000/api/usuariosRol/${id}/roles`, {
+            const rolResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuariosRol/${id}/roles`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -175,7 +175,7 @@ async function actualizarCliente() {
                     IMC: data.IMC
                 };
 
-                const valoracionResponse = await fetch(`http://localhost:3000/api/valoracionesMedicas`, {
+                const valoracionResponse = await fetch(`https://finalgymsystem.onrender.com/api/valoracionesMedicas`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -192,7 +192,7 @@ async function actualizarCliente() {
             // Eliminar el rol de beneficiario y la valoración médica
             const rolUsuario = roles.find(rol => rol.IdRol === 4);
             if (rolUsuario) {
-                const eliminarRolResponse = await fetch(`http://localhost:3000/api/usuariosRol/roles/${rolUsuario.IdRolUsuario}`, {
+                const eliminarRolResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuariosRol/roles/${rolUsuario.IdRolUsuario}`, {
                     method: 'DELETE'
                 });
 
@@ -201,7 +201,7 @@ async function actualizarCliente() {
                 }
 
                 // Obtener la valoración médica por IdUsuario
-                const getValoracionResponse = await fetch(`http://localhost:3000/api/valoracionesMedicas/usuario/${id}`);
+                const getValoracionResponse = await fetch(`https://finalgymsystem.onrender.com/api/valoracionesMedicas/usuario/${id}`);
                 
                 if (!getValoracionResponse.ok) {
                     throw new Error('Error al obtener la valoración médica: ' + getValoracionResponse.statusText);
@@ -213,7 +213,7 @@ async function actualizarCliente() {
                     const valoracionId = valoracion[0].IdValoracion;
 
                     // Eliminar valoración médica usando IdValoracion
-                    const eliminarValoracionResponse = await fetch(`http://localhost:3000/api/valoracionesMedicas/${valoracionId}`, {
+                    const eliminarValoracionResponse = await fetch(`https://finalgymsystem.onrender.com/api/valoracionesMedicas/${valoracionId}`, {
                         method: 'DELETE'
                     });
 

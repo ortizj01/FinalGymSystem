@@ -1,7 +1,7 @@
 // Función para obtener los productos de la API
 const obtenerProductos = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/productos', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/productos', {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -80,7 +80,7 @@ const listarProductos = async () => {
 // Función para obtener las membresías de la API
 const obtenerMembresias = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/membresias', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/membresias', {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -166,7 +166,7 @@ const abrirModalProducto = async (productId) => {
 
     // Obtener el estado actual del producto en el catálogo desde el backend
     try {
-        const response = await fetch(`http://localhost:3000/api/carrito/catalogo/producto/${productId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/carrito/catalogo/producto/${productId}`, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -200,7 +200,7 @@ const abrirModalMembresia = async (membresiaId) => {
 
     // Obtener el estado actual de la membresía en el catálogo desde el backend
     try {
-        const response = await fetch(`http://localhost:3000/api/carrito/catalogo/membresia/${membresiaId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/carrito/catalogo/membresia/${membresiaId}`, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -231,7 +231,7 @@ document.getElementById('saveProductChanges').addEventListener('click', async ()
     const showInCatalog = document.getElementById('showInCatalog').checked;
 
     try {
-        const response = await fetch(`http://localhost:3000/api/carrito/catalogo/producto/${productId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/carrito/catalogo/producto/${productId}`, {
             method: 'PATCH',
             mode: 'cors',
             headers: {
@@ -267,7 +267,7 @@ document.getElementById('saveMembershipChanges').addEventListener('click', async
     const showMembershipInCatalog = document.getElementById('showMembershipInCatalog').checked;
 
     try {
-        const response = await fetch(`http://localhost:3000/api/carrito/catalogo/membresia/${membresiaId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/carrito/catalogo/membresia/${membresiaId}`, {
             method: 'PATCH',
             mode: 'cors',
             headers: {

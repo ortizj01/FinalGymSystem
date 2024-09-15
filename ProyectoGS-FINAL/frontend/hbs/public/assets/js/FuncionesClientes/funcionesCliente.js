@@ -1,7 +1,7 @@
 // LISTAR CLIENTES
 const listarClientes = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/clientes', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/clientes', {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', listarClientes);
 
 async function verDetalleCliente(clienteId) {
     try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/${clienteId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${clienteId}`, {
             method: 'GET',
             mode: 'cors',
             headers: {

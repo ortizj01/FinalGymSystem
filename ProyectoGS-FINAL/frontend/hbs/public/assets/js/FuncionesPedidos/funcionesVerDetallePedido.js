@@ -10,12 +10,12 @@ async function cargarDatosPedido() {
 
     try {
         // Obtener datos del pedido
-        const pedidoResponse = await fetch(`http://localhost:3000/api/pedidos/${pedidoId}`);
+        const pedidoResponse = await fetch(`https://finalgymsystem.onrender.com/api/pedidos/${pedidoId}`);
         if (!pedidoResponse.ok) throw new Error('Error al obtener datos del pedido');
         const pedido = await pedidoResponse.json();
 
         // Obtener datos del cliente
-        const clienteResponse = await fetch(`http://localhost:3000/api/usuarios/${pedido.IdUsuario}`);
+        const clienteResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${pedido.IdUsuario}`);
         if (!clienteResponse.ok) throw new Error('Error al obtener datos del cliente');
         const cliente = await clienteResponse.json();
 
@@ -45,7 +45,7 @@ async function cargarDatosPedido() {
 
 async function cargarProductosPedido(pedidoId) {
     try {
-        const productosPedidoResponse = await fetch(`http://localhost:3000/api/pedidos/${pedidoId}/productos`);
+        const productosPedidoResponse = await fetch(`https://finalgymsystem.onrender.com/api/pedidos/${pedidoId}/productos`);
         if (!productosPedidoResponse.ok) throw new Error('Error al obtener productos del pedido');
         const productosPedido = await productosPedidoResponse.json();
 
@@ -54,7 +54,7 @@ async function cargarProductosPedido(pedidoId) {
 
         let total = 0;
         for (const producto of productosPedido) {
-            const productoResponse = await fetch(`http://localhost:3000/api/productos/${producto.IdProducto}`);
+            const productoResponse = await fetch(`https://finalgymsystem.onrender.com/api/productos/${producto.IdProducto}`);
             const productoData = await productoResponse.json();
             
             const fila = document.createElement('tr');
@@ -77,7 +77,7 @@ async function cargarProductosPedido(pedidoId) {
 
 async function cargarServiciosPedido(pedidoId) {
     try {
-        const serviciosPedidoResponse = await fetch(`http://localhost:3000/api/pedidosMembresia`);
+        const serviciosPedidoResponse = await fetch(`https://finalgymsystem.onrender.com/api/pedidosMembresia`);
         if (!serviciosPedidoResponse.ok) throw new Error('Error al obtener servicios del pedido');
         const serviciosPedido = await serviciosPedidoResponse.json();
         const serviciosPedidoFiltrados = serviciosPedido.filter(s => s.IdPedido == pedidoId);
@@ -90,7 +90,7 @@ async function cargarServiciosPedido(pedidoId) {
         const beneficiarioMap = new Map();
 
         for (const servicioPedido of serviciosPedidoFiltrados) {
-            const membresiaResponse = await fetch(`http://localhost:3000/api/membresias/${servicioPedido.IdMembresia}`);
+            const membresiaResponse = await fetch(`https://finalgymsystem.onrender.com/api/membresias/${servicioPedido.IdMembresia}`);
             const membresia = await membresiaResponse.json();
 
             // Agrupar membresías por IdMembresia
@@ -106,7 +106,7 @@ async function cargarServiciosPedido(pedidoId) {
 
             // Agrupar beneficiarios por IdUsuario
             if (!beneficiarioMap.has(servicioPedido.IdUsuario)) {
-                const beneficiarioResponse = await fetch(`http://localhost:3000/api/usuarios/${servicioPedido.IdUsuario}`);
+                const beneficiarioResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${servicioPedido.IdUsuario}`);
                 const beneficiario = await beneficiarioResponse.json();
                 beneficiarioMap.set(servicioPedido.IdUsuario, beneficiario);
             }
