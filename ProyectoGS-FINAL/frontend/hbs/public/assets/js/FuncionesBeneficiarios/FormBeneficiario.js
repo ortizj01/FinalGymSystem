@@ -46,6 +46,49 @@ const expresiones = {
     IMC: /^[0-9]{1,3}(\.[0-9]{1,2})?$/
 };
 
+document.addEventListener('DOMContentLoaded', function() {
+    const fechaNacimientoInput = document.getElementById('fechaDeNacimiento');
+    
+    // Validar la fecha de nacimiento
+    fechaNacimientoInput.addEventListener('blur', function() {
+        const fechaIngresada = new Date(fechaNacimientoInput.value);
+        const limiteFecha = new Date('2010-12-31');
+
+        if (fechaIngresada > limiteFecha) {
+            mostrarErrorFechaNacimiento();
+            fechaNacimientoInput.value = ''; // Limpiar el campo
+        } else {
+            limpiarErrorFechaNacimiento();
+        }
+    });
+
+    const mostrarErrorFechaNacimiento = () => {
+        const grupo = document.getElementById('grupo__fechaDeNacimiento');
+        const icono = grupo.querySelector('i');
+        const errorTexto = grupo.querySelector('.formulario__input-error');
+
+        grupo.classList.add('formulario__grupo-incorrecto');
+        icono.classList.add('fa-times-circle');
+        icono.classList.remove('fa-check-circle');
+        errorTexto.classList.add('formulario__input-error-activo');
+        errorTexto.textContent = 'La fecha de nacimiento no puede ser posterior al 2010.';
+    };
+
+    const limpiarErrorFechaNacimiento = () => {
+        const grupo = document.getElementById('grupo__fechaDeNacimiento');
+        const icono = grupo.querySelector('i');
+        const errorTexto = grupo.querySelector('.formulario__input-error');
+
+        grupo.classList.remove('formulario__grupo-incorrecto');
+        grupo.classList.add('formulario__grupo-correcto');
+        icono.classList.remove('fa-times-circle');
+        icono.classList.add('fa-check-circle');
+        errorTexto.classList.remove('formulario__input-error-activo');
+        errorTexto.textContent = 'Ingresa una fecha de nacimiento válida.';
+    };
+});
+
+
 const mensajesError = {
     documento: 'El documento debe tener entre 7 y 10 caracteres alfanuméricos.',
     tipoDocumento: 'Seleccione un tipo de documento válido.',
