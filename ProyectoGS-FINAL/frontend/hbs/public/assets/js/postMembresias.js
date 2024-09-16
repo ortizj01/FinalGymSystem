@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // URL del endpoint de membresías en tu servidor
-    const url = 'http://localhost:3000/Api/Membresias';
+    const url = 'https://finalgymsystem.onrender.com/Api/Membresias';
 
     // Realizar la solicitud GET utilizando fetch
     fetch(url)
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Enviar los datos a la API para crear la membresía
-        fetch('http://localhost:3000/api/membresias', {
+        fetch('https://finalgymsystem.onrender.com/api/membresias', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Datos de servicios a enviar:', membresiaServicios);
 
                 // Enviar los servicios a la membresía
-                return fetch(`http://localhost:3000/api/membresias-servicios/${IdMembresia}`, {
+                return fetch(`https://finalgymsystem.onrender.com/api/membresias-servicios/${IdMembresia}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -184,7 +184,7 @@ const cargarDetalleMembresia = async () => {
 
     try {
         // Obtener los datos de la membresía
-        const responseMembresia = await fetch(`http://localhost:3000/api/membresias/${membresiaId}`);
+        const responseMembresia = await fetch(`https://finalgymsystem.onrender.com/api/membresias/${membresiaId}`);
         if (!responseMembresia.ok) {
             throw new Error('Error en la solicitud de membresía: ' + responseMembresia.statusText);
         }
@@ -211,7 +211,7 @@ const cargarDetalleMembresia = async () => {
         }
 
         // Cargar los servicios asociados a la membresía
-        const responseServicios = await fetch(`http://localhost:3000/api/membresias-servicios/${membresiaId}`);
+        const responseServicios = await fetch(`https://finalgymsystem.onrender.com/api/membresias-servicios/${membresiaId}`);
         if (!responseServicios.ok && responseServicios.status !== 404) {
             throw new Error('Error en la solicitud de servicios asociados: ' + responseServicios.statusText);
         }
@@ -268,7 +268,7 @@ function agregarServicio() {
     selectElement.style.width = "300px";
 
     // Llamar a la función que llena el select con los servicios activos
-    fetch('http://localhost:3000/api/Servicios')
+    fetch('https://finalgymsystem.onrender.com/api/Servicios')
         .then(response => response.json())
         .then(data => {
             // Llenar las opciones del select después de recibir los datos
@@ -317,7 +317,7 @@ function fillSelectOptions(selectElement, servicios) {
 
 
 function fetchServicios() {
-    fetch('http://localhost:3000/api/Servicios')
+    fetch('https://finalgymsystem.onrender.com/api/Servicios')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -355,7 +355,7 @@ const precargarDatosMembresiaEnFormulario = async () => {
 
     try {
         // Obtener los datos de la membresía
-        const responseMembresia = await fetch(`http://localhost:3000/api/membresias/${membresiaId}`);
+        const responseMembresia = await fetch(`https://finalgymsystem.onrender.com/api/membresias/${membresiaId}`);
         if (!responseMembresia.ok) {
             throw new Error('Error en la solicitud de membresía: ' + responseMembresia.statusText);
         }
@@ -382,7 +382,7 @@ const precargarDatosMembresiaEnFormulario = async () => {
         }
 
         // Cargar todos los servicios disponibles
-        const responseServiciosDisponibles = await fetch('http://localhost:3000/api/servicios');
+        const responseServiciosDisponibles = await fetch('https://finalgymsystem.onrender.com/api/servicios');
         if (!responseServiciosDisponibles.ok) {
             throw new Error('Error en la solicitud de servicios disponibles: ' + responseServiciosDisponibles.statusText);
         }
@@ -426,7 +426,7 @@ const precargarDatosMembresiaEnFormulario = async () => {
         // Cargar los servicios asociados
         let servicios = [];
         try {
-            const responseServicios = await fetch(`http://localhost:3000/api/membresias-servicios/${membresiaId}`);
+            const responseServicios = await fetch(`https://finalgymsystem.onrender.com/api/membresias-servicios/${membresiaId}`);
             if (!responseServicios.ok) {
                 if (responseServicios.status === 404) {
                     console.log('No hay servicios asociados a esta membresía.');
@@ -551,7 +551,7 @@ const actualizarMembresia = async () => {
         }
 
         // Actualizar la membresía
-        const response = await fetch(`http://localhost:3000/api/membresias/${membresiaId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/membresias/${membresiaId}`, {
             method: 'PUT',
             mode: 'cors',
             headers: {
@@ -572,7 +572,7 @@ const actualizarMembresia = async () => {
 
         // Si hay servicios seleccionados, actualizar los servicios asociados
         if (serviciosData.length > 0) {
-            const responseServicios = await fetch(`http://localhost:3000/api/membresias-servicios/${membresiaId}`, {
+            const responseServicios = await fetch(`https://finalgymsystem.onrender.com/api/membresias-servicios/${membresiaId}`, {
                 method: 'PUT',
                 mode: 'cors',
                 headers: {

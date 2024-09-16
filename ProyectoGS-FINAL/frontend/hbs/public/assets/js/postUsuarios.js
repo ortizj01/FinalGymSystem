@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Datos del usuario a enviar:', JSON.stringify(usuario)); // Verificar los datos a enviar
 
                 // Enviar los datos a tu API para crear el usuario
-                fetch('http://localhost:3000/api/usuarios', {
+                fetch('https://finalgymsystem.onrender.com/api/usuarios', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         IdRol: jsonObject.Rol
                     };
 
-                    return fetch(`http://localhost:3000/api/usuariosRol/${data.IdUsuario}/roles`, {
+                    return fetch(`https://finalgymsystem.onrender.com/api/usuariosRol/${data.IdUsuario}/roles`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function fetchRoles() {
-    fetch('http://localhost:3000/api/roles')
+    fetch('https://finalgymsystem.onrender.com/api/roles')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -197,7 +197,7 @@ const actualizarUsuario = async () => {
             }
         }
 
-        const response = await fetch(`http://localhost:3000/api/Usuarios/${usuarioId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/Usuarios/${usuarioId}`, {
             method: 'PUT',
             mode: 'cors',
             headers: {
@@ -211,7 +211,7 @@ const actualizarUsuario = async () => {
         }
 
         if (usuarioData.Rol) {  // Usar 'Rol' en lugar de 'IdRol'
-            const responseRol = await fetch(`http://localhost:3000/api/usuariosRol/${usuarioId}`, {
+            const responseRol = await fetch(`https://finalgymsystem.onrender.com/api/usuariosRol/${usuarioId}`, {
                 method: 'PUT',
                 mode: 'cors',
                 headers: {
@@ -261,7 +261,7 @@ function obtenerDetallesUsuario() {
     }
 
     // Hacer una solicitud GET para obtener los detalles del usuario
-    fetch(`http://localhost:3000/api/Usuarios/${userId}`)
+    fetch(`https://finalgymsystem.onrender.com/api/Usuarios/${userId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Error en la solicitud: ' + response.statusText);
@@ -301,7 +301,7 @@ const precargarDatosUsuarioEnFormulario = async () => {
 
     try {
         // Obtener los datos del usuario
-        const responseUsuario = await fetch(`http://localhost:3000/Api/Usuarios/${usuarioId}`, {
+        const responseUsuario = await fetch(`https://finalgymsystem.onrender.com/Api/Usuarios/${usuarioId}`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
@@ -332,7 +332,7 @@ const precargarDatosUsuarioEnFormulario = async () => {
         document.getElementById('Estado').value = usuario.Estado;
 
         // Obtener el rol actual del usuario
-        const responseUsuarioRoles = await fetch(`http://localhost:3000/api/usuariosRol/${usuarioId}/roles`, {
+        const responseUsuarioRoles = await fetch(`https://finalgymsystem.onrender.com/api/usuariosRol/${usuarioId}/roles`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
@@ -351,7 +351,7 @@ const precargarDatosUsuarioEnFormulario = async () => {
         console.log('Rol actual del usuario:', rolActual);
 
         // Obtener todos los roles disponibles
-        const responseTodosRoles = await fetch(`http://localhost:3000/api/roles`, {
+        const responseTodosRoles = await fetch(`https://finalgymsystem.onrender.com/api/roles`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json; charset=UTF-8"

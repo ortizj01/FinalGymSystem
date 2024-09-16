@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const url = 'http://localhost:3000/Api/Servicios';
+    const url = 'https://finalgymsystem.onrender.com/Api/Servicios';
     let dataTableInstance = null;
     const crearServicioModal = new bootstrap.Modal(document.getElementById('crearServicioModal')); // Almacenar la instancia
     const editarServicioModal = new bootstrap.Modal(document.getElementById('editarServicioModal')); // Almacenar la instancia para el modal de edición
