@@ -1,6 +1,6 @@
-const urlDevoluciones = 'http://localhost:3000/api/devolucionventas';
-const urlVentas = 'http://localhost:3000/api/ventas';
-const urlUsuarios = 'http://localhost:3000/api/usuarios';  // Asumiendo que tienes una API para obtener los usuarios
+const urlDevoluciones = 'https://finalgymsystem.onrender.com/api/devolucionventas';
+const urlVentas = 'https://finalgymsystem.onrender.com/api/ventas';
+const urlUsuarios = 'https://finalgymsystem.onrender.com/api/usuarios';  // Asumiendo que tienes una API para obtener los usuarios
 
 
 // Función para formatear la fecha en formato dd/mm/yyyy

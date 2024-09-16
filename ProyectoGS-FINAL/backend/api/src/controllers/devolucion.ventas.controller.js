@@ -65,6 +65,10 @@ export const getDevolucionVenta = async (req, res) => {
 
 export const postDevolucionVentas = async (req, res) => {
     const { Motivo, ValorDevolucionVenta, EstadoDevolucion, IdVenta, FechaDevolucion, productos } = req.body;
+    if (ValorDevolucionVenta <= 0) {
+        return res.status(400).json({ message: 'El valor de devolución debe ser mayor a 0.' });
+    }
+
     const connection = await pool.getConnection();
     try {
         await connection.beginTransaction();
@@ -98,13 +102,11 @@ export const postDevolucionVentas = async (req, res) => {
                 UPDATE VentasProducto SET CantidadProducto = CantidadProducto - ? WHERE IdProducto = ? AND IdVenta = ?
             `, [producto.CantidadProducto, producto.IdProducto, IdVenta]);
 
-            // Elimina el producto de la tabla VentasProducto si la cantidad llega a cero
             await connection.query(`
                 DELETE FROM VentasProducto WHERE IdProducto = ? AND IdVenta = ? AND CantidadProducto <= 0
             `, [producto.IdProducto, IdVenta]);
         }
 
-        // Recalcular el total de la venta después de la devolución
         const [ventaActualizada] = await connection.query(`
             SELECT SUM(vp.CantidadProducto * p.PrecioProducto) AS nuevoTotal
             FROM VentasProducto vp
@@ -114,12 +116,10 @@ export const postDevolucionVentas = async (req, res) => {
 
         const nuevoTotal = ventaActualizada[0].nuevoTotal || 0;
 
-        // Actualizar el total de la venta
         await connection.query(`
             UPDATE Ventas SET Total = ? WHERE IdVenta = ?
         `, [nuevoTotal, IdVenta]);
 
-        // Verificar si la venta queda sin productos ni membresías
         const [productosRestantes] = await connection.query(`
             SELECT COUNT(*) AS totalProductos FROM VentasProducto WHERE IdVenta = ?
         `, [IdVenta]);
@@ -129,10 +129,9 @@ export const postDevolucionVentas = async (req, res) => {
         `, [IdVenta]);
 
         if (productosRestantes[0].totalProductos === 0 && membresiasRestantes[0].totalMembresias === 0) {
-            // Si no quedan productos ni membresías, actualizar el estado de la venta
             await connection.query(`
                 UPDATE Ventas SET EstadoVenta = 5 WHERE IdVenta = ?
-            `, [IdVenta]); // Estado 3 puede representar "Devolución completa" o similar
+            `, [IdVenta]); 
         }
 
         await connection.commit();

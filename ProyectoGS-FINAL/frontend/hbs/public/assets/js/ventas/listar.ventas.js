@@ -1,5 +1,5 @@
-const urlVentas = 'http://localhost:3000/api/ventas';
-const urlEstadosVentas = 'http://localhost:3000/api/estadosVentas'; // URL para obtener los estados
+const urlVentas = 'https://finalgymsystem.onrender.com/api/ventas';
+const urlEstadosVentas = 'https://finalgymsystem.onrender.com/api/estadosVentas'; // URL para obtener los estados
 
 document.addEventListener('DOMContentLoaded', () => {
     cargarVentas();
