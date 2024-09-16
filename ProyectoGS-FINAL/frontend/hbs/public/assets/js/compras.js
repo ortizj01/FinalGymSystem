@@ -153,7 +153,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 const listarCompras = async () => {
     let ObjectId = document.getElementById('contenidoCompras'); // obj donde se mostrara la info
     let contenido = ''; // contiene las filas y celdas que se mostraran en el tbody
-
     try {
         const response = await fetch(url1, {
             method: 'GET',
