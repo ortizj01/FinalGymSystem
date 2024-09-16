@@ -26,6 +26,8 @@ const expresiones = {
     IMC: /^[0-9]{1,3}(\.[0-9]{1,2})?$/
 };
 
+
+
 const mensajesError = {
     documento: 'El documento debe tener entre 7 y 10 caracteres alfanuméricos.',
     tipoDocumento: 'Seleccione un tipo de documento válido.',

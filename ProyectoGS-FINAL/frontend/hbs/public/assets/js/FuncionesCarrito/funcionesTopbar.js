@@ -10,7 +10,7 @@ function actualizarTopbar() {
         return;
     }
 
-    fetch('http://localhost:3000/api/auth/usuario-autenticado', {
+    fetch('https://finalgymsystem.onrender.com/api/auth/usuario-autenticado', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

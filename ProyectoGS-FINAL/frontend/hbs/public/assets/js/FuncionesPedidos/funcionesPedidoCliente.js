@@ -59,7 +59,7 @@ function mostrarPedidosEnTabla(pedidos) {
 async function obtenerIdUsuario() {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3000/api/auth/usuario-autenticado', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/auth/usuario-autenticado', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ async function obtenerIdUsuario() {
 // Función para obtener los pedidos asociados al cliente
 async function obtenerPedidosCliente(idUsuario) {
     try {
-        const response = await fetch(`http://localhost:3000/api/pedido/usuario/${idUsuario}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/pedido/usuario/${idUsuario}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -174,7 +174,7 @@ const editarEstadoPedido = async (pedidoId, nuevoEstado) => {
 // Función para anular un pedido y devolver el stock
 const anularPedido = async (pedidoId) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/pedidos/cancelar/${pedidoId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/pedidos/cancelar/${pedidoId}`, {
             method: 'PUT',
             mode: 'cors',
             headers: { 'Content-Type': 'application/json' }

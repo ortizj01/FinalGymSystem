@@ -6,7 +6,7 @@ async function cargarDatosBeneficiario() {
 
     if (id) {
         try {
-            const response = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+            const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${id}`, {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
@@ -36,7 +36,7 @@ async function cargarDatosBeneficiario() {
             document.getElementById('generoCliente').value = cliente.Genero;
 
             // Obtener los datos de la valoración médica por ID de usuario
-            const valoracionResponse = await fetch(`http://localhost:3000/api/valoracionesMedicas/usuario/${id}`, {
+            const valoracionResponse = await fetch(`https://finalgymsystem.onrender.com/api/valoracionesMedicas/usuario/${id}`, {
                 method: 'GET',
                 mode: 'cors',
                 headers: {
@@ -69,7 +69,7 @@ async function cargarDatosBeneficiario() {
 
             // Verificar si el usuario tiene un beneficiario asociado
             if (cliente.Beneficiario) {
-                const beneficiarioResponse = await fetch(`http://localhost:3000/api/usuarios/${cliente.Beneficiario}`, {
+                const beneficiarioResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${cliente.Beneficiario}`, {
                     method: 'GET',
                     mode: 'cors',
                     headers: {

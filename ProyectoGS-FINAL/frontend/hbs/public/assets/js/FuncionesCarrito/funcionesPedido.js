@@ -88,7 +88,7 @@ const manejarAcordeones = async () => {
         
         const usuario = JSON.parse(localStorage.getItem('usuario'));
         if (usuario && usuario.IdUsuario) {
-            const valoracionResponse = await fetch(`http://localhost:3000/api/valoracionesMedicas/usuario/${usuario.IdUsuario}`);
+            const valoracionResponse = await fetch(`https://finalgymsystem.onrender.com/api/valoracionesMedicas/usuario/${usuario.IdUsuario}`);
             const valoracionMedica = await valoracionResponse.json();
 
             if (valoracionMedica.message && valoracionMedica.message === "Valoración Médica no encontrada") {
@@ -166,7 +166,7 @@ const cargarBeneficiariosEnSelect = async () => {
     let opciones = `<option value="${usuario.IdUsuario}">${usuario.Nombres} ${usuario.Apellidos}</option>`;
 
     try {
-        const response = await fetch(`http://localhost:3000/api/beneficiarios/cliente/${usuario.IdUsuario}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/beneficiarios/cliente/${usuario.IdUsuario}`);
         if (!response.ok) throw new Error('Error al obtener los beneficiarios.');
 
         const beneficiarios = await response.json();

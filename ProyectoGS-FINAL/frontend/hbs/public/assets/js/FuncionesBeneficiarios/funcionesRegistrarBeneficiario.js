@@ -45,7 +45,7 @@ async function inicializarBusquedaCliente() {
     // Función de búsqueda de clientes por documento (excluyendo beneficiarios)
     const buscarClientesPorDocumento = async (documento) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/clientes/buscar/${documento}`, {
+            const response = await fetch(`https://finalgymsystem.onrender.com/api/clientes/buscar/${documento}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -130,7 +130,7 @@ async function registrar() {
 
     try {
         // Registrar usuario
-        const response = await fetch('http://localhost:3000/api/usuarios', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/usuarios', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -148,7 +148,7 @@ async function registrar() {
 
             // Asignar roles
             const asignacionRolesPromises = rolesAsignados.map(async (rol) => {
-                const rolResponse = await fetch(`http://localhost:3000/api/usuariosRol/${usuarioId}/roles`, {
+                const rolResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuariosRol/${usuarioId}/roles`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -169,7 +169,7 @@ async function registrar() {
 
                 try {
                     // Registrar valoración médica
-                    const valoracionResponse = await fetch('http://localhost:3000/api/valoracionesMedicas', {
+                    const valoracionResponse = await fetch('https://finalgymsystem.onrender.com/api/valoracionesMedicas', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

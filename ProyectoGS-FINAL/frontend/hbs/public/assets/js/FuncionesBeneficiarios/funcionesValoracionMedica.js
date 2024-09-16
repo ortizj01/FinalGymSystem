@@ -10,7 +10,7 @@
         }
 
         // Obtener los datos de la valoración médica por ID de usuario
-        const response = await fetch(`http://localhost:3000/api/valoracionesMedicas/usuario/${usuarioId}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/valoracionesMedicas/usuario/${usuarioId}`);
         if (!response.ok) {
             throw new Error('Error al obtener datos de la valoración: ' + response.statusText);
         }
@@ -60,7 +60,7 @@ async function editarValoracionMedica() {
         const data = Object.fromEntries(formData.entries());
         const id = data.id;
 
-        const getResponse = await fetch(`http://localhost:3000/api/valoracionesMedicas/${id}`);
+        const getResponse = await fetch(`https://finalgymsystem.onrender.com/api/valoracionesMedicas/${id}`);
         if (!getResponse.ok) {
             throw new Error('Error al obtener datos de la valoración: ' + getResponse.statusText);
         }
@@ -81,7 +81,7 @@ async function editarValoracionMedica() {
             IMC: (data.Peso && data.Altura) ? (parseFloat(data.Peso) / (parseFloat(data.Altura) * parseFloat(data.Altura))).toFixed(2) : currentData.IMC
         };
 
-        const putResponse = await fetch(`http://localhost:3000/api/valoracionesMedicas/${id}`, {
+        const putResponse = await fetch(`https://finalgymsystem.onrender.com/api/valoracionesMedicas/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

@@ -8,7 +8,7 @@ const estadoMap = {
 // Función para obtener el documento del cliente por su ID
 const obtenerDocumentoCliente = async (idUsuario) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/${idUsuario}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${idUsuario}`, {
             method: 'GET',
             mode: 'cors',
             headers: { 'Content-Type': 'application/json' }
@@ -40,7 +40,7 @@ const formatearDinero = (cantidad) => {
 // Función para listar los pedidos y mostrarlos en la tabla
 const listarPedidos = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/pedidos', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/pedidos', {
             method: 'GET',
             mode: 'cors',
             headers: { 'Content-Type': 'application/json' }
@@ -160,7 +160,7 @@ const editarEstadoPedido = async (pedidoId, nuevoEstado) => {
 
     try {
         // Actualizar el estado del pedido
-        const response = await fetch(`http://localhost:3000/api/pedidos/estado/${pedidoId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/pedidos/estado/${pedidoId}`, {
             method: 'PUT',
             mode: 'cors',
             headers: {
@@ -197,7 +197,7 @@ const editarEstadoPedido = async (pedidoId, nuevoEstado) => {
 // Función para anular un pedido y devolver el stock
 const anularPedido = async (pedidoId) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/pedidos/cancelar/${pedidoId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/pedidos/cancelar/${pedidoId}`, {
             method: 'PUT',
             mode: 'cors',
             headers: { 'Content-Type': 'application/json' }

@@ -6,7 +6,7 @@ async function cargarDatosCliente() {
 
     if (id) {
         try {
-            const response = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+            const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${id}`, {
                 method: 'GET',
                 mode: 'cors',
                 headers: {

@@ -14,7 +14,7 @@ async function inicializarDatosEditarBeneficiario() {
         }
 
         // Obtener los datos del cliente
-        const response = await fetch(`http://localhost:3000/api/usuarios/${id}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${id}`);
         if (!response.ok) {
             throw new Error('Error al obtener datos del cliente: ' + response.statusText);
         }
@@ -37,7 +37,7 @@ async function inicializarDatosEditarBeneficiario() {
 
         // Verificar si el cliente está asociado con un beneficiario y cargar los datos
         if (cliente.Beneficiario) {
-            const beneficiarioResponse = await fetch(`http://localhost:3000/api/usuarios/${cliente.Beneficiario}`);
+            const beneficiarioResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${cliente.Beneficiario}`);
             if (beneficiarioResponse.ok) {
                 const beneficiario = await beneficiarioResponse.json();
                 document.getElementById('cliente').value = beneficiario.IdUsuario;
@@ -105,7 +105,7 @@ async function inicializarBusquedaCliente() {
     // Función de búsqueda de clientes por documento
     const buscarClientesPorDocumento = async (documento) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/clientes/buscar/${documento}`, {
+            const response = await fetch(`https://finalgymsystem.onrender.com/api/clientes/buscar/${documento}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -128,7 +128,7 @@ async function inicializarBusquedaCliente() {
 
 const buscarUsuariosPorDocumento = async (documento) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/usuarios/buscar/${documento}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/buscar/${documento}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -174,7 +174,7 @@ async function editarBeneficiario() {
         const data = Object.fromEntries(formData.entries());
         const id = data.id;
 
-        const getResponse = await fetch(`http://localhost:3000/api/usuarios/${id}`);
+        const getResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${id}`);
         if (!getResponse.ok) {
             throw new Error('Error al obtener datos del cliente: ' + getResponse.statusText);
         }
@@ -195,7 +195,7 @@ async function editarBeneficiario() {
             Beneficiario: data.cliente || currentData.Beneficiario // Actualizar beneficiario
         };
 
-        const putResponse = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+        const putResponse = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

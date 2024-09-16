@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     if (IdMembresia) {
         try {
-            const response = await fetch(`http://localhost:3000/api/membresias/${IdMembresia}`);
+            const response = await fetch(`https://finalgymsystem.onrender.com/api/membresias/${IdMembresia}`);
             if (!response.ok) throw new Error('Error al obtener los detalles de la membresía');
             
             const membresia = await response.json();

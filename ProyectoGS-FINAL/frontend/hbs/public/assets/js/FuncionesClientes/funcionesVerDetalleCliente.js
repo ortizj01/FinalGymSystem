@@ -2,7 +2,7 @@
 // Función para cargar los pedidos del cliente
 async function cargarPedidosCliente(clienteId) {
     try {
-        const response = await fetch(`http://localhost:3000/api/pedidos/cliente/${clienteId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/pedidos/cliente/${clienteId}`, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -37,7 +37,7 @@ async function cargarPedidosCliente(clienteId) {
 // Función para cargar las ventas del cliente
 async function cargarVentasCliente(clienteId) {
     try {
-        const response = await fetch(`http://localhost:3000/api/ventas/cliente/${clienteId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/ventas/cliente/${clienteId}`, {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -86,7 +86,7 @@ async function cargarDatosCliente() {
 
     if (id) {
         try {
-            const response = await fetch(`http://localhost:3000/api/usuarios/${id}`, {
+            const response = await fetch(`https://finalgymsystem.onrender.com/api/usuarios/${id}`, {
                 method: 'GET',
                 mode: 'cors',
                 headers: {

@@ -2,7 +2,7 @@
 // Función para obtener productos y membresías del catálogo
 const listarItemsEnCatalogo = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/carrito/catalogo', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/carrito/catalogo', {
             method: 'GET',
             mode: 'cors',
             headers: {
@@ -32,7 +32,7 @@ const listarItemsEnCatalogo = async () => {
         for (let item of itemsCatalogo) {
             if (item.tipo === 'producto') {
                 if (!item.hasOwnProperty('IdCategoriaProductos')) {
-                    const productoResponse = await fetch(`http://localhost:3000/api/productos/${item.IdProducto}`, {
+                    const productoResponse = await fetch(`https://finalgymsystem.onrender.com/api/productos/${item.IdProducto}`, {
                         method: 'GET',
                         mode: 'cors',
                         headers: {
@@ -142,7 +142,7 @@ const listarItemsEnCatalogo = async () => {
 // Función para obtener las categorías de la API
 const obtenerCategorias = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/categorias', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/categorias', {
             method: 'GET',
             mode: 'cors',
             headers: {

@@ -61,7 +61,7 @@ const finalizarPedido = async () => {
         const Total = carrito.reduce((total, item) => total + item.PrecioProducto * item.cantidad, 0);
         const EstadoPedido = 1;
 
-        const responsePedido = await fetch('http://localhost:3000/api/pedidos', {
+        const responsePedido = await fetch('https://finalgymsystem.onrender.com/api/pedidos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ const finalizarPedido = async () => {
 
 async function registrarProductoEnPedido(item, IdPedido) {
     try {
-        const responsePedidoProducto = await fetch('http://localhost:3000/api/pedidosProducto', {
+        const responsePedidoProducto = await fetch('https://finalgymsystem.onrender.com/api/pedidosProducto', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ async function registrarProductoEnPedido(item, IdPedido) {
         }
 
         // Actualizar el stock del producto
-        const responseActualizarProducto = await fetch(`http://localhost:3000/api/productos/${item.IdProducto}`, {
+        const responseActualizarProducto = await fetch(`https://finalgymsystem.onrender.com/api/productos/${item.IdProducto}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -167,7 +167,7 @@ async function registrarMembresiaEnPedido(item, IdPedido, configuracionesMembres
         const configuracion = configuracionesMembresias.find(config => config.IdMembresia === item.IdMembresia);
 
         if (configuracion) {
-            const responseMembresia = await fetch(`http://localhost:3000/api/membresias/${item.IdMembresia}`);
+            const responseMembresia = await fetch(`https://finalgymsystem.onrender.com/api/membresias/${item.IdMembresia}`);
             if (!responseMembresia.ok) {
                 throw new Error('Error al obtener detalles de la membresía');
             }
@@ -181,7 +181,7 @@ async function registrarMembresiaEnPedido(item, IdPedido, configuracionesMembres
 
             // Registrar cada membresía según la cantidad
             for (let i = 0; i < item.cantidad; i++) {
-                const responsePedidoMembresia = await fetch('http://localhost:3000/api/pedidosMembresia', {
+                const responsePedidoMembresia = await fetch('https://finalgymsystem.onrender.com/api/pedidosMembresia', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -211,7 +211,7 @@ async function registrarMembresiaEnPedido(item, IdPedido, configuracionesMembres
 
 async function registrarValoracionMedica(valoracion) {
     try {
-        const responseValoracionMedica = await fetch('http://localhost:3000/api/valoracionesMedicas', {
+        const responseValoracionMedica = await fetch('https://finalgymsystem.onrender.com/api/valoracionesMedicas', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
