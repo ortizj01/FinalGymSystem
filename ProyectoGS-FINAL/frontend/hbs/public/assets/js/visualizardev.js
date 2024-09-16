@@ -1,5 +1,5 @@
-const url1 = 'http://localhost:3000/api/devolucioncompras'
-const url2 = 'http://localhost:3000/api/devolucioncomprasproducto'
+const url1 = 'https://finalgymsystem.onrender.com/api/devolucioncompras'
+const url2 = 'https://finalgymsystem.onrender.com/api/devolucioncomprasproducto'
 
 
 

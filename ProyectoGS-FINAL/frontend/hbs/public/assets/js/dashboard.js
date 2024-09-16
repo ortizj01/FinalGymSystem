@@ -2,7 +2,7 @@
 // Función para obtener los datos desde la API
 async function fetchDataFromAPI() {
     try {
-        const response = await fetch('http://localhost:3000/api/compras');
+        const response = await fetch('https://finalgymsystem.onrender.com/api/compras');
         if (!response.ok) {
             throw new Error('Error al obtener los datos desde la API');
         }
@@ -236,7 +236,7 @@ renderChartForProveedor();
 
 async function fetchDataFromAPI3() {
     try {
-        const response = await fetch('http://localhost:3000/api/devolucioncompras');
+        const response = await fetch('https://finalgymsystem.onrender.com/api/devolucioncompras');
         if (!response.ok) {
             throw new Error('Error al obtener los datos desde la API');
         }
