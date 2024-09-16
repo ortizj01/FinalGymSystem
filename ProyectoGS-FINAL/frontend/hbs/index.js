@@ -89,8 +89,8 @@ app.get('/formDevolucioncom', (req, res)=>{
     res.render('formDevolucioncom')
 })
 
-app.get('/formproveedores', (req, res)=>{
-    res.render('formproveedores')
+app.get('/Formproveedores', (req, res)=>{
+    res.render('Formproveedores')
 })
 
 app.get('/formcompras', (req, res)=>{
