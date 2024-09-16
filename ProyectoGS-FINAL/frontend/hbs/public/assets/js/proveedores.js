@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/api/proveedores'
+const url = 'https://finalgymsystem.onrender.com/api/proveedores'
 //const url = 'http://localhost:8081/proveedor'
 
 const listarProveedores = async () => {

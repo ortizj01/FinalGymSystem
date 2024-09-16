@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/api/categorias'
+const url = 'https://finalgymsystem.onrender.com/api/categorias'
 //const url = 'http://localhost:8081/proveedor'
 
 

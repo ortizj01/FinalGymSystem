@@ -1,5 +1,5 @@
-const url1 = 'http://localhost:3000/api/compras'
-const url2 = 'http://localhost:3000/api/comprasproducto'
+const url1 = 'https://finalgymsystem.onrender.com/api/compras'
+const url2 = 'https://finalgymsystem.onrender.com/api/comprasproducto'
 
 function calcularValorTotal(container) {
     // Obtener el valor del producto
@@ -31,7 +31,7 @@ function calcularValorTotal(container) {
 function actualizarValorProducto1(select) {
     var idProducto = select.value;
     if (idProducto) {
-        fetch(`http://localhost:3000/api/productos/${idProducto}`)
+        fetch(`https://finalgymsystem.onrender.com/api/productos/${idProducto}`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById("valorProducto").innerHTML = `$ ${data.PrecioProducto}`;
@@ -47,7 +47,7 @@ function actualizarValorProducto(select, labelValor) {
     if (idProducto === "") {
         labelValor.innerHTML = `$ 0`;
     } else {
-        fetch(`http://localhost:3000/api/productos/${idProducto}`)
+        fetch(`https://finalgymsystem.onrender.com/api/productos/${idProducto}`)
             .then(response => response.json())
             .then(data => {
                 labelValor.innerHTML = `$ ${data.PrecioProducto}`;
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     // Cargar los proveedores
     const selectProveedores = document.getElementById('idProveedores');
-    fetch('http://localhost:3000/api/proveedores')
+    fetch('https://finalgymsystem.onrender.com/api/proveedores')
         .then(response => response.json())
         .then(data => {
             data.forEach(proveedor => {
@@ -349,7 +349,7 @@ async function enviarCompra() {
 document.addEventListener('DOMContentLoaded', function () {
     const selectElement = document.getElementById('selectProducto');
 
-    fetch('http://localhost:3000/api/productos')
+    fetch('https://finalgymsystem.onrender.com/api/productos')
         .then(response => response.json())
         .then(data => {
             data.forEach(producto => {

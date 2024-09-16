@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/api/productos'
+const url = 'https://finalgymsystem.onrender.com/api/productos'
 
 const listarProductos= async () => {
     let ObjectId = document.getElementById('contenidoProductos'); // obj donde se mostrara la info
@@ -320,7 +320,7 @@ const agregarProducto = async () => {
 document.addEventListener('DOMContentLoaded', function () {
     const selectElement = document.getElementById('SelectorCategoria');
 
-    fetch('http://localhost:3000/api/categorias')
+    fetch('https://finalgymsystem.onrender.com/api/categorias')
         .then(response => response.json())
         .then(data => {
             data.forEach(categorias => {
@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     const selectElement = document.getElementById('categoria');
 
-    fetch('http://localhost:3000/api/categorias')
+    fetch('https://finalgymsystem.onrender.com/api/categorias')
         .then(response => response.json())
         .then(data => {
             data.forEach(categorias => {
