@@ -38,7 +38,7 @@ const precargarDatosproductosEnFormulario = async () => {
     var compraId = urlParams.get('id');
 
     try {
-        const response = await fetch(`https://finalgymsystem.onrender.com/comprasproducto/${compraId}`, {
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/comprasproducto/${compraId}`, {
             method: 'GET',
             mode: 'cors',
             headers: {

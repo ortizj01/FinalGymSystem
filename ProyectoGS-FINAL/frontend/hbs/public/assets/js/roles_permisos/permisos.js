@@ -17,7 +17,7 @@ function getRolIdFromURL() {
 async function listarPermisos(rolId) {
     try {
         // Realiza la solicitud al backend para obtener los permisos
-        const responsePermisos = await fetch('http://localhost:3000/api/permisosDos');
+        const responsePermisos = await fetch('https://finalgymsystem.onrender.com/api/permisosDos');
         const permisos = await responsePermisos.json();
 
         // Selecciona el cuerpo de la tabla donde se van a insertar los permisos
@@ -67,7 +67,7 @@ async function listarPermisos(rolId) {
 // Función para obtener el nombre del rol
 async function obtenerNombreRol(rolId) {
     try {
-        const response = await fetch(`http://localhost:3000/api/roles/${rolId}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/roles/${rolId}`);
         const rol = await response.json();
         return rol.NombreRol; // Suponiendo que el nombre del rol está en la propiedad `NombreRol`
     } catch (error) {
@@ -80,7 +80,7 @@ async function obtenerNombreRol(rolId) {
 // Función para cargar los permisos asignados a un rol
 async function cargarPermisosAsignados(rolId) {
     try {
-        const response = await fetch(`http://localhost:3000/api/permisoRolesDetalle/rol?rolId=${rolId}`);
+        const response = await fetch(`https://finalgymsystem.onrender.com/api/permisoRolesDetalle/rol?rolId=${rolId}`);
         const permisosAsignados = await response.json();
 
         permisosAsignados.forEach(({ IdPermiso, Crear, Editar, Visualizar, VistaAdmin }) => {
@@ -118,7 +118,7 @@ document.getElementById('guardarPermisosBtn').addEventListener('click', async ()
 
     // Envío de los datos al backend
     try {
-        const response = await fetch('http://localhost:3000/api/permisoRolesDetalle', {
+        const response = await fetch('https://finalgymsystem.onrender.com/api/permisoRolesDetalle', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
