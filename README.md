@@ -6,7 +6,7 @@ Este proyecto consiste en una plataforma completa para la gestión de gimnasios 
 
 ## Descripción General
 
-El sistema de gestión de gimnasios ofrece una solución integral para administrar las operaciones de un gimnasio, desde la gestión de clientes y membresías hasta la programación de rutinas y clases. Además, se incluye una aplicación móvil que permite a los usuarios gestionar sus actividades y horarios desde cualquier lugar.
+El sistema de gestión de gimnasios ofrece una solución integral para administrar las operaciones de un gimnasio, desde la gestión de clientes y membresías hasta la programación de rutinas y clases. Además, se incluye una aplicación móvil que permite a los usuarios gestionar sus actividades desde cualquier lugar.
 
 ## Características Principales
 
